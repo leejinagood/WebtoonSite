@@ -3,9 +3,8 @@
     margin: 0 auto;
 }
 .ListInfo{
-    background-color: yellow;
     height: 320px;
-    width: 80%;
+    width: 70%;
     margin: 0 auto;
 }
 .ListImgBox img{
@@ -13,21 +12,19 @@
     width: 25%;
     background-color: ivory;
     height: 300px;
+    margin-right: 15px;
 }
 
-.ListInfo{
-    background-color: red;
-    float: left;
-    margin-left: 3%;
-    width: 70%;
-    height: 320px;
-}
 .ListInfo p{
     float: left;
     width: 30%;
+}
+.GrayP{
     color:gray;
 }
 .ListInfo h3{
+    position: relative;
+    top:20px;
     line-height: 10px;
 }
 .ListInfo span{
@@ -37,7 +34,31 @@
 }
 .ToonTinfo{
     float: left;
+    width: 70%;
+    height: 100px;
+}
+.ToonTinfo p{
+
+    color:black;
     width: 100%;
-    height: 200px;
-    background-color: gainsboro;
+}
+
+.IBtn{
+    width: 40%;
+    margin-right: 10px;
+    height: 55px;
+    border-radius: 5px;
+    border: 1px solid rgb(230, 226, 226);
+    background-color: rgb(247, 247, 247);
+}
+#PointBtn{
+    border: 1px solid rgb(208, 249, 208);
+    background-color: rgb(210, 246, 210);
+}
+.SNSBTN{
+    border-radius: 5px;
+    width: 17.5%;
+    height: 55px;
+    background-color: rgb(247, 247, 247);
+    border: 1px solid rgb(230, 226, 226);
 }
