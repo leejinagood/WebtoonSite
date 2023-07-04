@@ -12,10 +12,10 @@ import ThursDayPage from './page/ThursDayPage';
 import FriDayPage from './page/FirDayPage';
 import SaturDayPage from './page/SaturDaypage';
 import SunDayPage from './page/SunDayPage';
-
+import ListPage from './page/ListPage';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import LoginPage from './page/LoginPage';
-
+import SignUpPage from './page/SignUpPage';
 const root = document.getElementById('root');
 const render = () => {
   ReactDOM.render(
@@ -30,8 +30,9 @@ const render = () => {
           <Route path="/fri" element={<FriDayPage />} />
           <Route path="/satur" element={<SaturDayPage />} />
           <Route path="/sun" element={<SunDayPage />} />
-
+          <Route path="/list" element={<ListPage/>}/>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
         </Routes>
       </React.StrictMode>
     </BrowserRouter>,

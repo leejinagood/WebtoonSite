@@ -1,0 +1,102 @@
+.ListPage{
+    width: 100%;
+    margin: 0 auto;
+}
+.ListInfo{
+    height: 320px;
+    width: 70%;
+    margin: 0 auto;
+}
+.ListImgBox img{
+    float: left;
+    width: 25%;
+    background-color: ivory;
+    height: 300px;
+    margin-right: 15px;
+}
+
+.ListInfo p{
+    float: left;
+    width: 30%;
+}
+.GrayP{
+    color:gray;
+}
+.ListInfo h3{
+    position: relative;
+    top:20px;
+    line-height: 10px;
+}
+.ListInfo span{
+    color:black;
+    margin-left: 5%;
+    width: 20%;
+}
+.ToonTinfo{
+    float: left;
+    width: 70%;
+    height: 100px;
+}
+.InfoBtn{
+    margin-bottom: 30px;
+}
+.ToonTinfo p{
+
+    color:black;
+    width: 100%;
+}
+
+.IBtn{
+    width: 40%;
+    margin-right: 10px;
+    height: 55px;
+    border-radius: 5px;
+    border: 1px solid rgb(230, 226, 226);
+    background-color: rgb(247, 247, 247);
+}
+#PointBtn{
+    border: 1px solid rgb(208, 249, 208);
+    background-color: rgb(210, 246, 210);
+}
+.SNSBTN{
+    border-radius: 5px;
+    width: 17.5%;
+    height: 55px;
+    background-color: rgb(247, 247, 247);
+    border: 1px solid rgb(230, 226, 226);
+}
+li{
+    list-style: none;
+}
+
+.List{
+    width: 100%;
+    margin: 0 auto;
+}
+.ListItem{
+    width: 100%;
+    height: 80px;
+    padding: 3px;
+    border-bottom: 1px solid rgb(230, 226, 226);
+}
+.ListItem .ListImg img{
+    width:15%;
+    height: 80px;
+    float: left;
+    background-color: yellow;
+}
+.Episode{
+    width: 80%;
+    height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    float: left;
+}
+.SU{
+    float: left;
+    height: 30px;
+    font-size: 14px;
+}
+.SU span{
+    margin-left: 20px;
+}

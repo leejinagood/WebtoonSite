@@ -3,6 +3,7 @@ import MainPageCss from "../styles/MainPageCss.css";
 import { Link } from "react-router-dom";
 import Header from "./header";
 import Footer from "./footer";
+import NewToon from "./NewToon";
 
 const MainPage = () =>{
 
@@ -11,22 +12,9 @@ const MainPage = () =>{
             <Header/>
             <h3 className="Categories">이달의 신규 웹툰</h3>
             <div className="NewToon">
-
-                <div className="NewToonInfo">
-                    <img src="1.jpg"></img>
-                    <span className="Title">제목</span>
-                    <p className="Info">작품 설명</p>
-                </div>
-                <div className="NewToonInfo">
-                    <img src="1.jpg"></img>
-                    <span className="Title">제목</span>
-                    <p className="Info">작품 설명</p>
-                </div>
-                <div className="NewToonInfo">
-                    <img src="1.jpg"></img>
-                    <span className="Title">제목</span>
-                    <p className="Info">작품 설명</p>
-                </div>
+                <NewToon/>
+                <NewToon/>
+                <NewToon/>
             </div>
             <h3 className="Categories">요일별 전체 웹툰</h3>
             <div className="AllToon">
