@@ -24,16 +24,21 @@
     border-radius: 30px;
     margin-top: 10%;
   }
-  .LoginBtn{
+  .LoginPageBtn{
     width: 60%;
     margin: 0 auto;
+    margin-right: 20%;
+    margin-left: 20%;
     margin-top: 10px;
     height: 50px;
   }
-  .LoginBox table {
-    border-radius: 10%;
-    border: 1px solid #000;
+  form{
+    width: 100%;
+  }
+   .LoginBox  table {
     width: 60%;
+    border-radius: 10%;
+
     margin: 0 auto;
   }
   
