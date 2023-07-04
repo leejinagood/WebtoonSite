@@ -37,6 +37,9 @@
     width: 70%;
     height: 100px;
 }
+.InfoBtn{
+    margin-bottom: 30px;
+}
 .ToonTinfo p{
 
     color:black;
@@ -61,4 +64,39 @@
     height: 55px;
     background-color: rgb(247, 247, 247);
     border: 1px solid rgb(230, 226, 226);
+}
+li{
+    list-style: none;
+}
+
+.List{
+    width: 100%;
+    margin: 0 auto;
+}
+.ListItem{
+    width: 100%;
+    height: 80px;
+    padding: 3px;
+    border-bottom: 1px solid rgb(230, 226, 226);
+}
+.ListItem .ListImg img{
+    width:15%;
+    height: 80px;
+    float: left;
+    background-color: yellow;
+}
+.Episode{
+    width: 80%;
+    height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    float: left;
+}
+.SU{
+    float: left;
+    height: 30px;
+    font-size: 14px;
+}
+.SU span{
+    margin-left: 20px;
 }

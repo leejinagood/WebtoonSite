@@ -1,18 +1,10 @@
 import React from "react";
 import Header from "./header";
 import { Component } from "react";
+import ListItem from "./ListItem";
 import ListPageCss from "../styles/ListPageCss.css";
 class ListPage extends Component{
-    static defaultProps = {
-        title:'제목',
-        week: '월',
-        writer:'작가',
-        episode:1,
-        star:9.9,
-        like:0,
-        uproad:'2023.07.04',
-        info:'나다라마바사 하 가나다라마 바사\n AbcDefG HH'
-      }
+
     render(){
     return(
         <div className="ListPage">
@@ -42,25 +34,13 @@ class ListPage extends Component{
                 </div>
                 <div className="List">
                     <li>
-                        <div className="ListItem">
-                            <div className="ListImg">
-                                <img src="1.jpg" alt="s" />
-                            </div>
-                            <div>
-                                <p className="Episode">
-                                    {this.props.episode}화 {this.props.title}
-                                </p>
-                                <p>
-                                    {this.props.star}<span className="tab">{this.props.uproad}</span>
-                                </p>
-                            </div>
-                        </div>
+                        <ListItem />
                     </li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li><ListItem /></li>
+                    <li><ListItem /></li>
+                    <li><ListItem /></li>
+                    <li><ListItem /></li>
+                    <li><ListItem /></li>
                 </div>
             </div>
             
