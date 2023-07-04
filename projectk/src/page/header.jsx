@@ -17,7 +17,7 @@ const Header = () =>{
         <div className="header">
         <h1 className="Logo">Avatye Webtoon</h1>
         <input className="SerchBar" type="text" value={search} onChange={onChange} placeholder="작가/제목으로 검색할 수 있습니다." />
-        <button className="LoginBtn">로그인</button>
+        <Link to="../login"><button className="LoginBtn" >로그인</button></Link>
 </div>
 <div className="DayBox">
     <div className="Day">

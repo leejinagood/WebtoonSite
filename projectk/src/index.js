@@ -14,6 +14,7 @@ import SaturDayPage from './page/SaturDaypage';
 import SunDayPage from './page/SunDayPage';
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import LoginPage from './page/LoginPage';
 
 const root = document.getElementById('root');
 const render = () => {
@@ -29,6 +30,8 @@ const render = () => {
           <Route path="/fri" element={<FriDayPage />} />
           <Route path="/satur" element={<SaturDayPage />} />
           <Route path="/sun" element={<SunDayPage />} />
+
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </React.StrictMode>
     </BrowserRouter>,

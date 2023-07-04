@@ -1,0 +1,63 @@
+.LoginPage {
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .LoginLogo {
+    padding-top: 25px;
+    padding-bottom: 15px;
+    width: 70%;
+    color:red;
+    
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .LoginBox {
+    display: flex;
+    flex-direction: column; /* 세로 정렬을 위한 열 방향 설정 */
+    align-items: center; /* 가운데 정렬 */
+    width:45%;
+    height: 300px;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 30px;
+    margin-top: 10%;
+  }
+  .LoginBtn{
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 10px;
+    height: 50px;
+  }
+  .LoginBox table {
+    border-radius: 10%;
+    border: 1px solid #000;
+    width: 60%;
+    margin: 0 auto;
+  }
+  
+  .LoginBox table td {
+
+    border: 1px solid #000;
+    padding: 10px;
+  }
+  
+  .LoginBox table input {
+    
+    width: 80%;
+    height: 50px;
+    border: 0px solid #000;
+  }
+.LoginMenu{
+    margin: 0 auto;
+
+}
+.LoginMenu li{
+    list-style: none;
+    float: left;
+    margin-right: 20px;
+    font-size: 10px;
+    margin-top: 5px; 
+    
+}
