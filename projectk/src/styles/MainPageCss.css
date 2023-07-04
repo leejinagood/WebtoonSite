@@ -1,6 +1,9 @@
 
-
-
+*{
+    text-decoration-style: none;
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: inherit; /* 링크의 색상 제거 */
+}
 .header{
     float: left;
     width: 100%;
@@ -144,4 +147,114 @@ table , th ,td ,td{
 .tag h3{
     color:red;
     width: 90%;
+}
+.footer{
+    border-top: 1px solid rgb(230, 226, 226);
+    width: 90%;
+    position: relative;
+    margin-left: 5%;
+    float: left;
+    height: 100px;
+    bottom: 0px;
+    margin-top: 50px;
+}
+.footer .FL{
+    width: 55%;
+    background-color: red;
+}
+.footer li{
+    margin-top: 35px;
+    text-align: center;
+    font-size: 13px;
+    width: 15%;
+    list-style-type: none;
+    float: left;
+    border-right: 1px solid rgb(230, 226, 226);
+}
+.FR{
+    float: right;
+    margin-top: 30px;
+    font-size: 13px;
+    line-height: 0px;
+    width: 45%;
+}
+
+
+
+
+/* 요일별 css */
+.Mid{
+    width: 90%;
+    margin: 0 auto;
+}
+.DayToon{
+    float: left;
+    width: 70%;
+}
+.DayToon table{
+    width: 100%;
+}
+.Mid .DayToon .DayToonItem {
+    width: 95%;
+    height: 230px;
+    margin-right: 10px;
+    background-color: firebrick;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .Mid .DayToon .DayToonItem img {
+    background-color: yellow;
+    width: 100%;
+    height: 100%;
+  }
+  .DayToonItem p{
+    float: left;
+  }
+  
+.RBox{
+    width: 30%;
+    float: left;
+}
+.HotToon h3{
+    width: 90%;
+    height: 23px;
+    border-bottom: 1px solid rgb(230, 226, 226);
+}
+
+
+/* rank 랭크 */
+.Rank{
+    width: 100%;
+    float: left;
+    height: 90px;
+    margin-bottom: 10px;
+    background-color: red;
+}
+.HotToon li{
+    list-style: none;   
+}
+.RankImg img{
+    float: left;
+    width: 20%;
+    height:90px;
+    border-radius: 5px;
+    background-color: yellow;
+}
+.RankNum{
+    width: 5%;
+    background-color: honeydew;
+    float: left;
+    height: 90px;
+    line-height: 50px;
+}
+.RankText{
+    float: left;
+    background-color: beige;
+    width: 50%;    
+    height: 90px;
+    margin-left: 3%;
 }

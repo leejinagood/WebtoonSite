@@ -2,6 +2,7 @@ import React from "react";
 import MainPageCss from "../styles/MainPageCss.css";
 import { Link } from "react-router-dom";
 import Header from "./header";
+import Footer from "./footer";
 
 const MainPage = () =>{
 
@@ -41,87 +42,43 @@ const MainPage = () =>{
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                     </tr>
@@ -129,87 +86,43 @@ const MainPage = () =>{
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                     </tr>
@@ -217,87 +130,43 @@ const MainPage = () =>{
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="AllToonInfo">
-                                <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                     </tr>
@@ -305,43 +174,43 @@ const MainPage = () =>{
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                     </tr>
@@ -349,43 +218,175 @@ const MainPage = () =>{
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                         <td>
                             <div className="AllToonInfo">
                                 <img src="1.jpg" alt="" />
-                                <p>제목</p>
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div className="AllToonInfo">
+                                <img src="1.jpg" alt="" />
+                                <p className="ToonTitle">제목</p>
                             </div>
                         </td>
                     </tr>
@@ -401,9 +402,10 @@ const MainPage = () =>{
                     <li>#일상</li>
                     <li>#스포츠</li>
                     <li>#호러/공포</li>
-
                 </div>
             </div>
+            <Footer/>
+
        </div>
     )
 }

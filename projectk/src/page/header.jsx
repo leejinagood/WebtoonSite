@@ -1,12 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-const header = () =>{
+import {useState } from "react";
+const Header = () =>{
+    const [search, setSearch] = useState("");
+    const onChange = (e) => {
+        setSearch(e.target.value)
+    }
+    
+    // // 검색필터 기능 미구현
+    // const filterTitle = webtoon.filter((p) => {
+    //     return p.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+    // })
+    // 검색기능시 띄어쓰기 등
     return(
         <div>
         <div className="header">
         <h1 className="Logo">Avatye Webtoon</h1>
-        <input className="SerchBar" type="text"  value="작가/제목으로 검색할 수 있습니다."/>
+        <input className="SerchBar" type="text" value={search} onChange={onChange} placeholder="작가/제목으로 검색할 수 있습니다." />
         <button className="LoginBtn">로그인</button>
 </div>
 <div className="DayBox">
@@ -25,4 +35,4 @@ const header = () =>{
     )
 }
 
-export default header;
+export default Header;
