@@ -1,8 +1,12 @@
+
+
+
 .header{
     float: left;
     width: 100%;
     height: 80px;
     border-bottom: 1px solid gray;
+
 }
 .Logo{
     margin-left: 5%;
@@ -34,13 +38,13 @@
 .Day{
     margin: 0 auto;
     width: 90%;
-    height: 17vh;
+    height:140px;
 }
 .Day li{
     float: left;
     list-style: none;
     width: 100px;
-    line-height:7vh ;
+    line-height: 60px;
     font-size: 20px;
 }
 .Categories{
@@ -53,7 +57,6 @@
 .NewToon{
     width: 90%;
     margin: 0 auto;
-    background-color: blanchedalmond;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     
@@ -67,33 +70,78 @@
 .NewToonInfo img{
     width: 100%;
     height: 270px;
-    background-color: red;
 }
 .NewToonInfo .Title{
-    color:red;
     position: relative;
     top:0px;
 }
 
 .AllToon{
     width: 90%;
+    margin-left: 5% ;
+    float: left;
+    border-collapse:collapse;
+}
+.AllToon table{
+    width: 100%;
+    
+    border: 1px solid rgb(230, 226, 226);
+}
+.AllToon table p{
+    line-height: 1px;
+    margin-left: 5%;
+}
 
+table , th ,td ,td{
 
+  border-collapse: collapse;
+}
+.AllToon table th{
+    border-right: 1px solid rgb(230, 226, 226);
+}
+.AllToon table td{
+    border-right: 1px solid rgb(230, 226, 226);
+}
+
+.AllToon .AllToonInfo img{
+    width: 95%;
+    height: 300px;
+    padding: 2.5%;
+    text-align: center;
+    border-collapse:collapse;
+
+}
+.AllToon .AllToonInfo{
+    height: 350px;
+    border-collapse:collapse;
+}
+.tag{
+    float: left;
+    width: 90%;
     margin: 0 auto;
 }
-
-.AllToon .Monday{
-    color:red;
+.tagItem {
     width: 100%;
-    background-color: red;
+    margin-left: 5%;
+    float: left;
+    
 
-    border: 1px solid black;
 }
-.AllToon .AllToonInfo img{
-    width: 150px;
-    height: 150px;
-}
-.AllToon li{
+
+.tag .tagItem li{
     float: left;
     list-style: none;
+    text-align: center;
+    font-size: 30px;
+    margin-right: 4%;
+    margin-left: 4%;
+    background-color: rgb(230, 226, 226);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+
+.tag h3{
+    color:red;
+    width: 90%;
 }
