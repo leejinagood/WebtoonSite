@@ -45,8 +45,6 @@ server.get('/:day', async (req, res) => {
     const day = req.params.day;
     const query = 'select Twebtoon.webtoon_name from Twebtoon join Twebtoondetail on Twebtoon.webtoon_id = Twebtoondetail.webtoon_id where Twebtoondetail.week = ?;';
     let [rows] = await conn.query(query, [day]);
-  
     res.send(rows);
-  });
-  
-  
+});
+
