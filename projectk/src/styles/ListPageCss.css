@@ -1,4 +1,43 @@
 .ListPage{
+    width: 100%;
+    margin: 0 auto;
+}
+.ListInfo{
+    background-color: yellow;
+    height: 320px;
     width: 80%;
     margin: 0 auto;
+}
+.ListImgBox img{
+    float: left;
+    width: 25%;
+    background-color: ivory;
+    height: 300px;
+}
+
+.ListInfo{
+    background-color: red;
+    float: left;
+    margin-left: 3%;
+    width: 70%;
+    height: 320px;
+}
+.ListInfo p{
+    float: left;
+    width: 30%;
+    color:gray;
+}
+.ListInfo h3{
+    line-height: 10px;
+}
+.ListInfo span{
+    color:black;
+    margin-left: 5%;
+    width: 20%;
+}
+.ToonTinfo{
+    float: left;
+    width: 100%;
+    height: 200px;
+    background-color: gainsboro;
 }
