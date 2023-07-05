@@ -1,5 +1,5 @@
 .header{
-    float: left;
+    display: block;
     width: 360px;
     height: 5vw;
     border-bottom: 1px solid gray;
@@ -52,9 +52,11 @@
     border-bottom: 1px solid gray;
     height: 1.8vw;
     float: left;
+    display: block;
 }
 
 .Day{
+    
     margin: 0 auto;
 }
 .Day li{

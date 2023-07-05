@@ -49,18 +49,20 @@ class ListPage extends Component {
     return (
       <div className="ListPage">
         <Header />
+        <div className="ListInfoBox">
         <div className="ListInfo">
           {/* 웹툰 정보 출력 */}
           <div className="ListImgBox">
             <img src="1.jpg" alt="썸네일" />
           </div>
           <div className="ListInfo">
-            <h3>{this.props.title}</h3>
-            <p className="GrayP">
-              글/그림<span>{this.props.writer}</span> | {this.props.week}요웹툰
-            </p>
-            <div className="ToonTinfo">
-              <p>{this.props.info}</p>
+            <div className="TextBox">
+              <h3>{this.props.title}<br/><br/></h3>
+              <p className="GrayP">
+                글/그림<span>{this.props.writer}</span> | {this.props.week}요웹툰
+                <br/><br/>{this.props.info}
+              </p>
+          
             </div>
           </div>
           <div className="InfoBtn">
@@ -70,6 +72,7 @@ class ListPage extends Component {
             <button className="IBtn">첫화보기 1화</button>
             <button className="SNSBTN">공유하기</button>
           </div>
+        </div>
         </div>
 
         {/* 웹툰 목록 출력 */}

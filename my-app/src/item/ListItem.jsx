@@ -23,12 +23,13 @@ class ListItem extends Component{
             <p>
                 {this.props.episode}화 {this.props.title}
             </p>
-        </div>
-        <div className="SU">
+                    <div className="SU">
             <p>
                 ⭐️{this.props.star}<span className="tab">{this.props.uproad}</span>
             </p>
             </div>
+        </div>
+
     </div>
     )
       }
