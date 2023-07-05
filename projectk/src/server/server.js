@@ -39,11 +39,11 @@ server.listen(port, ()=>{
     console.log("페이지 구동 시작");
 });
 
-//url에서 요일을 받아와 웹툰 제목을 출력하는 메서드
+//url에서 요일을 받아와 웹툰 제목과 썸네일을 출력하는 메서드
 server.get('/:day', async (req, res) => {
     const conn = await getConn();
     const day = req.params.day;
-    const query = 'select Twebtoon.webtoon_name from Twebtoon join Twebtoondetail on Twebtoon.webtoon_id = Twebtoondetail.webtoon_id where Twebtoondetail.week = ?;';
+    const query = 'select Twebtoon.webtoon_name, Twebtoondetail.thumbnail from Twebtoon  JOIN Twebtoondetail ON Twebtoon.webtoon_id = Twebtoondetail.webtoon_id where Twebtoondetail.week = ?;';
     let [rows] = await conn.query(query, [day]);
     res.send(rows);
 });
