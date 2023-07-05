@@ -3,6 +3,9 @@ import Header from "./header";
 import { Component } from "react";
 import Footer from "./footer";
 import NewToon from "./NewToon";
+import DayMain from "../item/DayMain";
+import DayToonItem from "../item/DayToonItem";
+import Rank from "../item/Rank";
 class MondayPage extends Component{
     static defaultProps = {
         title:'제목',
@@ -28,62 +31,27 @@ class MondayPage extends Component{
             <table>
                 <tr>
                     <td>
-                        <div className="DayToonItem">
-                            <img src="1.jpg" alt="ss" />
-                            <p className="ToonTitle">{this.props.title}</p>
-                            <p className="Writer">{this.props.writer}</p>
-                            <p className="Star">⭐️{this.props.star}</p>
-                        </div>
+                        <DayMain/>
                     </td>
                     <td>
-                        <div className="DayToonItem">
-                            <img src="1.jpg" alt="ss" />
-                            <p className="ToonTitle">{this.props.title}</p>
-                            <p className="Writer">{this.props.writer}</p>
-                            <p className="Star">⭐️{this.props.star}</p>
-                        </div>
+                        <DayMain/>
                     </td>
                     <td>
-                        <div className="DayToonItem">
-                            <img src="1.jpg" alt="ss" />
-                            <p className="ToonTitle">{this.props.title}</p>
-                            <p className="Writer">{this.props.writer}</p>
-                            <p className="Star">⭐️{this.props.star}</p>
-                        </div>
+                        <DayMain/>
                     </td>
                     <td>
-                        <div className="DayToonItem">
-                            <img src="1.jpg" alt="ss" />
-                            <p className="ToonTitle">{this.props.title}</p>
-                            <p className="Writer">{this.props.writer}</p>
-                            <p className="Star">⭐️{this.props.star}</p>
-                        </div>
+                        <DayToonItem/>
                     </td>
                     <td>
-                        <div className="DayToonItem">
-                            <img src="1.jpg" alt="ss" />
-                            <p className="ToonTitle">{this.props.title}</p>
-                            <p className="Writer">{this.props.writer}</p>
-                            <p className="Star">⭐️{this.props.star}</p>
-                        </div>
+                        <DayToonItem/>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <div className="DayToonItem">
-                            <img src="1.jpg" alt="ss" />
-                            <p className="ToonTitle">{this.props.title}</p>
-                            <p className="Writer">{this.props.writer}</p>
-                            <p className="Star">⭐️{this.props.star}</p>
-                        </div>
+                      <DayToonItem/>
                     </td>
                     <td>
-                        <div className="DayToonItem">
-                            <img src="1.jpg" alt="ss" />
-                            <p className="ToonTitle">{this.props.title}</p>
-                            <p className="Writer">{this.props.writer}</p>
-                            <p className="Star">⭐️{this.props.star}</p>
-                        </div>
+                        <DayToonItem/>
                     </td>
                 </tr>
                 
@@ -92,72 +60,7 @@ class MondayPage extends Component{
 
         </div>
         <div className="RBox">
-            <div className="HotToon">
-                <h3>실시간 인기 웹툰</h3>
-                
-                    <div className="Rank">
-                        <div className="RankImg">
-                            <img src="1.jpg" alt="1등" />
-                        </div>
-                        <div className="RankNum">
-                            <h2>1</h2>
-                        </div>
-                        <div className="RankText">
-                            <p>{this.props.title}</p>
-                            <p>{this.props.writer}</p>
-                        </div>
-                    </div>
-                    <div className="Rank">
-                        <div className="RankImg">
-                            <img src="1.jpg" alt="1등" />
-                        </div>
-                        <div className="RankNum">
-                            <h2>2</h2>
-                        </div>
-                        <div className="RankText">
-                            <p>{this.props.title}</p>
-                            <p>{this.props.writer}</p>
-                        </div>
-                    </div>
-                    <div className="Rank">
-                        <div className="RankImg">
-                            <img src="1.jpg" alt="1등" />
-                        </div>
-                        <div className="RankNum">
-                            <h2>3</h2>
-                        </div>
-                        <div className="RankText">
-                            <p>{this.props.title}</p>
-                            <p>{this.props.writer}</p>
-                        </div>
-                    </div>
-                    <div className="Rank">
-                        <div className="RankImg">
-                            <img src="1.jpg" alt="1등" />
-                        </div>
-                        <div className="RankNum">
-                            <h2>4</h2>
-                        </div>
-                        <div className="RankText">
-                            <p>{this.props.title}</p>
-                            <p>{this.props.writer}</p>
-                        </div>
-                    </div>
-                    <div className="Rank">
-                        <div className="RankImg">
-                            <img src="1.jpg" alt="1등" />
-                        </div>
-                        <div className="RankNum">
-                            <h2>5</h2>
-                        </div>
-                        <div className="RankText">
-                            <p>{this.props.title}</p>
-                            <p>{this.props.writer}</p>
-                        </div>
-                    </div>
-
-                    
-            </div>
+            <Rank/>
         </div>
       </div>
       <Footer/>

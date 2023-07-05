@@ -98,6 +98,7 @@ li{
     width:15%;
     height: 80px;
     float: left;
+    background-color: yellow;
 }
 .Episode{
     width: 80%;
@@ -105,11 +106,15 @@ li{
     font-size: 16px;
     font-weight: bold;
     float: left;
+    margin-left: 2%;
 }
 .SU{
     float: left;
     height: 30px;
     font-size: 14px;
+}
+.SU p{
+    margin-left: 14%;
 }
 .SU span{
     margin-left: 20px;
