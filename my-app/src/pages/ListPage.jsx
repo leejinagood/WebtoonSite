@@ -4,7 +4,7 @@ import { Component } from "react";
 import ListPageCss from "../styles/ListPageCss.css";
 import MainPageCss from "../styles/MainPageCss.css";
 import Footer from "./footer";
-import ListItem from "./ListItem";
+import ListItem from "../item/ListItem";
 
 class ListPage extends Component {
     static defaultProps = {

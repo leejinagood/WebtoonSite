@@ -18,7 +18,7 @@
 
 
 .AllToon{
-    width: 360px;
+    width: 100%;
     margin: 0 auto;
     float: left;
     border-collapse:collapse;
@@ -54,83 +54,88 @@ table , th ,td ,td{
     width: 9vw;
     border-collapse:collapse;
 }
-
+.DayToon h3{
+    font-size: 10px;
+}
 
 
 
 /* 요일별 css */
 .Mid{
-    width: 90%;
+    width: 100%;
+    float: left;
     margin: 0 auto;
 }
 .DayToon{
+    margin-top: 10px;
+    width: 50%;
     float: left;
-    width: 70%;
 }
 .DayToon table{
-    width: 100%;
+    display: inline-block;
+    width: 15vw;
 }
 .Mid .DayToon .DayToonItem {
-    width: 95%;
-    height: 230px;
+    width: 6vw;
+    height: 8vw;
     margin-right: 10px;
-    background-color: firebrick;
     margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
   }
   
   .Mid .DayToon .DayToonItem img {
     background-color: yellow;
     width: 100%;
     height: 100%;
+    float: left;
   }
   .DayToonItem p{
-    float: left;
+    float: left;font-size: 10px;
   }
   
 .RBox{
-    width: 30%;
     float: left;
+    width: 20%;
+    margin-top: 20px;
 }
-.HotToon h3{
-    width: 90%;
+
+
+
+/* rank 랭크 */
+.HHH{
+    width: 40%;
+    float: right;
+    line-height: 30px;
+    font-size: 10px;
     height: 23px;
     border-bottom: 1px solid rgb(230, 226, 226);
 }
 
-
-/* rank 랭크 */
 .Rank{
-    width: 100%;
-    float: left;
+    width: 30%;
     height: 90px;
-    margin-bottom: 10px;
+}
+.Rankitem{
     background-color: red;
 }
-.HotToon li{
-    list-style: none;   
-}
+
 .RankImg img{
-    float: left;
-    width: 20%;
-    height:90px;
-    border-radius: 5px;
     background-color: yellow;
+    float: left;
+    width: 15%;
+    height:60px;
+    border-radius: 5px;
 }
 .RankNum{
-    width: 5%;
-    background-color: honeydew;
+    width: 3%;
     float: left;
-    height: 90px;
-    line-height: 50px;
+    height: 60px;
+    margin-left: 2%;
+    line-height: 60px;
 }
 .RankText{
     float: left;
-    background-color: beige;
-    width: 50%;    
-    height: 90px;
+    width: 20%;    
+    height: 60px;
     margin-left: 3%;
 }

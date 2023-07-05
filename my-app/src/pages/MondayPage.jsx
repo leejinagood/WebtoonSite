@@ -23,31 +23,12 @@ class MondayPage extends Component {
         <h3 className="Categories">{this.props.week}요일 추천 웹툰</h3>
         <div className="NewToon">
           <NewToon />
-          <NewToon />
-          <NewToon />
+
         </div>
         <div className="Mid">
           <div className="DayToon">
             <h3>전체{this.props.week}요 웹툰</h3>
             <table>
-              <tbody>
-                <tr>
-                  <td>
-                    <DayMain />
-                  </td>
-                  <td>
-                    <DayMain />
-                  </td>
-                  <td>
-                    <DayMain />
-                  </td>
-                  <td>
-                    <DayToonItem />
-                  </td>
-                  <td>
-                    <DayToonItem />
-                  </td>
-                </tr>
                 <tr>
                   <td>
                     <DayToonItem />
@@ -56,12 +37,11 @@ class MondayPage extends Component {
                     <DayToonItem />
                   </td>
                 </tr>
-              </tbody>
             </table>
+
           </div>
-          <div className="RBox">
-            <Rank />
-          </div>
+
+          <Rank />
         </div>
         <Footer />
       </div>

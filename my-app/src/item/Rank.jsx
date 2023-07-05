@@ -10,10 +10,13 @@ class Rank extends Component{
     }
     render(){
         return(
+            <div>
+            <h3 className="HHH">실시간 인기 웹툰</h3>
             <div className="HotToon">
-                <h3>실시간 인기 웹툰</h3>
                 
+            <div className="RBox">
                     <Link href="ListPage"><div className="Rank">
+                    <div className="Rankitem">
                         <div className="RankImg">
                             <img src="1.jpg" alt="1등" />
                         </div>
@@ -25,61 +28,72 @@ class Rank extends Component{
                             <p>{this.props.writer}</p>
                         </div>
                     </div>
+                    </div>
                     </Link>
                     <Link href="ListPage"><div className="Rank">
+                    <div className="Rankitem">
                         <div className="RankImg">
                             <img src="1.jpg" alt="1등" />
                         </div>
                         <div className="RankNum">
-                            <h2>2</h2>
+                            <h2>1</h2>
                         </div>
                         <div className="RankText">
                             <p>{this.props.title}</p>
                             <p>{this.props.writer}</p>
                         </div>
                     </div>
+                    </div>
                     </Link>
                     <Link href="ListPage"><div className="Rank">
+                    <div className="Rankitem">
                         <div className="RankImg">
                             <img src="1.jpg" alt="1등" />
                         </div>
                         <div className="RankNum">
-                            <h2>3</h2>
+                            <h2>1</h2>
                         </div>
                         <div className="RankText">
                             <p>{this.props.title}</p>
                             <p>{this.props.writer}</p>
                         </div>
                     </div>
+                    </div>
                     </Link>
                     <Link href="ListPage"><div className="Rank">
+                    <div className="Rankitem">
                         <div className="RankImg">
                             <img src="1.jpg" alt="1등" />
                         </div>
                         <div className="RankNum">
-                            <h2>4</h2>
+                            <h2>1</h2>
                         </div>
                         <div className="RankText">
                             <p>{this.props.title}</p>
                             <p>{this.props.writer}</p>
                         </div>
+                    </div>
                     
                     </div>
                     </Link>
                     <Link href="ListPage"><div className="Rank">
+                    <div className="Rankitem">
                         <div className="RankImg">
                             <img src="1.jpg" alt="1등" />
                         </div>
                         <div className="RankNum">
-                            <h2>5</h2>
+                            <h2>1</h2>
                         </div>
                         <div className="RankText">
                             <p>{this.props.title}</p>
                             <p>{this.props.writer}</p>
                         </div>
+                    </div>
                     </div>
                     </Link> 
+                    </div>
                     
+            </div>
             </div>
     )
     }
