@@ -45,25 +45,6 @@ server.get('/:day', async (req, res) => {
     const day = req.params.day;
     const query = 'select Twebtoon.webtoon_name, Twebtoondetail.thumbnail from Twebtoon  JOIN Twebtoondetail ON Twebtoon.webtoon_id = Twebtoondetail.webtoon_id where Twebtoondetail.week = ?;';
     let [rows] = await conn.query(query, [day]);
-
-    // 이미지를 base64로 변환하여 데이터 URI 형식으로 포함
-    rows = rows.map(row => {
-        if (row.thumbnail && row.thumbnail.data) {
-            const thumbnailBuffer = Buffer.from(row.thumbnail.data);
-            const thumbnailImage = thumbnailBuffer.toString('base64');
-            const dataURI = `data:image/jpeg;base64,${thumbnailImage}`;
-            return {
-                webtoon_name: row.webtoon_name,
-                thumbnail: dataURI
-            };
-        } else {
-            return {
-                webtoon_name: row.webtoon_name,
-                thumbnail: null
-            };
-        }
-    });
-
     res.send(rows);
 });
 
