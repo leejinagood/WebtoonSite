@@ -1,0 +1,30 @@
+
+.tag{
+    float: left;
+    width: 360px;
+    margin: 0 auto;
+}
+.tagItem{
+    background-color: aliceblue;
+}
+.tag .tagItem li{
+    width: 3.5vw;
+    float: left;
+    height: 0.3vw;
+    line-height: 0.5vw;
+    margin-right:0.2vw;
+    margin-bottom: 0.5vw;
+    list-style: none;
+    text-align: center;
+    font-size: 0.1vw;
+    background-color: rgb(230, 226, 226);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+
+.tag h3{
+    font-size: 1vw;
+    width: 90%;
+    height: 2vw;
+}

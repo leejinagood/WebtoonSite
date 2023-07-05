@@ -1,6 +1,7 @@
 import React from "react";
 import Link from 'next/link';
 import {useState } from "react";
+import Hedercss from "../styles/Heder.css"
 const Header = () =>{
     const [search, setSearch] = useState("");
     const onChange = (e) => {
@@ -15,9 +16,16 @@ const Header = () =>{
     return(
         <div>
         <div className="header">
-        <h1 className="Logo">Avatye Webtoon</h1>
-        <input className="SerchBar" type="text" value={search} onChange={onChange} placeholder="작가/제목으로 검색할 수 있습니다." />
-        <Link href="/login"><button className="LoginBtn" >로그인</button></Link>
+        <div className="LogoBox">
+            <h1 className="Logo">AVATOON</h1>
+        </div>
+        <div className="rb">
+            <div  className="SerchBar">
+            <input type="text" value={search} onChange={onChange} placeholder="작가/제목으로 검색할 수 있습니다." />
+            <Link href="/login"><div className="LoginBtn"><button>login</button></div></Link>
+        </div>
+            </div>
+        
 </div>
 <div className="DayBox">
     <div className="Day">

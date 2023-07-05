@@ -1,0 +1,68 @@
+.header{
+    float: left;
+    width: 360px;
+    height: 5vw;
+    border-bottom: 1px solid gray;
+}
+.header .LogoBox{
+    width: 20%;
+    float: left;
+}
+.header .Logo{
+    margin-left: 5%;
+    font-size: 1.5vw;
+    float: left;
+    line-height: 5.5vw;
+    width: 10%;
+}
+.rb{
+    width: 20vw;
+    float: right;
+}
+.SerchBar{
+    float: left;
+    width: 100%;
+    line-height: 5vw;
+}
+.SerchBar input{
+    width: 7vw;
+    margin-left: 5vw;
+    
+    height: 1.2vw;
+}
+.LoginBtn{
+    margin-right: 5%;
+    float: right;
+    width: 5vw;
+
+}
+.LoginBtn button{
+    margin-top: 1.75vw;
+    font-size: 0.01vw;
+    line-height: 0.1vw;
+    float: right;
+    height: 1.5vw;
+    width: 5vw;
+}
+
+
+
+.DayBox{
+    width: 100%;
+    border-bottom: 1px solid gray;
+    height: 1.8vw;
+    float: left;
+}
+
+.Day{
+    margin: 0 auto;
+}
+.Day li{
+    float: left;
+    list-style: none;
+    width: 3vw;
+    
+    margin-right: 0.5vw;
+    line-height: 2vw;
+    font-size: 0.8vw;
+}
