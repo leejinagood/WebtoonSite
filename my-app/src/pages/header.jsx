@@ -2,6 +2,8 @@ import React from "react";
 import Link from 'next/link';
 import {useState } from "react";
 import Hedercss from "../styles/Heder.css"
+
+
 const Header = () =>{
     const [search, setSearch] = useState("");
     const onChange = (e) => {
@@ -22,6 +24,7 @@ const Header = () =>{
         <div className="rb">
             <div  className="SerchBar">
             <input type="text" value={search} onChange={onChange} placeholder="작가/제목으로 검색할 수 있습니다." />
+            <p>{search}</p> <br />
             <Link href="/login"><div className="LoginBtn"><button>login</button></div></Link>
         </div>
             </div>
