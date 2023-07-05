@@ -60,7 +60,7 @@ class MondayPage extends Component{
 
         </div>
         <div className="RBox">
-            <Rank/>
+            
         </div>
       </div>
       <Footer/>

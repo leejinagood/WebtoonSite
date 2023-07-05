@@ -1,6 +1,5 @@
 import React from "react";
 import MainPageCss from "../styles/MainPageCss.css";
-import Link from "react-router-dom";
 import Header from "./header";
 import Footer from "./footer";
 import NewToon from "../item/NewToon";
