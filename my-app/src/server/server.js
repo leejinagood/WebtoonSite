@@ -4,6 +4,7 @@
 // npm install mysql2
 // npm install nodejs
 // npm install express
+// npm install axios --force
 
 // const { error } = require('console');
 // const express = require('express');
@@ -19,7 +20,7 @@ server.use(restify.plugins.bodyParser());// JSON 데이터 파싱을 위한 미�
 
 // //기본 포트번호 설정
 // const app = express();
-const port = 3000;
+const port = 4000;
 
 
 const getConn = async () => {
@@ -36,7 +37,7 @@ const pool = mysql.createPool({
     database : 'webtoon'
 });
 
-//http://localhost:3000/ 접속
+//http://localhost:4000/ 접속
 server.listen(port, ()=>{
     console.log("페이지 구동 시작"); // 로그 기록
 });
@@ -62,12 +63,13 @@ server.get('/popular', async (req, res) => {
 });
 
 //검색하면 그 단어를 포함한 웹툰 제목과 작가를 출력하는 메서드
-server.get('/select/:search', async (req, res) => {
+server.post('/api/search', async (req, res) => {
     const conn = await getConn();
     const search = req.params.search;
+    const {searchword} = req.body;
     const query = 'call serchwebtoonandauthor(?);';
-    let [rows] = await conn.query(query, [search]);
-    res.send(rows);
+    let [rows] = await conn.query(query, [searchword]);
+    console.log(rows);
 });
 
 // server.get('/select/:search', async (req, res) => {
