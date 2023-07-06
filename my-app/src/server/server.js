@@ -35,6 +35,12 @@ const pool = mysql.createPool({
     user : 'admin',
     password : 'abcd1234',
     database : 'webtoon'
+
+    // host : '127.0.0.1',
+    // port : '3306',
+    // user : 'root',
+    // password : '2098',
+    // database : 'webtoon'
 });
 
 //http://localhost:4000/ 접속
@@ -44,13 +50,14 @@ server.listen(port, ()=>{
 
 //요일별 서브페이지
 //url에서 요일을 받아와 웹툰 제목을 출력하는 메서드
-server.get('/daywebtoon/:day', async (req, res) => {
+server.get('/daywebtoon/day', async (req, res) => {
     const conn = await getConn();
-    const day = req.params.day;
-    const query = 'select Twebtoon.webtoon_name from Twebtoon  JOIN Twebtoondetail ON Twebtoon.webtoon_id = Twebtoondetail.webtoon_id where Twebtoondetail.week = ?;';
+    const {day} = req.query;
+    const query = 'call daywebtoon(?);';
     let [rows] = await conn.query(query, [day]);
     const result = rows.map((row) => row.webtoon_name).join(', ');
-    res.send(result);
+    console.log(rows);
+    // res.send(result);
 });
 
 //메인페이지에서 like가 가장 높은 웹툰 중 top5
@@ -63,30 +70,13 @@ server.get('/popular', async (req, res) => {
 });
 
 //검색하면 그 단어를 포함한 웹툰 제목과 작가를 출력하는 메서드
-server.post('/api/search', async (req, res) => {
+server.get('/api/search', async (req, res) => {
     const conn = await getConn();
-    const search = req.params.search;
-    const {searchword} = req.body;
+    const { searchword } = req.query;
     const query = 'call serchwebtoonandauthor(?);';
     let [rows] = await conn.query(query, [searchword]);
     console.log(rows);
-});
-
-// server.get('/select/:search', async (req, res) => {
-//     const search = req.params.search;
-//     const conn = await pool.getConnection();
-    
-//     try {
-//       const query = 'CALL searchWebtoonAndAuthor(?)';
-//       const [rows] = await conn.query(query, [search]);
-//       res.send(rows);
-//     } catch (error) {
-//       console.error(error);
-//       res.send(500, '서버 오류');
-//     } finally {
-//       conn.release();
-//     }
-//   });
+  });  
 
 //새롭게 업로드된지 일주일 된 신규 웹툰의 제목을 출력
 server.get('/new', async (req, res) => {
