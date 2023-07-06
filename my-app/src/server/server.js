@@ -106,3 +106,20 @@ server.get('/new', async (req, res) => {
     const result = rows.map((row) => row.webtoon_name).join(', ');
     res.send(result);
 });
+
+//화원가입 메서드
+server.post('/api/SignUpPage', async(req, res) => {
+  const conn = await getConn();
+  const { email, pass, name, age } = req.body;
+  const query = 'INSERT INTO Tuser (user_email, password, user_name, user_age) VALUES (?, ?, ?, ?);';
+  const values = [email, pass, name, age];
+  try {
+    await conn.query(query, values);
+    res.send("입력 성공");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("입력 실패");
+  } finally {
+    conn.release();
+  }
+});
