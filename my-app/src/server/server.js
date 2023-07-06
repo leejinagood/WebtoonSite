@@ -52,7 +52,7 @@ server.listen(port, ()=>{
 
 //요일별 서브페이지
 //url에서 요일을 받아와 웹툰 제목을 출력하는 메서드
-server.get('/daywebtoon', async (req, res) => {
+server.get('/api/daywebtoon', async (req, res) => {
     const conn = await getConn();
     const { day } = req.query;
     console.log(day);
@@ -68,10 +68,7 @@ server.get('/daywebtoon', async (req, res) => {
     } finally {
       conn.release(); // 연결 해제
     }
-});
-
-
-  
+  });
 
 //메인페이지에서 like가 가장 높은 웹툰 중 top5
 server.get('/popular', async (req, res) => {
