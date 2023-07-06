@@ -11,6 +11,7 @@ const Header = () => {
     setSearch(e.target.value);
   };
   
+  //입력받은 값 서버로 넘기기
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -37,11 +38,9 @@ const Header = () => {
                 <input type="text" value={search} onChange={onChange} placeholder="작가/제목으로 검색할 수 있습니다." />
                 <button type="submit" className="SerchBtn">검색</button>
                 <Link href="/login"><button className="LoginBtn">login</button></Link>
-          
                 {/* {rows && rows.map((row, index) => <p key={index}>{row}</p>)} */}
                 <br />
               </div>
-
             </form>
             
           </div>
