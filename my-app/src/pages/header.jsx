@@ -50,7 +50,7 @@ const Header = () => {
       </div>
       <div className="DayBox">
         <div className="Day">
-          <Link href="/"><li className="AllDay">요일 전체</li></Link>
+          <Link href="/mainpage"><li className="AllDay">요일 전체</li></Link>
           <Link href="/MondayPage"><li>월</li></Link>
           <Link href="/TuesDayPage"><li>화</li></Link>
           <Link href="/WednesDayPage"><li>수</li></Link>
