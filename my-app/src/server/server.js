@@ -13,6 +13,7 @@ const restify = require('restify');
 //서버 설정 및 미들웨어
 const server = restify.createServer();
 server.use(restify.plugins.bodyParser());// JSON 데이터 파싱을 위한 미들웨어 등록
+server.use(restify.plugins.queryParser());
 
 //미들웨어
 // app.use(express.json());
@@ -47,18 +48,30 @@ const pool = mysql.createPool({
 server.listen(port, ()=>{
     console.log("페이지 구동 시작"); // 로그 기록
 });
+  
 
 //요일별 서브페이지
 //url에서 요일을 받아와 웹툰 제목을 출력하는 메서드
-server.get('/daywebtoon/day', async (req, res) => {
+server.get('/daywebtoon', async (req, res) => {
     const conn = await getConn();
-    const {day} = req.query;
-    const query = 'call daywebtoon(?);';
-    let [rows] = await conn.query(query, [day]);
-    const result = rows.map((row) => row.webtoon_name).join(', ');
-    console.log(rows);
-    // res.send(result);
+    const { day } = req.query;
+    console.log(day);
+    const query = 'CALL daywebtoon(?);';
+    try {
+      const [rows] = await conn.query(query, [day]);
+      const result = rows.map((row) => row.webtoon_name).join(', ');
+      console.log(rows);
+      res.send(result);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } finally {
+      conn.release(); // 연결 해제
+    }
 });
+
+
+  
 
 //메인페이지에서 like가 가장 높은 웹툰 중 top5
 server.get('/popular', async (req, res) => {
@@ -70,13 +83,23 @@ server.get('/popular', async (req, res) => {
 });
 
 //검색하면 그 단어를 포함한 웹툰 제목과 작가를 출력하는 메서드
-server.get('/api/search', async (req, res) => {
+server.get('/search', async (req, res) => {
     const conn = await getConn();
-    const { searchword } = req.query;
-    const query = 'call serchwebtoonandauthor(?);';
-    let [rows] = await conn.query(query, [searchword]);
-    console.log(rows);
-  });  
+    const { word } = req.query;
+    const query = 'CALL serchwebtoonandauthor(?);';
+    try {
+      const [rows] = await conn.query(query, [word]);
+      console.log(rows);
+      res.send(rows);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } finally {
+      conn.release(); // 연결 해제
+    }
+  });
+  
+  
 
 //새롭게 업로드된지 일주일 된 신규 웹툰의 제목을 출력
 server.get('/new', async (req, res) => {
