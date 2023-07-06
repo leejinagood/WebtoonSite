@@ -18,17 +18,19 @@ class ListItem extends Component{
         <Link href="/WebToonPage"><div className="ListItem">
         <div className="ListImg">
             <img src="1.jpg" alt="s" />
-        </div>
-        <div className="Episode">
+            <div className="Episode">
             <p>
-                {this.props.episode}화 {this.props.title}
+                {this.props.episode}화
             </p>
+            <p className="tab">{this.props.title}</p>
                     <div className="SU">
-            <p>
-                ⭐️{this.props.star}<span className="tab">{this.props.uproad}</span>
+            <p className="tab">
+                ⭐️{this.props.star}<p className="tab">{this.props.uproad}</p>
             </p>
             </div>
         </div>
+        </div>
+
 
     </div></Link>
     )

@@ -1,14 +1,46 @@
+@media screen and (max-width:361px) and (min-width:10px) {
+
+  .NewToonInfo{
+    width: 100% !important;
+    margin: 0 auto;
+  }
+  .DayToon h3{
+    font-size: 1px !important;
+    width: 100%; 
+  }
+  .NewToon{
+    background-color: honeydew;
+    width: 100% !important;
+  }
+  .NewToonInfo img {
+    width: 100% !important;
+    height: 100px !important;
+    background-color: red;
+  }
+  
+  .NewToonInfo{
+    margin: 0 auto;
+    float: left;
+    width: 80%;
+  }
+  .NewToonInfo img{
+    width: 100vw !important;
+    
+  }
+}
 .NewToonInfo {
     margin-top: 1vw;
-    border: 1px solid #000;
-    width: 30%;
+    width: 100%;
     height: 150px;
     display: flex; /* 수정: float 속성 대신 display: flex; 사용 */
+
+    margin-bottom: 1.5vw;
   }
   
   .NewToonInfo img {
-    width: 100%;
+    width: 65%;
     height: 150px;
+    border: 1px solid #000;
     background-color: red;
     object-fit: cover;
   }
