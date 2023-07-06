@@ -6,7 +6,19 @@
     width: 360px;
     margin:  0 auto;
 }
-
+@media screen and (max-width:500px) and (min-width:30px){
+    .AllToonInfo img{
+        width: 21vw !important;
+        margin-left: 15%;
+        height: 26vw !important;
+    }
+    .AllToonInfo {
+        height: 30vw !important;
+        float: left;
+    }
+    .Tag{
+        }
+}
 .Categories{
     font-size: 1vw;
     width: 90%;
@@ -42,7 +54,7 @@ table , th ,td ,td{
     font-size: 1vw;
 }
 .AllToon .AllToonInfo img{
-    width: 9vw;
+    width: 7.5vw;
     height: 10vw;
     float: left;
     text-align: center;
@@ -51,7 +63,7 @@ table , th ,td ,td{
 }
 .AllToon .AllToonInfo{
     height: 12vw;
-    width: 9vw;
+    width:10vw;
     border-collapse:collapse;
 }
 .DayToon h3{
@@ -67,7 +79,7 @@ table , th ,td ,td{
     margin: 0 auto;
 }
 .DayToon{
-    margin-top: 10px;
+    margin-top: 1px;
     width: 50%;
     float: left;
 }

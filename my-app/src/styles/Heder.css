@@ -4,8 +4,15 @@
     height: 5vw;
     border-bottom: 1px solid gray;
 }
+.TopHeader{
+    float: left;
+    width: 20%;
+    background-color: yellow;
+    height: 100%;
+}
 .header .LogoBox{
     width: 20%;
+    background-color: beige;
     float: left;
 }
 .header .Logo{
@@ -16,33 +23,38 @@
     width: 10%;
 }
 .rb{
-    width: 20vw;
-    float: right;
+    width: 80%;
+    float: left;
+    background-color: blue;
+    height: 100%;
 }
 .SerchBar{
     float: left;
-    width: 100%;
-    line-height: 5vw;
+    background-color: rebeccapurple;
+    margin-right: 5%;
+    height: 100%;
+    width:100%;
 }
 .SerchBar input{
-    width: 7vw;
-    margin-left: 5vw;
-    
-    height: 1.2vw;
+    width: 20%;
+    margin-left: 9vw;
+    float: left;
+    height: 4%;
+    font-size: 1px;
 }
 .LoginBtn{
-    margin-right: 5%;
-    float: right;
-    width: 5vw;
+    width: 12%;
+    margin-left: 1%;
+    height: 4%;
+    background-color: aliceblue;
 
 }
-.LoginBtn button{
-    margin-top: 1.75vw;
-    font-size: 0.01vw;
-    line-height: 0.1vw;
-    float: right;
-    height: 1.5vw;
-    width: 5vw;
+.SerchBtn{
+    width:12%;
+    font-size: 1px;
+    float: left;
+    height:4;
+
 }
 
 
@@ -62,9 +74,12 @@
 .Day li{
     float: left;
     list-style: none;
-    width: 3vw;
+    width: 8%;
     
     margin-right: 0.5vw;
-    line-height: 2vw;
+    line-height: 1.5vw;
     font-size: 0.8vw;
+}
+.AllDay{
+    width: 15% !important;
 }

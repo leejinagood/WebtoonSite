@@ -24,25 +24,29 @@ const Header = () => {
   return (
     <div>
       <div className="header">
+        <div className="TopHeader">
         <div className="LogoBox">
           <h1 className="Logo">AVATOON</h1>
+        </div>
+
         </div>
         <div className="rb">
           <div className="SerchBar">
             <form onSubmit={handleSubmit}>
               <div>
                 <input type="text" value={search} onChange={onChange} placeholder="작가/제목으로 검색할 수 있습니다." />
-                <p>{search}</p> <br />
+                <button type="submit" className="SerchBtn">검색</button><Link href="/login"><button className="LoginBtn">login</button></Link>
+                {/* <p>{search}</p> <br /> */}
               </div>
-              <button type="submit">검색</button>
+
             </form>
-            <Link href="/login"><div className="LoginBtn"><button>login</button></div></Link>
+            
           </div>
         </div>
       </div>
       <div className="DayBox">
         <div className="Day">
-          <Link href="/"><li>요일 전체</li></Link>
+          <Link href="/"><li className="AllDay">요일 전체</li></Link>
           <Link href="/MondayPage"><li>월</li></Link>
           <Link href="/TuesDayPage"><li>화</li></Link>
           <Link href="/WednesDayPage"><li>수</li></Link>
