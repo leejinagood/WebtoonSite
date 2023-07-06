@@ -83,7 +83,6 @@
     width: 12%;
     margin-left: 1%;
     height: 4%;
-    background-color: aliceblue;
 
 }
 .SerchBtn{
@@ -97,7 +96,7 @@
 
 
 
-.DayBox{
+.HDayBox{
     width: 100%;
     border-bottom: 1px solid gray;
     height: 1.8vw;

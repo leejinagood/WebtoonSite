@@ -1,4 +1,52 @@
+@media screen and (max-width:361px) and (min-width:10px) {
+    *{
+        margin: 0 auto;
+        width: 100%;
+    }
+    .DayToon{
+        width: 30% !important;
+    }
+    .HHH{
+        width: 100%;
+        font-size: 1px !important        ;
+        float: left;
+    }
+    .DayToonItem{
+        width: 10vw !important;
+        float: left !important;
+        display: inline !important;
+    }
+    .DayToonItem img{
+        position: relative;
+        top:0px;
 
+        width: 100% !important;
+        height: 20vw !important;
+    }
+    .Rank{
+        width: 35vw !important;
+        float: left;
+    }
+    .Rank .RankImg{
+        width: 50vw;
+    }
+
+    .Rankitem{
+        margin-top: 10px !important;
+        float: right;
+        width:23vw;
+    }
+    .RankText{
+        font-size: 1px;
+        width: 11vw !important;
+        line-height: 8vw;
+        margin-left: 3vw !important;
+    }
+    .Mid{
+        float: left;
+        width: 100% !important;
+    }
+}
 *{
     
     text-decoration-style: none;
@@ -20,16 +68,6 @@
         height: 30vw !important;
         float: left;
     }
-
-
-    .DayToonItem img{
-        width: 18vw !important;
-        height: 20vw !important;
-    }
-    .DayToonItem{
-        padding-right: 12vw;
-    }
-
 }
 .Categories{
     font-size: 1vw;
@@ -139,9 +177,7 @@ table , th ,td ,td{
     width: 30%;
     height: 90px;
 }
-.Rankitem{
-    background-color: red;
-}
+
 
 .RankImg img{
     background-color: yellow;

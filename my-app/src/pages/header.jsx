@@ -59,7 +59,7 @@ const Header = () => {
         </div>
         </div>
       </div>
-      <div className="DayBox">
+      <div className="HDayBox">
         <div className="Day">
           <Link href={{ pathname: '/mainpage', query: { day: 'All' }  }}>
           <li className="AllDay"onClick={() => handleLinkClick('All')} >요일 전체</li>

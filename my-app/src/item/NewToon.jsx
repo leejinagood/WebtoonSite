@@ -26,8 +26,6 @@ const NewToon = () => {
           <img src={slides[currentSlide].image} alt={`Slide ${slides[currentSlide].id}`} />
         </div>
       </Link>
-      <button className="prev-button" onClick={prevSlide}>이전</button>
-      <button className="next-button" onClick={nextSlide}>다음</button>
     </div>
 
     </div>

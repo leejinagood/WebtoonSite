@@ -57,20 +57,25 @@ class ListPage extends Component {
           </div>
           <div className="ListInfo">
             <div className="TextBox">
-              <h3>{this.props.title}<br/><br/></h3>
-              <p className="GrayP">
+              <p id="line"className="tab2">{this.props.title}</p>
+              <p id="line" className="GrayP">
                 글/그림<span>{this.props.writer}</span> | {this.props.week}요웹툰
-                <br/><br/>{this.props.info}
-              </p>
-          
-            </div>
-          </div>
-          <div className="InfoBtn">
-          <button id="PointBtn" className="IBtn" onClick={this.handleLike}>
+                <br/>{this.props.info}
+                <div className="InfoBtn">
+                <button id="PointBtn" className="IBtn" onClick={this.handleLike}>
               좋아요 {like}
+              
             </button>
             <button className="IBtn">첫화보기 1화</button>
             <button className="SNSBTN">공유하기</button>
+            </div>
+              </p>
+
+         
+
+
+          
+            </div>
           </div>
         </div>
         </div>
