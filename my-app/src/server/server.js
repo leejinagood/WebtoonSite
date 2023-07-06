@@ -62,14 +62,29 @@ server.get('/popular', async (req, res) => {
 });
 
 //검색하면 그 단어를 포함한 웹툰 제목과 작가를 출력하는 메서드
-server.get('/select/:serch', async (req, res) => {
+server.get('/select/:search', async (req, res) => {
     const conn = await getConn();
-    const serch = req.params.serch;
+    const search = req.params.search;
     const query = 'call serchwebtoonandauthor(?);';
-    let [rows] = await conn.query(query, [serch]);
-    // const result = rows.map((row) => row.webtoon_name).join(', ');
+    let [rows] = await conn.query(query, [search]);
     res.send(rows);
 });
+
+// server.get('/select/:search', async (req, res) => {
+//     const search = req.params.search;
+//     const conn = await pool.getConnection();
+    
+//     try {
+//       const query = 'CALL searchWebtoonAndAuthor(?)';
+//       const [rows] = await conn.query(query, [search]);
+//       res.send(rows);
+//     } catch (error) {
+//       console.error(error);
+//       res.send(500, '서버 오류');
+//     } finally {
+//       conn.release();
+//     }
+//   });
 
 //새롭게 업로드된지 일주일 된 신규 웹툰의 제목을 출력
 server.get('/new', async (req, res) => {
