@@ -16,8 +16,16 @@
         height: 30vw !important;
         float: left;
     }
-    .Tag{
-        }
+
+
+    .DayToonItem img{
+        width: 18vw !important;
+        height: 20vw !important;
+    }
+    .DayToonItem{
+        padding-right: 12vw;
+    }
+
 }
 .Categories{
     font-size: 1vw;
@@ -85,11 +93,12 @@ table , th ,td ,td{
 }
 .DayToon table{
     display: inline-block;
-    width: 15vw;
+    width: 100%;
 }
 .Mid .DayToon .DayToonItem {
     width: 6vw;
     height: 8vw;
+    float: left;
     margin-right: 10px;
     margin-bottom: 15px;
 
