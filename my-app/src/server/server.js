@@ -96,4 +96,3 @@ server.get('/new', async (req, res) => {
     const result = rows.map((row) => row.webtoon_name).join(', ');
     res.send(result);
 });
-ㅡㅜㅠ
