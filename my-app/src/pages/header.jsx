@@ -11,11 +11,12 @@ const Header = () => {
     setSearch(e.target.value);
   };
   
+  //입력받은 값 서버로 넘기기
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.get('/api/search', {
-        params: { searchword: search }
+        params: { word: search }
       });
       setRows(response.data);
     } catch (error) {
@@ -35,13 +36,11 @@ const Header = () => {
             <form onSubmit={handleSubmit}>
               <div>
                 <input type="text" value={search} onChange={onChange} placeholder="작가/제목으로 검색할 수 있습니다." />
-                <button type="submit" className="SerchBtn">검색</button><Link href="/LoginPage"><button className="LoginBtn">login</button></Link>
-                {/* <p>{search}</p> <br /> */}
-
-                {rows && rows.map((row, index) => <p key={index}>{row}</p>)}
+                <button type="submit" className="SerchBtn">검색</button>
+                <Link href="/login"><button className="LoginBtn">login</button></Link>
+                {/* {rows && rows.map((row, index) => <p key={index}>{row}</p>)} */}
                 <br />
               </div>
-
             </form>
             
           </div>
@@ -51,7 +50,7 @@ const Header = () => {
       </div>
       <div className="HDayBox">
         <div className="Day">
-          <Link href="/"><li className="AllDay">요일 전체</li></Link>
+          <Link href="/mainpage"><li className="AllDay">요일 전체</li></Link>
           <Link href="/MondayPage"><li>월</li></Link>
           <Link href="/TuesDayPage"><li>화</li></Link>
           <Link href="/WednesDayPage"><li>수</li></Link>

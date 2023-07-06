@@ -83,7 +83,7 @@ server.get('/popular', async (req, res) => {
 });
 
 //검색하면 그 단어를 포함한 웹툰 제목과 작가를 출력하는 메서드
-server.get('/search', async (req, res) => {
+server.get('/api/search', async (req, res) => {
     const conn = await getConn();
     const { word } = req.query;
     const query = 'CALL serchwebtoonandauthor(?);';
