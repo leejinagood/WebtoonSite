@@ -4,10 +4,14 @@ import Header from "./header";
 import Footer from "./footer";
 import NewToon from "../item/NewToon";
 import Tag from "../item/Tag";
-
+import Head from 'next/head';
 const MainPage = () => {
   return (
+    
     <div className="MainPage">
+            <Head>
+        <link rel="manifest" href="/manifest.json" />
+      </Head>
       <Header />
       <div className="NewToon">
         <NewToon />

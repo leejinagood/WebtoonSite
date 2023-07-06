@@ -1,0 +1,10 @@
+{
+    "/path1": {
+      "dataRoute": "/path1/data",
+      "fallback": "/path1/fallback"
+    },
+    "/path2/[id]": {
+      "dataRoute": "/path2/[id]/data",
+      "fallback": "/path2/[id]/fallback"
+    }
+  }
