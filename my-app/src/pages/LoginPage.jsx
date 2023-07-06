@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import LoginCss from "../styles/LoginCss.css";
 import Link from 'next/link';
 
 const LoginPage = () => {
-  const handleSubmit = (e) => {
+  const [ID, setID] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleIDChange = (e) => {
+    setID(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 폼 제출 시 실행할 로직을 작성하세요.
-    // 예: 서버로 데이터 전송, 상태 업데이트 등
+    try {
+      const response = await axios.get("/api/LoginPage", {
+        params: {
+          ID: ID,
+          password: password
+        }
+      });
+      console.log(response.data);
+      alert("로그인 성공");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -18,12 +40,12 @@ const LoginPage = () => {
             <tbody>
               <tr>
                 <td>
-                  <input type="text" name="ID" id="ID" placeholder="아이디를 입력하세요" />
+                  <input type="text" name="ID" id="ID" value={ID} onChange={handleIDChange} placeholder="아이디를 입력하세요" />
                 </td>
               </tr>
               <tr>
                 <td>
-                  <input type="text" name="password" id="password" placeholder="비밀번호를 입력하세요" />
+                  <input type="password" name="password" id="password" value={password} onChange={handlePasswordChange} placeholder="비밀번호를 입력하세요" />
                 </td>
               </tr>
             </tbody>

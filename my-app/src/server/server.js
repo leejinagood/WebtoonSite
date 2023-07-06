@@ -123,3 +123,22 @@ server.post('/api/SignUpPage', async(req, res) => {
     conn.release();
   }
 });
+
+//로그인 메서드
+server.get('/api/LoginPage', async (req, res) => {
+  const conn = await getConn();
+  const { ID, password } = req.query;
+  const values = [ID, password];
+  const query = 'SELECT user_name FROM Tuser WHERE user_email = ? AND password = ?;';
+  try {
+    const [rows] = await conn.query(query, values);
+    console.log(rows);
+    res.send(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Internal Server Error' });
+  } finally {
+    conn.release(); // 연결 해제
+  }
+});
+
