@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from 'next/link';
-import { useState } from "react";
 import axios from 'axios';
 import Hedercss from "../styles/Heder.css";
 
 const Header = () => {
   const [search, setSearch] = useState("");
+  const [rows, setRows] = useState([]);
 
   const onChange = (e) => {
     setSearch(e.target.value);
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/search', { searchword: search });
-      console.log(response.data);
+      const response = await axios.get('/api/search', {
+        params: { searchword: search }
+      });
+      setRows(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -32,7 +34,8 @@ const Header = () => {
             <form onSubmit={handleSubmit}>
               <div>
                 <input type="text" value={search} onChange={onChange} placeholder="작가/제목으로 검색할 수 있습니다." />
-                <p>{search}</p> <br />
+                {rows && rows.map((row, index) => <p key={index}>{row}</p>)}
+                <br />
               </div>
               <button type="submit">검색</button>
             </form>
