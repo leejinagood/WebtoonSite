@@ -33,7 +33,7 @@ const LoginPage = () => {
         <div className="LoginMenu">
           <Link href="/password" ><li>비밀번호 찾기</li></Link>
           <Link href="/id"><li>아이디 찾기</li></Link>
-          <Link href="/signup"><li>회원가입</li></Link>
+          <Link href="/SignUpPage"><li>회원가입</li></Link>
         </div>
       </div>
     </div>

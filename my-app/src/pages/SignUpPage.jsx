@@ -57,10 +57,12 @@ const SignUpPage = () => {
   
     return (
       <div className="SignUpPage">
-        <h2>AVATYE</h2>
+
         <form onSubmit={handleSubmit}>
         <div className="SignUpBox">
+        <h2>AVATYE</h2>
           <div>
+            
             <label className="MT" htmlFor="id">아이디</label>
             <input className="MT" type="text" id="id" value={id} onChange={handleIdChange} />
           </div>

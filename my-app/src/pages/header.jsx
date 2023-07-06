@@ -30,14 +30,12 @@ const Header = () => {
         <div className="LogoBox">
           <h1 className="Logo">AVATOON</h1>
         </div>
-
-        </div>
         <div className="rb">
           <div className="SerchBar">
             <form onSubmit={handleSubmit}>
               <div>
                 <input type="text" value={search} onChange={onChange} placeholder="작가/제목으로 검색할 수 있습니다." />
-                <button type="submit" className="SerchBtn">검색</button><Link href="/login"><button className="LoginBtn">login</button></Link>
+                <button type="submit" className="SerchBtn">검색</button><Link href="/LoginPage"><button className="LoginBtn">login</button></Link>
                 {/* <p>{search}</p> <br /> */}
 
                 {rows && rows.map((row, index) => <p key={index}>{row}</p>)}
@@ -48,6 +46,8 @@ const Header = () => {
             
           </div>
         </div>
+        </div>
+
       </div>
       <div className="DayBox">
         <div className="Day">

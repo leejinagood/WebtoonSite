@@ -1,8 +1,7 @@
-@media screen and (max-width:500px) and (min-width:10px){
+@media screen and (max-width:300px) and (min-width:10px){
     .footer{
-        position: absolute;
-        bottom: 0;
-        width: 360px !important;
+
+        width: 100% !important;
     }
 }
 .footer{

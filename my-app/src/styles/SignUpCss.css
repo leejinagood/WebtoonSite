@@ -1,7 +1,8 @@
 .SignUpPage{
-  width: 60%;
+  width: 360px;
   margin: 0 auto;
   margin-top: 7%;
+  height: 600px;
   text-align: center;
 }
 .MB{
@@ -16,14 +17,13 @@
   margin-top: 20px;
 }
 .SignUpBox{
-  width: 70%;
+  width: 100%;
   margin: 0 auto;
-  height: 350px;
+  margin-top: 20%;
   border: 1px solid #000;
+  height: 500px;
 }
-.MT{
-  margin-top: 30px;
-}
+
 .SignUpBox label{
   text-align: left;
   float: left;
@@ -34,4 +34,7 @@
   width: 50%;
   float: left;
   height: 30px;
+}
+.SignUpPage h2{
+  margin-top: 20%;
 }

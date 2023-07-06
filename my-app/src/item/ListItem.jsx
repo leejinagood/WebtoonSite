@@ -15,7 +15,7 @@ class ListItem extends Component{
       }
       render(){
     return(
-        <div className="ListItem">
+        <Link href="/WebToonPage"><div className="ListItem">
         <div className="ListImg">
             <img src="1.jpg" alt="s" />
         </div>
@@ -30,7 +30,7 @@ class ListItem extends Component{
             </div>
         </div>
 
-    </div>
+    </div></Link>
     )
       }
 }

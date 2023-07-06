@@ -1,5 +1,6 @@
 
 *{
+    
     text-decoration-style: none;
     text-decoration: none; /* 링크의 밑줄 제거 */
     color: inherit; /* 링크의 색상 제거 */
@@ -7,6 +8,9 @@
     margin:  0 auto;
 }
 @media screen and (max-width:500px) and (min-width:30px){
+    *{
+        width:80%;
+    }
     .AllToonInfo img{
         width: 21vw !important;
         margin-left: 15%;
@@ -100,7 +104,6 @@ table , th ,td ,td{
     height: 8vw;
     float: left;
     margin-right: 10px;
-    margin-bottom: 15px;
 
   }
   

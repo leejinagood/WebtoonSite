@@ -1,3 +1,40 @@
+@media screen and (max-width:500px) and (min-width:10px) {
+    .SerchBar{
+        line-height:6.5vw !important;
+    }
+    .header{
+        width: 100% !important;
+    }
+    .TopHeader{
+        width: 100% !important;
+        height: 25px !important;
+    }
+    .SerchBar .LoginBtn{
+        height: 12px !important;
+        width: 3vw !important;
+        margin-top: 1.5vw ;
+        font-size: 1px;
+    }
+    .DayBox{
+        height: 3.5vw !important;
+    }
+    .DayBox li{
+        line-height: 3.5vw !important;
+    }
+    .SerchBar input{
+        
+        margin-left: 8vw !important;
+        margin-top: 1.8vw !important;
+        height: 1.5px !important;
+    }
+    .SerchBar .SerchBtn{
+
+        margin-top: 1.8vw !important;
+        width: 15%;
+        height: 1.5px !important;
+    }
+}
+
 .header{
     display: block;
     width: 360px;
@@ -7,30 +44,30 @@
 .TopHeader{
     float: left;
     width: 20%;
-    background-color: yellow;
     height: 100%;
 }
 .header .LogoBox{
     width: 20%;
-    background-color: beige;
     float: left;
 }
 .header .Logo{
     margin-left: 5%;
     font-size: 1.5vw;
     float: left;
-    line-height: 5.5vw;
     width: 10%;
+}
+.LogoBox h1{
+    float: left;
+    line-height: 5vw;
 }
 .rb{
     width: 80%;
     float: left;
-    background-color: blue;
     height: 100%;
 }
 .SerchBar{
+    line-height: 5.5vw;
     float: left;
-    background-color: rebeccapurple;
     margin-right: 5%;
     height: 100%;
     width:100%;
@@ -39,7 +76,7 @@
     width: 20%;
     margin-left: 9vw;
     float: left;
-    height: 4%;
+    margin-top: 2vw;
     font-size: 1px;
 }
 .LoginBtn{
@@ -50,6 +87,7 @@
 
 }
 .SerchBtn{
+    margin-top: 2vw;
     width:12%;
     font-size: 1px;
     float: left;
@@ -63,6 +101,8 @@
     width: 100%;
     border-bottom: 1px solid gray;
     height: 1.8vw;
+
+    margin-bottom: 1.5vw;
     float: left;
     display: block;
 }

@@ -1,3 +1,46 @@
+@media screen and (max-width:500px) and (min-width:10px) {
+    .ListItem{
+        width: 100% !important;
+
+        background-color:  red;
+    }
+    .ListPage{
+        width: 90% !important;
+    }
+    .ListInfo h3{
+        float: left;
+        height: 8vw; 
+    }
+    .ListImg{
+        float: left;
+        width: 70% ;
+    }
+    .ListImg img{
+        float: left;
+        width: 35% !important;
+    }
+    .InfoBtn{
+        display: none !important;
+    }
+    .Pagination{
+        margin-top: 15px !important;
+        margin-bottom: 5px;
+    }
+    .Episode{
+        float: left !important;
+        width: 30% !important;
+
+    }
+    .Episode p{
+        font-size: 1.2px;
+        margin-top: 3%;
+        line-height: 5vw;
+    }
+    .SU{
+        margin: 0;
+    }
+}
+
 .ListPage{
     width: 100%;
     margin: 0 auto;
