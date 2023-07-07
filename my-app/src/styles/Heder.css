@@ -1,4 +1,9 @@
-@media screen and (max-width:500px) and (min-width:10px) {
+@media screen and (max-width:361px) and (min-width:10px) {
+    .HederBox{
+        background-color: rebeccapurple;
+        width: 80% !important;
+        margin-left:0%;
+    }
     .SerchBar{
         line-height:6.5vw !important;
     }
@@ -6,7 +11,7 @@
         width: 100% !important;
     }
     .TopHeader{
-        width: 100% !important;
+        width: 80% !important;
         height: 25px !important;
     }
     .SerchBar .LoginBtn{
@@ -14,11 +19,17 @@
         width: 3vw !important;
         margin-top: 1.5vw ;
         font-size: 1px;
+        
     }
-    .DayBox{
+    .HDayBox{
         height: 3.5vw !important;
+        font-size: 1px;
+        width: 100% !important;
     }
-    .DayBox li{
+    .HDayBox .Logo{
+        font-size: 1px !important;
+    }
+    .HDayBox li{
         line-height: 3.5vw !important;
     }
     .SerchBar input{
@@ -30,15 +41,14 @@
     .SerchBar .SerchBtn{
 
         margin-top: 1.8vw !important;
-        width: 15%;
+        width: 1% !important;
         height: 1.5px !important;
     }
 }
 
 .header{
     display: block;
-    width: 360px;
-    height: 5vw;
+    height: 4.5vw;
     border-bottom: 1px solid gray;
 }
 .TopHeader{

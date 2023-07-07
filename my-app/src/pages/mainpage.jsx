@@ -9,57 +9,68 @@ const MainPage = () => {
   return (
     
     <div className="MainPage">
-            <Head>
+      <Head>
         <link rel="manifest" href="/manifest.json" />
       </Head>
       <Header />
       <div className="NewToon">
         <NewToon />
-
       </div>
       <h3 className="Categories">요일별 전체 웹툰</h3>
       <div className="AllToon">
+        <div className="AllTonnbox">
         <table>
-
           <tbody>
             <tr>
               <td>
+                <div className="ATBox">
                 <div className="AllToonInfo">
                   <img src="1.jpg" alt="" />
                   <p className="ToonTitle">제목</p>
                 </div>
+                </div>
               </td>
               <td>
+              <div className="ATBox">
                 <div className="AllToonInfo">
                   <img src="1.jpg" alt="" />
                   <p className="ToonTitle">제목</p>
                 </div>
+                </div>
               </td>
               <td>
+              <div className="ATBox">
                 <div className="AllToonInfo">
                   <img src="1.jpg" alt="" />
                   <p className="ToonTitle">제목</p>
+                </div>
                 </div>
               </td>
           </tr>
           
             <tr>
               <td>
+              <div className="ATBox">
                 <div className="AllToonInfo">
                   <img src="1.jpg" alt="" />
                   <p className="ToonTitle">제목</p>
                 </div>
+                </div>
               </td>
               <td>
+              <div className="ATBox">
                 <div className="AllToonInfo">
                   <img src="1.jpg" alt="" />
                   <p className="ToonTitle">제목</p>
                 </div>
+                </div>
               </td>
               <td>
+              <div className="ATBox">
                 <div className="AllToonInfo">
                   <img src="1.jpg" alt="" />
                   <p className="ToonTitle">제목</p>
+                </div>
                 </div>
               </td>
             </tr>
@@ -67,6 +78,7 @@ const MainPage = () => {
             {/* 여러 개의 <tr> 요소들 추가 */}
           </tbody>
         </table>
+        </div>
       </div>
 
       <Tag/>
