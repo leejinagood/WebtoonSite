@@ -11,7 +11,7 @@ class Rank extends Component{
     render(){
         return(
             <div>
-            <h3 className="HHH">실시간 인기 웹툰</h3>
+            <h3 className="HHH">인기 웹툰</h3>
             <div className="HotToon">
                 
             <div className="RBox">

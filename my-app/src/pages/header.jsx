@@ -46,8 +46,10 @@ const Header = () => {
         <div className="rb">
           <div className="SerchBar">
             <form onSubmit={handleSubmit}>
-              <div>
-                <input type="text" value={search} onChange={onChange} placeholder="작가/제목으로 검색할 수 있습니다." />
+              <div className="InputBox">
+            <input type="text" value={search} onChange={onChange} placeholder="작가/제목으로 검색할 수 있습니다." />
+            </div>
+              <div className="BTN">
                 <button type="submit" className="SerchBtn">검색</button>
                 <Link href="/LoginPage"><button className="LoginBtn">login</button></Link>
                 {/* {rows && rows.map((row, index) => <p key={index}>{row}</p>)} */}
@@ -62,7 +64,7 @@ const Header = () => {
       <div className="HDayBox">
         <div className="Day">
           <Link href={{ pathname: '/mainpage', query: { day: 'All' }  }}>
-          <li className="AllDay"onClick={() => handleLinkClick('All')} >요일 전체</li>
+          <li id="AD" className="AllDay"onClick={() => handleLinkClick('All')} >전체요일</li>
           </Link>
           <Link href={{ pathname: '/MondayPage', query: { day: 'mon' } }}>
           <li className="AllDay" onClick={() => handleLinkClick('mon')}>월</li>
