@@ -37,7 +37,7 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <div className="HederBox">
       <div className="header">
         <div className="TopHeader">
         <div className="LogoBox">      

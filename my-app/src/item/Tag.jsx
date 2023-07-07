@@ -15,7 +15,7 @@ const Tag =()=>{
                 <Link href=""><li>#힐링</li></Link>
                 <Link href=""><li>#드라마</li></Link>
                 <Link href=""><li>#스포츠</li></Link>
-                <Link href=""><li>#호러/공포</li></Link>
+                <Link href=""><li>#공포</li></Link>
             </div>
         </div>
     )

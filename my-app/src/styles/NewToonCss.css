@@ -1,8 +1,8 @@
 @media screen and (max-width:361px) and (min-width:10px) {
 
   .NewToonInfo{
-    width: 100% !important;
-    margin: 0 auto;
+    width: 70% !important;
+    background-color: honeydew;
   }
   .DayToon h3{
     font-size: 1px !important;
@@ -11,6 +11,7 @@
   .NewToon{
     background-color: honeydew;
     width: 100% !important;
+    margin-left: 0% !important;
   }
   .NewToonInfo img {
     width: 100% !important;
@@ -19,9 +20,7 @@
   }
   
   .NewToonInfo{
-    margin: 0 auto;
     float: left;
-    width: 80%;
   }
   .NewToonInfo img{
     width: 100vw !important;
