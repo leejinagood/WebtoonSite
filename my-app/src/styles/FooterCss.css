@@ -3,6 +3,11 @@
         width:80% !important;
     }
 }
+@media screen and (max-width:721px) and (min-width:362px){
+    .footer{
+        width: 80% !important;
+    }
+}
 .footer{
     border-top: 1px solid rgb(230, 226, 226);
     width: 100%;

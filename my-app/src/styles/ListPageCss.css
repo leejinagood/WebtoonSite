@@ -1,4 +1,4 @@
-@media screen and (max-width:721px) and (min-width:501px){
+@media screen and (max-width:721px) and (min-width:362px){
     .tab2{
         line-height: 10vw !important;
     }
@@ -13,7 +13,7 @@
     }
 
 }
-@media screen and (max-width:500px) and (min-width:10px) {
+@media screen and (max-width:361px) and (min-width:10px) {
 
 
     .ListInfo .TextBox .GrayP{

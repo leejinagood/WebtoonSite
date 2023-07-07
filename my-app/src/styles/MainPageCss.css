@@ -1,23 +1,40 @@
-@media screen and (max-width:361px) and (min-width:10px) {
-    /* 메인페이지  */
+@media screen and (max-width:721px) and (min-width:362px) {
+    /* 메인 */
     .MainPage{
-        width: 360px !important;
+        width: 720px !important;
         margin: 0 auto;
-    } 
+    }
     .AllToon{  
         width: 80% !important;
         margin: 0 auto;
-        background-color: aliceblue;
     }
-
+    .AllToon table{
+        margin: 0 !important;
+    }
+    tr {
+        width: 80%;
+      }
+    td{
+        width: 60vw !important; 
+    }
+    
     .AllToonInfo{
-        margin: 0 auto ;
+        width: 21vw !important;
+        float: left !important;
+        margin-bottom: 1.5vw;
+        margin-left:  2.5vw;
+        margin-right: 2.5vw !important;
     }
-    .AllToonInfo img{float: right !important;
+    .AllToonInfo img{
+        margin: 0 !important;
+        width: 20vw !important;
+    }
+    table{ 
+        margin: 0 !important;
     }
     /* 데이페이지 */
-    .DayToon{
-        width: 100% !important;
+    .DayBox{
+        width: 720px !important;
     }
     .HHH{
         width: 100%;
@@ -25,7 +42,7 @@
         float: left;
     }
     .DayToonItem{
-        width: 10vw !important;
+        width: 20vw !important;
         float: left !important;
         
     }
@@ -37,17 +54,117 @@
         height: 20vw !important;
     }
     .Rank{
-        width: 35vw !important;
+        width: 22vw !important;
         float: left;
     }
     .Rank .RankImg{
-        width: 50vw;
+        width: 60vw;
     }
 
     .Rankitem{
         margin-top: 10px !important;
         float: right;
         width:23vw;
+    }
+    .RankText{
+        font-size: 1px;
+        width: 6vw !important;
+        line-height: 3vw;
+        float: right;
+        margin-left: 3vw !important;
+    }
+    .Mid{
+        float: left;
+        width: 100% !important;
+    }
+
+    /* 태그페이지 */
+    .tag{
+        width: 80% !important;
+    }
+    .tagItem li{
+        width: 7vw !important ;
+        /* margin-right: 1.5vw !important; */
+        margin-left: 5.5px;
+    }
+}
+
+
+@media screen and (max-width:361px) and (min-width:10px) {
+    /* 메인페이지  */
+
+    .MainPage{
+        width: 360px !important;
+        margin: 0 auto;
+    } 
+    .AllToon{  
+        width: 80% !important;
+        margin: 0 auto;
+    }
+    .AllToon table{
+        margin: 0 !important;
+    }
+    tr {
+        width: 80%;
+      }
+    td{
+        width: 60vw !important; 
+    }
+    
+    .AllToonInfo{
+        width: 21vw !important;
+        float: left !important;
+        margin-bottom: 1.5vw;
+        margin-left:  2.5vw;
+        margin-right: 2.5vw !important;
+    }
+    .AllToonInfo img{
+        margin: 0 !important;
+        width: 20vw !important;
+    }
+    table{ 
+        margin: 0 !important;
+    }
+    /* 데이페이지 */
+    .DayBox{
+        width: 360px !important;
+    }
+
+    .HHH{
+        width: 20% !important;
+        font-size: 1px !important        ;
+        float: left !important;
+    }
+    .DayToonItem{
+        width: 100% !important;
+        float: left !important;
+        
+    }
+    .DayToonItem img{
+        position: relative;
+        top:0px;
+
+        width: 100% !important;
+        height: 20vw !important;
+    }
+    .RBox{
+        display: block;
+    }
+    .Rank{
+        width:12vw !important;
+        float: left !important;
+    }
+    .Rank .RankImg{
+        width: 70vw !important;
+    }
+    .RBox{
+        float: left;
+        width: 30% !important;
+    }
+    .Rankitem{
+        margin-top: 10px !important;
+        float: left !important;
+        width:30vw;
     }
     .RankText{
         font-size: 1px;
@@ -63,7 +180,6 @@
     /* 태그페이지 */
     .tag{
         width: 80% !important;
-        background-color: red;
     }
     .tagItem li{
         width: 8.7vw !important ;
@@ -92,6 +208,7 @@
         height: 30vw !important;
         float: left;
     }
+    
 }
 .Categories{
     font-size: 1vw;
