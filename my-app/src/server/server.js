@@ -60,7 +60,6 @@ server.listen(port, ()=>{
     console.log("페이지 구동 시작"); // 로그 기록
 });
   
-
 //요일별 서브페이지
 //url에서 요일을 받아와 웹툰 제목을 출력하는 메서드
 server.get('/api/daywebtoon', async (req, res) => {
@@ -69,8 +68,8 @@ server.get('/api/daywebtoon', async (req, res) => {
   const query = 'CALL daywebtoon(?);';
   try {
     const [rows] = await conn.query(query, [day]);
-    const webtoons = rows[0].map(row => [row.webtoon_name]);
-    res.send(webtoons);
+    const webtoons = rows[0].map(row => row.webtoon_name); // 수정: [row.webtoon_name] -> row.webtoon_name
+    res.send({ webtoons }); // 수정: res.send(webtoons) -> res.send({ webtoons })
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -78,11 +77,6 @@ server.get('/api/daywebtoon', async (req, res) => {
     conn.release();
   }
 });
-
-
-
-
-
 
 
 //메인페이지에서 like가 가장 높은 웹툰 중 top5

@@ -26,11 +26,11 @@ const MainPage = () => {
                 <td>
                 <AllToonInfo /> 
                 </td>
-                <td>
+                {/* <td>
                 <AllToonInfo /> 
                 </td>
                 <td>
-                <AllToonInfo /> 
+                <AllToonInfo /> aa
                 </td>
               </tr>
               <tr>
@@ -42,7 +42,7 @@ const MainPage = () => {
                 </td>
                 <td>
                   <AllToonInfo /> 
-                </td>
+                </td> */}
               </tr>
             </tbody>
           </table>
