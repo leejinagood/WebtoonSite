@@ -9,11 +9,21 @@
         margin: 0 auto;
         background-color: aliceblue;
     }
-
+    .AllToon table{
+        margin: 0 !important;
+    }
+    tr {
+        width: 80%;
+      }
+    td{
+        width: 60vw !important; 
+        background-color: gainsboro;
+    }
+    
     .AllToonInfo{
         margin: 0 auto ;
     }
-    .AllToonInfo img{float: right !important;
+    .AllToonInfo img{
     }
     /* 데이페이지 */
     .DayToon{

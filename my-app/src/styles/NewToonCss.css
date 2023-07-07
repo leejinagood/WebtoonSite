@@ -2,6 +2,7 @@
 
   .NewToonInfo{
     width: 70% !important;
+    height: 30vw !important;
     background-color: honeydew;
   }
   .DayToon h3{
