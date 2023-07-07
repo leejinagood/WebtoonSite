@@ -52,7 +52,7 @@ server.listen(port, ()=>{
 
 //요일별 서브페이지
 //url에서 요일을 받아와 웹툰 제목을 출력하는 메서드
-server.get('/daywebtoon', async (req, res) => {
+server.get('/api/daywebtoon', async (req, res) => {
     const conn = await getConn();
     const { day } = req.query;
     console.log(day);
@@ -68,10 +68,7 @@ server.get('/daywebtoon', async (req, res) => {
     } finally {
       conn.release(); // 연결 해제
     }
-});
-
-
-  
+  });
 
 //메인페이지에서 like가 가장 높은 웹툰 중 top5
 server.get('/popular', async (req, res) => {
@@ -109,3 +106,39 @@ server.get('/new', async (req, res) => {
     const result = rows.map((row) => row.webtoon_name).join(', ');
     res.send(result);
 });
+
+//화원가입 메서드
+server.post('/api/SignUpPage', async(req, res) => {
+  const conn = await getConn();
+  const { email, pass, name, age } = req.body;
+  const query = 'INSERT INTO Tuser (user_email, password, user_name, user_age) VALUES (?, ?, ?, ?);';
+  const values = [email, pass, name, age];
+  try {
+    await conn.query(query, values);
+    res.send("입력 성공");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("입력 실패");
+  } finally {
+    conn.release();
+  }
+});
+
+//로그인 메서드
+server.get('/api/LoginPage', async (req, res) => {
+  const conn = await getConn();
+  const { ID, password } = req.query;
+  const values = [ID, password];
+  const query = 'SELECT user_name FROM Tuser WHERE user_email = ? AND password = ?;';
+  try {
+    const [rows] = await conn.query(query, values);
+    console.log(rows);
+    res.send(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Internal Server Error' });
+  } finally {
+    conn.release(); // 연결 해제
+  }
+});
+

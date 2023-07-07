@@ -24,6 +24,18 @@ const Header = () => {
     }
   };
 
+  const handleLinkClick = async (day) => {
+    try {
+      const response = await axios.get('/api/daywebtoon', {
+        params: { day }
+      });
+      console.log(response.data);
+      // 여기서 서버 응답 데이터를 처리하거나 상태 업데이트를 수행할 수 있습니다.
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="HederBox">
       <div className="header">
@@ -46,18 +58,33 @@ const Header = () => {
           </div>
         </div>
         </div>
-
       </div>
       <div className="HDayBox">
         <div className="Day">
-          <Link href="/mainpage"><li className="AllDay">요일 전체</li></Link>
-          <Link href="/MondayPage"><li>월</li></Link>
-          <Link href="/TuesDayPage"><li>화</li></Link>
-          <Link href="/WednesDayPage"><li>수</li></Link>
-          <Link href="/ThursDayPage"><li>목</li></Link>
-          <Link href="/FirDayPage"><li>금</li></Link>
-          <Link href="/SaturDaypage"><li>토</li></Link>
-          <Link href="/SunDayPage"><li>일</li></Link>
+          <Link href={{ pathname: '/mainpage', query: { day: 'All' }  }}>
+          <li className="AllDay"onClick={() => handleLinkClick('All')} >요일 전체</li>
+          </Link>
+          <Link href={{ pathname: '/MondayPage', query: { day: 'mon' } }}>
+          <li className="AllDay" onClick={() => handleLinkClick('mon')}>월</li>
+          </Link>
+          <Link href={{ pathname: '/TuesDayPage', query: { day: 'tues' } }}>
+          <li className="AllDay" onClick={() => handleLinkClick('tues')}>화</li>
+          </Link>
+          <Link href={{ pathname: '/WednesDayPage', query: { day: 'wedes' } }}>
+          <li className="AllDay" onClick={() => handleLinkClick('wedes')}>수</li>
+          </Link>
+          <Link href={{ pathname: '/ThursDayPage', query: { day: 'thu' } }}>
+          <li className="AllDay" onClick={() => handleLinkClick('thu')}>목</li>
+          </Link>
+          <Link href={{ pathname: '/FirDayPage', query: { day: 'fir' } }}>
+          <li className="AllDay" onClick={() => handleLinkClick('fir')}>금</li>
+          </Link>
+          <Link href={{ pathname: '/SaturDaypage', query: { day: 'satur' } }}>
+          <li className="AllDay" onClick={() => handleLinkClick('satur')}>토</li>
+          </Link>
+          <Link href={{ pathname: '/SunDayPage', query: { day: 'sun' } }}>
+          <li className="AllDay" onClick={() => handleLinkClick('sun')}>일</li>
+          </Link>
         </div>
       </div>
     </div>
