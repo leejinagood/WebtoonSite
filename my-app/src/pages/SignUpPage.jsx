@@ -40,7 +40,8 @@ const SignUpPage = () => {
         age: age,
       });
       console.log(response.data);
-      alert("입력 성공");
+      alert("회원가입 성공");
+      window.location.href = 'http://localhost:3000/LoginPage';
     } catch (error) {
       console.error(error);
     }

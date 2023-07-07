@@ -24,8 +24,14 @@ const LoginPage = () => {
           password: password
         }
       });
-      console.log(response.data);
-      alert("로그인 성공");
+      if(response.data == ""){
+        console.log(response.data);
+        alert("로그인 실패");
+      }else{
+        console.log(response.data);
+        alert("로그인 성공");
+        window.location.href = 'http://localhost:3000/mainpage';
+      }
     } catch (error) {
       console.error(error);
     }
