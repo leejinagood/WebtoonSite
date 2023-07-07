@@ -40,7 +40,9 @@ const LoginPage = () => {
   return (
     <div className="LoginPage">
       <div className="LoginBox">
+      <Link href="/mainpage">
         <h2 className="LoginLogo">AVATYE</h2>
+      </Link>
         <form onSubmit={handleSubmit}>
           <table>
             <tbody>

@@ -54,7 +54,9 @@ const SignUpPage = () => {
     <div className="SignUpPage">
       <form onSubmit={handleSubmit}>
         <div className="SignUpBox">
+        <Link href="/mainpage">
           <h2>AVATYE</h2>
+          </Link>
           <div>
             <label htmlFor="id">아이디</label>
             <input type="text" id="id" value={id} onChange={handleIdChange} />
