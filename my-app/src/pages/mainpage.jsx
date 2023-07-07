@@ -5,6 +5,7 @@ import Footer from "./footer";
 import NewToon from "../item/NewToon";
 import Tag from "../item/Tag";
 import Head from 'next/head';
+import AllToonInfo from "../item/AllToonInfo";
 const MainPage = () => {
   return (
     
@@ -19,63 +20,31 @@ const MainPage = () => {
       <h3 className="Categories">요일별 전체 웹툰</h3>
       <div className="AllToon">
         <div className="AllTonnbox">
+
         <table>
           <tbody>
             <tr>
               <td>
-                <div className="ATBox">
-                <div className="AllToonInfo">
-                  <img src="1.jpg" alt="" />
-                  <p className="ToonTitle">제목</p>
-                </div>
-                </div>
+                <AllToonInfo /> 
               </td>
               <td>
-              <div className="ATBox">
-                <div className="AllToonInfo">
-                  <img src="1.jpg" alt="" />
-                  <p className="ToonTitle">제목</p>
-                </div>
-                </div>
+                <AllToonInfo /> 
               </td>
               <td>
-              <div className="ATBox">
-                <div className="AllToonInfo">
-                  <img src="1.jpg" alt="" />
-                  <p className="ToonTitle">제목</p>
-                </div>
-                </div>
+                <AllToonInfo /> 
               </td>
-          </tr>
-          
-            <tr>
+              </tr>
+              <tr>
               <td>
-              <div className="ATBox">
-                <div className="AllToonInfo">
-                  <img src="1.jpg" alt="" />
-                  <p className="ToonTitle">제목</p>
-                </div>
-                </div>
-              </td>
-              <td>
-              <div className="ATBox">
-                <div className="AllToonInfo">
-                  <img src="1.jpg" alt="" />
-                  <p className="ToonTitle">제목</p>
-                </div>
-                </div>
-              </td>
-              <td>
-              <div className="ATBox">
-                <div className="AllToonInfo">
-                  <img src="1.jpg" alt="" />
-                  <p className="ToonTitle">제목</p>
-                </div>
-                </div>
-              </td>
-            </tr>
-            
-            {/* 여러 개의 <tr> 요소들 추가 */}
+                  <AllToonInfo /> 
+                </td>
+                <td>
+                  <AllToonInfo /> 
+                </td>
+                <td>
+                  <AllToonInfo /> 
+                </td>
+                </tr>
           </tbody>
         </table>
         </div>
@@ -90,28 +59,3 @@ const MainPage = () => {
 export default MainPage;
 
 
-
-// <table>
-//           <tbody>
-//             <tr>
-//               <td>
-//                 <AllToonInfo /> 
-//               </td>
-//               <td>
-//                 <AllToonInfo /> 
-//               </td>
-//               <td>
-//                 <AllToonInfo /> 
-//               </td>
-//               </tr>
-//               <td>
-//                   <AllToonInfo /> 
-//                 </td>
-//                 <td>
-//                   <AllToonInfo /> 
-//                 </td>
-//                 <td>
-//                   <AllToonInfo /> 
-//                 </td>
-//           </tbody>
-//         </table>
