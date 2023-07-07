@@ -27,7 +27,7 @@ const MainPage = () => {
               <td>
                 <AllToonInfo/>
               </td>
-              <td>
+              {/* <td>
               <AllToonInfo/>
               </td>
               <td>
@@ -44,8 +44,8 @@ const MainPage = () => {
               </td>
               <td>
               <AllToonInfo/>
-              </td>
-            </tr>
+  </td> */}
+            </tr> 
             
             {/* 여러 개의 <tr> 요소들 추가 */}
           </tbody>
