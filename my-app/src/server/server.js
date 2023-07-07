@@ -5,6 +5,7 @@
 // npm install nodejs
 // npm install express
 // npm install axios --force
+//npm install restify-cors-middleware
 
 // const { error } = require('console');
 // const express = require('express');
@@ -23,6 +24,16 @@ server.use(restify.plugins.queryParser());
 // const app = express();
 const port = 4000;
 
+const corsMiddleware = require('restify-cors-middleware');
+
+// CORS 정책 설정
+const cors = corsMiddleware({
+  origins: ['http://localhost:3000'], // 클라이언트 도메인 주소
+  allowHeaders: ['Authorization'],
+});
+
+server.pre(cors.preflight);
+server.use(cors.actual);
 
 const getConn = async () => {
     return await pool.getConnection(async(conn) => conn) ;
@@ -55,13 +66,13 @@ server.listen(port, ()=>{
 server.get('/api/daywebtoon', async (req, res) => {
     const conn = await getConn();
     const { day } = req.query;
-    console.log(day);
+    // console.log(day);
     const query = 'CALL daywebtoon(?);';
     try {
       const [rows] = await conn.query(query, [day]);
       const result = rows.map((row) => row.webtoon_name).join(', ');
-      console.log(rows);
-      res.send(result);
+      res.send(result);      
+      console.log(result);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
