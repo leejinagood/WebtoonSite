@@ -1,4 +1,17 @@
 @media screen and (max-width:721px) and (min-width:362px){
+    .ListPage{
+        width: 720px !important;
+    }
+    .IBtn{
+        width: 35% !important;
+    }
+    .InfoBtn{
+        margin: 0 auto !important;
+        width: 100% !important;
+        margin-top: 3% !important;
+    }
+
+
     .tab2{
         line-height: 10vw !important;
     }
@@ -7,94 +20,133 @@
     }
     .ListInfoBox{
         height: 500px !important;
+        width: 80% !important;
+    }
+    .ListImgBox{
+        width: 100%;
+        height: 190px !important;
+    }
+    .ListImgBox img{
+        height: 100% !important;
+    }
+
+    /* 썸네일 밑에 제목 글자 간격 조정 */
+
+
+    .tab2{
+        position: relative;
+        bottom:4vw !important;
+    }
+    .GrayP{
+        position: relative;
+        bottom: 10vw !important;
     }
     .List{
-        margin-top: 30px;
+        margin-top: 5%;
+        width: 80% !important;
     }
+    .ListItem{
+        position: relative;
+        right: 15vw;
+    }
+
+
 
 }
 @media screen and (max-width:361px) and (min-width:10px) {
 
+ 
+    
 
-    .ListInfo .TextBox .GrayP{
-        position: relative;
-        bottom: 15vw;
-    }
-    .TextBox {
-        width: 80% !important;
-        margin-left: 10%;
-        font-size: 10px !important;
-        
-    }
-    .tab2{
-        line-height: 40px;
-    }
-    .ListImgBox img{
-        height: 25vw !important;
-    }
-    .ListInfoBox{
-        height: 71.5vw !important;
-    }
-    .ListItem{
+
+
+    #PointBtn{
         width: 100% !important;
     }
     .ListPage{
-        width: 80% !important;
+        width: 360px !important;
     }
-    .ListInfo h3{
-        float: left;
-        height: 8vw; 
+    .IBtn{
+        width:50% !important;
+        font-size: 10px !important;
     }
-    .ListImg{
-        float: left;
-        width: 70% ;
-        
-        
-    }
-    .ListImg img{
-        float: left;
-        width: 55% !important;
+    
+    .SNSBTN{
+        width: 47.5% !important;
     }
     .InfoBtn{
-        float: left;
-
-        width:80% !important;
-    }
-     
-     #PointBtn{
-        font-size: 1px;
-        height: 5vw;
+        margin: 0 auto !important;
         width: 100% !important;
-     }
-     .IBtn{
-        font-size: 1px;
-        margin-top: 1vw;
-        width: 45% !important;
-        float: left !important;
-     }
-     .SNSBTN{
-        font-size: 1px;
-        margin-top: 1vw;
-        width: 45% !important;
-        float: right !important; 
-     }
-    .Pagination{
+        margin-top: 6% !important;
+    }
 
-    }
-    .Episode{
-        width: 20% !important;
 
+
+    .tab2{
+        line-height: 10vw !important;
     }
-    .tab{
-        line-height: 2.6vw !important;
+    #line{
+        line-height: 10px;
     }
-    .Episode p{
+    .ListInfoBox{
+        height: 500px !important;
+        width: 85% !important;
+    }
+    .ListImgBox {
+        display: flex;
+        align-items: center;
         width: 100%;
-        font-size: 1px;
-        line-height: 5vw;
+        height: 140px !important;
+      }
+    .ListImgBox img{
+        height: 100% !important;
+    }
+
+    /* 썸네일 밑에 제목 글자 간격 조정 */
+
+
+    .tab2{
+        position: relative;
+        bottom:4vw !important;
+    }
+    .GrayP{
+        position: relative;
+        bottom: 20vw !important;
+    }
+    .List{
+        margin-top: 1vw;
+        width: 80% !important;
+        float: left !important;
+    }
+    .ListItem{
+        position: relative;
+        right: 8vw;
+        width: 100%;
+    }
+    .ListImg {
+        width: 35% !important;
+        height: 100% !important;
+        float: left;
+        object-fit: contain; /* 이미지 비율 유지 */
+      }
+    .ListItem .ListImg img{
+        width:100% !important;
+        height: 100% !important;
+        float: left;
+    }
+    .Episode {
+        width:60% !important;
+        height: 100%;
+        display: block;
+        
+        align-items: center;
+      }
+    .LT{
+        width: 100% !important;
     }
     .SU{
-        margin: 0;
+        width: 30% !important;
+        float: left !important;
     }
 }
 
@@ -109,6 +161,10 @@
     margin: 0 auto;
 
     
+}
+.ListImgBox{
+    position: relative;
+    bottom: 1.6vw;
 }
 .ListImgBox img{
 
@@ -149,11 +205,11 @@
     margin-left: 5%;
     width: 100%;
     float: left;
-    margin-top: 10%;
+    margin-top: 6%;
 }
 
 .IBtn{
-    width: 30%;
+    width: 35%;
     margin-right: 2vw;
     height: 35px;
     border-radius: 5px;
@@ -226,4 +282,3 @@ li{
 .SU span{
     margin-left: 20px;
 }
-

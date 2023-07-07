@@ -17,22 +17,19 @@ class ListItem extends Component{
     return(
         <Link href="/WebToonPage"><div className="ListItem">
         <div className="ListImg">
-            <img src="1.jpg" alt="s" />
-            <div className="Episode">
-            <p>
-                {this.props.episode}화
-            </p>
-            <p className="tab">{this.props.title}</p>
-                    <div className="SU">
-            <p className="tab">
-                ⭐️{this.props.star}<p className="tab">{this.props.uproad}</p>
-            </p>
-            </div>
+          <img src="1.jpg" alt="s" />
         </div>
+        <div className="ListItemContent">
+          <p className="Episode">
+            {this.props.episode}화<br />
+            <span className="tab">{this.props.title}</span>
+          </p>
+          <p className="SU">
+            ⭐️{this.props.star}<span className="tab">{this.props.uproad}</span>
+          </p>
         </div>
-
-
-    </div></Link>
+      </div>
+      </Link>
     )
       }
 }
