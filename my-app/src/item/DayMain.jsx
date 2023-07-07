@@ -10,14 +10,14 @@ class DayMain extends Component{
     }
     render(){
         return(
-    <div className="DayToonItem">
-    <img src="1.jpg" alt="ss" />
-    <p className="ToonTitle">{this.props.title}</p>
-    <p className="Writer">{this.props.writer}</p>
-    <p className="Star">⭐️{this.props.star}</p>
-    </div>
-    )
-    }
+            <div className="DayToonItem">
+            <img src="1.jpg" alt="ss" />
+            <p className="ToonTitle">{this.props.title}</p>
+            <p className="Writer">{this.props.writer}</p>
+            <p className="Star">⭐️{this.props.star}</p>
+            </div>
+            )
+        }
 }
 
 export default DayMain;
