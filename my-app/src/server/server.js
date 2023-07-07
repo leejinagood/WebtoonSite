@@ -64,22 +64,26 @@ server.listen(port, ()=>{
 //요일별 서브페이지
 //url에서 요일을 받아와 웹툰 제목을 출력하는 메서드
 server.get('/api/daywebtoon', async (req, res) => {
-    const conn = await getConn();
-    const { day } = req.query;
-    // console.log(day);
-    const query = 'CALL daywebtoon(?);';
-    try {
-      const [rows] = await conn.query(query, [day]);
-      const result = rows.map((row) => row.webtoon_name).join(', ');
-      res.send(result);      
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    } finally {
-      conn.release(); // 연결 해제
-    }
-  });
+  const conn = await getConn();
+  const { day } = req.query;
+  const query = 'CALL daywebtoon(?);';
+  try {
+    const [rows] = await conn.query(query, [day]);
+    const webtoons = rows[0].map(row => [row.webtoon_name]);
+    res.send(webtoons);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    conn.release();
+  }
+});
+
+
+
+
+
+
 
 //메인페이지에서 like가 가장 높은 웹툰 중 top5
 server.get('/popular', async (req, res) => {
