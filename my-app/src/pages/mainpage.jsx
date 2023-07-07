@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MainPageCss from "../styles/MainPageCss.css";
 import Header from "./header";
 import Footer from "./footer";
 import NewToon from "../item/NewToon";
 import Tag from "../item/Tag";
 import Head from 'next/head';
+import AllToonInfo from '../item/AllToonInfo';
+
 const MainPage = () => {
   return (
-    
     <div className="MainPage">
       <Head>
         <link rel="manifest" href="/manifest.json" />
@@ -19,99 +20,38 @@ const MainPage = () => {
       <h3 className="Categories">요일별 전체 웹툰</h3>
       <div className="AllToon">
         <div className="AllTonnbox">
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <div className="ATBox">
-                <div className="AllToonInfo">
-                  <img src="1.jpg" alt="" />
-                  <p className="ToonTitle">제목</p>
-                </div>
-                </div>
-              </td>
-              <td>
-              <div className="ATBox">
-                <div className="AllToonInfo">
-                  <img src="1.jpg" alt="" />
-                  <p className="ToonTitle">제목</p>
-                </div>
-                </div>
-              </td>
-              <td>
-              <div className="ATBox">
-                <div className="AllToonInfo">
-                  <img src="1.jpg" alt="" />
-                  <p className="ToonTitle">제목</p>
-                </div>
-                </div>
-              </td>
-          </tr>
-          
-            <tr>
-              <td>
-              <div className="ATBox">
-                <div className="AllToonInfo">
-                  <img src="1.jpg" alt="" />
-                  <p className="ToonTitle">제목</p>
-                </div>
-                </div>
-              </td>
-              <td>
-              <div className="ATBox">
-                <div className="AllToonInfo">
-                  <img src="1.jpg" alt="" />
-                  <p className="ToonTitle">제목</p>
-                </div>
-                </div>
-              </td>
-              <td>
-              <div className="ATBox">
-                <div className="AllToonInfo">
-                  <img src="1.jpg" alt="" />
-                  <p className="ToonTitle">제목</p>
-                </div>
-                </div>
-              </td>
-            </tr>
-            
-            {/* 여러 개의 <tr> 요소들 추가 */}
-          </tbody>
-        </table>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                <AllToonInfo /> 
+                </td>
+                <td>
+                <AllToonInfo /> 
+                </td>
+                <td>
+                <AllToonInfo /> 
+                </td>
+              </tr>
+              <tr>
+                <td>
+                <AllToonInfo /> 
+                </td>
+                <td>
+                <AllToonInfo /> 
+                </td>
+                <td>
+                  <AllToonInfo /> 
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-
-      <Tag/>
+      <Tag />
       <Footer />
     </div>
   );
 };
 
 export default MainPage;
-
-
-
-// <table>
-//           <tbody>
-//             <tr>
-//               <td>
-//                 <AllToonInfo /> 
-//               </td>
-//               <td>
-//                 <AllToonInfo /> 
-//               </td>
-//               <td>
-//                 <AllToonInfo /> 
-//               </td>
-//               </tr>
-//               <td>
-//                   <AllToonInfo /> 
-//                 </td>
-//                 <td>
-//                   <AllToonInfo /> 
-//                 </td>
-//                 <td>
-//                   <AllToonInfo /> 
-//                 </td>
-//           </tbody>
-//         </table>
