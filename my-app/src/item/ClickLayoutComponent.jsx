@@ -1,23 +1,47 @@
-import React, { useState } from "react";
+import React, { Component ,useState} from "react";
 import ClickLayoutCss from "../styles/ClickLayoutCss.css";
-const ClickLayoutComponent = () => {
-  const [isVisible, setIsVisible] = useState(false);
+import Link from 'next/link';
 
-  const handleClick = () => {
-    setIsVisible(!isVisible);
+class ClickLayoutComponent extends Component {
+  
+  static defaultProps = {
+    list: 1,
+    title: "제목",
   };
 
-  return (
-    <div className="ClickLayout">
-      <button onClick={handleClick}>클릭하여 레이아웃 토글</button>
-      {isVisible && (
+  render() {
+    
+    
+    return (
+      <div className="ClickLayout">
         <div className="LayoutContent">
-          <h2>나타나는 레이아웃</h2>
-          <p>여기에 내용을 추가할 수 있습니다.</p>
+          <div className="Layout">
+            <div className="LeftLayout">
+                <div className="LeftLayoutItem">
+                  <div className="Litem">
+                    <p>
+                      <Link href="./"><span className="back">&lt;</span></Link>{this.props.title} |{" "}
+                      {this.props.list}화
+                    </p>
+                  </div>
+                </div>
+            </div>
+            <div className="RigthLayout">
+              <div className="RightLayoutItem">
+                <div className="Ritem">
+                <p>
+                  <Link href="../"><span className="BackEpisode">&lt;이전화</span></Link>
+                  <Link href="../"><span>목록</span></Link>
+                  <Link href="../"><span className="NextEpisode">다음화&gt;</span></Link>
+                </p>
+                </div>
+                </div>
+              </div>
+          </div>
         </div>
-      )}
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
 
 export default ClickLayoutComponent;

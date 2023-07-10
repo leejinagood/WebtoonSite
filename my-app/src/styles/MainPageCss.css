@@ -1,5 +1,6 @@
 @media screen and (max-width:721px) and (min-width:362px) {
     /* 메인 */
+    
     .MainPage{
         width: 720px !important;
         margin: 0 auto;
@@ -113,15 +114,16 @@
 /* phone */
 @media screen and (max-width:415px) and (min-width:362px) {
     /* 메인페이지  */
-
+    *{
+        width: 100% !important;
+    }
     .MainPage{
-        width: 360px !important;
+        width: 100% !important;
         margin: 0 auto;
     } 
     .AllToon{  
-        width: 80% !important;
+        width: 100% !important;
         margin: 0 auto;
-        background-color: red;
         
     }
     .AllToon table{
@@ -137,8 +139,8 @@
     
     .AllToonInfo {
         margin-top:6% !important;
-        width: calc(37.3% - 15px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
-        margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
+        width: calc(33.3% - 10px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
+        margin-bottom: 5px !important; /* 요소들 사이의 간격 설정 */
         display: flex;
         flex-wrap: wrap; /* 요소들을 여러 줄로 감싸기 */
     }

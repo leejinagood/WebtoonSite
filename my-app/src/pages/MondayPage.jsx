@@ -19,6 +19,7 @@ class MondayPage extends Component {
   componentDidMount() {
     const { day } = this.props;
 
+    //요청 메서드, 결과값 추출
     fetch(`/api/daywebtoon?day=${day}`)
       .then((response) => response.json())
       .then((data) => {
@@ -28,14 +29,14 @@ class MondayPage extends Component {
       .catch((error) => {
         console.error("Error fetching API:", error);
       });
-
-    // 데이터베이스에서 요일별 아이템 수를 가져오는 비동기 작업 수행
-    // 예시로 고정된 값을 설정
     const fetchedDayToonItemCounts = [2, 0, 0];
+    //요일별 아이템 갯수
     this.setState({ dayToonItemCounts: fetchedDayToonItemCounts });
   }
 
+  //기본값 월요일 
   static defaultProps = {
+    day: "mon",
     week: '월',
     writer: '작가',
     star: 9.9
@@ -64,9 +65,9 @@ class MondayPage extends Component {
                         {webtoons[subIndex] && (
                           <div className="DayToonItem">
                             <img src="1.jpg" alt="ss" />
-                            <p className="ToonTitle">{webtoons[subIndex]}</p>
-                            <p className="Writer">{writer}</p>
-                            <p className="Star">⭐️{star}</p>
+                            <p className="ToonTitle">{webtoons[subIndex].webtoon_name}</p>
+                            <p className="Writer">{webtoons[subIndex].author}</p>
+                            <p className="Star">⭐️{webtoons[subIndex].like}</p>
                           </div>
                         )}
                       </td>

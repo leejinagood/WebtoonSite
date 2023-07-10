@@ -1,11 +1,57 @@
-.ClickLayout {
-    text-align: center;
-    margin-top: 20px;
+@media screen and (max-width:721px) and (min-width:362px) {
+  .ClickLayout{
+    width: 64% !important;
   }
-  
+
+}
+
+@media screen and (max-width:361px) and (min-width:10px){
+  .ClickLayout{
+    width: 64% !important;
+  }
+  .Layout{
+     color:red;
+     font-size: 12px;
+  }
+  .Litem{
+    width: 100%;
+  }
+  .Ritem{
+    width: 40vw;
+  }
+}
+
+  .Layout{
+    clear: both;
+  }
   .LayoutContent {
-    background-color: #e8e8e8;
-    padding: 20px;
-    margin-top: 10px;
+    width: 100% !important;
+    margin: 0 auto;
+    background-color: black;
+    height: 35px;
+    opacity: 1;
+    transition: opacity 0.5s ease; /* 투명도 변경 애니메이션 설정 */
   }
-  
+  .ClickLayout {
+    color:white;
+    position: fixed;
+    margin-top: 20px;
+    font-size: 15px;
+  }
+  .LeftLayout{
+    float: left;
+    margin-top: 2.5%;
+    width: 50%;
+  }
+  .Litem{
+    float: left;
+  }
+  .Ritem{
+    float: right;
+  }
+  .RigthLayout{
+
+    margin-top: 2.5%;
+    width: 40%;
+    float: right;
+  }

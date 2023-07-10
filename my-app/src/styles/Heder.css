@@ -67,7 +67,6 @@
 }
 .BTN{
     float: left !important;
-    background-color: saddlebrown;
     width: 0%;
 
 }
@@ -78,6 +77,12 @@
         height: 11px !important;
     }
 }
+/* test */
+
+  
+  
+  
+/* teset */
 @media screen and (max-width:361px) and (min-width:10px) {
     .HederBox{
         width: 80% !important;
@@ -119,8 +124,9 @@
     }
 
     .SerchBtn{
-        width: 10vw !important;
+        width: 9vw !important;
         height: 15px;
+        float: left !important;
     }
     .HDayBox{
         height:5.5vw !important;
@@ -145,13 +151,12 @@
 }
 .BTN{
     float: right !important;
-    background-color: saddlebrown;
     width: 10%;
 
 }
 
     .SerchBar input{
-        width: 18vw !important;
+        width: 17.5vw !important;
         margin-left: 8vw !important;
         margin-top: 2vw !important;
         height: 11px !important;
