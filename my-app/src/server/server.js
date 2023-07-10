@@ -88,12 +88,21 @@ server.get('/api/daywebtoon', async (req, res) => {
 
 //메인페이지에서 like가 가장 높은 웹툰 중 top5
 server.get('/popular', async (req, res) => {
-    const conn = await getConn();
-    const query = 'SELECT Twebtoon.webtoon_name, Twebtoon.author_name, Twebtoondetail.thumbnail FROM Twebtoon jOIN Twebtoondetail ON Twebtoon.webtoon_id = Twebtoondetail.webtoon_id join Tlike on Twebtoon.webtoon_id = Tlike.webtoon_id ORDER BY Tlike.likes DESC limit 5;';
-    let [rows] = await conn.query(query);
-    const result = rows.map((row) => row.webtoon_name).join(', ');
+  const conn = await getConn();
+  const query = 'SELECT Twebtoon.webtoon_name, Twebtoon.author_name FROM Twebtoon JOIN Twebtoondetail ON Twebtoon.webtoon_id = Twebtoondetail.webtoon_id JOIN Tlike ON Twebtoon.webtoon_id = Tlike.webtoon_id ORDER BY Tlike.likes DESC LIMIT 5;';
+  try {
+    const [rows] = await conn.query(query);
+    const result = rows.map((row) => ({ webtoon_name: row.webtoon_name, author: row.author_name}));
     res.send(result);
+    // console.log(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    conn.release();
+  }
 });
+
 
 //검색하면 그 단어를 포함한 웹툰 제목과 작가를 출력하는 메서드
 server.get('/api/search', async (req, res) => {
