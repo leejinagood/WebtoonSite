@@ -40,25 +40,22 @@ const Header = () => {
     <div className="HederBox">
       <div className="header">
         <div className="TopHeader">
-        <div className="LogoBox">      
-          <h1 className="Logo">AVATOON</h1>
-        </div>
-        <div className="rb">
-          <div className="SerchBar">
-            <form onSubmit={handleSubmit}>
-              <div className="InputBox">
-            <input type="text" value={search} onChange={onChange} placeholder="작가/제목으로 검색할 수 있습니다." />
-            </div>
-              <div className="BTN">
-                <button type="submit" className="SerchBtn">검색</button>
-                <Link href="/LoginPage"><button className="LoginBtn">login</button></Link>
-                {/* {rows && rows.map((row, index) => <p key={index}>{row}</p>)} */}
-                <br />
-              </div>
-            </form>
-            
+          <div className="LogoBox">      
+            <h1 className="Logo">AVATOON</h1>
           </div>
-        </div>
+          <div className="rb">
+            <div className="SerchBar">
+              <form onSubmit={handleSubmit}>
+                <div className="InputBox">
+                  <input type="text" value={search} onChange={onChange} placeholder="작가/제목으로 검색할 수 있습니다." />
+                  <div className="BTN">
+                    <button type="submit" className="SerchBtn">검색</button>
+                    <Link href="/LoginPage"><button className="LoginBtn">login</button></Link>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
       <div className="HDayBox">

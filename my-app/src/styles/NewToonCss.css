@@ -1,6 +1,5 @@
 @media screen and (max-width:361px) and (min-width:10px) {
-
-  .NewToonInfo{
+.NewToonInfo{
     width: 80% !important;
     height: 30vw !important;
     background-color: honeydew;

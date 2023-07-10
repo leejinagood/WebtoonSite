@@ -5,11 +5,13 @@
 // npm install nodejs
 // npm install express
 // npm install axios --force
-//npm install restify-cors-middleware
+// npm install restify-cors-middleware
+// npm install multer --save
 
 // const { error } = require('console');
 // const express = require('express');
 const restify = require('restify');
+const path = require('path');
 
 //서버 설정 및 미들웨어
 const server = restify.createServer();
@@ -190,4 +192,22 @@ server.get('/api/LoginPage', async (req, res) => {
   } finally {
     conn.release(); // 연결 해제
   }
+});
+
+// 이미지 API 엔드포인트
+server.get('/api/img', (req, res, next) => {
+  const { webtoon_name } = req.query;
+  if (webtoon_name === '소녀재판') {
+    const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web1/web1_thumbnail.jpg';
+  } else if (webtoon_name === '마루는 강쥐'){
+    const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web2/web2_thumbnail.jpg';
+  } else if (webtoon_name === '소녀재판'){
+    const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web3/web3_thumbnail.jpg';
+  }
+
+    // 이미지 파일 전송
+    res.sendFile(imagePath);
+  
+  console.log(imagePath);
+  next();
 });
