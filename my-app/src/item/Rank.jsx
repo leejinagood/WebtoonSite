@@ -24,12 +24,12 @@ class Rank extends Component {
     const { webtoons } = this.state;
 
     return (
-    <div>
+      <div>
         <h3 className="HHH">인기 웹툰</h3>
         <div className="HotToon">
           {webtoons.map((webtoon, index) => (
             <div className="RBox" key={index}>
-              <Link href="ListPage">
+              <Link href={`ListPage?webtoon_name=${webtoon.webtoon_name}`}>
                 <div className="Rank">
                   <div className="Rankitem">
                     <div className="RankImg">
@@ -49,5 +49,8 @@ class Rank extends Component {
           ))}
         </div>
       </div>
-    )}}
+    );
+  }
+}
+
 export default Rank;
