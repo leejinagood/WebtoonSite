@@ -115,7 +115,8 @@ server.get('/api/webtoondetail', async (req, res) => {
       author: row.author_name,
       like: row.likes,
       content: row.content,
-      count: row.countnumber
+      count: row.countnumber,
+      week: row.week
     }));
     console.log({webtoons});
     res.send({ webtoons });
