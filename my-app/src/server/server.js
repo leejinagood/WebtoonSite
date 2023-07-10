@@ -68,8 +68,9 @@ server.get('/api/daywebtoon', async (req, res) => {
   const query = 'CALL daywebtoon(?);';
   try {
     const [rows] = await conn.query(query, [day]);
-    const webtoons = rows[0].map(row => row.webtoon_name); // 수정: [row.webtoon_name] -> row.webtoon_name
-    res.send({ webtoons }); // 수정: res.send(webtoons) -> res.send({ webtoons })
+    const webtoons = rows[0].map(row => row.webtoon_name); 
+    res.send({ webtoons }); 
+    // console.log({webtoons});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
