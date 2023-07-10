@@ -1,0 +1,54 @@
+@media screen and (max-width:721px) and (min-width:362px) {
+    .WebToonPage{
+        width: 720px !important;
+        margin: 0 auto;
+    }
+    .WebToonBox{
+        width: 80% !important;
+    }
+    .WebToonCut{
+        width:80% !important;
+        float: left;
+    }
+
+}
+/* teset */
+@media screen and (max-width:414px) and (min-width:362px) {
+    .WebToonPage{
+        width: 360px !important;
+        margin: 0 auto;
+    }
+    .WebToonBox{
+        width: 80% !important;
+    }
+    .WebToonCut{
+        width:80% !important;
+        float: left;
+    }
+}
+/* test */
+@media screen and (max-width:361px) and (min-width:10px) {
+    .WebToonPage{
+        width: 360px !important;
+        margin: 0 auto;
+    }
+    .WebToonBox{
+        width: 80% !important;
+    }
+    .WebToonCut{
+        width:80% !important;
+        float: left;
+    }
+}
+
+.WebToonBox{
+    width: 100% !important;
+    margin: 0 auto;
+    float: left;
+}
+
+.WebToonCut{
+    width: 100%;
+    background-color: blue;
+    height: 55vw;
+}

@@ -3,6 +3,7 @@
         margin-top: 1.5% !important;
         font-size: 15px !important;
     }
+
     .HederBox{
         width: 80% !important;
         background-color: rebeccapurple;
@@ -49,8 +50,7 @@
         font-size: 1px;
         width: 100% !important;
         background-color: ghostwhite;
-
-        display: block !important;
+        float: left;
     }
     #AD{
         width:15% !important;
@@ -92,6 +92,9 @@
     }
     .SerchBar{
         line-height:6.5vw !important;
+
+        position: relative;
+        right: 31px;
     }
     .header{
         width: 100% !important;
@@ -110,12 +113,13 @@
     }
     .SerchBar .LoginBtn{
         height: 15px !important;
-        width: 3vw !important;
+        width: 10vw !important;
         margin-top: 2vw ;
         font-size: 1px;
     }
 
     .SerchBtn{
+        width: 10vw !important;
         height: 15px;
     }
     .HDayBox{

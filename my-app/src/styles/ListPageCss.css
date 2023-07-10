@@ -59,6 +59,103 @@
 
 
 }
+
+/* test */
+@media screen and (max-width:414px) and (min-width:362px) {
+
+ 
+
+    #PointBtn{
+        width: 100% !important;
+    }
+    .ListPage{
+        width: 360px !important;
+    }
+    .IBtn{
+        width:50% !important;
+        font-size: 10px !important;
+    }
+    
+    .SNSBTN{
+        width: 47.5% !important;
+    }
+    .InfoBtn{
+        margin: 0 auto !important;
+        width: 100% !important;
+        margin-top: 6% !important;
+    }
+
+
+
+    .tab2{
+        line-height: 10vw !important;
+    }
+    #line{
+        line-height: 10px;
+    }
+    .ListInfoBox{
+        height: 500px !important;
+        width: 85% !important;
+    }
+    .ListImgBox {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 140px !important;
+      }
+    .ListImgBox img{
+        height: 100% !important;
+    }
+
+    /* 썸네일 밑에 제목 글자 간격 조정 */
+
+
+    .tab2{
+        position: relative;
+        bottom:4vw !important;
+    }
+    .GrayP{
+        position: relative;
+        bottom: 20vw !important;
+    }
+    .List{
+        margin-top: 1vw;
+        width: 80% !important;
+        float: left !important;
+    }
+    .ListItem{
+        position: relative;
+        right: 8vw;
+        width: 100%;
+    }
+    .ListImg {
+        width: 35% !important;
+        height: 100% !important;
+        float: left;
+        object-fit: contain; /* 이미지 비율 유지 */
+      }
+    .ListItem .ListImg img{
+        width:100% !important;
+        height: 100% !important;
+        float: left;
+    }
+    .Episode {
+        width:60% !important;
+        height: 100%;
+        display: block;
+        
+        align-items: center;
+      }
+    .LT{
+        width: 100% !important;
+    }
+    .SU{
+        width: 30% !important;
+        float: left !important;
+    }
+}
+
+/* test */
 @media screen and (max-width:361px) and (min-width:10px) {
 
  
