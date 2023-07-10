@@ -65,9 +65,9 @@ class MondayPage extends Component {
                         {webtoons[subIndex] && (
                           <div className="DayToonItem">
                             <img src="1.jpg" alt="ss" />
-                            <p className="ToonTitle">{webtoons[subIndex]}</p>
-                            <p className="Writer">{writer}</p>
-                            <p className="Star">⭐️{star}</p>
+                            <p className="ToonTitle">{webtoons[subIndex].webtoon_name}</p>
+                            <p className="Writer">{webtoons[subIndex].author}</p>
+                            <p className="Star">⭐️{webtoons[subIndex].like}</p>
                           </div>
                         )}
                       </td>

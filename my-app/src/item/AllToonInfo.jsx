@@ -16,10 +16,10 @@ const AllToonInfo = () => {
 
   return (
     <div className="ATBox">
-      {webtoons.map((webtoon, index) => (
+      {webtoons.map((webtoons, index) => (
         <div className="AllToonInfo" key={index}>
           <img src="1.jpg" alt="" />
-          <p className="ToonTitle">{webtoon}</p>
+          <p className="ToonTitle">{webtoons.webtoon_name}</p>
 
         </div>
       ))}
