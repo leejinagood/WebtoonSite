@@ -2,8 +2,11 @@
     .ListPage{
         width: 720px !important;
     }
+    #PointBtn{
+        width: 100% !important;
+    }
     .IBtn{
-        width: 35% !important;
+        width: 65% !important;
     }
     .InfoBtn{
         margin: 0 auto !important;
@@ -29,7 +32,10 @@
     .ListImgBox img{
         height: 100% !important;
     }
-
+    .SNSBTN{
+        width: 30% !important;
+        margin-left: 5%;
+    }
     /* 썸네일 밑에 제목 글자 간격 조정 */
 
 
@@ -202,27 +208,26 @@
 }
 
 .InfoBtn{
-    margin-left: 5%;
     width: 100%;
     float: left;
     margin-top: 6%;
 }
 
 .IBtn{
-    width: 35%;
-    margin-right: 2vw;
+    width: 60%;
     height: 35px;
     border-radius: 5px;
     border: 1px solid rgb(230, 226, 226);
     background-color: rgb(247, 247, 247);
 }
 #PointBtn{
+    width: 100%;
     border: 1px solid rgb(208, 249, 208);
     background-color: rgb(210, 246, 210);
 }
 .SNSBTN{
     border-radius: 5px;
-    width: 17.5%;
+    width: 40%;
     height: 35px;
 
     background-color: rgb(247, 247, 247);
@@ -239,6 +244,7 @@ li{
 
 
 .List{
+    margin-top: 10%;
     float: left;
     width: 100%;
 

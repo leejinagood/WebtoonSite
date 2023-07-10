@@ -23,29 +23,11 @@ const MainPage = () => {
         <div className="AllTonnbox">
         <table>
           <tbody>
-            <tr>
-              <td>
-                <AllToonInfo/>
-              </td>
-              <td>
-              <AllToonInfo/>
-              </td>
-              <td>
-              <AllToonInfo/>
-              </td>
-          </tr>
-          
-            <tr>
-              <td>
-              <AllToonInfo/>
-              </td>
-              <td>
-              <AllToonInfo/>
-              </td>
-              <td>
-              <AllToonInfo/>
-              </td>
-            </tr>
+              <tr>
+                <td>
+                  <AllToonInfo/>
+                </td>
+              </tr>
             
             {/* 여러 개의 <tr> 요소들 추가 */}
           </tbody>
