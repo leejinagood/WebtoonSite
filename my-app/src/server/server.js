@@ -195,17 +195,19 @@ server.get('/api/LoginPage', async (req, res) => {
 });
 
 // 이미지 API 엔드포인트
-server.get('/api/image', (req, res, next) => {
+server.get('/api/img', (req, res, next) => {
   const { webtoon_name } = req.query;
-  
   if (webtoon_name === '소녀재판') {
     const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web1/web1_thumbnail.jpg';
-    
+  } else if (webtoon_name === '마루는 강쥐'){
+    const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web2/web2_thumbnail.jpg';
+  } else if (webtoon_name === '소녀재판'){
+    const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web3/web3_thumbnail.jpg';
+  }
+
     // 이미지 파일 전송
     res.sendFile(imagePath);
-  } else {
-    res.status(404).send('Image not found');
-  }
   
+  console.log(imagePath);
   next();
 });

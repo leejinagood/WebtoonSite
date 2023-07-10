@@ -59,6 +59,9 @@ class ListPage extends Component {
           <div className="ListInfo">
             {/* 웹툰 정보 출력 */}
             <div className="ListImgBox">
+
+            
+
               <img src="1.jpg" alt="썸네일" />
             </div>
             <div className="ListInfo">
