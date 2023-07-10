@@ -12,6 +12,7 @@ const MainPage = () => {
     <div className="MainPage">
       <Head>
         <link rel="manifest" href="/manifest.json" />
+        {/* test */}
       </Head>
       <Header />
       <div className="MNewToon">
