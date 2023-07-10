@@ -12,13 +12,16 @@
         flex-wrap: wrap; /* 요소들을 여러 줄로 감싸기 */
     }
     .AllToonInfo img{
-        width: 20vw !important; /* 이미지를 부모 요소에 꽉 차게 설정 */
-        height: auto; /* 이미지 비율 유지 */
+        width: 24vw !important; /* 이미지를 부모 요소에 꽉 차게 설정 */
+        height: 18vw !important; /* 이미지 비율 유지 */
     }
     .AllTonnbox{
 
         width: 100% !important;
         background-color: blue;
+    }
+    .ToonTitle{
+        margin-left: 10% !important;margin-top: 3% !important;
     }
     .ATBox {
         width: inherit !important;
@@ -119,27 +122,30 @@
     .AllToon{  
         width: 80% !important;
         margin: 0 auto;
+        background-color: red;
+        
     }
     .AllToon table{
         margin: 0 !important;
     }
     tr {
-        width: 80%;
+        width: 100% !important;
       }
     td{
-        width: 60vw !important; 
+        width: 100% !important; 
     }
     
-    .AllToonInfo{
-        width: 21vw !important;
-        float: left !important;
-        margin-bottom: 1.5vw;
-        margin-left:  2.5vw;
-        margin-right: 2.5vw !important;
+    
+    .AllToonInfo {
+        margin-top:6% !important;
+        width: calc(37.3% - 15px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
+        margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
+        display: flex;
+        flex-wrap: wrap; /* 요소들을 여러 줄로 감싸기 */
     }
     .AllToonInfo img{
-        margin: 0 !important;
-        width: 20vw !important;
+        width: 10230vw !important; /* 이미지를 부모 요소에 꽉 차게 설정 */
+        height: 18vw !important; /* 이미지 비율 유지 */
     }
     table{ 
         margin: 0 !important;
@@ -373,4 +379,8 @@ tr{
     width: 20%;    
     height: 60px;
     margin-left: 3%;
+}
+
+.ToonTitle{
+    float: left;
 }

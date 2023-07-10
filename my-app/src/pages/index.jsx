@@ -21,17 +21,9 @@ const MainPage = () => {
       <h3 className="Categories">요일별 전체 웹툰</h3>
       <div className="AllToon">
         <div className="AllTonnbox">
-        <table>
-          <tbody>
-              <tr>
-                <td>
+
                   <AllToonInfo/>
-                </td>
-              </tr>
-            
-            {/* 여러 개의 <tr> 요소들 추가 */}
-          </tbody>
-        </table>
+
         </div>
       </div>
 
