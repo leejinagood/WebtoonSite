@@ -103,6 +103,30 @@ server.get('/popular', async (req, res) => {
   }
 });
 
+//웹툰 list에 들어갈 정보
+server.get('/api/webtoondetail', async (req, res) => {
+  const conn = await getConn();
+  const { name } = req.query;
+  const query = 'call webtoondetail (?);';
+  try {
+    const [rows] = await conn.query(query, [name]);
+    const webtoons = rows[0].map(row => ({
+      webtoon_name: row.webtoon_name,
+      author: row.author_name,
+      like: row.likes,
+      content: row.content,
+      count: row.countnumber
+    }));
+    console.log({webtoons});
+    res.send({ webtoons });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Internal Server Error' });
+  } finally {
+    conn.release(); // 연결 해제
+  }
+});
+
 
 //검색하면 그 단어를 포함한 웹툰 제목과 작가를 출력하는 메서드
 server.get('/api/search', async (req, res) => {
@@ -166,4 +190,3 @@ server.get('/api/LoginPage', async (req, res) => {
     conn.release(); // 연결 해제
   }
 });
-
