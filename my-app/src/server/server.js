@@ -73,8 +73,7 @@ server.get('/api/daywebtoon', async (req, res) => {
       webtoon_name: row.webtoon_name,
       author: row.author_name,
       like: row.likes
-    }));
-    // const webtoons = rows[0].map(row => row.webtoon_name); 
+    })); 
     console.log({webtoons});
     res.send({ webtoons });
   } catch (error) {
@@ -85,14 +84,14 @@ server.get('/api/daywebtoon', async (req, res) => {
   }
 });
 
-
 //메인페이지에서 like가 가장 높은 웹툰 중 top5
 server.get('/popular', async (req, res) => {
     const conn = await getConn();
-    const query = 'SELECT Twebtoon.webtoon_name, Twebtoon.author_name, Twebtoondetail.thumbnail FROM Twebtoon jOIN Twebtoondetail ON Twebtoon.webtoon_id = Twebtoondetail.webtoon_id join Tlike on Twebtoon.webtoon_id = Tlike.webtoon_id ORDER BY Tlike.likes DESC limit 5;';
+    const query = 'SELECT Twebtoon.webtoon_name, Twebtoon.author_name FROM Twebtoon jOIN Twebtoondetail ON Twebtoon.webtoon_id = Twebtoondetail.webtoon_id join Tlike on Twebtoon.webtoon_id = Tlike.webtoon_id ORDER BY Tlike.likes DESC limit 5;';
     let [rows] = await conn.query(query);
-    const result = rows.map((row) => row.webtoon_name).join(', ');
-    res.send(result);
+    const webtoons = rows.map(row => ({webtoon_name: row.webtoon_name, author: row.author_name}));
+    res.send(webtoons);
+    console.log({webtoons});
 });
 
 //검색하면 그 단어를 포함한 웹툰 제목과 작가를 출력하는 메서드
@@ -111,8 +110,6 @@ server.get('/api/search', async (req, res) => {
       conn.release(); // 연결 해제
     }
   });
-  
-  
 
 //새롭게 업로드된지 일주일 된 신규 웹툰의 제목을 출력
 server.get('/new', async (req, res) => {
