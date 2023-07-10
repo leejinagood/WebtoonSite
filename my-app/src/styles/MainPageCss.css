@@ -4,9 +4,36 @@
         width: 720px !important;
         margin: 0 auto;
     }
+    
+    .AllToonInfo {
+        width: calc(33.3% - 10px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
+        margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
+        display: flex;
+        flex-wrap: wrap; /* 요소들을 여러 줄로 감싸기 */
+    }
+    .AllToonInfo img{
+        width: 20vw !important; /* 이미지를 부모 요소에 꽉 차게 설정 */
+        height: auto; /* 이미지 비율 유지 */
+    }
+    .AllTonnbox{
+
+        width: 100% !important;
+        background-color: blue;
+    }
+    .ATBox {
+        width: inherit !important;
+        display: flex;
+        flex-wrap: wrap; /* 넘치는 요소를 여러 줄로 감싸기 */
+        justify-content: space-between;
+         /* 요소들을 간격을 유지하면서 정렬 */
+         background-color: red;
+      }
+
+  
     .AllToon{  
         width: 80% !important;
         margin: 0 auto;
+        background-color: rebeccapurple;
     }
     .AllToon table{
         margin: 0 !important;
@@ -17,18 +44,10 @@
     td{
         width: 60vw !important; 
     }
-    
-    .AllToonInfo{
-        width: 21vw !important;
-        float: left !important;
-        margin-bottom: 1.5vw;
-        margin-left:  2.5vw;
-        margin-right: 2.5vw !important;
-    }
-    .AllToonInfo img{
-        margin: 0 !important;
-        width: 20vw !important;
-    }
+
+
+
+  
     table{ 
         margin: 0 !important;
     }
@@ -244,7 +263,7 @@ table , th ,td ,td{
     font-size: 1vw;
 }
 .AllToon .AllToonInfo img{
-    width: 7.5vw;
+    width:7.5vw;
     height: 10vw;
     float: left;
     background-color: black;
@@ -256,16 +275,17 @@ table , th ,td ,td{
     width: 100% ;
     float: left !important;
 }
-.AllToon .AllToonInfo{
-    width: 10vw;
-    height: 12vw;
-    overflow: hidden;
-    border-collapse:collapse;
-}
-.ATBox{
-    float: left;
-    width: 30%;
-}
+
+.AllToonInfo {
+    width: calc(33.33% - 10px); /* 각 요소의 너비를 33.33%로 설정 (여백 10px 제외) */
+    margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
+  }
+.ATBox {
+    display: flex;
+    flex-wrap: wrap; /* 넘치는 요소를 여러 줄로 감싸기 */
+    justify-content: space-between;
+     /* 요소들을 간격을 유지하면서 정렬 */
+  }
 tr{
     float: left;
 }
@@ -273,7 +293,9 @@ tr{
     font-size: 10px;
 }
 
-
+.AllToon tr{
+    float: left;
+}
 
 /* 요일별 css */
 .Mid{

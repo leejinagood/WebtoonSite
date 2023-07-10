@@ -185,6 +185,9 @@
     float: left;
     height: 100%;
 }
+#AD{
+    width: 17% !important;
+}
 .SerchBar{
     line-height: 5.5vw;
     float: left;
@@ -233,10 +236,10 @@
 .Day li{
     float: left;
     list-style: none;
-    width: 8%;
-    
+    width: 5% !important;
+     
     margin-right: 0.5vw;
-    line-height: 1.5vw;
+    line-height: 1.8vw;
     font-size: 0.8vw;
 }
 .AllDay{

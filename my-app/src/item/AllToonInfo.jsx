@@ -20,8 +20,12 @@ const AllToonInfo = () => {
         <div className="AllToonInfo" key={index}>
           <img src="1.jpg" alt="" />
           <p className="ToonTitle">{webtoon}</p>
+
         </div>
       ))}
+      {webtoons.length % 3 !== 0 && (
+        <div className="AllToonInfo" style={{ visibility: "hidden" }}></div>
+      )}
     </div>
   );
 };
