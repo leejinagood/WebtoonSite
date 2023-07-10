@@ -5,7 +5,8 @@
 // npm install nodejs
 // npm install express
 // npm install axios --force
-//npm install restify-cors-middleware
+// npm install restify-cors-middleware
+// npm install multer --save
 
 // const { error } = require('console');
 // const express = require('express');
