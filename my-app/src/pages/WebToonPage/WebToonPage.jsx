@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Header from "./header";
-import Footer from "./footer";
+import Header from "../Header/header";
+import Footer from "../Footer/footer";
 
-import WebToonPageCss from "../styles/WebToonPageCss.css";
-import MondayPage from "./MondayPage";
-import ClickLayoutComponent from "../item/ClickLayoutComponent";
+import WebToonPageCss from "./styles/WebToonPageCss.css";
+import MainPageCss from "./styles/MainPageCss.css";
+import ClickLayoutComponent from "./ClickLayoutComponent";
 
 const WebToonPage = () => {
   const [webtoons, setWebtoons] = useState([]);

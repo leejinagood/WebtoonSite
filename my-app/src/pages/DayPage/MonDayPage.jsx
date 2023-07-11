@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import MainPageCss from "../styles/MainPageCss.css";
+import MainPageCss from "@/src/styles/MainPageCss.css";
 
-import Header from "./header";
-import Footer from "./footer";
-import NewToon from "../item/NewToon";
-import DayMain from "../item/DayMain";
-import Rank from "../item/Rank";
+import Header from "../Header/header";
+import Footer from "../Footer/footer";
+import NewToon from "../../item/NewToon";
+import DayMain from "../../item/DayMain";
+import Rank from "../../item/Rank";
 
 class MondayPage extends Component {
   constructor(props) {

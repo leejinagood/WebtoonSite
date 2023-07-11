@@ -4,7 +4,7 @@ const AllToonInfo = () => {
   const [webtoons, setWebtoons] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:4000/api/daywebtoon?day=All`)
+    fetch("/api/daywebtoon?day=All")
       .then((response) => response.json())
       .then((data) => {
         setWebtoons(data.webtoons);
@@ -19,7 +19,7 @@ const AllToonInfo = () => {
       {webtoons.map((webtoon, index) => (
         <div className="AllToonInfo" key={index}>
           <img src="1.jpg" alt="" />
-          <p className="ToonTitle">{webtoon.webtoon_name}</p>
+          <p className="ToonTitle">{webtoon}</p>
         </div>
       ))}
       {webtoons.length % 3 !== 0 && (

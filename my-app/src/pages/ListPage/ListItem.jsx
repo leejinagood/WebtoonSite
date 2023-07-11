@@ -15,13 +15,13 @@ class ListItem extends Component{
       }
       render(){
     return(
-        <Link href="/WebToonPage"><div className="ListItem">
+        <Link href="/WebToonPage/WebToonPage"><div className="ListItem">
         <div className="ListImg">
           <img src="1.jpg" alt="s" />
         </div>
         <div className="ListItemContent">
           <p className="Episode">
-            {this.props.episode}화<br />
+            {this.props.episode}화sdasdasdasdas<br />
             <span className="tab">{this.props.title}</span>
           </p>
           <p className="SU">
