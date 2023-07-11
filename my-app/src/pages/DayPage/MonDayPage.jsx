@@ -44,6 +44,23 @@ class MondayPage extends Component {
   }
 
   render() {
+    const getThumbnailImage = (webtoon) => {
+      if (webtoon.webtoon_name === "똑 닮은 딸") {
+        return "/WebtoonImg/web1/web1_thumbnail.jpg";
+      } else if (webtoon.webtoon_name === "마루는 강쥐") {
+        return "/WebtoonImg/web2/web2_thumbnail.jpg";
+      } else if (webtoon.webtoon_name === "소녀재판") {
+        return "/WebtoonImg/web3/web3_thumbnail.jpg";
+      } else if (webtoon.webtoon_name === "신혼일기") {
+          return "/WebtoonImg/web4/web4_thumbnail.jpg";
+      } else if (webtoon.webtoon_name === "외모지상주의") {
+        return "/WebtoonImg/web5/web5_thumbnail.jpg";
+      }else if (webtoon.webtoon_name === "퀘스트지상주의") {
+        return "/WebtoonImg/web6/web6_thumbnail.jpg";
+      }
+      // 기본값으로 설정할 썸네일 이미지 경로
+      return "";
+    };
     const { dayToonItemCounts, webtoons } = this.state;
     const { week, writer, star } = this.props;
 
@@ -65,7 +82,7 @@ class MondayPage extends Component {
                       <td key={subIndex}>
                         {webtoons[subIndex] && (
                           <div className="DayToonItem">
-                            <img src="1.jpg" alt="ss" />
+                            <img src={getThumbnailImage(webtoons[subIndex])} alt={webtoons[subIndex].webtoon_name} />
                             <p className="ToonTitle">{webtoons[subIndex].webtoon_name}</p>
                             <p className="Writer">{webtoons[subIndex].author}</p>
                             <p className="Star">⭐️{webtoons[subIndex].like}</p>
