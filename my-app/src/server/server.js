@@ -166,7 +166,7 @@ server.get('/api/webtoondetail', async (req, res) => {
 server.post('/api/SignUpPage', async(req, res) => {
   const conn = await getConn();
   const { email, pass, name, age } = req.body;
-  const query = 'INSERT INTO Tuser (user_email, password, user_name, user_age) VALUES (?, ?, ?, ?);';
+  const query = 'insert into User_Table (User_Email, User_Password, User_Name, User_Age) values (?, ?, ?, ?);';
   const values = [email, pass, name, age];
   try {
     await conn.query(query, values);
@@ -184,7 +184,7 @@ server.get('/api/LoginPage', async (req, res) => {
   const conn = await getConn();
   const { ID, password } = req.query;
   const values = [ID, password];
-  const query = 'SELECT user_name FROM Tuser WHERE user_email = ? AND password = ?;';
+  const query = 'SELECT User_Name FROM User_Table WHERE User_Email = ? AND User_Password = ?;';
   try {
     const [rows] = await conn.query(query, values);
     console.log(rows);
