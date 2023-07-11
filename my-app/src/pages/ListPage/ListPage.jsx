@@ -9,22 +9,15 @@ class ListPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 1,
-      like: this.props.like,
-      webtoonInfo: {} // 웹툰 정보를 저장할 상태값 추가
+      webtoons: []
     };
   }
 
   componentDidMount() {
-    const webtoonName = new URLSearchParams(window.location.search).get(
-      "webtoon_name"
-    );
-
-    fetch(`/api/webtoondetail?name=${webtoonName}`)
+    fetch(`http://localhost:4000/popular`) 
       .then((response) => response.json())
       .then((data) => {
-        const { webtoons } = data;
-        this.setState({ webtoonInfo: webtoons[0] });
+        this.setState({ webtoons: data });
       })
       .catch((error) => {
         console.error("Error fetching API:", error);
@@ -94,7 +87,7 @@ class ListPage extends Component {
         <div className="List">
           {Array.from({ length: webtoonsPerPage }).map((_, index) => (
             <li key={startWebtoonIndex + index}>
-              <ListItem webtoonName="웹툰 이름" uploadDate="2023.07.01" />
+              <ListItem webtoonName="웹툰 이름" uploadDate={webtoonInfo.Episode_Number} />
             </li>
           ))}
         </div>

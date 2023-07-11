@@ -29,7 +29,7 @@ class Rank extends Component {
         <div className="HotToon">
           {webtoons.map((webtoon, index) => (
             <div className="RBox" key={index}>
-              <Link href={`ListPage?webtoon_name=${webtoon.webtoon_name}`}>
+              <Link href={`/ListPage/ListPage?webtoon_name=${webtoon.webtoon_name}`}>
                 <div className="Rank">
                   <div className="Rankitem">
                     <div className="RankImg">
