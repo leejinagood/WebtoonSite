@@ -7,11 +7,13 @@
 // npm install axios --force
 // npm install restify-cors-middleware
 // npm install multer --save
+// npm install jsonwebtoken
 
 // const { error } = require('console');
 // const express = require('express');
 const restify = require('restify');
 const path = require('path');
+const jwt = require('jsonwebtoken'); //jwt
 
 //서버 설정 및 미들웨어
 const server = restify.createServer();
@@ -171,6 +173,7 @@ server.post('/api/SignUpPage', async(req, res) => {
   try {
     await conn.query(query, values);
     res.send("입력 성공");
+    console.log(values);
   } catch (error) {
     console.error(error);
     res.status(500).json("입력 실패");
@@ -180,7 +183,7 @@ server.post('/api/SignUpPage', async(req, res) => {
 });
 
 //로그인 메서드
-server.get('/api/LoginPage', async (req, res) => {
+server.post('/api/LoginPage', async (req, res) => {
   const conn = await getConn();
   const { ID, password } = req.query;
   const values = [ID, password];
@@ -189,6 +192,23 @@ server.get('/api/LoginPage', async (req, res) => {
     const [rows] = await conn.query(query, values);
     console.log(rows);
     res.send(rows);
+    if (rows.length === 1) {
+      // 로그인 성공
+      const user = rows[0];
+
+      // 토큰 생성
+      const token = jwt.sign(
+        { userId: user.User_ID, userEmail: user.User_Email },
+        'your-secret-key',
+        { expiresIn: '1h' } // 토큰 만료 시간 설정
+      );
+
+      // 토큰을 응답으로 전송
+      res.send({ success: true, token });
+    } else {
+      // 로그인 실패
+      res.send({ success: false, message: 'Invalid credentials' });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: 'Internal Server Error' });
