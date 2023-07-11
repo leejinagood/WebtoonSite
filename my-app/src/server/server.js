@@ -62,6 +62,7 @@ server.listen(port, ()=>{
     console.log("페이지 구동 시작"); // 로그 기록
 });
   
+
 //요일별 서브페이지
 //url에서 요일을 받아와 웹툰 제목을 출력하는 메서드
 server.get('/api/daywebtoon', async (req, res) => {
@@ -72,11 +73,10 @@ server.get('/api/daywebtoon', async (req, res) => {
     const [rows] = await conn.query(query, [day]);
     //웹툰 정보 추출 
     const webtoons = rows[0].map(row => ({
-      webtoon_name: row.Webtoon_Name,
-      author: row.Webtoon_Author,
-      like: row.Likes_Count
+      webtoon_name: row.Webtoon_Name, //제목
+      author: row.Webtoon_Author, //작가
+      like: row.Likes_Count //좋아요 갯수
     }));
-    // const webtoons = rows[0].map(row => row.webtoon_name); 
     console.log({webtoons});
     res.send({ webtoons });
   } catch (error) {
@@ -88,13 +88,15 @@ server.get('/api/daywebtoon', async (req, res) => {
 });
 
 
-//메인페이지에서 like가 가장 높은 웹툰 중 top5
+//메인페이지에서 좋아요가 가장 높은 웹툰 중 top5 제목과 작가 출력
 server.get('/popular', async (req, res) => {
   const conn = await getConn();
   const query = 'SELECT Webtoon_Table.Webtoon_Name, Webtoon_Table.Webtoon_Author FROM Webtoon_Table JOIN Webtoon_Detail_Table ON Webtoon_Table.Webtoon_Id = Webtoon_Detail_Table.Webtoon_Id JOIN Like_Table ON Webtoon_Table.Webtoon_Id = Like_Table.Webtoon_Id WHERE Like_Table.Likes = true GROUP BY Like_Table.Webtoon_Id ORDER BY COUNT(Like_Table.Likes) DESC LIMIT 5;';
   try {
     const [rows] = await conn.query(query);
-    const result = rows.map((row) => ({ webtoon_name: row.Webtoon_Name, author: row.Webtoon_Author}));
+    const result = rows.map((row) => 
+    ({ webtoon_name: row.Webtoon_Name,  //웹툰 제목
+      author: row.Webtoon_Author})); //작가 이름
     res.send(result);
     // console.log(result);
   } catch (error) {
@@ -110,7 +112,7 @@ server.get('/popular', async (req, res) => {
 server.get('/api/search', async (req, res) => {
     const conn = await getConn();
     const { word } = req.query;
-    const query = 'CALL Serch_Webtoon(?);';
+    const query = 'CALL Serch_Webtoon(?);'; //제목과, 작가와, 카테고리 출력
     try {
       const [rows] = await conn.query(query, [word]);
       console.log(rows);
@@ -130,11 +132,12 @@ server.get('/new', async (req, res) => {
     const conn = await getConn();
     const query = 'SELECT Webtoon_Table.Webtoon_Name FROM Webtoon_Table JOIN Webtoon_Detail_Table ON Webtoon_Table.Webtoon_Id = Webtoon_Detail_Table.Webtoon_Id WHERE Webtoon_Date >= DATE_SUB(NOW(), INTERVAL 7 DAY);';
     let [rows] = await conn.query(query);
-    const result = rows.map((row) => row.webtoon_name).join(', ');
+    const result = rows.map((row) => row.webtoon_name).join(', '); //웹툰 제목만 출력
     res.send(result);
 });
 
 //웹툰 list에 들어갈 정보
+//Rank에서 웹툰 이미지나 제목을 클릭했을 때 보이는 웹툰 정보들
 server.get('/api/webtoondetail', async (req, res) => {
   const conn = await getConn();
   const { name } = req.query;
@@ -142,12 +145,12 @@ server.get('/api/webtoondetail', async (req, res) => {
   try {
     const [rows] = await conn.query(query, [name]);
     const webtoons = rows[0].map(row => ({
-      webtoon_name: row.Webtoon_Name,
-      author: row.Webtoon_Author,
-      like: row.Likes_Count,
-      content: row.Webtoon_Content,
-      count: row.Episode_Count,
-      week: row.Webtoon_Week
+      webtoon_name: row.Webtoon_Name, //웹툰 제목
+      author: row.Webtoon_Author, //작가 이름
+      like: row.Likes_Count, //좋아요 갯수
+      content: row.Webtoon_Content, //웹툰 상세 설명
+      count: row.Episode_Count, //에피소드 갯수 
+      week: row.Webtoon_Week //무슨 요일에 업로드 하는지
     }));
     console.log({webtoons});
     res.send({ webtoons });
