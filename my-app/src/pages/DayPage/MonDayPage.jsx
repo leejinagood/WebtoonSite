@@ -30,7 +30,7 @@ class MondayPage extends Component {
       .catch((error) => {
         console.error("Error fetching API:", error);
       });
-    const fetchedDayToonItemCounts = [2, 0, 0];
+    const fetchedDayToonItemCounts = [3, 0, 0];
     //요일별 아이템 갯수
     this.setState({ dayToonItemCounts: fetchedDayToonItemCounts });
   }
