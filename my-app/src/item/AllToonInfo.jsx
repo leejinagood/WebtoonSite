@@ -37,17 +37,14 @@ const AllToonInfo = () => {
     <div className="ATBox">
       {webtoons.map((webtoon, index) => (
         <div className="AllToonInfo" key={index}>
-<<<<<<< HEAD
           <Link href={`/ListPage/ListPage?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`}>
             
               <img src="1.jpg" alt="" />
               <p className="ToonTitle">{webtoon.webtoon_name}</p>
             
           </Link>
-=======
           <img src={getThumbnailImage(webtoon)} alt="" />
           <p className="ToonTitle">{webtoon.webtoon_name}</p>
->>>>>>> 98fbc8f8a7f3379c8391a83941165e78af2696bf
         </div>
       ))}
       {webtoons.length % 3 !== 0 && (
