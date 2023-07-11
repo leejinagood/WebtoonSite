@@ -109,6 +109,25 @@ server.get('/popular', async (req, res) => {
   }
 });
 
+//위 코드를 프로시저로 사용 그러나 데이터 타입이 안 맞는지 result가 안 나옴
+// server.get('/popular', async (req, res) => {
+//   const conn = await getConn();
+//   const procedure = 'CALL Like_Top();'; // 프로시저 호출
+//   try {
+//     const [rows] = await conn.query(procedure);
+//     const result = rows.map((row) => ({
+//       webtoon_name: row.Webtoon_Name,
+//       author: row.Webtoon_Author
+//     }));
+//     res.send(result);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: '서버 스크립트의 오류' });
+//   } finally {
+//     conn.release();
+//   }
+// });
+
 
 //검색하면 그 단어를 포함한 웹툰 제목과 작가, 카테고리를 출력하는 메서드
 server.get('/api/search', async (req, res) => {
