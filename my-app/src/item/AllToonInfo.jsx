@@ -19,7 +19,7 @@ const AllToonInfo = () => {
       {webtoons.map((webtoon, index) => (
         <div className="AllToonInfo" key={index}>
           <img src="1.jpg" alt="" />
-          <p className="ToonTitle">{webtoon}</p>
+          <p className="ToonTitle">{webtoon.webtoon_name}</p>
         </div>
       ))}
       {webtoons.length % 3 !== 0 && (
