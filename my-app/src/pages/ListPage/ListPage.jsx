@@ -1,10 +1,9 @@
 import React from "react";
-import Header from "./header";
+import Header from "../Header/header";
 import { Component } from "react";
-import ListPageCss from "../styles/ListPageCss.css";
-import MainPageCss from "../styles/MainPageCss.css";
-import Footer from "./footer";
-import ListItem from "../item/ListItem";
+import ListPageCss from "./styles/ListPageCss.css";
+import Footer from "../Footer/footer";
+import ListItem from "./ListItem";
 
 class ListPage extends Component {
   constructor(props) {

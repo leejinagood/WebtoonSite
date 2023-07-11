@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import TagCss from "../styles/TagCss.css";
+import TagCss from "./styles/TagCss.css";
 
 const Tag =()=>{
 

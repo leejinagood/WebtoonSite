@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import MainPageCss from "../styles/MainPageCss.css";
+import MainPageCss from "@/src/styles/MainPageCss.css";
 
-import Header from "./header";
-import Footer from "./footer";
-import NewToon from "../item/NewToon";
-import DayMain from "../item/DayMain";
-import Rank from "../item/Rank";
+import Header from "../Header/header";
+import Footer from "../Footer/footer";
+import NewToon from "../../item/NewToon";
+import DayMain from "../../item/DayMain";
+import Rank from "../../item/Rank";
 
 class MondayPage extends Component {
   constructor(props) {
@@ -17,6 +17,7 @@ class MondayPage extends Component {
   }
 
   componentDidMount() {
+    // 다른 요일페이지의 key day를 가져오는것
     const { day } = this.props;
 
     //요청 메서드, 결과값 추출

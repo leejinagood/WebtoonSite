@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import MondayPage from './MondayPage';
+import MondayPage from './MonDayPage';
 
 
 class TuesDayPage extends Component {
     render() {
       return (
-        <MondayPage week="토" day="satur"/>
+        <MondayPage week="금" day="fir"/>
       );
     }
   }

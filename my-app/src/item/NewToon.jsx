@@ -21,7 +21,7 @@ const NewToon = () => {
   return (
     <div className="NewToon">
     <div className="slideshow">
-      <Link href={slides[currentSlide].link}>
+      <Link href="/ListPage/ListPage">
         <div className="NewToonInfo">
           <img src={slides[currentSlide].image} alt={`Slide ${slides[currentSlide].id}`} />
         </div>

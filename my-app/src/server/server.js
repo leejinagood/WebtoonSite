@@ -74,7 +74,7 @@ server.get('/api/daywebtoon', async (req, res) => {
     const webtoons = rows[0].map(row => ({
       webtoon_name: row.Webtoon_Name,
       author: row.Webtoon_Author,
-      like: row.Likes
+      like: row.Likes_Count
     }));
     // const webtoons = rows[0].map(row => row.webtoon_name); 
     console.log({webtoons});
@@ -138,16 +138,16 @@ server.get('/new', async (req, res) => {
 server.get('/api/webtoondetail', async (req, res) => {
   const conn = await getConn();
   const { name } = req.query;
-  const query = 'call webtoondetail (?);';
+  const query = 'call Webtoon_Detail (?);';
   try {
     const [rows] = await conn.query(query, [name]);
     const webtoons = rows[0].map(row => ({
-      webtoon_name: row.webtoon_name,
-      author: row.author_name,
-      like: row.likes,
-      content: row.content,
-      count: row.countnumber,
-      week: row.week
+      webtoon_name: row.Webtoon_Name,
+      author: row.Webtoon_Author,
+      like: row.Likes_Count,
+      content: row.Webtoon_Content,
+      count: row.Episode_Count,
+      week: row.Webtoon_Week
     }));
     console.log({webtoons});
     res.send({ webtoons });

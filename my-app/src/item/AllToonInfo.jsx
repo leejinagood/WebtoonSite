@@ -4,7 +4,7 @@ const AllToonInfo = () => {
   const [webtoons, setWebtoons] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:4000/api/daywebtoon?day=All`)
+    fetch("/api/daywebtoon?day=All")
       .then((response) => response.json())
       .then((data) => {
         setWebtoons(data.webtoons);

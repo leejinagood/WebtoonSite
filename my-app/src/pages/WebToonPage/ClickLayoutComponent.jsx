@@ -1,5 +1,5 @@
 import React, { Component ,useState} from "react";
-import ClickLayoutCss from "../styles/ClickLayoutCss.css";
+import ClickLayoutCss from "./styles/ClickLayoutCss.css";
 import Link from 'next/link';
 
 class ClickLayoutComponent extends Component {

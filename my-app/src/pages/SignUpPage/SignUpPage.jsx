@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Link from 'next/link';
-import SignUpCss from "../styles/SignUpCss.css"
+import SignUpCss from "./styles/SignUpCss.css"
 
 const SignUpPage = () => {
   const [id, setId] = useState("");

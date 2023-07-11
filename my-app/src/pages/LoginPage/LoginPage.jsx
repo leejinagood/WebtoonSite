@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import LoginCss from "../styles/LoginCss.css";
+import LoginCss from "./styles/LoginCss.css";
 import Link from 'next/link';
 
 const LoginPage = () => {
@@ -63,7 +63,7 @@ const LoginPage = () => {
         <div className="LoginMenu">
           <Link href="/password" ><li>비밀번호 찾기</li></Link>
           <Link href="/id"><li>아이디 찾기</li></Link>
-          <Link href="/SignUpPage"><li>회원가입</li></Link>
+          <Link href="/SignUpPage/SignUpPage"><li>회원가입</li></Link>
         </div>
       </div>
     </div>
