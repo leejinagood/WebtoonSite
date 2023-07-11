@@ -13,6 +13,24 @@ const ListPage = () => {
   const [like, setLike] = useState(0);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 추가
 
+  const getThumbnailImage = (webtoon) => {
+    if (webtoon.webtoon_name === "똑 닮은 딸") {
+      return "/WebtoonImg/web1/web1_thumbnail.jpg";
+    } else if (webtoon.webtoon_name === "마루는 강쥐") {
+      return "/WebtoonImg/web2/web2_thumbnail.jpg";
+    } else if (webtoon.webtoon_name === "소녀재판") {
+      return "/WebtoonImg/web3/web3_thumbnail.jpg";
+    } else if (webtoon.webtoon_name === "신혼일기") {
+        return "/WebtoonImg/web4/web4_thumbnail.jpg";
+    } else if (webtoon.webtoon_name === "외모지상주의") {
+      return "/WebtoonImg/web5/web5_thumbnail.jpg";
+    }else if (webtoon.webtoon_name === "퀘스트지상주의") {
+      return "/WebtoonImg/web6/web6_thumbnail.jpg";
+    }
+    // 기본값으로 설정할 썸네일 이미지 경로
+    return "";
+  };
+
   useEffect(() => {
     const { webtoonName } = router.query;
 
@@ -58,9 +76,11 @@ const ListPage = () => {
 
       <div className="ListInfoBox">
         <div className="ListInfo">
-          <div className="ListImgBox">
-            <img src="1.jpg" alt="썸네일" />
-          </div>
+        <div className="ListImgBox">
+      {webtoonInfo && (
+        <img src={getThumbnailImage(webtoonInfo)} alt={webtoonInfo.webtoon_name} />
+      )}
+    </div>
           <div className="ListInfo">
             <div className="TextBox">
               <p id="line" className="tab2">
