@@ -67,14 +67,14 @@ server.listen(port, ()=>{
 server.get('/api/daywebtoon', async (req, res) => {
   const conn = await getConn();
   const { day } = req.query;
-  const query = 'CALL daywebtoon(?);';
+  const query = 'CALL Day_Webtoon(?);';
   try {
     const [rows] = await conn.query(query, [day]);
     //웹툰 정보 추출 
     const webtoons = rows[0].map(row => ({
-      webtoon_name: row.webtoon_name,
-      author: row.author_name,
-      like: row.likes
+      webtoon_name: row.Webtoon_Name,
+      author: row.Webtoon_Author,
+      like: row.Likes
     }));
     // const webtoons = rows[0].map(row => row.webtoon_name); 
     console.log({webtoons});
@@ -91,10 +91,10 @@ server.get('/api/daywebtoon', async (req, res) => {
 //메인페이지에서 like가 가장 높은 웹툰 중 top5
 server.get('/popular', async (req, res) => {
   const conn = await getConn();
-  const query = 'SELECT Twebtoon.webtoon_name, Twebtoon.author_name FROM Twebtoon JOIN Twebtoondetail ON Twebtoon.webtoon_id = Twebtoondetail.webtoon_id JOIN Tlike ON Twebtoon.webtoon_id = Tlike.webtoon_id ORDER BY Tlike.likes DESC LIMIT 5;';
+  const query = 'SELECT Webtoon_Table.Webtoon_Name, Webtoon_Table.Webtoon_Author FROM Webtoon_Table JOIN Webtoon_Detail_Table ON Webtoon_Table.Webtoon_Id = Webtoon_Detail_Table.Webtoon_Id JOIN Like_Table ON Webtoon_Table.Webtoon_Id = Like_Table.Webtoon_Id WHERE Like_Table.Likes = true GROUP BY Like_Table.Webtoon_Id ORDER BY COUNT(Like_Table.Likes) DESC LIMIT 5;';
   try {
     const [rows] = await conn.query(query);
-    const result = rows.map((row) => ({ webtoon_name: row.webtoon_name, author: row.author_name}));
+    const result = rows.map((row) => ({ webtoon_name: row.Webtoon_Name, author: row.Webtoon_Author}));
     res.send(result);
     // console.log(result);
   } catch (error) {
@@ -103,6 +103,35 @@ server.get('/popular', async (req, res) => {
   } finally {
     conn.release();
   }
+});
+
+
+//검색하면 그 단어를 포함한 웹툰 제목과 작가, 카테고리를 출력하는 메서드
+server.get('/api/search', async (req, res) => {
+    const conn = await getConn();
+    const { word } = req.query;
+    const query = 'CALL Serch_Webtoon(?);';
+    try {
+      const [rows] = await conn.query(query, [word]);
+      console.log(rows);
+      res.send(rows);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } finally {
+      conn.release(); // 연결 해제
+    }
+  });
+  
+  
+
+//새롭게 업로드된지 일주일 된 신규 웹툰의 제목을 출력
+server.get('/new', async (req, res) => {
+    const conn = await getConn();
+    const query = 'SELECT Webtoon_Table.Webtoon_Name FROM Webtoon_Table JOIN Webtoon_Detail_Table ON Webtoon_Table.Webtoon_Id = Webtoon_Detail_Table.Webtoon_Id WHERE Webtoon_Date >= DATE_SUB(NOW(), INTERVAL 7 DAY);';
+    let [rows] = await conn.query(query);
+    const result = rows.map((row) => row.webtoon_name).join(', ');
+    res.send(result);
 });
 
 //웹툰 list에 들어갈 정보
@@ -128,35 +157,6 @@ server.get('/api/webtoondetail', async (req, res) => {
   } finally {
     conn.release(); // 연결 해제
   }
-});
-
-
-//검색하면 그 단어를 포함한 웹툰 제목과 작가, 카테고리를 출력하는 메서드
-server.get('/api/search', async (req, res) => {
-    const conn = await getConn();
-    const { word } = req.query;
-    const query = 'CALL serchwebtoonandauthor(?);';
-    try {
-      const [rows] = await conn.query(query, [word]);
-      console.log(rows);
-      res.send(rows);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    } finally {
-      conn.release(); // 연결 해제
-    }
-  });
-  
-  
-
-//새롭게 업로드된지 일주일 된 신규 웹툰의 제목을 출력
-server.get('/new', async (req, res) => {
-    const conn = await getConn();
-    const query = 'SELECT Twebtoon.webtoon_name FROM Twebtoon JOIN Twebtoondetail ON Twebtoon.webtoon_id = Twebtoondetail.webtoon_id WHERE update_date >= DATE_SUB(NOW(), INTERVAL 7 DAY);';
-    let [rows] = await conn.query(query);
-    const result = rows.map((row) => row.webtoon_name).join(', ');
-    res.send(result);
 });
 
 //화원가입 메서드
@@ -195,19 +195,19 @@ server.get('/api/LoginPage', async (req, res) => {
 });
 
 // 이미지 API 엔드포인트
-server.get('/api/img', (req, res, next) => {
-  const { webtoon_name } = req.query;
-  if (webtoon_name === '소녀재판') {
-    const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web1/web1_thumbnail.jpg';
-  } else if (webtoon_name === '마루는 강쥐'){
-    const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web2/web2_thumbnail.jpg';
-  } else if (webtoon_name === '소녀재판'){
-    const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web3/web3_thumbnail.jpg';
-  }
+// server.get('/api/img', (req, res, next) => {
+//   const { webtoon_name } = req.query;
+//   if (webtoon_name === '소녀재판') {
+//     const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web1/web1_thumbnail.jpg';
+//   } else if (webtoon_name === '마루는 강쥐'){
+//     const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web2/web2_thumbnail.jpg';
+//   } else if (webtoon_name === '소녀재판'){
+//     const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web3/web3_thumbnail.jpg';
+//   }
 
-    // 이미지 파일 전송
-    res.sendFile(imagePath);
+//     // 이미지 파일 전송
+//     res.sendFile(imagePath);
   
-  console.log(imagePath);
-  next();
-});
+//   console.log(imagePath);
+//   next();
+// });
