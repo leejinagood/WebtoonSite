@@ -94,7 +94,7 @@ class ListPage extends Component {
         <div className="List">
           {Array.from({ length: webtoonsPerPage }).map((_, index) => (
             <li key={startWebtoonIndex + index}>
-              <ListItem />
+              <ListItem webtoonName="웹툰 이름" uploadDate="2023.07.01" />
             </li>
           ))}
         </div>
