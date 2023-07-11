@@ -38,6 +38,7 @@ const AllToonInfo = () => {
       {webtoons.map((webtoon, index) => (
         <div className="AllToonInfo" key={index}>
 
+
           <Link href={`/ListPage/ListPage?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`}>
             
               <img src="1.jpg" alt="" />
@@ -47,6 +48,14 @@ const AllToonInfo = () => {
 
           <img src={getThumbnailImage(webtoon)} alt="" />
           <p className="ToonTitle">{webtoon.webtoon_name}</p>
+
+          <Link href={`/ListPage/ListPage?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`}>
+            
+          <img src={getThumbnailImage(webtoon)} alt="" />
+          <p className="ToonTitle">{webtoon.webtoon_name}</p>
+            
+          </Link>
+
 
         </div>
       ))}
