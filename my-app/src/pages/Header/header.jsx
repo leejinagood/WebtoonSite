@@ -56,7 +56,6 @@ const Header = () => {
       <div className="header">
         <div className="TopHeader">
           <div className="LogoBox">      
-          <img src="/icon-192x192.png" alt="" />
             <h1 className="Logo">AVATOON</h1>
           </div>
           <div className="rb">
