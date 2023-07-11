@@ -41,21 +41,10 @@ const AllToonInfo = () => {
 
           <Link href={`/ListPage/ListPage?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`}>
             
-              <img src="1.jpg" alt="" />
-              <p className="ToonTitle">{webtoon.webtoon_name}</p>
-            
-          </Link>
-
-          <img src={getThumbnailImage(webtoon)} alt="" />
-          <p className="ToonTitle">{webtoon.webtoon_name}</p>
-
-          <Link href={`/ListPage/ListPage?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`}>
-            
           <img src={getThumbnailImage(webtoon)} alt="" />
           <p className="ToonTitle">{webtoon.webtoon_name}</p>
             
           </Link>
-
 
         </div>
       ))}
