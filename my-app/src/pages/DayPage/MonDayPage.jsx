@@ -17,6 +17,7 @@ class MondayPage extends Component {
   }
 
   componentDidMount() {
+    // 다른 요일페이지의 key day를 가져오는것
     const { day } = this.props;
 
     //요청 메서드, 결과값 추출
