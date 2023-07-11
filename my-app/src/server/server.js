@@ -7,11 +7,13 @@
 // npm install axios --force
 // npm install restify-cors-middleware
 // npm install multer --save
+// npm install jsonwebtoken
 
 // const { error } = require('console');
 // const express = require('express');
 const restify = require('restify');
-const path = require('path');
+const fs = require('fs');
+const jwt = require('jsonwebtoken'); //jwt
 
 //서버 설정 및 미들웨어
 const server = restify.createServer();
@@ -81,7 +83,7 @@ server.get('/api/daywebtoon', async (req, res) => {
     res.send({ webtoons });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: '서버 스크립트의 오류' });
   } finally {
     conn.release();
   }
@@ -101,7 +103,7 @@ server.get('/popular', async (req, res) => {
     // console.log(result);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: '서버 스크립트의 오류' });
   } finally {
     conn.release();
   }
@@ -119,12 +121,11 @@ server.get('/api/search', async (req, res) => {
       res.send(rows);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ error: '서버 스크립트의 오류' });
     } finally {
       conn.release(); // 연결 해제
     }
   });
-  
   
 
 //새롭게 업로드된지 일주일 된 신규 웹툰의 제목을 출력
@@ -156,13 +157,13 @@ server.get('/api/webtoondetail', async (req, res) => {
     res.send({ webtoons });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: 'Internal Server Error' });
+    res.status(500).send({ error: '서버 스크립트의 오류' });
   } finally {
     conn.release(); // 연결 해제
   }
 });
 
-//화원가입 메서드
+//회원가입 메서드
 server.post('/api/SignUpPage', async(req, res) => {
   const conn = await getConn();
   const { email, pass, name, age } = req.body;
@@ -171,6 +172,7 @@ server.post('/api/SignUpPage', async(req, res) => {
   try {
     await conn.query(query, values);
     res.send("입력 성공");
+    console.log(values);
   } catch (error) {
     console.error(error);
     res.status(500).json("입력 실패");
@@ -188,29 +190,26 @@ server.get('/api/LoginPage', async (req, res) => {
   try {
     const [rows] = await conn.query(query, values);
     console.log(rows);
-    res.send(rows);
+    if (rows.length > 0) { //응답을 한 번만 보내도록
+      // 로그인 성공
+      const user = rows[0];
+      // 토큰 생성
+      const token = jwt.sign(
+        { userId: user.User_ID, userEmail: user.User_Email },
+        'your-secret-key',
+        { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
+      );
+      // 토큰을 응답으로 전송
+      res.send({ success: true, token });
+      console.log(token); //토큰 출력으로 디버깅 
+    } else {
+      // 로그인 실패
+      res.status(401).send({ error: '요청이 거부' });
+    }
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: 'Internal Server Error' });
+    res.status(500).send({ error: '서버 스크립트 오류' });
   } finally {
     conn.release(); // 연결 해제
   }
 });
-
-// 이미지 API 엔드포인트
-// server.get('/api/img', (req, res, next) => {
-//   const { webtoon_name } = req.query;
-//   if (webtoon_name === '소녀재판') {
-//     const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web1/web1_thumbnail.jpg';
-//   } else if (webtoon_name === '마루는 강쥐'){
-//     const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web2/web2_thumbnail.jpg';
-//   } else if (webtoon_name === '소녀재판'){
-//     const imagePath = '/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/WebtoonImg/web3/web3_thumbnail.jpg';
-//   }
-
-//     // 이미지 파일 전송
-//     res.sendFile(imagePath);
-  
-//   console.log(imagePath);
-//   next();
-// });
