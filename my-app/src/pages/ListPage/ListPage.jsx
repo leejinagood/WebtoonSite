@@ -9,7 +9,8 @@ class ListPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      webtoons: []
+      webtoons: [],
+      webtoonInfo:{}
     };
   }
 
