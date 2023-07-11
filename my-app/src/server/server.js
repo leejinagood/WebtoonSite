@@ -183,7 +183,7 @@ server.post('/api/SignUpPage', async(req, res) => {
 });
 
 //로그인 메서드
-server.post('/api/LoginPage', async (req, res) => {
+server.get('/api/LoginPage', async (req, res) => {
   const conn = await getConn();
   const { ID, password } = req.query;
   const values = [ID, password];
@@ -191,23 +191,21 @@ server.post('/api/LoginPage', async (req, res) => {
   try {
     const [rows] = await conn.query(query, values);
     console.log(rows);
-    res.send(rows);
-    if (rows.length === 1) {
+    if (rows.length > 0) {
       // 로그인 성공
       const user = rows[0];
-
       // 토큰 생성
       const token = jwt.sign(
         { userId: user.User_ID, userEmail: user.User_Email },
         'your-secret-key',
         { expiresIn: '1h' } // 토큰 만료 시간 설정
       );
-
       // 토큰을 응답으로 전송
       res.send({ success: true, token });
+      console.log(token);
     } else {
       // 로그인 실패
-      res.send({ success: false, message: 'Invalid credentials' });
+      res.status(401).send({ error: 'Invalid credentials' });
     }
   } catch (error) {
     console.error(error);
@@ -216,6 +214,7 @@ server.post('/api/LoginPage', async (req, res) => {
     conn.release(); // 연결 해제
   }
 });
+
 
 // 이미지 API 엔드포인트
 // server.get('/api/img', (req, res, next) => {

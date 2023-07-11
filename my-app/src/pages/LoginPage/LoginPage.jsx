@@ -15,6 +15,7 @@ const LoginPage = () => {
     setPassword(e.target.value);
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -24,12 +25,16 @@ const LoginPage = () => {
           password: password
         }
       });
-      if(response.data == ""){
+      if (response.data === "") {
         console.log(response.data);
         alert("로그인 실패");
-      }else{
+      } else {
         console.log(response.data);
         alert("로그인 성공");
+
+        // 로그인 성공 시 토큰 저장
+        localStorage.setItem("token", response.data.token);
+
         window.location.href = 'http://localhost:3000/mainpage';
       }
     } catch (error) {
