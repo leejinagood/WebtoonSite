@@ -83,7 +83,7 @@ server.get('/api/daywebtoon', async (req, res) => {
     res.send({ webtoons });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: '서버 스크립트의 오류' });
   } finally {
     conn.release();
   }
@@ -103,7 +103,7 @@ server.get('/popular', async (req, res) => {
     // console.log(result);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: '서버 스크립트의 오류' });
   } finally {
     conn.release();
   }
@@ -121,7 +121,7 @@ server.get('/api/search', async (req, res) => {
       res.send(rows);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ error: '서버 스크립트의 오류' });
     } finally {
       conn.release(); // 연결 해제
     }
@@ -158,13 +158,13 @@ server.get('/api/webtoondetail', async (req, res) => {
     res.send({ webtoons });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: 'Internal Server Error' });
+    res.status(500).send({ error: '서버 스크립트의 오류' });
   } finally {
     conn.release(); // 연결 해제
   }
 });
 
-//화원가입 메서드
+//회원가입 메서드
 server.post('/api/SignUpPage', async(req, res) => {
   const conn = await getConn();
   const { email, pass, name, age } = req.body;
@@ -198,18 +198,18 @@ server.get('/api/LoginPage', async (req, res) => {
       const token = jwt.sign(
         { userId: user.User_ID, userEmail: user.User_Email },
         'your-secret-key',
-        { expiresIn: '1h' } // 토큰 만료 시간 설정
+        { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
       );
       // 토큰을 응답으로 전송
       res.send({ success: true, token });
       console.log(token);
     } else {
       // 로그인 실패
-      res.status(401).send({ error: 'Invalid credentials' });
+      res.status(401).send({ error: '요청이 거부' });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: 'Internal Server Error' });
+    res.status(500).send({ error: '서버 스크립트 오류' });
   } finally {
     conn.release(); // 연결 해제
   }
