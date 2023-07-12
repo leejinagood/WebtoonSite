@@ -276,13 +276,14 @@ server.post('/api/comment_insert', async (req, res)=> {
 })
 
 
-//파라미터로 episode_Id를 받아와 댓글을 확인할 수 있는 메서드
+//파라미터로 Webtoon_Name과 episode_Number를 받아와 댓글을 확인할 수 있는 메서드
 server.get('/api/comment', async(req, res)=>{
   const conn = await getConn();
-  const { episode_id } = req.query;
+  const { WebtoonName, EpisodeNumber } = req.query;
+  const values = [WebtoonName, EpisodeNumber];
   const query = 'call Comment_View(?);';
   try {
-    const [rows] = await conn.query(query, [episode_id]);
+    const [rows] = await conn.query(query, [values]);
     const comment = rows[0].map(row => ({
       Comment_Content: row.Comment_Content, //댓글 내용
       Comment_Date: row.Comment_Date, //댓글을 입력한 날짜
