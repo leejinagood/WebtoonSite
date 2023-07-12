@@ -192,22 +192,26 @@ server.get('/api/webtoondetail', async (req, res) => {
 
 
 //회원가입 메서드
-server.post('/api/SignUpPage', async(req, res) => {
-  const conn = await getConn();
-  const { email, pass, name, age } = req.body;
-  const query = 'insert into User_Table (User_Email, User_Password, User_Name, User_Age) values (?, ?, ?, ?);';
-  const values = [email, pass, name, age];
-  try {
-    await conn.query(query, values);
-    res.send("입력 성공");
-    console.log(values);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json("입력 실패");
-  } finally {
-    conn.release();
-  }
-});
+// server.post('/api/SignUpPage', async (req, res) => {
+//   const conn = await getConn();
+//   const { email, pass, name, age } = req.body;
+//   const query = 'INSERT INTO User_Table (User_Email, User_Password, User_Name, User_Age) VALUES (?, ?, ?, ?);';
+//   const values = [email, pass, name, age];
+//   try {
+//     const result = await conn.query(query, values); // 회원가입 후에 삽입된 User_Id 가져오기
+//     const userInsertId = result.insertId;
+//     await conn.query('CALL user_basic_like(?)', [userInsertId]); // user_basic_like 프로시저 호출
+//     res.send('입력 성공');
+//     console.log(values);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json('입력 실패');
+//   } finally {
+//     conn.release();
+//   }
+// });
+
+
 
 
 //로그인 메서드
