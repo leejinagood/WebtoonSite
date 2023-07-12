@@ -327,3 +327,25 @@ server.get('/api/prev_episode', async(req, res) => {
     conn.release(); // 연결 해제
   }
 })
+
+
+//좋아요를 눌렀으면 1 출력, 안 눌렀으면 0 출력
+server.get('/api/like_exists', async(req, res) => {
+  const conn = await getConn();
+  const query = 'call exists_like(?);';
+  const {Webtoon_Id, User_Id} = req.query;
+  const values = [Webtoon_Id, User_Id] //웹툰 아이디와 현재 에피소드 번호를 넘겨줌. 
+  try{
+    const [result] = await conn.query(query, [values]);
+    //result에서 EXISTS 값을 추출
+    const exists = result[0][0]["exists(\n\tselect Likes\n    from Like_Table\n    where Webtoon_Id=WebtoonId and User_Id = UserId and Likes = 1)"];
+    console.log(exists);
+    //좋아요를 눌렀으면 1 안 눌렀으면 0
+    res.send({ exists: exists ? 1 : 0 }); //response 하기 전에 상태코드를 지정하여 보내주기
+  }catch (error) {
+    console.error(error);
+    res.status(500).send({ error: '서버 스크립트의 오류' });
+  } finally {
+    conn.release(); // 연결 해제
+  }
+})
