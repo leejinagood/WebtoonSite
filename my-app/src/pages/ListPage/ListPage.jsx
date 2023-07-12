@@ -12,7 +12,6 @@ const ListPage = () => {
   const [loading, setLoading] = useState(true);
   const [like, setLike] = useState(0);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 추가
-  const [ep, setEp] = useState(1); // ep 값을 상태로 관리
 
   const getThumbnailImage = (webtoon) => {
     if (webtoon.webtoon_name === "똑 닮은 딸") {
@@ -39,10 +38,9 @@ const ListPage = () => {
       fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`)
         .then((response) => response.json())
         .then((data) => {
-          const { webtoons, count } = data; // 카운터 값을 가져와서 상태에 설정
+          const { webtoons } = data;
           setWebtoonInfo(webtoons[0]);
           setWebtoons(webtoons);
-          setCount(count);
         })
         .catch((error) => {
           console.error("Error fetching API:", error);
@@ -59,10 +57,6 @@ const ListPage = () => {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber); // 페이지 변경 시 현재 페이지 업데이트
-  };
-
-  const handleEpChange = (ep) => {
-    setEp(ep); // ep 값 업데이트
   };
 
   if (loading) {
@@ -98,7 +92,7 @@ const ListPage = () => {
                 {webtoonInfo.content}
                 <div className="InfoBtn">
                   <button id="PointBtn" className="IBtn" onClick={handleLike}>
-                    좋아요 {webtoonInfo.like}
+                    좋아요 {like}
                   </button>
                   <button className="IBtn">첫화보기 1화</button>
                   <button className="SNSBTN">공유하기</button>
@@ -109,19 +103,13 @@ const ListPage = () => {
         </div>
       </div>
 
-      <ul className="List">
-        {/* 카운터 값을 이용하여 리스트 아이템 렌더링 */}
-        {Array.from({ length: webtoonInfo.count }).map((_, index) => (
-          <li key={index}>
-            <ListItem
-              webtoonName={webtoonInfo.webtoon_name}
-              ep={index + 1}
-              uploadDate={webtoonInfo.Episode_Number}
-              handleClick={handleEpChange} // 클릭 시 handleEpChange 함수 호출
-            />
+      <div className="List">
+        {webtoons.slice(startWebtoonIndex, endWebtoonIndex).map((webtoon) => (
+          <li key={webtoon.webtoon_name}>
+            <ListItem webtoonName={webtoon.webtoon_name} uploadDate={webtoon.Episode_Number} />
           </li>
         ))}
-      </ul>
+      </div>
 
       <div className="Pagination">
         <span className="Arrow">{"<"}</span>
