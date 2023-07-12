@@ -116,6 +116,7 @@ const ListPage = () => {
             <ListItem
               webtoonName={webtoonInfo.webtoon_name}
               ep={index + 1}
+              maxEp={webtoonInfo.count}
               uploadDate={webtoonInfo.Episode_Number}
               handleClick={handleEpChange} // 클릭 시 handleEpChange 함수 호출
             />

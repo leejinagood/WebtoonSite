@@ -1,17 +1,29 @@
 import React, { useState ,useEffect } from "react";
 import ClickLayoutCss from "./styles/ClickLayoutCss.css";
 import Link from 'next/link';
-// import { useRouter } from "next/router";
-const ClickLayoutComponent = ({ ep }) => {
-  // const router = useRouter();
+import { useRouter } from "next/router";
+const ClickLayoutComponent = ({ ep ,MaxEp }) => {
+  const router = useRouter();
   const [count, setCount] = useState(ep); // 현재 화 수
+  const [maxep, setMexEp] = useState(MaxEp); // 현재 화 수
 
   const handlePrevEpisode = () => {
-    setCount((prevCount) => prevCount - 1);
+    if (ep > 1) {
+      const prevEp = ep - 1;
+      router.push(`/WebToonPage/${prevEp}`); // 이전 화면으로 이동
+    } else {
+      window.alert("첫 번째 화입니다."); // 오류 메시지 출력
+    }
   };
 
   const handleNextEpisode = () => {
-    setCount((prevCount) => prevCount + 1);
+    const currentEp = parseInt(ep, 10); // 문자열을 숫자로 변환
+    if (currentEp < MaxEp) {
+      const nextEp = currentEp + 1;
+      router.push(`/WebToonPage/${nextEp}`); // 다음 화면으로 이동
+    } else {
+      window.alert("마지막 화입니다."); // 오류 메시지 출력
+    }
   };
 
   // useEffect(() => {

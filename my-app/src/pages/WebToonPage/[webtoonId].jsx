@@ -12,7 +12,8 @@ const WebToonPage = () => {
   const [webtoons, setWebtoons] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
   const [selectedWebtoon, setSelectedWebtoon] = useState(null);
-  const [ep, setEp] = useState(null); // ep 값을 상태로 관리
+  const [selectedWebtoonName, setSelectedWebtoonName] = useState(null);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     fetch("/api/daywebtoon?day=All")
@@ -20,12 +21,30 @@ const WebToonPage = () => {
       .then((data) => {
         setWebtoons(data.webtoons);
         const selectedWebtoon = data.webtoons.find((webtoon) => webtoon.id === webtoonId);
-        setEp(selectedWebtoon.ep);
+        setSelectedWebtoon(selectedWebtoon);
+
+        const fetchWebtoonDetail = async () => {
+          try {
+            const response = await fetch(`/api/webtoondetail?name=${encodeURIComponent(selectedWebtoonName)}`);
+            const data = await response.json();
+            const { webtoons } = data;
+            const selectedWebtoon = webtoons[0];
+            const count = selectedWebtoon.count;
+            setCount(count);
+          } catch (error) {
+            console.error("Error fetching API:", error);
+          }
+        };
+
+        if (selectedWebtoon) {
+          setSelectedWebtoonName(selectedWebtoon.webtoon_name);
+          fetchWebtoonDetail();
+        }
       })
       .catch((error) => {
         console.error("Error fetching API:", error);
       });
-  }, [webtoonId]);
+  }, [webtoonId, selectedWebtoonName]);
 
   const handleWebToonCutClick = (webtoon) => {
     setSelectedWebtoon(webtoon);
@@ -54,7 +73,7 @@ const WebToonPage = () => {
           </div>
         ))}
       </div>
-      {selectedWebtoon && isVisible && <ClickLayoutComponent ep={webtoonId} />}
+      {selectedWebtoon && isVisible && <ClickLayoutComponent ep={webtoonId} MaxEp={count} />}
       <Footer />
     </div>
   );
