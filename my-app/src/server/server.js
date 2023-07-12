@@ -364,7 +364,7 @@ server.get('/api/like_exists', async(req, res) => {
   }
 })
 
-
+//위 코드에서 0일 때만 좋아요를 누를 수 있음
 //User_Id와 Webtoon_Id을 파라미터로 받아서 좋아요 누르면 +1 되도록 
 server.put('/api/update_like', async (req, res)=> {
   const conn = await getConn();
