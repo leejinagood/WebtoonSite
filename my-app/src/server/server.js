@@ -28,7 +28,9 @@ server.use(restify.plugins.queryParser());
 // const app = express();
 const port = 4000;
 
+
 const corsMiddleware = require('restify-cors-middleware');
+
 
 // CORS 정책 설정
 const cors = corsMiddleware({
@@ -36,12 +38,15 @@ const cors = corsMiddleware({
   allowHeaders: ['Authorization'],
 });
 
+
 server.pre(cors.preflight);
 server.use(cors.actual);
+
 
 const getConn = async () => {
     return await pool.getConnection(async(conn) => conn) ;
 }
+
 
 //데이터베이스 연동
 const mysql = require('mysql2/promise');
@@ -90,17 +95,38 @@ server.get('/api/daywebtoon', async (req, res) => {
 });
 
 
+// //메인페이지에서 좋아요가 가장 높은 웹툰 중 top5 제목과 작가 출력
+// server.get('/popular', async (req, res) => {
+//   const conn = await getConn();
+//   const query = 'SELECT Webtoon_Table.Webtoon_Name, Webtoon_Table.Webtoon_Author FROM Webtoon_Table JOIN Webtoon_Detail_Table ON Webtoon_Table.Webtoon_Id = Webtoon_Detail_Table.Webtoon_Id JOIN Like_Table ON Webtoon_Table.Webtoon_Id = Like_Table.Webtoon_Id WHERE Like_Table.Likes = true GROUP BY Like_Table.Webtoon_Id ORDER BY COUNT(Like_Table.Likes) DESC LIMIT 5;';
+//   try {
+//     const [rows] = await conn.query(query);
+//     const result = rows.map((row) => 
+//     ({ webtoon_name: row.Webtoon_Name,  //웹툰 제목
+//       author: row.Webtoon_Author})); //작가 이름
+//     res.send(result);
+//     // console.log(result);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: '서버 스크립트의 오류' });
+//   } finally {
+//     conn.release();
+//   }
+// });
+
 //메인페이지에서 좋아요가 가장 높은 웹툰 중 top5 제목과 작가 출력
+//위 코드를 프로시저로 사용 
 server.get('/popular', async (req, res) => {
   const conn = await getConn();
-  const query = 'SELECT Webtoon_Table.Webtoon_Name, Webtoon_Table.Webtoon_Author FROM Webtoon_Table JOIN Webtoon_Detail_Table ON Webtoon_Table.Webtoon_Id = Webtoon_Detail_Table.Webtoon_Id JOIN Like_Table ON Webtoon_Table.Webtoon_Id = Like_Table.Webtoon_Id WHERE Like_Table.Likes = true GROUP BY Like_Table.Webtoon_Id ORDER BY COUNT(Like_Table.Likes) DESC LIMIT 5;';
+  const query = 'CALL Like_Top();'; // 프로시저 호출
   try {
     const [rows] = await conn.query(query);
-    const result = rows.map((row) => 
-    ({ webtoon_name: row.Webtoon_Name,  //웹툰 제목
-      author: row.Webtoon_Author})); //작가 이름
+    const result = rows[0].map((row) => ({
+      webtoon_name: row.Webtoon_Name,
+      author: row.Webtoon_Author
+    }));
     res.send(result);
-    // console.log(result);
+    console.log(result);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: '서버 스크립트의 오류' });
@@ -129,13 +155,14 @@ server.get('/api/search', async (req, res) => {
   
 
 //새롭게 업로드된지 일주일 된 신규 웹툰의 제목을 출력
-server.get('/new', async (req, res) => {
+server.get('/api/new', async (req, res) => {
     const conn = await getConn();
     const query = 'SELECT Webtoon_Table.Webtoon_Name FROM Webtoon_Table JOIN Webtoon_Detail_Table ON Webtoon_Table.Webtoon_Id = Webtoon_Detail_Table.Webtoon_Id WHERE Webtoon_Date >= DATE_SUB(NOW(), INTERVAL 7 DAY);';
     let [rows] = await conn.query(query);
     const result = rows.map((row) => row.webtoon_name).join(', '); //웹툰 제목만 출력
     res.send(result);
 });
+
 
 //웹툰 list에 들어갈 정보
 //Rank에서 웹툰 이미지나 제목을 클릭했을 때 보이는 웹툰 정보들
@@ -163,6 +190,7 @@ server.get('/api/webtoondetail', async (req, res) => {
   }
 });
 
+
 //회원가입 메서드
 server.post('/api/SignUpPage', async(req, res) => {
   const conn = await getConn();
@@ -180,6 +208,7 @@ server.post('/api/SignUpPage', async(req, res) => {
     conn.release();
   }
 });
+
 
 //로그인 메서드
 server.get('/api/LoginPage', async (req, res) => {
@@ -213,3 +242,45 @@ server.get('/api/LoginPage', async (req, res) => {
     conn.release(); // 연결 해제
   }
 });
+
+
+// 댓글 입력 메서드
+server.post('/api/comment_insert', async (req, res)=> {
+  const conn = await getConn();
+  const { Comment_Content, User_Id, webtoon_Id, Episode_Id } = req.body;
+  const query = 'insert into Comment_Table (Comment_Date, Comment_Content, User_Id, webtoon_Id, Episode_Id) values (now(), ? , ?, ?, ?);';
+  const values = [Comment_Content, User_Id, webtoon_Id, Episode_Id];
+  try {
+    await conn.query(query, values);
+    res.send("댓글 입력 성공");
+    console.log(Comment_Content);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("입력 실패");
+  } finally {
+    conn.release();
+  }
+})
+
+
+//파라미터로 episode_Id를 받아와 댓글을 확인할 수 있는 메서드
+server.get('/api/comment', async(req, res)=>{
+  const conn = await getConn();
+  const { episode_id } = req.query;
+  const query = 'call Comment_View(?);';
+  try {
+    const [rows] = await conn.query(query, [episode_id]);
+    const comment = rows[0].map(row => ({
+      Comment_Content: row.Comment_Content, //댓글 내용
+      Comment_Date: row.Comment_Date, //댓글을 입력한 날짜
+      User_Name: row.User_Name  //사용자 닉네임
+    }));
+    console.log({comment});
+    res.send({ comment });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: '서버 스크립트의 오류' });
+  } finally {
+    conn.release(); // 연결 해제
+  }
+})
