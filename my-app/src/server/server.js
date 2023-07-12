@@ -192,24 +192,33 @@ server.get('/api/webtoondetail', async (req, res) => {
 
 
 //회원가입 메서드
-// server.post('/api/SignUpPage', async (req, res) => {
-//   const conn = await getConn();
-//   const { email, pass, name, age } = req.body;
-//   const query = 'INSERT INTO User_Table (User_Email, User_Password, User_Name, User_Age) VALUES (?, ?, ?, ?);';
-//   const values = [email, pass, name, age];
-//   try {
-//     const result = await conn.query(query, values); // 회원가입 후에 삽입된 User_Id 가져오기
-//     const userInsertId = result.insertId;
-//     await conn.query('CALL user_basic_like(?)', [userInsertId]); // user_basic_like 프로시저 호출
-//     res.send('입력 성공');
-//     console.log(values);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json('입력 실패');
-//   } finally {
-//     conn.release();
-//   }
-// });
+server.post('/api/SignUpPage', async (req, res) => {
+  const conn = await getConn();
+  const { email, pass, name, age } = req.body;
+  const query = 'INSERT INTO User_Table (User_Email, User_Password, User_Name, User_Age) VALUES (?, ?, ?, ?);';
+  const values = [email, pass, name, age];
+  try {
+    await conn.query(query, values);
+
+    //회원가입을 한 이메일을 가지고 와서 User_Id와 조회해본 후 User_Id만 추출
+    const check_query = 'SELECT User_Id FROM User_Table WHERE User_Email = ?;';
+    const [rows] = await conn.query(check_query, [email]);
+    const userId = rows[0]?.User_Id;
+
+    //User_Id를 프로시저에 파라미터로 준 후 모든 웹툰에 대한 Like의 초기화
+    if (userId) {
+      const likes_set = 'CALL user_basic_like(?);';
+      await conn.query(likes_set, [userId]);
+    }
+    res.send("입력 성공");
+    console.log(values);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("입력 실패");
+  } finally {
+    conn.release();
+  }
+});
 
 
 
