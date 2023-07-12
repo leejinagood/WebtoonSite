@@ -364,6 +364,8 @@ server.put('/api/update_like', async (req, res)=> {
       // const result = await conn.query(result_query, [value.Webtoon_Id]); 
       // res.send(result);
       // console.log(result);
+      console.log("좋아요 추가 성공");
+      res.send("좋아요 추가 성공");
     } catch (error) {
       console.error(error);
       res.status(500).json("입력 실패");
