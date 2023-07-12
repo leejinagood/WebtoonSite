@@ -7,7 +7,7 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick ,maxEp}) => {
   };
 
   return (
-    <Link href={`/WebToonPage/${webtoonName}&Episode_Number=${ep}`}>
+    <Link href={`/WebToonPage/Webtoon_Name=${webtoonName}&Episode_Number=${ep}`}>
       <div className="ListItem" onClick={handleItemClick}>
         <div className="ListImg">
           <img src="1.jpg" alt="s" />
