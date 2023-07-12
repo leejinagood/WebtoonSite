@@ -284,3 +284,46 @@ server.get('/api/comment', async(req, res)=>{
     conn.release(); // 연결 해제
   }
 })
+
+
+//다음 화가 존재하는지 안 하는지 1, 0으로 전달
+server.get('/api/next_episode', async(req, res) => {
+  const conn = await getConn();
+  const query = 'call episode_next(?);';
+  const {Webtoon_Id, Episode_Number} = req.query;
+  const values = [Webtoon_Id, Episode_Number] //웹툰 아이디와 현재 에피소드 번호를 넘겨줌. 
+  try{
+    const [result] = await conn.query(query, [values]);
+    //result에서 EXISTS 값을 추출
+    const exists = result[0][0]["EXISTS (\n\tselect Episode_Number \n\tfrom Episode_Table \n\twhere Webtoon_Id = WebtoonId and Episode_Number = EpisodeNumber+1)"];
+    console.log(exists);
+    //다음 화가 존재하면 1 아니면 0
+    res.send({ exists: exists ? 1 : 0 }); //response 하기 전에 상태코드를 지정하여 보내주기
+  }catch (error) {
+    console.error(error);
+    res.status(500).send({ error: '서버 스크립트의 오류' });
+  } finally {
+    conn.release(); // 연결 해제
+  }
+})
+
+//이전 화가 존재하는지 안 하는지 1, 0 으로 알려줌
+server.get('/api/prev_episode', async(req, res) => {
+  const conn = await getConn();
+  const query = 'call episode_prev(?);';
+  const {Webtoon_Id, Episode_Number} = req.query;
+  const values = [Webtoon_Id, Episode_Number] //웹툰 아이디와 현재 에피소드 번호를 넘겨줌. 
+  try{
+    const [result] = await conn.query(query, [values]);
+     //result에서 EXISTS 값을 추출
+    const exists = result[0][0]["EXISTS (\n\tselect Episode_Number \n\tfrom Episode_Table \n\twhere Webtoon_Id = WebtoonId and Episode_Number = EpisodeNumber-1)"];
+    console.log(exists);
+    //이전 화가 존재하면 1 아니면 0
+    res.send({ exists: exists ? 1 : 0 }); //response 하기 전에 상태코드를 지정하여 보내주기 
+  }catch (error) {
+    console.error(error);
+    res.status(500).send({ error: '서버 스크립트의 오류' });
+  } finally {
+    conn.release(); // 연결 해제
+  }
+})
