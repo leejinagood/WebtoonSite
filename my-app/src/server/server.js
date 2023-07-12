@@ -307,6 +307,7 @@ server.get('/api/next_episode', async(req, res) => {
   }
 })
 
+
 //이전 화가 존재하는지 안 하는지 1, 0 으로 알려줌
 server.get('/api/prev_episode', async(req, res) => {
   const conn = await getConn();
@@ -349,3 +350,24 @@ server.get('/api/like_exists', async(req, res) => {
     conn.release(); // 연결 해제
   }
 })
+
+
+//User_Id와 Webtoon_Id을 파라미터로 받아서 좋아요 누르면 +1 되도록 
+server.put('/api/update_like', async (req, res)=> {
+  const conn = await getConn();
+  const query = 'call update_like(?)';
+  const {User_Id, Webtoon_Id} = req.body;
+  const value = [User_Id, Webtoon_Id];
+  try {
+      await conn.query(query, [value]); 
+      // const result_query = "select count(Likes)  from Like_Table where Likes = true and Webtoon_Id = ? group by Webtoon_Id;";
+      // const result = await conn.query(result_query, [value.Webtoon_Id]); 
+      // res.send(result);
+      // console.log(result);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json("입력 실패");
+    } finally {
+      conn.release(); 
+    }
+});
