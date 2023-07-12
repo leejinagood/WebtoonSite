@@ -386,3 +386,20 @@ server.put('/api/update_like', async (req, res)=> {
       conn.release(); 
     }
 });
+
+
+//webtoon_name을 입력받고 Episode_Id를 보내주는 메서드 
+server.get('/api/Episode_Id', async(req, res) => {
+  const conn = await getConn();
+  const query = "select Episode_Id from Episode_Table join Webtoon_Table on Webtoon_Table.Webtoon_Id = Episode_Table.Webtoon_Id where Webtoon_Table.Webtoon_Name = ?;"
+  const {Webtoon_Name} = req.query;
+  try{
+    const [result] = await conn.query(query, [Webtoon_Name]);
+    console.log(result);
+    res.send(result);
+  }catch (error) {
+    console.error(error);
+    res.status(500).send({ error: '서버 스크립트의 오류' });
+  } finally {
+    conn.release(); // 연결 해제
+}});
