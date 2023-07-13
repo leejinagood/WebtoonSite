@@ -20,7 +20,9 @@ const WebToonPage = () => {
         const response = await fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`);
         const data = await response.json();
         const { webtoons } = data;
+        //data 의 webtoon_name을 찾아 맞는 webtoon_name를
         const selectedWebtoon = webtoons.find((webtoon) => webtoon.webtoon_name === webtoonName);
+        // selectedWebtoon로 할당
         setSelectedWebtoon(selectedWebtoon);
         setWebtoons(webtoons);
         setCount(selectedWebtoon?.count || 0);
@@ -34,18 +36,16 @@ const WebToonPage = () => {
     }
   }, [webtoonName]);
   
-
+  // 기존 코드에서 간소화
   const getWebtoonImage = (webtoon) => {
-    if (webtoon.webtoon_name === "똑 닮은 딸") {
-      return "/WebtoonImg/web1/web1_1/web1_1_1.png";
-    } else if (webtoon.webtoon_name === "마루는 강쥐") {
-      return "/WebtoonImg/web2/web2_thumbnail.jpg";
-    } else if (webtoon.webtoon_name === "소녀재판") {
-      return "/WebtoonImg/web3/web3_1/web3_1_1.png";
-    }
-    // 기본값으로 설정할 이미지 경로
-    return "1.jpg";
+    const webtoonImages = {
+      "똑 닮은 딸": "/WebtoonImg/web1/web1_1/web1_1_1.png",
+      "마루는 강쥐": "/WebtoonImg/web2/web2_thumbnail.jpg",
+      "소녀재판": "/WebtoonImg/web3/web3_1/web3_1_1.png",
+    };
+    return webtoonImages[webtoon.webtoon_name] || "1.jpg";
   };
+  
 
   const handleWebToonCutClick = (webtoon) => {
     setSelectedWebtoon(webtoon);
