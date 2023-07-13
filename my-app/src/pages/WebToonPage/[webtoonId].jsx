@@ -22,7 +22,9 @@ const WebToonPage = () => {
         const response = await fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`);
         const data = await response.json();
         const { webtoons } = data;
+        //data 의 webtoon_name을 찾아 맞는 webtoon_name를
         const selectedWebtoon = webtoons.find((webtoon) => webtoon.webtoon_name === webtoonName);
+        // selectedWebtoon로 할당
         setSelectedWebtoon(selectedWebtoon);
         setWebtoons(webtoons);
         setCount(selectedWebtoon?.count || 0);
@@ -36,6 +38,8 @@ const WebToonPage = () => {
     }
   }, [webtoonName]);
 
+  // 기존 코드에서 간소화
+  // episodeNumber 추가
   const getWebtoonImage = (webtoon, episodeNumber) => {
     const webtoonImages = {
       "똑 닮은 딸": {
@@ -44,6 +48,20 @@ const WebToonPage = () => {
           "/WebtoonImg/web1/web1_1/web1_1_2.png",
           "/WebtoonImg/web1/web1_1/web1_1_3.png",
           "/WebtoonImg/web1/web1_1/web1_1_4.png"
+        ],
+        2: [
+          "/WebtoonImg/web1/web1_2/web1_2_1.png",
+          "/WebtoonImg/web1/web1_2/web1_2_2.png",
+          "/WebtoonImg/web1/web1_2/web1_2_3.png",
+          "/WebtoonImg/web1/web1_2/web1_2_4.png",
+          "/WebtoonImg/web1/web1_2/web1_2_5.png"
+        ],
+        3: [
+          "/WebtoonImg/web1/web1_3/web1_3_1.png",
+          "/WebtoonImg/web1/web1_3/web1_3_2.png",
+          "/WebtoonImg/web1/web1_3/web1_3_3.png",
+          "/WebtoonImg/web1/web1_3/web1_3_4.png",
+          "/WebtoonImg/web1/web1_3/web1_3_5.png"
         ],
       },
       "마루는 강쥐": {
@@ -54,7 +72,7 @@ const WebToonPage = () => {
       },
     };
 
-    return webtoonImages[webtoon.webtoon_name]?.[episodeNumber] || "1.jpg";
+    return webtoonImages[webtoon.webtoon_name]?.[episodeNumber] || "";
   };
 
   const handleWebToonCutClick = (webtoon) => {
@@ -76,7 +94,7 @@ const WebToonPage = () => {
       <div className="WebToonBox">
         {webtoons.map((webtoon, index) => (
           <div className="WebToonCut" key={index} onClick={() => handleWebToonCutClick(webtoon)}>
-            {webtoon.webtoon_name === "똑 닮은 딸" && episodeNumber === 1 ? (
+            {(webtoon.webtoon_name === "똑 닮은 딸" && episodeNumber >= 1 && episodeNumber <= 5) ? (
               getWebtoonImage(webtoon, episodeNumber).map((image, imageIndex) => (
                 <img key={imageIndex} src={image} alt={`Webtoon Image ${imageIndex}`} />
               ))
@@ -91,5 +109,6 @@ const WebToonPage = () => {
     </div>
   );
 };
+
 
 export default WebToonPage;
