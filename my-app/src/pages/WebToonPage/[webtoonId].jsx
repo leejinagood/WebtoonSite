@@ -9,7 +9,6 @@ import WebToonPageCss from "./styles/WebToonPageCss.css";
 const WebToonPage = () => {
   const router = useRouter();
 
-  const {WebToonName, Episode } = router.query;
 
 
 
@@ -143,7 +142,7 @@ const WebToonPage = () => {
 
 
   
-  console.log(WebToonName, Episode );
+  console.log(webtoonName, episodeNumber );
 
   return (
     <div className="WebToonPage" onClick={handleScreenClick}>
