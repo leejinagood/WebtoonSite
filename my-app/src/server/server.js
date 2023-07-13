@@ -276,13 +276,14 @@ server.post('/api/comment_insert', async (req, res)=> {
 })
 
 
-//파라미터로 episode_Id를 받아와 댓글을 확인할 수 있는 메서드
+//파라미터로 Webtoon_Name과 episode_Number를 받아와 댓글을 확인할 수 있는 메서드
 server.get('/api/comment', async(req, res)=>{
   const conn = await getConn();
-  const { episode_id } = req.query;
+  const { WebtoonName, EpisodeNumber } = req.query;
+  const values = [WebtoonName, EpisodeNumber];
   const query = 'call Comment_View(?);';
   try {
-    const [rows] = await conn.query(query, [episode_id]);
+    const [rows] = await conn.query(query, [values]);
     const comment = rows[0].map(row => ({
       Comment_Content: row.Comment_Content, //댓글 내용
       Comment_Date: row.Comment_Date, //댓글을 입력한 날짜
@@ -303,12 +304,12 @@ server.get('/api/comment', async(req, res)=>{
 server.get('/api/next_episode', async(req, res) => {
   const conn = await getConn();
   const query = 'call episode_next(?);';
-  const {Webtoon_Id, Episode_Number} = req.query;
-  const values = [Webtoon_Id, Episode_Number] //웹툰 아이디와 현재 에피소드 번호를 넘겨줌. 
+  const {Webtoon_Name, Episode_Number} = req.query;
+  const values = [Webtoon_Name, Episode_Number] //웹툰 이름과 현재 에피소드 번호를 넘겨줌. 
   try{
     const [result] = await conn.query(query, [values]);
     //result에서 EXISTS 값을 추출
-    const exists = result[0][0]["EXISTS (\n\tselect Episode_Number \n\tfrom Episode_Table \n\twhere Webtoon_Id = WebtoonId and Episode_Number = EpisodeNumber+1)"];
+    const exists = result[0][0]["EXISTS (\n\tselect Episode_Number \n\tfrom Episode_Table \n    join Webtoon_Table on Episode_Table.Webtoon_Id = Webtoon_Table.Webtoon_Id\n\twhere Episode_Table.Episode_Number = EpisodeNumber + 1 and  Webtoon_Table.Webtoon_Name = WebtoonName\n    )"];
     console.log(exists);
     //다음 화가 존재하면 1 아니면 0
     res.send({ exists: exists ? 1 : 0 }); //response 하기 전에 상태코드를 지정하여 보내주기
@@ -325,12 +326,12 @@ server.get('/api/next_episode', async(req, res) => {
 server.get('/api/prev_episode', async(req, res) => {
   const conn = await getConn();
   const query = 'call episode_prev(?);';
-  const {Webtoon_Id, Episode_Number} = req.query;
-  const values = [Webtoon_Id, Episode_Number] //웹툰 아이디와 현재 에피소드 번호를 넘겨줌. 
+  const {Webtoon_Name, Episode_Number} = req.query;
+  const values = [Webtoon_Name, Episode_Number] //웹툰 이름과 현재 에피소드 번호를 넘겨줌. 
   try{
     const [result] = await conn.query(query, [values]);
      //result에서 EXISTS 값을 추출
-    const exists = result[0][0]["EXISTS (\n\tselect Episode_Number \n\tfrom Episode_Table \n\twhere Webtoon_Id = WebtoonId and Episode_Number = EpisodeNumber-1)"];
+    const exists = result[0][0]["EXISTS (\n\tselect Episode_Number \n\tfrom Episode_Table \n    join Webtoon_Table on Episode_Table.Webtoon_Id = Webtoon_Table.Webtoon_Id\n\twhere Episode_Table.Episode_Number = EpisodeNumber - 1 and  Webtoon_Table.Webtoon_Name = WebtoonName\n    )"];
     console.log(exists);
     //이전 화가 존재하면 1 아니면 0
     res.send({ exists: exists ? 1 : 0 }); //response 하기 전에 상태코드를 지정하여 보내주기 
@@ -386,3 +387,20 @@ server.put('/api/update_like', async (req, res)=> {
       conn.release(); 
     }
 });
+
+
+//webtoon_name을 입력받고 Episode_Id를 보내주는 메서드 
+server.get('/api/Episode_Id', async(req, res) => {
+  const conn = await getConn();
+  const query = "select Episode_Id from Episode_Table join Webtoon_Table on Webtoon_Table.Webtoon_Id = Episode_Table.Webtoon_Id where Webtoon_Table.Webtoon_Name = ?;"
+  const {Webtoon_Name} = req.query;
+  try{
+    const [result] = await conn.query(query, [Webtoon_Name]);
+    console.log(result);
+    res.send(result);
+  }catch (error) {
+    console.error(error);
+    res.status(500).send({ error: '서버 스크립트의 오류' });
+  } finally {
+    conn.release(); // 연결 해제
+}});

@@ -5,8 +5,12 @@ import WebToonPage from "../WebToonPage/[webtoonId]";
 import { useRouter } from "next/router";
 const ListItem = ({ webtoonName, ep, uploadDate, handleClick ,maxEp}) => {
   const router = useRouter();
+
+const ListItem = ({ webtoonName, ep, uploadDate, handleClick, maxEp }) => {
   const handleItemClick = () => {
     handleClick(ep); // ep 값을 업데이트
+    const queryString = `?webtoonName=${encodeURIComponent(webtoonName)}&episodeNumber=${ep}`;
+    window.location.href = `/WebToonPage/WebToonPage${queryString}`;
   };
 
   useEffect(() => {
@@ -29,6 +33,8 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick ,maxEp}) => {
   return (
     // <div onClick={WebToonPageMove}>
     <Link href={`/WebToonPage/WebToonPage?WebToonName=${webtoonName}&Episode=${ep}`}>
+    <div className="ListItem" onClick={handleItemClick}>
+      {/* <Link href={`/WebToonPage/WebToonPage?webtoonName=${encodeURIComponent(webtoonName)}&episodeNumber=${encodeURIComponent(ep)}`}> */}
       <div className="ListItem" onClick={handleItemClick}>
         <div className="ListImg">
           <img src="1.jpg" alt="s" />
@@ -43,9 +49,9 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick ,maxEp}) => {
           </p>
         </div>
       </div>
+      </div>
     </Link>
-    // </div>
   );
 };
-
+}
 export default ListItem;
