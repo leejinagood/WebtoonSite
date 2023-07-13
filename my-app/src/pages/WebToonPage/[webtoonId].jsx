@@ -118,7 +118,42 @@ const WebToonPage = () => {
           "/WebtoonImg/web4/web4_2/web4_2_2.png",
           "/WebtoonImg/web4/web4_2/web4_2_3.png"
         ]
-      }
+      },
+    "외모지상주의":{
+      1: [
+        "/WebtoonImg/web5/web5_1/web5_1_1.png",
+        "/WebtoonImg/web5/web5_1/web5_1_2.png",
+        "/WebtoonImg/web5/web5_1/web5_1_3.png",
+        "/WebtoonImg/web5/web5_1/web5_1_4.png",
+        "/WebtoonImg/web5/web5_1/web5_1_5.png",
+        "/WebtoonImg/web5/web5_1/web5_1_6.png"
+      ],
+      2: [
+        "/WebtoonImg/web5/web5_2/web5_2_1.png",
+        "/WebtoonImg/web5/web5_2/web5_2_2.png",
+        "/WebtoonImg/web5/web5_2/web5_2_3.png",
+        "/WebtoonImg/web5/web5_2/web5_2_4.png",
+        "/WebtoonImg/web5/web5_2/web5_2_5.png"
+      ],
+      3: [
+        "/WebtoonImg/web5/web5_3/web5_3_1.png",
+        "/WebtoonImg/web5/web5_3/web5_3_2.png",
+        "/WebtoonImg/web5/web5_3/web5_3_3.png"
+      ]
+      },
+      "퀘스트지상주의":{
+        1: [
+          "/WebtoonImg/web6/web6_1/web6_1_1.png",
+          "/WebtoonImg/web6/web6_1/web6_1_2.png",
+          "/WebtoonImg/web6/web6_1/web6_1_3.png"
+        ],
+        2: [
+          "/WebtoonImg/web6/web6_2/web6_2_1.png",
+          "/WebtoonImg/web6/web6_2/web6_2_2.png",
+          "/WebtoonImg/web6/web6_2/web6_2_3.png",
+          "/WebtoonImg/web6/web6_2/web6_2_4.png"
+        ]
+        }
     };
   
     return webtoonImages[webtoon.webtoon_name]?.[episodeNumber] || [];
