@@ -15,25 +15,26 @@ const WebToonPage = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    fetch("/api/daywebtoon?day=All")
+    fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`)
       .then((response) => response.json())
       .then((data) => {
         setWebtoons(data.webtoons);
         const selectedWebtoon = data.webtoons.find((webtoon) => webtoon.webtoon_name === webtoonName);
         setSelectedWebtoon(selectedWebtoon);
+          
 
-        const fetchWebtoonDetail = async () => {
-          try {
-            const response = await fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`);
-            const data = await response.json();
-            const { webtoons } = data;
-            const selectedWebtoon = webtoons[0];
-            const count = selectedWebtoon.count;
-            setCount(count);
-          } catch (error) {
-            console.error("Error fetching API:", error);
-          }
-        };
+        // const fetchWebtoonDetail = async () => {
+        //   try {
+        //     const response = await fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`);
+        //     const data = await response.json();
+        //     const { webtoons } = data;
+        //     const selectedWebtoon = webtoons[0];
+        //     const count = selectedWebtoon.count;
+        //     setCount(count);
+        //   } catch (error) {
+        //     console.error("Error fetching API:", error);
+        //   }
+        // };
 
         if (selectedWebtoon) {
           fetchWebtoonDetail();
@@ -48,7 +49,7 @@ const WebToonPage = () => {
     if (webtoon.webtoon_name === "똑 닮은 딸") {
       return "/WebtoonImg/web1/web1_1/web1_1_1.png";
     } else if (webtoon.webtoon_name === "마루는 강쥐") {
-      return "/WebtoonImg/web2/web2_1/web2_1_1.png";
+      return "/WebtoonImg/web2/web2_thumbnail.jpg";
     } else if (webtoon.webtoon_name === "소녀재판") {
       return "/WebtoonImg/web3/web3_1/web3_1_1.png";
     }

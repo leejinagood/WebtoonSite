@@ -1,13 +1,15 @@
 import React from "react";
 import Link from 'next/link';
 
-const ListItem = ({ webtoonName, ep, uploadDate, handleClick ,maxEp}) => {
+const ListItem = ({ webtoonName, ep, uploadDate, handleClick, maxEp }) => {
   const handleItemClick = () => {
     handleClick(ep); // ep 값을 업데이트
+    const queryString = `?webtoonName=${encodeURIComponent(webtoonName)}&episodeNumber=${ep}`;
+    window.location.href = `/WebToonPage/WebToonPage${queryString}`;
   };
-
   return (
-    <Link href={`/WebToonPage/Webtoon_Name=${webtoonName}&Episode_Number=${ep}`}>
+    <div className="ListItem" onClick={handleItemClick}>
+      <Link href={`/WebToonPage/WebToonPage?webtoonName=${encodeURIComponent(webtoonName)}&episodeNumber=${encodeURIComponent(ep)}`}>
       <div className="ListItem" onClick={handleItemClick}>
         <div className="ListImg">
           <img src="1.jpg" alt="s" />
@@ -23,6 +25,7 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick ,maxEp}) => {
         </div>
       </div>
     </Link>
+    </div>
   );
 };
 
