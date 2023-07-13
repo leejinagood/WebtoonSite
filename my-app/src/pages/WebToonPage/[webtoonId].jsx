@@ -7,12 +7,11 @@ import WebToonPageCss from "./styles/WebToonPageCss.css";
 
 const WebToonPage = () => {
   const router = useRouter();
-  const { webtoonName, ep } = router.query;
+  const { webtoonName, episodeNumber } = router.query;
 
   const [webtoons, setWebtoons] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
   const [selectedWebtoon, setSelectedWebtoon] = useState(null);
-  const [selectedWebtoonName, setSelectedWebtoonName] = useState(null);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -25,7 +24,7 @@ const WebToonPage = () => {
 
         const fetchWebtoonDetail = async () => {
           try {
-            const response = await fetch(`/api/webtoondetail?name=${encodeURIComponent(selectedWebtoonName)}`);
+            const response = await fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`);
             const data = await response.json();
             const { webtoons } = data;
             const selectedWebtoon = webtoons[0];
@@ -37,14 +36,13 @@ const WebToonPage = () => {
         };
 
         if (selectedWebtoon) {
-          setSelectedWebtoonName(selectedWebtoon.webtoon_name);
           fetchWebtoonDetail();
         }
       })
       .catch((error) => {
         console.error("Error fetching API:", error);
       });
-  }, [webtoonName, selectedWebtoonName]);
+  }, [webtoonName]);
 
   const getWebtoonImage = (webtoon) => {
     if (webtoon.webtoon_name === "똑 닮은 딸") {
@@ -85,7 +83,7 @@ const WebToonPage = () => {
           </div>
         ))}
       </div>
-      {selectedWebtoon && isVisible && <ClickLayoutComponent ep={ep} MaxEp={count} />}
+      {selectedWebtoon && isVisible && <ClickLayoutComponent webtoonName={webtoonName} episodeNumber={episodeNumber} maxEp={count} />}
       <Footer />
     </div>
   );
