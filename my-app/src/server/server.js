@@ -8,13 +8,15 @@
 // npm install restify-cors-middleware
 // npm install multer --save
 // npm install jsonwebtoken
+// npm install jsonwebtoken bcrypt
 
 // const { error } = require('console');
 // const express = require('express');
+
 const restify = require('restify');
 const fs = require('fs');
 const jwt = require('jsonwebtoken'); //jwt
-const bcrypt = require('bcrypt'); //비밀번호 암호화
+const bcrypt = require('bcrypt');
 
 //서버 설정 및 미들웨어
 const server = restify.createServer();
@@ -226,9 +228,60 @@ server.post('/api/SignUpPage', async (req, res) => {
 
 
 
+// 로그인 메서드
+// server.get('/api/LoginPage', async (req, res) => {
+//   const conn = await getConn();
+//   const { ID, password } = req.query;
+
+//   // 비밀번호 비교 함수
+//   async function comparePassword(plainPassword, hashedPassword) {
+//     return await bcrypt.compare(plainPassword, hashedPassword);
+//   }
+
+//   try {
+//     // 이메일에 해당하는 회원 정보 가져오기
+//     const query = 'SELECT * FROM User_Table WHERE User_Email = ?;';
+//     const [rows] = await conn.query(query, [ID]);
+
+//     if (rows.length === 0) {
+//       // 회원 정보가 없는 경우
+//       res.send("아이디가 없습니다");
+//     } else {
+//       const saltRounds = 10;
+//       const { User_Password } = rows[0];
+
+//       // 입력한 비밀번호를 암호화하여 저장된 비밀번호와 비교
+//       const isMatch = await comparePassword(password, User_Password);
+
+//       console.log(password);
+//       console.log(User_Password);
+//       console.log(isMatch);
+
+//       if (isMatch) {
+//         // 비밀번호 일치
+//         const token = jwt.sign(
+//           { userId: rows[0].User_Id, userEmail: rows[0].User_Email },
+//           'your-secret-key',
+//           { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
+//         );
+//         // 토큰을 응답으로 전송
+//         res.send({ success: true, token });
+//         console.log(token); // 토큰 출력으로 디버깅
+//       } else {
+//         // 비밀번호 불일치
+//         return res.send("비밀번호 불일치");
+//       }
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json("로그인 실패");
+//   } finally {
+//     conn.release();
+//   }
+// });
 
 
-//로그인 메서드
+// 기존 로그인 코드
 server.get('/api/LoginPage', async (req, res) => {
   const conn = await getConn();
   const { ID, password } = req.query;
@@ -261,9 +314,6 @@ server.get('/api/LoginPage', async (req, res) => {
     conn.release(); // 연결 해제
   }
 });
-
-
-
 
 
 
