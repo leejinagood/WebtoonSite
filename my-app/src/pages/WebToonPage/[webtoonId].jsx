@@ -23,18 +23,18 @@ const WebToonPage = () => {
         setSelectedWebtoon(selectedWebtoon);
           
 
-        // const fetchWebtoonDetail = async () => {
-        //   try {
-        //     const response = await fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`);
-        //     const data = await response.json();
-        //     const { webtoons } = data;
-        //     const selectedWebtoon = webtoons[0];
-        //     const count = selectedWebtoon.count;
-        //     setCount(count);
-        //   } catch (error) {
-        //     console.error("Error fetching API:", error);
-        //   }
-        // };
+        const fetchWebtoonDetail = async () => {
+          try {
+            const response = await fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`);
+            const data = await response.json();
+            const { webtoons } = data;
+            const selectedWebtoon = webtoons[0];
+            const count = selectedWebtoon.count;
+            setCount(count);
+          } catch (error) {
+            console.error("Error fetching API:", error);
+          }
+        };
 
         if (selectedWebtoon) {
           fetchWebtoonDetail();
