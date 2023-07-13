@@ -72,29 +72,27 @@ class MondayPage extends Component {
           <NewToon />
         </div>
         <div className="Mid">
-          <div className="DayToon">
+          <div >
             <h3>전체{week}요 웹툰</h3>
-            <table>
-              <tbody>
+
                 {dayToonItemCounts.map((count, index) => (
-                  <tr key={index}>
+                  <div className="DayToonBox" key={index}>
                     {[...Array(count)].map((_, subIndex) => (
-                      <td key={subIndex}>
+                      <div className="DayToon" key={subIndex}>
                         {webtoons[subIndex] && (
-                          <div className="DayToonItem">
-                            <img src={getThumbnailImage(webtoons[subIndex])} alt={webtoons[subIndex].webtoon_name} />
-                            <p className="ToonTitle">{webtoons[subIndex].webtoon_name}</p>
-                            <p className="Writer">{webtoons[subIndex].author}</p>
-                            <p className="Star">⭐️{webtoons[subIndex].like}</p>
-                          </div>
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className={`DayToonItem ${subIndex === 1 ? "second-item" : ""}`}>
+            <img src={getThumbnailImage(webtoons[subIndex])} alt={webtoons[subIndex].webtoon_name} />
+            <p className="ToonTitle">{webtoons[subIndex].webtoon_name}</p>
+            <p className="Writer">{webtoons[subIndex].author}</p>
+            <p className="Star">⭐️{webtoons[subIndex].like}</p>
           </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              
+            </div>
           <Rank />
         </div>
         <Footer />
