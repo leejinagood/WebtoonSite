@@ -15,35 +15,25 @@ const WebToonPage = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setWebtoons(data.webtoons);
-        const selectedWebtoon = data.webtoons.find((webtoon) => webtoon.webtoon_name === webtoonName);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`);
+        const data = await response.json();
+        const { webtoons } = data;
+        const selectedWebtoon = webtoons.find((webtoon) => webtoon.webtoon_name === webtoonName);
         setSelectedWebtoon(selectedWebtoon);
-          
-
-        const fetchWebtoonDetail = async () => {
-          try {
-            const response = await fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`);
-            const data = await response.json();
-            const { webtoons } = data;
-            const selectedWebtoon = webtoons[0];
-            const count = selectedWebtoon.count;
-            setCount(count);
-          } catch (error) {
-            console.error("Error fetching API:", error);
-          }
-        };
-
-        if (selectedWebtoon) {
-          fetchWebtoonDetail();
-        }
-      })
-      .catch((error) => {
+        setWebtoons(webtoons);
+        setCount(selectedWebtoon?.count || 0);
+      } catch (error) {
         console.error("Error fetching API:", error);
-      });
+      }
+    };
+  
+    if (webtoonName) {
+      fetchData();
+    }
   }, [webtoonName]);
+  
 
   const getWebtoonImage = (webtoon) => {
     if (webtoon.webtoon_name === "똑 닮은 딸") {
