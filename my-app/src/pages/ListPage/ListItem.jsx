@@ -3,8 +3,6 @@ import Link from 'next/link';
 import { useEffect } from "react";
 import WebToonPage from "../WebToonPage/[webtoonId]";
 import { useRouter } from "next/router";
-const ListItem = ({ webtoonName, ep, uploadDate, handleClick ,maxEp}) => {
-  const router = useRouter();
 
 const ListItem = ({ webtoonName, ep, uploadDate, handleClick, maxEp }) => {
   const handleItemClick = () => {
@@ -13,28 +11,28 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick, maxEp }) => {
     window.location.href = `/WebToonPage/WebToonPage${queryString}`;
   };
 
-  useEffect(() => {
-    const { webtoonName } = router.query;
+  // useEffect(() => {
+  //   const { webtoonName } = router.query;
 
-    if (webtoonName) {
-      fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`)
-        .then((response) => response.json())
-        .then((data) => {
-          const { webtoons, count } = data; // 카운터 값을 가져와서 상태에 설정
-          setWebtoonInfo(webtoons[0]);
-          setWebtoons(webtoons);
-          setCount(count);
-        })
-        .catch((error) => {
-          console.error("Error fetching API:", error);
-        })
-    }
-  }, [router.query.webtoonName]);
+  //   if (webtoonName) {
+  //     fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         const { webtoons, count } = data; // 카운터 값을 가져와서 상태에 설정
+  //         setWebtoonInfo(webtoons[0]);
+  //         setWebtoons(webtoons);
+  //         setCount(count);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching API:", error);
+  //       })
+  //   }
+  // }, [router.query.webtoonName]);
   return (
     // <div onClick={WebToonPageMove}>
-    <Link href={`/WebToonPage/WebToonPage?WebToonName=${webtoonName}&Episode=${ep}`}>
+    // <Link href={`/WebToonPage/WebToonPage?WebToonName=${webtoonName}&Episode=${ep}`}>
     <div className="ListItem" onClick={handleItemClick}>
-      {/* <Link href={`/WebToonPage/WebToonPage?webtoonName=${encodeURIComponent(webtoonName)}&episodeNumber=${encodeURIComponent(ep)}`}> */}
+      <Link href={`/WebToonPage/WebToonPage?webtoonName=${encodeURIComponent(webtoonName)}&episodeNumber=${encodeURIComponent(ep)}`}>
       <div className="ListItem" onClick={handleItemClick}>
         <div className="ListImg">
           <img src="1.jpg" alt="s" />
@@ -49,9 +47,10 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick, maxEp }) => {
           </p>
         </div>
       </div>
+      </Link>
       </div>
-    </Link>
+
   );
 };
-}
+
 export default ListItem;
