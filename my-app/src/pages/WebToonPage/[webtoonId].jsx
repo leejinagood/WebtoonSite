@@ -7,7 +7,7 @@ import WebToonPageCss from "./styles/WebToonPageCss.css";
 
 const WebToonPage = () => {
   const router = useRouter();
-  const { webtoonId } = router.query;
+  const { webtoonName, ep } = router.query;
 
   const [webtoons, setWebtoons] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
@@ -20,7 +20,7 @@ const WebToonPage = () => {
       .then((response) => response.json())
       .then((data) => {
         setWebtoons(data.webtoons);
-        const selectedWebtoon = data.webtoons.find((webtoon) => webtoon.id === webtoonId);
+        const selectedWebtoon = data.webtoons.find((webtoon) => webtoon.webtoon_name === webtoonName);
         setSelectedWebtoon(selectedWebtoon);
 
         const fetchWebtoonDetail = async () => {
@@ -44,7 +44,19 @@ const WebToonPage = () => {
       .catch((error) => {
         console.error("Error fetching API:", error);
       });
-  }, [webtoonId, selectedWebtoonName]);
+  }, [webtoonName, selectedWebtoonName]);
+
+  const getWebtoonImage = (webtoon) => {
+    if (webtoon.webtoon_name === "똑 닮은 딸") {
+      return "/WebtoonImg/web1/web1_1/web1_1_1.png";
+    } else if (webtoon.webtoon_name === "마루는 강쥐") {
+      return "/WebtoonImg/web2/web2_1/web2_1_1.png";
+    } else if (webtoon.webtoon_name === "소녀재판") {
+      return "/WebtoonImg/web3/web3_1/web3_1_1.png";
+    }
+    // 기본값으로 설정할 이미지 경로
+    return "1.jpg";
+  };
 
   const handleWebToonCutClick = (webtoon) => {
     setSelectedWebtoon(webtoon);
@@ -69,11 +81,11 @@ const WebToonPage = () => {
             key={index}
             onClick={() => handleWebToonCutClick(webtoon)}
           >
-            <img src="1.jpg" alt="1컷" />
+            <img src={getWebtoonImage(webtoon)}/>
           </div>
         ))}
       </div>
-      {selectedWebtoon && isVisible && <ClickLayoutComponent ep={webtoonId} MaxEp={count} />}
+      {selectedWebtoon && isVisible && <ClickLayoutComponent ep={ep} MaxEp={count} />}
       <Footer />
     </div>
   );
