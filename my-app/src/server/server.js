@@ -14,6 +14,7 @@
 const restify = require('restify');
 const fs = require('fs');
 const jwt = require('jsonwebtoken'); //jwt
+const bcrypt = require('bcrypt'); //비밀번호 암호화
 
 //서버 설정 및 미들웨어
 const server = restify.createServer();
@@ -195,9 +196,12 @@ server.get('/api/webtoondetail', async (req, res) => {
 server.post('/api/SignUpPage', async (req, res) => {
   const conn = await getConn();
   const { email, pass, name, age } = req.body;
-  const query = 'INSERT INTO User_Table (User_Email, User_Password, User_Name, User_Age) VALUES (?, ?, ?, ?);';
-  const values = [email, pass, name, age];
+  const saltRounds = 10; // 솔트 생성에 사용되는 라운드 수
   try {
+    const hashedPassword = await bcrypt.hash(pass, saltRounds);
+    const query = 'INSERT INTO User_Table (User_Email, User_Password, User_Name, User_Age) VALUES (?, ?, ?, ?);';
+    const values = [email, hashedPassword, name, age];
+
     await conn.query(query, values);
 
     //회원가입을 한 이메일을 가지고 와서 User_Id와 조회해본 후 User_Id만 추출
@@ -223,10 +227,12 @@ server.post('/api/SignUpPage', async (req, res) => {
 
 
 
+
 //로그인 메서드
 server.get('/api/LoginPage', async (req, res) => {
   const conn = await getConn();
   const { ID, password } = req.query;
+  
   const values = [ID, password];
   const query = 'SELECT User_Name FROM User_Table WHERE User_Email = ? AND User_Password = ?;';
   try {
@@ -255,6 +261,10 @@ server.get('/api/LoginPage', async (req, res) => {
     conn.release(); // 연결 해제
   }
 });
+
+
+
+
 
 
 // 댓글 입력 메서드
