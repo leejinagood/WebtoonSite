@@ -42,13 +42,16 @@ const WebToonPage = () => {
   // episodeNumber 추가
   const getWebtoonImage = (webtoon, episodeNumber) => {
     const webtoonImages = {
+      //제목이 똑 닮은 딸이고
       "똑 닮은 딸": {
+        //episodeNumber가 1화일 때 
         1: [
           "/WebtoonImg/web1/web1_1/web1_1_1.png",
           "/WebtoonImg/web1/web1_1/web1_1_2.png",
           "/WebtoonImg/web1/web1_1/web1_1_3.png",
           "/WebtoonImg/web1/web1_1/web1_1_4.png"
         ],
+        //2화일 때 
         2: [
           "/WebtoonImg/web1/web1_2/web1_2_1.png",
           "/WebtoonImg/web1/web1_2/web1_2_2.png",
@@ -64,7 +67,9 @@ const WebToonPage = () => {
           "/WebtoonImg/web1/web1_3/web1_3_5.png"
         ],
       },
+      //제목이 마루는 강쥐고
       "마루는 강쥐": {
+        //1화일 때 
         1: [
           "/WebtoonImg/web2/web2_1/web2_1_1.png",
           "/WebtoonImg/web2/web2_1/web2_1_2.png",
@@ -117,44 +122,26 @@ const WebToonPage = () => {
     setIsVisible(!isVisible);
   };
 
-  
+
   return (
     <div className="WebToonPage" onClick={handleScreenClick}>
       <Header />
       <div className="WebToonBox">
         {webtoons.map((webtoon, index) => (
-          <div
-            className="WebToonCut"
-            key={index}
-            onClick={() => handleWebToonCutClick(webtoon)}
-          >
-            {webtoon.webtoon_name === "똑 닮은 딸" && episodeNumber >= 1 && episodeNumber <= 5 ? (
+          <div className="WebToonCut" key={index} onClick={() => handleWebToonCutClick(webtoon)}>
+            {(webtoon.webtoon_name === "똑 닮은 딸" && episodeNumber >= 1 && episodeNumber <= 5) ? (
               getWebtoonImage(webtoon, episodeNumber).map((image, imageIndex) => (
-                <img
-                  key={imageIndex}
-                  src={image}
-                  alt={`Webtoon Image ${imageIndex}`}
-                />
+                <img key={imageIndex} src={image} alt={`Webtoon Image ${imageIndex}`} />
               ))
             ) : (
-              <img
-                src={getWebtoonImage(webtoon, episodeNumber)}
-                alt="Webtoon Image"
-              />
+              <img src={getWebtoonImage(webtoon, episodeNumber)} alt="Webtoon Image" />
             )}
           </div>
         ))}
       </div>
-      {selectedWebtoon && isVisible && (
-        <ClickLayoutComponent
-          webtoonName={webtoonName}
-          episodeNumber={episodeNumber}
-          maxEp={count}
-        />
-      )}
+      {selectedWebtoon && isVisible && <ClickLayoutComponent webtoonName={webtoonName} episodeNumber={episodeNumber} maxEp={count} />}
       <Footer />
     </div>
   );
 };
-
 export default WebToonPage;
