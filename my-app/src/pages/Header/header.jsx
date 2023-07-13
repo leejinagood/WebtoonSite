@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import axios from 'axios';
 import HederCss from "./styles/Heder.css";
-
+import SerchWebToon from "../SerchWebToon";
+import { useRouter } from "next/router";
 const Header = () => {
-
-  const [Webtoon_Name, setWebtoonName] = useState([null]);
-  const [Webtoon_Author, setWebtoonAuthor] = useState([null]);
-  const [Category_Kind, setCategoryKind] = useState([null]);
+  const [webtoonData, setWebtoonData] = useState([]);
 
   // 유저가 검색창에 입력하는 값
   const [userInput, setUserInput] = useState('');
@@ -19,30 +17,27 @@ const Header = () => {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      this.searchSpace();
+      event.preventDefault(); // 기본 동작 막기
+
+      window.location.href = `/SerchWebToon?word=${userInput}`;  
     }
   }
+
   useEffect(() => {
-    fetch(`/api/search?word=마`)
-      .then((response) => response.json())
-      .then((data) => {
-        const { Webtoon_Name, Webtoon_Author, Category_Kind } = data;
-        setWebtoonName(Webtoon_Name);
-        setWebtoonAuthor(Webtoon_Author);
-        setCategoryKind(Category_Kind);
-        console.log(Webtoon_Name, Webtoon_Author, Category_Kind);
-
-  
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/search?word=${userInput}`);
+        const data = await response.json();
+        setWebtoonData(data);
+      } catch (error) {
         console.error("Error fetching API:", error);
-      });
-  }, [userInput]);
-  
-  
-  
-  console.log(Webtoon_Name, Webtoon_Author, Category_Kind);
+      }
+    };
 
+    fetchData();
+  }, [userInput]);
+
+  console.log(webtoonData);
 
   // const handleLinkClick = async (day) => {
   //   try {
@@ -67,10 +62,12 @@ const Header = () => {
             <div className="SerchBar">
               <form>
                 <div className="InputBox">
-                  <input type="text"   
+                  <input
+                    type="text"
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
-                    placeholder="작가/제목으로 검색할 수 있습니다." />
+                    placeholder="작가/제목으로 검색할 수 있습니다."
+                  />
                   <div className="BTN">
                     <button type="submit" className="SerchBtn">검색</button>
                     <Link href="/LoginPage/LoginPage"><button className="LoginBtn">login</button></Link>
