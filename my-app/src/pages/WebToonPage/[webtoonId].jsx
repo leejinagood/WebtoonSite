@@ -5,9 +5,11 @@ import Footer from "../Footer/footer";
 import ClickLayoutComponent from "./ClickLayoutComponent";
 import WebToonPageCss from "./styles/WebToonPageCss.css";
 
+
 const WebToonPage = () => {
   const router = useRouter();
-  const { webtoonId } = router.query;
+  const {WebToonName, Episode } = router.query;
+
 
   const [webtoons, setWebtoons] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
@@ -15,7 +17,12 @@ const WebToonPage = () => {
   const [selectedWebtoonName, setSelectedWebtoonName] = useState(null);
   const [count, setCount] = useState(0);
 
+
+
+
   useEffect(() => {
+    fetch(`/api/webtoondetail?name=${WebToonName}`)
+
     fetch("/api/daywebtoon?day=All")
       .then((response) => response.json())
       .then((data) => {
@@ -25,6 +32,7 @@ const WebToonPage = () => {
 
         const fetchWebtoonDetail = async () => {
           try {
+            console.log(webtoonName, ep);
             const response = await fetch(`/api/webtoondetail?name=${encodeURIComponent(selectedWebtoonName)}`);
             const data = await response.json();
             const { webtoons } = data;
@@ -44,7 +52,7 @@ const WebToonPage = () => {
       .catch((error) => {
         console.error("Error fetching API:", error);
       });
-  }, [webtoonId, selectedWebtoonName]);
+  }, [ WebToonName, Episode , selectedWebtoonName]);
 
   const handleWebToonCutClick = (webtoon) => {
     setSelectedWebtoon(webtoon);
@@ -58,6 +66,10 @@ const WebToonPage = () => {
   const handleScreenClick = () => {
     setIsVisible(!isVisible);
   };
+
+
+  
+  console.log(WebToonName, Episode );
 
   return (
     <div className="WebToonPage" onClick={handleScreenClick}>
@@ -73,7 +85,7 @@ const WebToonPage = () => {
           </div>
         ))}
       </div>
-      {selectedWebtoon && isVisible && <ClickLayoutComponent ep={webtoonId} MaxEp={count} />}
+      {selectedWebtoon && isVisible && <ClickLayoutComponent webtoonName={WebToonName} ep={Episode}/>}
       <Footer />
     </div>
   );

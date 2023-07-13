@@ -6,6 +6,7 @@ import Footer from "../Footer/footer";
 import ListItem from "./ListItem";
 
 const ListPage = () => {
+  
   const router = useRouter();
   const [webtoonInfo, setWebtoonInfo] = useState(null);
   const [webtoons, setWebtoons] = useState([]);
@@ -13,6 +14,9 @@ const ListPage = () => {
   const [like, setLike] = useState(0);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 추가
   const [ep, setEp] = useState(1); // ep 값을 상태로 관리
+
+
+  const [totalCount, setTotalCount] = useState(0); // 총 에피소드 개수 상태
 
   const getThumbnailImage = (webtoon) => {
     if (webtoon.webtoon_name === "똑 닮은 딸") {
@@ -65,6 +69,8 @@ const ListPage = () => {
     setEp(ep); // ep 값 업데이트
   };
 
+  
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -116,7 +122,6 @@ const ListPage = () => {
             <ListItem
               webtoonName={webtoonInfo.webtoon_name}
               ep={index + 1}
-              maxEp={webtoonInfo.count}
               uploadDate={webtoonInfo.Episode_Number}
               handleClick={handleEpChange} // 클릭 시 handleEpChange 함수 호출
             />
