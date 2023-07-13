@@ -8,8 +8,9 @@ import WebToonPageCss from "./styles/WebToonPageCss.css";
 const WebToonPage = () => {
   const router = useRouter();
   const { webtoonName } = router.query;
+  //undefined일 때 경우 추가
   const episodeNumber = typeof router.query.episodeNumber === "string" ? parseInt(router.query.episodeNumber) : undefined;
-
+  // parseInt 함수를 사용하여 문자열로 변환된 경우에만 숫자로 변환하도록
   const [webtoons, setWebtoons] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
   const [selectedWebtoon, setSelectedWebtoon] = useState(null);
