@@ -5,25 +5,16 @@ import Footer from "../Footer/footer";
 import ClickLayoutComponent from "./ClickLayoutComponent";
 import WebToonPageCss from "./styles/WebToonPageCss.css";
 
-
 const WebToonPage = () => {
   const router = useRouter();
-
-
-
-
   const { webtoonName } = router.query;
   //undefined일 때 경우 추가
   const episodeNumber = typeof router.query.episodeNumber === "string" ? parseInt(router.query.episodeNumber) : undefined;
-  // parseInt 함수를 사용하여 문자열로 변환된 경우에만 숫자로 변환하도록
-
   const [webtoons, setWebtoons] = useState([]);
+  // parseInt 함수를 사용하여 문자열로 변환된 경우에만 숫자로 변환하도록
   const [isVisible, setIsVisible] = useState(true);
   const [selectedWebtoon, setSelectedWebtoon] = useState(null);
   const [count, setCount] = useState(0);
-
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,84 +39,41 @@ const WebToonPage = () => {
   }, [webtoonName]);
   // 기존 코드에서 간소화
   // episodeNumber 추가
+  // 이미지 url 코드 최소화
   const getWebtoonImage = (webtoon, episodeNumber) => {
     const webtoonImages = {
-      "똑 닮은 딸": {
-        1: [
-          "/WebtoonImg/web1/web1_1/web1_1_1.png",
-          "/WebtoonImg/web1/web1_1/web1_1_2.png",
-          "/WebtoonImg/web1/web1_1/web1_1_3.png",
-          "/WebtoonImg/web1/web1_1/web1_1_4.png"
-        ],
-        2: [
-          "/WebtoonImg/web1/web1_2/web1_2_1.png",
-          "/WebtoonImg/web1/web1_2/web1_2_2.png",
-          "/WebtoonImg/web1/web1_2/web1_2_3.png",
-          "/WebtoonImg/web1/web1_2/web1_2_4.png",
-          "/WebtoonImg/web1/web1_2/web1_2_5.png"
-        ],
-        3: [
-          "/WebtoonImg/web1/web1_3/web1_3_1.png",
-          "/WebtoonImg/web1/web1_3/web1_3_2.png",
-          "/WebtoonImg/web1/web1_3/web1_3_3.png",
-          "/WebtoonImg/web1/web1_3/web1_3_4.png",
-          "/WebtoonImg/web1/web1_3/web1_3_5.png"
-        ]
+      "똑 닮은 딸": { // 제목이 똑 닮은 딸이고
+        1: Array.from({ length: 102 }, (_, i) => `/WebtoonImg/web1/web1_1/web1_1_${i + 1}.png`), // 1화일 때
+        2: Array.from({ length: 5 }, (_, i) => `/WebtoonImg/web1/web1_2/web1_2_${i + 1}.png`), // 2화일 때
+        3: Array.from({ length: 5 }, (_, i) => `/WebtoonImg/web1/web1_3/web1_3_${i + 1}.png`), // 3화일 때
       },
-      "마루는 강쥐": {
-        1: [
-          "/WebtoonImg/web2/web2_1/web2_1_1.png",
-          "/WebtoonImg/web2/web2_1/web2_1_2.png",
-          "/WebtoonImg/web2/web2_1/web2_1_3.png"
-        ],
-        2: [
-          "/WebtoonImg/web2/web2_2/web2_2_1.png",
-          "/WebtoonImg/web2/web2_2/web2_2_2.png",
-          "/WebtoonImg/web2/web2_2/web2_2_3.png",
-          "/WebtoonImg/web2/web2_2/web2_2_4.png"
-        ],
-        3: [
-          "/WebtoonImg/web2/web2_3/web2_3_1.png",
-          "/WebtoonImg/web2/web2_3/web2_3_2.png",
-          "/WebtoonImg/web2/web2_3/web2_3_3.png"
-        ]
+      "마루는 강쥐": { // 제목이 마루는 강쥐이고 
+        1: Array.from({ length: 3 }, (_, i) => `/WebtoonImg/web2/web2_1/web2_1_${i + 1}.png`),
+        2: Array.from({ length: 4 }, (_, i) => `/WebtoonImg/web2/web2_2/web2_2_${i + 1}.png`),
+        3: Array.from({ length: 3 }, (_, i) => `/WebtoonImg/web2/web2_3/web2_3_${i + 1}.png`),
       },
-      "소녀재판": {
-        1: [
-          "/WebtoonImg/web3/web3_1/web3_1_1.png",
-          "/WebtoonImg/web3/web3_1/web3_1_2.png",
-          "/WebtoonImg/web3/web3_1/web3_1_3.png"
-        ],
-        2: [
-          "/WebtoonImg/web3/web3_2/web3_2_1.png",
-          "/WebtoonImg/web3/web3_2/web3_2_2.png",
-          "/WebtoonImg/web3/web3_2/web3_2_3.png"
-        ],
-        3: [
-          "/WebtoonImg/web3/web3_3/web3_3_1.png",
-          "/WebtoonImg/web3/web3_3/web3_3_2.png",
-          "/WebtoonImg/web3/web3_3/web3_3_3.png"
-        ]
+      "소녀재판": { // 제목이 소녀재판이고
+        1: Array.from({ length: 3 }, (_, i) => `/WebtoonImg/web3/web3_1/web3_1_${i + 1}.png`),
+        2: Array.from({ length: 3 }, (_, i) => `/WebtoonImg/web3/web3_2/web3_2_${i + 1}.png`),
+        3: Array.from({ length: 3 }, (_, i) => `/WebtoonImg/web3/web3_3/web3_3_${i + 1}.png`),
       },
-    "신혼일기":{
-        1: [
-          "/WebtoonImg/web4/web4_1/web4_1_1.png",
-          "/WebtoonImg/web4/web4_1/web4_1_2.png",
-          "/WebtoonImg/web4/web4_1/web4_1_3.png"
-        ],
-        2: [
-          "/WebtoonImg/web4/web4_2/web4_2_1.png",
-          "/WebtoonImg/web4/web4_2/web4_2_2.png",
-          "/WebtoonImg/web4/web4_2/web4_2_3.png"
-        ]
-      }
+      "신혼일기": { // 제목이 신혼일기이고
+        1: Array.from({ length: 3 }, (_, i) => `/WebtoonImg/web4/web4_1/web4_1_${i + 1}.png`),
+        2: Array.from({ length: 3 }, (_, i) => `/WebtoonImg/web4/web4_2/web4_2_${i + 1}.png`),
+      },
+      "외모지상주의": { // 제목이 외지주이고 
+        1: Array.from({ length: 6 }, (_, i) => `/WebtoonImg/web5/web5_1/web5_1_${i + 1}.png`),
+        2: Array.from({ length: 5 }, (_, i) => `/WebtoonImg/web5/web5_2/web5_2_${i + 1}.png`),
+        3: Array.from({ length: 3 }, (_, i) => `/WebtoonImg/web5/web5_3/web5_3_${i + 1}.png`),
+      },
+      "퀘스트지상주의": { // 제목이 퀘스트지상주의이고 
+        1: Array.from({ length: 3 }, (_, i) => `/WebtoonImg/web6/web6_1/web6_1_${i + 1}.png`),
+        2: Array.from({ length: 4 }, (_, i) => `/WebtoonImg/web6/web6_2/web6_2_${i + 1}.png`),
+      },
     };
-  
+
     return webtoonImages[webtoon.webtoon_name]?.[episodeNumber] || [];
   };
-  
-  
-
 
   const handleWebToonCutClick = (webtoon) => {
     setSelectedWebtoon(webtoon);
@@ -140,32 +88,23 @@ const WebToonPage = () => {
     setIsVisible(!isVisible);
   };
 
-
-  
-  console.log(webtoonName, episodeNumber );
-
   return (
     <div className="WebToonPage" onClick={handleScreenClick}>
       <Header />
       <div className="WebToonBox">
-      {webtoons.map((webtoon, index) => (
-        <div className="WebToonCut" key={index} onClick={() => handleWebToonCutClick(webtoon)}>
-          {webtoon.webtoon_name === webtoonName && episodeNumber ? (
-            //getWebtoonImage 함수 교체
-            getWebtoonImage(webtoon, episodeNumber).map((image, imageIndex) => (
-              <img key={imageIndex} src={image} alt={`Webtoon Image ${imageIndex}`} />
-            ))
-          ) : (
-            <img src={getWebtoonImage(webtoon, 1)[0]} alt="Webtoon Image" />
-          )}
-        </div>
-      ))}
+        {webtoons.map((webtoon, index) => (
+          <div className="WebToonCut" key={index} onClick={() => handleWebToonCutClick(webtoon)}>
+            {webtoon.webtoon_name === webtoonName && episodeNumber ? (
+              getWebtoonImage(webtoon, episodeNumber).map((image, imageIndex) => (
+                <img key={imageIndex} src={image} alt={`Webtoon Image ${imageIndex}`} />
+              ))
+            ) : (
+              <img src={getWebtoonImage(webtoon, 1)[0]} alt="Webtoon Image" />
+            )}
+          </div>
+        ))}
       </div>
-
-      {/* {selectedWebtoon && isVisible && <ClickLayoutComponent webtoonName={WebToonName} ep={Episode}/>} */}
-
       {selectedWebtoon && isVisible && <ClickLayoutComponent webtoonName={webtoonName} episodeNumber={episodeNumber} maxEp={count} />}
-
       <Footer />
     </div>
   );

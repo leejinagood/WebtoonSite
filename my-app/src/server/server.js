@@ -8,12 +8,15 @@
 // npm install restify-cors-middleware
 // npm install multer --save
 // npm install jsonwebtoken
+// npm install jsonwebtoken bcrypt
 
 // const { error } = require('console');
 // const express = require('express');
+
 const restify = require('restify');
 const fs = require('fs');
 const jwt = require('jsonwebtoken'); //jwt
+const bcrypt = require('bcrypt');
 
 //서버 설정 및 미들웨어
 const server = restify.createServer();
@@ -195,9 +198,12 @@ server.get('/api/webtoondetail', async (req, res) => {
 server.post('/api/SignUpPage', async (req, res) => {
   const conn = await getConn();
   const { email, pass, name, age } = req.body;
-  const query = 'INSERT INTO User_Table (User_Email, User_Password, User_Name, User_Age) VALUES (?, ?, ?, ?);';
-  const values = [email, pass, name, age];
+  const saltRounds = 10; // 솔트 생성에 사용되는 라운드 수
   try {
+    const hashedPassword = await bcrypt.hash(pass, saltRounds);
+    const query = 'INSERT INTO User_Table (User_Email, User_Password, User_Name, User_Age) VALUES (?, ?, ?, ?);';
+    const values = [email, hashedPassword, name, age];
+
     await conn.query(query, values);
 
     //회원가입을 한 이메일을 가지고 와서 User_Id와 조회해본 후 User_Id만 추출
@@ -222,11 +228,64 @@ server.post('/api/SignUpPage', async (req, res) => {
 
 
 
+// 로그인 메서드
+// server.get('/api/LoginPage', async (req, res) => {
+//   const conn = await getConn();
+//   const { ID, password } = req.query;
 
-//로그인 메서드
+//   // 비밀번호 비교 함수
+//   async function comparePassword(plainPassword, hashedPassword) {
+//     return await bcrypt.compare(plainPassword, hashedPassword);
+//   }
+
+//   try {
+//     // 이메일에 해당하는 회원 정보 가져오기
+//     const query = 'SELECT * FROM User_Table WHERE User_Email = ?;';
+//     const [rows] = await conn.query(query, [ID]);
+
+//     if (rows.length === 0) {
+//       // 회원 정보가 없는 경우
+//       res.send("아이디가 없습니다");
+//     } else {
+//       const saltRounds = 10;
+//       const { User_Password } = rows[0];
+
+//       // 입력한 비밀번호를 암호화하여 저장된 비밀번호와 비교
+//       const isMatch = await comparePassword(password, User_Password);
+
+//       console.log(password);
+//       console.log(User_Password);
+//       console.log(isMatch);
+
+//       if (isMatch) {
+//         // 비밀번호 일치
+//         const token = jwt.sign(
+//           { userId: rows[0].User_Id, userEmail: rows[0].User_Email },
+//           'your-secret-key',
+//           { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
+//         );
+//         // 토큰을 응답으로 전송
+//         res.send({ success: true, token });
+//         console.log(token); // 토큰 출력으로 디버깅
+//       } else {
+//         // 비밀번호 불일치
+//         return res.send("비밀번호 불일치");
+//       }
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json("로그인 실패");
+//   } finally {
+//     conn.release();
+//   }
+// });
+
+
+// 기존 로그인 코드
 server.get('/api/LoginPage', async (req, res) => {
   const conn = await getConn();
   const { ID, password } = req.query;
+  
   const values = [ID, password];
   const query = 'SELECT User_Name FROM User_Table WHERE User_Email = ? AND User_Password = ?;';
   try {
@@ -255,6 +314,7 @@ server.get('/api/LoginPage', async (req, res) => {
     conn.release(); // 연결 해제
   }
 });
+
 
 
 // 댓글 입력 메서드
@@ -388,7 +448,6 @@ server.put('/api/update_like', async (req, res)=> {
     }
 });
 
-
 //webtoon_name을 입력받고 Episode_Id를 보내주는 메서드 
 server.get('/api/Episode_Id', async(req, res) => {
   const conn = await getConn();
@@ -398,6 +457,47 @@ server.get('/api/Episode_Id', async(req, res) => {
     const [result] = await conn.query(query, [Webtoon_Name]);
     console.log(result);
     res.send(result);
+  }catch (error) {
+    console.error(error);
+    res.status(500).send({ error: '서버 스크립트의 오류' });
+  } finally {
+    conn.release(); // 연결 해제
+}});
+
+
+//웹툰을 첫 화부터 episode_Number를 출력하는 메서드
+server.get('/api/Webtoon_Asc', async(req, res) => {
+  const conn = await getConn();
+  const query = "call Webtoon_Asc (?);";
+  const {WebtoonName} = req.query;
+  try{
+    const [rows] = await conn.query(query, [WebtoonName]);
+    const Asc_Number = rows[0].map(row => ({
+      // Webtoon_Name: row.Webtoon_Name, //웹툰 제목
+      Episode_Number: row.Episode_Number //에피소드 넘버 1,2,3순
+    }));
+    console.log({Asc_Number});
+    res.send({Asc_Number});
+  }catch (error) {
+    console.error(error);
+    res.status(500).send({ error: '서버 스크립트의 오류' });
+  } finally {
+    conn.release(); // 연결 해제
+}});
+
+//웹툰을 최신화부터 episode_Number를 출력하는 메서드
+server.get('/api/Webtoon_Desc', async(req, res) => {
+  const conn = await getConn();
+  const query = "call Webtoon_Desc (?);";
+  const {WebtoonName} = req.query;
+  try{
+    const [rows] = await conn.query(query, [WebtoonName]);
+    const Desc_Number = rows[0].map(row => ({
+      // Webtoon_Name: row.Webtoon_Name, //웹툰 제목
+      Episode_Number: row.Episode_Number //에피소드 넘버 4,3,2,1순
+    }));
+    console.log({Desc_Number});
+    res.send({Desc_Number});
   }catch (error) {
     console.error(error);
     res.status(500).send({ error: '서버 스크립트의 오류' });
