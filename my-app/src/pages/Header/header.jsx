@@ -39,17 +39,17 @@ const Header = () => {
 
   console.log(webtoonData);
 
-  // const handleLinkClick = async (day) => {
-  //   try {
-  //     const response = await axios.get('/api/daywebtoon', {
-  //       params: { day }
-  //     });
-  //     console.log(response.data);
-  //     // 여기서 서버 응답 데이터를 처리하거나 상태 업데이트를 수행할 수 있습니다.
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const handleLinkClick = async (day) => {
+    try {
+      const response = await axios.get('/api/daywebtoon', {
+        params: { day }
+      });
+      console.log(response.data);
+      // 여기서 서버 응답 데이터를 처리하거나 상태 업데이트를 수행할 수 있습니다.
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="HederBox">
@@ -81,7 +81,7 @@ const Header = () => {
       <div className="HDayBox">
         <div className="Day">
           <Link href={{ pathname: '/', query: { day: 'All' } }}>
-            <li id="AD" className="AllDay" onClick={() => handleLinkClick('All')}>전체요일</li>
+            <li id="AD" className="AllDay" onClick={() => handleLinkClick('/all')}>전체요일</li>
           </Link>
           <Link href={{ pathname: '/DayPage/MonDayPage', query: { day: 'mon' } }}>
             <li className="AllDay" onClick={() => handleLinkClick('mon')}>월</li>
