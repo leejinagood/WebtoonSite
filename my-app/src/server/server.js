@@ -448,7 +448,6 @@ server.put('/api/update_like', async (req, res)=> {
     }
 });
 
-
 //webtoon_name을 입력받고 Episode_Id를 보내주는 메서드 
 server.get('/api/Episode_Id', async(req, res) => {
   const conn = await getConn();
@@ -458,6 +457,47 @@ server.get('/api/Episode_Id', async(req, res) => {
     const [result] = await conn.query(query, [Webtoon_Name]);
     console.log(result);
     res.send(result);
+  }catch (error) {
+    console.error(error);
+    res.status(500).send({ error: '서버 스크립트의 오류' });
+  } finally {
+    conn.release(); // 연결 해제
+}});
+
+
+//웹툰을 첫 화부터 episode_Number를 출력하는 메서드
+server.get('/api/Webtoon_Asc', async(req, res) => {
+  const conn = await getConn();
+  const query = "call Webtoon_Asc (?);";
+  const {WebtoonName} = req.query;
+  try{
+    const [rows] = await conn.query(query, [WebtoonName]);
+    const Asc_Number = rows[0].map(row => ({
+      // Webtoon_Name: row.Webtoon_Name, //웹툰 제목
+      Episode_Number: row.Episode_Number //에피소드 넘버 1,2,3순
+    }));
+    console.log({Asc_Number});
+    res.send({Asc_Number});
+  }catch (error) {
+    console.error(error);
+    res.status(500).send({ error: '서버 스크립트의 오류' });
+  } finally {
+    conn.release(); // 연결 해제
+}});
+
+//웹툰을 최신화부터 episode_Number를 출력하는 메서드
+server.get('/api/Webtoon_Desc', async(req, res) => {
+  const conn = await getConn();
+  const query = "call Webtoon_Desc (?);";
+  const {WebtoonName} = req.query;
+  try{
+    const [rows] = await conn.query(query, [WebtoonName]);
+    const Desc_Number = rows[0].map(row => ({
+      // Webtoon_Name: row.Webtoon_Name, //웹툰 제목
+      Episode_Number: row.Episode_Number //에피소드 넘버 4,3,2,1순
+    }));
+    console.log({Desc_Number});
+    res.send({Desc_Number});
   }catch (error) {
     console.error(error);
     res.status(500).send({ error: '서버 스크립트의 오류' });
