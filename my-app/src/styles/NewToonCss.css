@@ -32,7 +32,8 @@
 }
 .NewToonInfo {
     margin-top: 1vw;
-    width: 100%;
+    background-color: rebeccapurple;
+    width: 45%;
     height: 150px;
     display: flex; /* 수정: float 속성 대신 display: flex; 사용 */
 
@@ -40,7 +41,7 @@
   }
   
   .NewToonInfo img {
-    width: 65%;
+    width: 100%;
     height: 150px;
     border: 1px solid #000;
     background-color: red;
@@ -52,18 +53,10 @@
     top: 0px;
   }
   
-
-
+  .NewToonTitle{
+    position: absolute;
+    margin-top: 9%;
+    padding: 10px;
+  }
 
   
-.slider{position:relative;width:600px;height:400px;border:1px solid #f00}
-ul{list-style:none}
-ul>li{position:absolute;overflow:hidden;width:150px;border:1px solid #333;cursor:pointer}
-ul>.click{cursor:default}
-.item1{top:149px;height:100px;left:60px;z-index:1;background:#0f0}
-.item2{top:129px;height:140px;left:120px;z-index:2;background:#ff0}
-.item3{top:99px;height:200px;left:180px;z-index:3;background:#cc66ff}
-.item4{top:129px;height:140px;left:240px;z-index:2;background:#dcdcdc}
-.item5{top:149px;height:100px;left:300px;z-index:1;background:#444}
-.txt{display:none;position:absolute;padding:4px;bottom:-40px;left:0;width:100%;height:40px;background:#000;color:#fff;text-align:center;}
-.text-box{position:absolute;margin-left:-100px;left:50%;width:200px;height:100px;color:#fff;background:#000}
