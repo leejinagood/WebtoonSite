@@ -22,6 +22,7 @@ function SerchWebToon() {
     fetchData();
   }, [word]);
 
+  // 웹툰 제목을 받고 일치하는 제목이면 img src 경로 수정
   const getThumbnailImage = (webtoon) => {
     if (webtoon.Webtoon_Name === "똑 닮은 딸") {
       return "/WebtoonImg/web1/web1_thumbnail.jpg";
