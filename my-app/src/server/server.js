@@ -202,38 +202,47 @@ server.get('/api/webtoondetail', async (req, res) => {
 const jwt = require('jsonwebtoken'); //jwt
 const bcrypt = require('bcrypt');
 
-//회원가입 메서드
+
+
+// 회원가입 메서드
 server.post('/api/SignUpPage', async (req, res) => {
   const conn = await getConn();
   const { email, pass, name, age } = req.body;
   const saltRounds = 10; // 솔트 생성에 사용되는 라운드 수
+
   try {
+    // 트랜잭션 시작
+    await conn.beginTransaction(); 
+
+    //bcrypt.hash()로 비밀번호 암호화 
     const hashedPassword = await bcrypt.hash(pass, saltRounds);
+
     const query = 'INSERT INTO User_Table (User_Email, User_Password, User_Name, User_Age) VALUES (?, ?, ?, ?);';
-    const values = [email, hashedPassword, name, age];
+    const value = [email, hashedPassword, name, age];
+    //쿼리에 비밀번호 암호화된 내용으로 삽입
+    await conn.query(query, value);
 
-    await conn.query(query, values);
+    //삽입된 회원의 정보를 이메일을 통해 조회하여 가져옴
+    const selectUserId = 'SELECT User_Id FROM User_Table WHERE User_Email = ?;';
+    const [selectResult] = await conn.query(selectUserId, [email]);
+    //User_Id 를 추출
+    const userId = selectResult[0]?.User_Id;
 
-    //회원가입을 한 이메일을 가지고 와서 User_Id와 조회해본 후 User_Id만 추출
-    const check_query = 'SELECT User_Id FROM User_Table WHERE User_Email = ?;';
-    const [rows] = await conn.query(check_query, [email]);
-    const userId = rows[0]?.User_Id;
-
-    //User_Id를 프로시저에 파라미터로 준 후 모든 웹툰에 대한 Like의 초기화
-    if (userId) {
-      const likes_set = 'CALL user_basic_like(?);';
-      await conn.query(likes_set, [userId]);
+    if (userId) { //userId가 있으면 모든 Webtoon_Id에 대한 likes 를 초기화하는 프로시저 호출
+      const callProc = 'CALL user_basic_like(?);';
+      await conn.query(callProc, [userId]);
     }
-    res.send("입력 성공");
-    console.log(values);
+
+    await conn.commit(); // 트랜잭션 커밋
+    res.send('입력 성공');
   } catch (error) {
     console.error(error);
-    res.status(500).json("입력 실패");
+    await conn.rollback(); // 트랜잭션 롤백
+    res.status(500).json('입력 실패');
   } finally {
     conn.release();
   }
 });
-
 
 
 // 로그인 메서드
@@ -241,56 +250,45 @@ server.get('/api/LoginPage', async (req, res) => {
   const conn = await getConn();
   const { ID, password } = req.query;
 
-  // 비밀번호 비교 함수
-  async function comparePassword(plainPassword, hashedPassword) {
-    try {
-      const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
-      console.log("잘 됨");
-      return isMatch;
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  try { //아이디가 있는지 확인
+    const selectQuery = 'SELECT * FROM User_Table WHERE User_Email = ?;';
+    //아이디에 맞는 row를 selectUserResult 배열 변수에 저장
+    const [selectUserResult] = await conn.query(selectQuery, [ID]);
 
-  try {
-    // 이메일에 해당하는 회원 정보 가져오기
-    const query = 'SELECT * FROM User_Table WHERE User_Email = ?;';
-    const [rows] = await conn.query(query, [ID]);
-
-    if (rows.length === 0) {
+    if (selectUserResult.length === 0) {
       // 회원 정보가 없는 경우
-      res.send("아이디가 없습니다");
+      res.send('아이디가 없습니다');
+      return;
+    }
+
+    const { User_Password } = selectUserResult[0];
+    //입력한 비밀번호와 db에 저장된 비밀번호 일치하는지 
+    const isMatch = await bcrypt.compare(password, User_Password);
+    
+    //디버깅용
+    console.log(password);
+    console.log(User_Password);
+    console.log(isMatch);
+
+    if (isMatch) { 
+      // 비밀번호 일치
+      const token = jwt.sign(
+        { userId: selectUserResult[0].User_Id, userEmail: selectUserResult[0].User_Email },
+        'your-secret-key',
+        { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
+      );
+      //토큰을 응답으로 디버깅
+      res.send({ success: true, token });
     } else {
-      const { User_Password } = rows[0];
-
-      // 입력한 비밀번호를 암호화하여 저장된 비밀번호와 비교
-      const isMatch = await comparePassword(password, User_Password);
-
-      console.log(password);
-      console.log(User_Password);
-      console.log(isMatch);
-
-      if (isMatch) {
-        // 비밀번호 일치
-        const token = jwt.sign(
-          { userId: rows[0].User_Id, userEmail: rows[0].User_Email },
-          'your-secret-key',
-          { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
-        );
-        // 토큰을 응답으로 전송
-        res.send({ success: true, token });
-        console.log(token); // 토큰 출력으로 디버깅
-      } else {
-        // 비밀번호 불일치
-        res.send(isMatch);
-      }
+      // 비밀번호 불일치
+      res.send('비밀번호 불일치');
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json("로그인 실패");
+    res.status(500).json('로그인 실패');
   } finally {
     conn.release();
-  }
+  } 
 });
 
 
