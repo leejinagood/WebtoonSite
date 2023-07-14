@@ -85,7 +85,7 @@ server.get('/api/daywebtoon', async (req, res) => {
       author: row.Webtoon_Author, //작가
       like: row.Likes_Count //좋아요 갯수
     }));
-    console.log({webtoons});
+    // console.log({webtoons});
     res.send({ webtoons });
   } catch (error) {
     console.error(error);
@@ -127,7 +127,7 @@ server.get('/popular', async (req, res) => {
       author: row.Webtoon_Author
     }));
     res.send(result);
-    console.log(result);
+    // console.log(result);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: '서버 스크립트의 오류' });
@@ -144,7 +144,7 @@ server.get('/api/search', async (req, res) => {
     const query = 'CALL Search_Webtoon(?);'; //제목과, 작가와, 카테고리 출력
     try {
       const [rows] = await conn.query(query, [word]);
-      console.log(rows);
+      // console.log(rows);
       res.send(rows);
     } catch (error) {
       console.error(error);
@@ -162,7 +162,7 @@ server.get('/api/new', async (req, res) => {
     try{
     let [rows] = await conn.query(query);
     const result = rows.map((row) => row.Webtoon_Name); //웹툰 제목만 출력
-    console.log({result});
+    // console.log({result});
     res.send({result});
     }catch(error) {
       console.error(error);
@@ -189,7 +189,7 @@ server.get('/api/webtoondetail', async (req, res) => {
       count: row.Episode_Count, //에피소드 갯수 
       week: row.Webtoon_Week //무슨 요일에 업로드 하는지
     }));
-    console.log({webtoons});
+    // console.log({webtoons});
     res.send({ webtoons });
   } catch (error) {
     console.error(error);
@@ -336,7 +336,7 @@ server.post('/api/comment_insert', async (req, res)=> {
   try {
     await conn.query(query, values);
     res.send("댓글 입력 성공");
-    console.log(Comment_Content);
+    // console.log(Comment_Content);
   } catch (error) {
     console.error(error);
     res.status(500).json("입력 실패");
@@ -359,7 +359,7 @@ server.get('/api/comment', async(req, res)=>{
       Comment_Date: row.Comment_Date, //댓글을 입력한 날짜
       User_Name: row.User_Name  //사용자 닉네임
     }));
-    console.log({comment});
+    // console.log({comment});
     res.send({ comment });
   } catch (error) {
     console.error(error);
@@ -380,7 +380,7 @@ server.get('/api/next_episode', async(req, res) => {
     const [result] = await conn.query(query, [values]);
     //result에서 EXISTS 값을 추출
     const exists = result[0][0]["EXISTS (\n\tselect Episode_Number \n\tfrom Episode_Table \n    join Webtoon_Table on Episode_Table.Webtoon_Id = Webtoon_Table.Webtoon_Id\n\twhere Episode_Table.Episode_Number = EpisodeNumber + 1 and  Webtoon_Table.Webtoon_Name = WebtoonName\n    )"];
-    console.log(exists);
+    // console.log(exists);
     //다음 화가 존재하면 1 아니면 0
     res.send({ exists: exists ? 1 : 0 }); //response 하기 전에 상태코드를 지정하여 보내주기
   }catch (error) {
@@ -402,7 +402,7 @@ server.get('/api/prev_episode', async(req, res) => {
     const [result] = await conn.query(query, [values]);
      //result에서 EXISTS 값을 추출
     const exists = result[0][0]["EXISTS (\n\tselect Episode_Number \n\tfrom Episode_Table \n    join Webtoon_Table on Episode_Table.Webtoon_Id = Webtoon_Table.Webtoon_Id\n\twhere Episode_Table.Episode_Number = EpisodeNumber - 1 and  Webtoon_Table.Webtoon_Name = WebtoonName\n    )"];
-    console.log(exists);
+    // console.log(exists);
     //이전 화가 존재하면 1 아니면 0
     res.send({ exists: exists ? 1 : 0 }); //response 하기 전에 상태코드를 지정하여 보내주기 
   }catch (error) {
@@ -424,7 +424,7 @@ server.get('/api/like_exists', async(req, res) => {
     const [result] = await conn.query(query, [values]);
     //result에서 EXISTS 값을 추출
     const exists = result[0][0]["exists(\n\tselect Likes\n    from Like_Table\n    where Webtoon_Id=WebtoonId and User_Id = UserId and Likes = 1)"];
-    console.log(exists);
+    // console.log(exists);
     //좋아요를 눌렀으면 1 안 눌렀으면 0
     res.send({ exists: exists ? 1 : 0 }); //response 하기 전에 상태코드를 지정하여 보내주기
   }catch (error) {
@@ -448,7 +448,7 @@ server.put('/api/update_like', async (req, res)=> {
       // const result = await conn.query(result_query, [value.Webtoon_Id]); 
       // res.send(result);
       // console.log(result);
-      console.log("좋아요 추가 성공");
+      // console.log("좋아요 추가 성공");
       res.send("좋아요 추가 성공");
     } catch (error) {
       console.error(error);
@@ -465,7 +465,7 @@ server.get('/api/Episode_Id', async(req, res) => {
   const {Webtoon_Name} = req.query;
   try{
     const [result] = await conn.query(query, [Webtoon_Name]);
-    console.log(result);
+    // console.log(result);
     res.send(result);
   }catch (error) {
     console.error(error);
@@ -486,7 +486,7 @@ server.get('/api/Webtoon_Asc', async(req, res) => {
       // Webtoon_Name: row.Webtoon_Name, //웹툰 제목
       Episode_Number: row.Episode_Number //에피소드 넘버 1,2,3순
     }));
-    console.log({Asc_Number});
+    // console.log({Asc_Number});
     res.send({Asc_Number});
   }catch (error) {
     console.error(error);
@@ -506,7 +506,7 @@ server.get('/api/Webtoon_Desc', async(req, res) => {
       // Webtoon_Name: row.Webtoon_Name, //웹툰 제목
       Episode_Number: row.Episode_Number //에피소드 넘버 4,3,2,1순
     }));
-    console.log({Desc_Number});
+    // console.log({Desc_Number});
     res.send({Desc_Number});
   }catch (error) {
     console.error(error);
@@ -527,7 +527,7 @@ server.get('/api/Webtoon_Img', async (req, res) => {
       Episode_Image: row.Episode_Image,
       Episode_Img_Count: row.Episode_Img_Count
     }));
-    console.log({ EpisodeImg });
+    // console.log({ EpisodeImg });
     res.send({ EpisodeImg });
   } catch (error) {
     console.error(error);

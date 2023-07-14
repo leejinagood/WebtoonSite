@@ -48,7 +48,7 @@ const WebToonPage = () => {
         //url을 생성하여 이미지 배열에 저장
         // 반복문으로 1부터 이미지 카운트 갯수만큼
         // 배열의 길이와 콜백함수를 인자로 받음
-        const images = Array.from({ length: episodeImageCount }, (_, i) => `${episodeImage}${i + 1}.png`);
+        const images = Array.from({ length: episodeImageCount }, (_, i) => `${episodeImage}${i + 1}.png`); //배열 + 1
         setWebtoonImages(images);
       } catch (error) {
         console.error("API 호출 오류:", error);
