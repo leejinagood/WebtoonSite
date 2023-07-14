@@ -514,3 +514,25 @@ server.get('/api/Webtoon_Desc', async(req, res) => {
   } finally {
     conn.release(); // 연결 해제
 }});
+
+// 제목과 에피소드를 파라미터로 받고 웹툰의 이미지 경로와 카운트 컬럼을 추출하는 메서드
+server.get('/api/Webtoon_Img', async (req, res) => {
+  const conn = await getConn();
+  const query = "call WebtoonImg (?, ?);";
+  const { webtoonName, episodeNumber } = req.query;
+  const values = [webtoonName, episodeNumber];
+  try {
+    const [rows] = await conn.query(query, values);
+    const EpisodeImg = rows[0].map(row => ({
+      Episode_Image: row.Episode_Image,
+      Episode_Img_Count: row.Episode_Img_Count
+    }));
+    console.log({ EpisodeImg });
+    res.send({ EpisodeImg });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: '서버 스크립트의 오류' });
+  } finally {
+    conn.release(); // 연결 해제
+  }
+});
