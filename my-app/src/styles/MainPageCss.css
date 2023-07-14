@@ -5,7 +5,7 @@
         width: 720px !important;
         margin: 0 auto;
     }
-    
+
     .AllToonInfo {
         width: calc(33.3% - 10px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
         margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
@@ -59,29 +59,62 @@
     .DayBox{
         width: 720px !important;
     }
-    .HHH{
-        width: 100%;
-        font-size: 1px !important        ;
-        float: left;
-    }
-    .DayToonItem{
-        width: 20vw !important;
-        float: left !important;
+    .Mid {
         
+        display: flex !important; /* 요소들을 가로 방향으로 배치하기 위해 flexbox를 사용합니다 */
+        justify-content: space-between ; /* 요소들을 양쪽으로 붙이도록 설정합니다 */
+        align-items: flex-start; /* 요소들을 위쪽으로 정렬합니다 */
+        background-color: beige;
+        width: 80% !important;
+      }
+    
+    .DayToon{
+        flex-wrap: wrap;
+        width: 50% !important;
+        background-color: red;
     }
-    .DayToonItem img{
-        position: relative;
-        top:0px;
-
+    
+    
+    .DayToonBox{
         width: 100% !important;
-        height: 20vw !important;
+        background-color: green !important;
+        float: left;
+    } 
+    .DayToonItem p{
+        font-size: 15px !important;
+        text-align: left;
+      }
+    .Writer{
+        margin-left: 17px;
+    }
+    .Star{
+        margin-left: 17px;
+
+    }
+    .Mid .DayToon .DayToonItem {
+        width: 100% !important;
+        height:250px !important;
+        margin-bottom: 50px;
+      }
+    
+      .Mid .DayToon .DayToonItem.second-item {
+        margin-left: 20px;
+      }
+    .RBox{
+        float: left !important;
+        margin-left: 6.5% !important;
     }
     .Rank{
-        width: 22vw !important;
-        float: left;
+        
+        float: right !important;
     }
     .Rank .RankImg{
         width: 60vw;
+    }
+    .HHH{
+        margin-top: 6%;
+        float: left !important;
+        margin-left: 6.5% !important;
     }
 
     .Rankitem{
@@ -91,15 +124,13 @@
     }
     .RankText{
         font-size: 1px;
+        margin-top: 12px;
         width: 6vw !important;
         line-height: 3vw;
         float: right;
         margin-left: 3vw !important;
     }
-    .Mid{
-        float: left;
-        width: 100% !important;
-    }
+
 
     /* 태그페이지 */
     .tag{
@@ -261,62 +292,71 @@
         width: 360px !important;
     }
 
-    .HHH{
-        width: 20% !important;
-        font-size: 1px !important        ;
-        float: left !important;
-    }
-    .DayToonItem{
-        width: 100% !important;
-        float: left !important;
+    .Mid {
         
+        display: flex !important; /* 요소들을 가로 방향으로 배치하기 위해 flexbox를 사용합니다 */
+        justify-content: space-between ; /* 요소들을 양쪽으로 붙이도록 설정합니다 */
+        align-items: flex-start; /* 요소들을 위쪽으로 정렬합니다 */
+        background-color: beige;
+        width: 80% !important;
+      }
+    
+    .DayToon{
+        width: 45vw !important;
+        flex-wrap: wrap;
+        background-color: red;
     }
-    .DayToonItem img{
-        position: relative;
-        top:0px;
-
+    
+    
+    .DayToonBox{
         width: 100% !important;
-        height: 20vw !important;
+        background-color: green !important;
+        float: left;
+    } 
+    .DayToonItem p{
+        font-size: 15px !important;
+        text-align: left;
+      }
+    .Writer{
+        margin-left: 17px;
     }
+    .Star{
+        margin-left: 17px;
+
+    }
+    .Mid .DayToon .DayToonItem {
+        width: 100% !important;
+        height:250px !important;
+        margin-bottom: 50px;
+      }
+    
+      .Mid .DayToon .DayToonItem.second-item {
+        margin-left: 20px;
+      }
     .RBox{
-        display: block;
+        float: left !important;
     }
     .Rank{
-        width:12vw !important;
+        
         float: left !important;
     }
     .Rank .RankImg{
-        width: 70vw !important;
-    }
-    .RBox{
-        float: left;
-        width: 30% !important;
-    }
-    .Rankitem{
-        margin-top: 10px !important;
-        float: left !important;
-        width:30vw;
+        width: 60vw;
     }
     .RankText{
-        font-size: 1px;
-        width: 11vw !important;
-        line-height: 8vw;
-        margin-left: 3vw !important;
+        width: 30vw !important;
+        float: left !important;
     }
-    .Mid{
-        float: left;
-        width: 100% !important;
+    .RankNum{
+        width: 0% !important;
+        float: left !important;
+    }
+    .HHH{
+        margin-top: 6%;
+        float: left !important;
+        margin-left: 6.5% !important;
     }
 
-    /* 태그페이지 */
-    .tag{
-        width: 80% !important;
-    }
-    .tagItem li{
-        width: 8.7vw !important ;
-        /* margin-right: 1.5vw !important; */
-        margin-left: 5.5px;
-    }
 }
 *{
     
@@ -420,15 +460,18 @@ tr{
 .DayToon{
     display: flex;
     flex-wrap: wrap;
-    background-color: rebeccapurple;
-    width: calc(50% - 20px); /* 전체 너비에서 Rank 영역의 너비와 여백을 뺀 값으로 설정 */
+    width: calc(50% - 15px); /* 전체 너비에서 Rank 영역의 너비와 여백을 뺀 값으로 설정 */
     float: left;
+    background-color: red;
 }
+
+
 .DayToonBox{
     flex-wrap: wrap;
     background-color: rebeccapurple;
-    width: calc(50% - 10px); /* 전체 너비에서 Rank 영역의 너비와 여백을 뺀 값으로 설정 */
+    width: calc(45% - 10px); /* 전체 너비에서 Rank 영역의 너비와 여백을 뺀 값으로 설정 */
     float: left;
+
 } 
 
 .Mid .DayToon .DayToonItem {
@@ -451,12 +494,20 @@ tr{
   .DayToonItem p{
     float: left;font-size: 10px;
   }
-  
-.RBox{
+  .RBox{
+    position: relative;
+    bottom: 21px;
+    float: right;
+    width:51%;
+    background-color: aqua;
+  }
+  .Rank {
+
     float: left;
-    width: 20%;
-    margin-top: 20px;
-}
+    width: 50%; /* 부모 요소의 가로 너비에 맞게 설정합니다 */
+    height: auto; /* 내용에 맞게 높이를 설정합니다 */
+    margin-bottom: 10px;
+  }
 /* 미디어쿼리 포인트 */
 
 
@@ -464,22 +515,16 @@ tr{
 
 /* rank 랭크 */
 .HHH{
-    width: 40%;
+    position: relative;
+    bottom: 19px;
+    width: 50%;
     float: right;
-    line-height: 30px;
-    font-size: 10px;
-    height: 23px;
-    border-bottom: 1px solid rgb(230, 226, 226);
+
 }
 
-.Rank{
-    width: 30%;
-    height: 90px;
-}
 
 
 .RankImg img{
-    background-color: yellow;
     float: left;
     width: 15%;
     height:60px;
@@ -489,6 +534,7 @@ tr{
     width: 3%;
     float: left;
     height: 60px;
+    font-size: 10px;
     margin-left: 2%;
     line-height: 60px;
 }
@@ -496,7 +542,9 @@ tr{
     float: left;
     width: 20%;    
     height: 60px;
+    font-size: 10px;
     margin-left: 3%;
+    line-height:2.3vw;
 }
 
 .ToonTitle{
