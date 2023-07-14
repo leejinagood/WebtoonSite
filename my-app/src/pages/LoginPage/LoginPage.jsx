@@ -24,18 +24,21 @@ const LoginPage = () => {
           password: password
         }
       });
+      //응답이 null이면
       if (response.data === "") {
         console.log(response.data);
         alert("로그인 실패");
-      } else if((response.data === '아이디가 없습니다')){
+      } //응답이 아이디가 없다면  
+      else if((response.data === '아이디가 없습니다')){
         console.log(response.data);
         alert("로그인 실패");
-      }
+      } // 로그인 성공 이후 이벤트
       else {
         console.log(response.data);
         alert("로그인 성공");
 
         // 로그인 성공 시 토큰 저장
+        // localStorage에 저장하지만 추후 수정 필요 !!
         localStorage.setItem("token", response.data.token);
 
         window.location.href = 'http://localhost:3000/mainpage';
