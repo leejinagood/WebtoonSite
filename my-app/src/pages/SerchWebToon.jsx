@@ -22,6 +22,25 @@ function SerchWebToon() {
     fetchData();
   }, [word]);
 
+  // 웹툰 제목을 받고 일치하는 제목이면 img src 경로 수정
+  const getThumbnailImage = (webtoon) => {
+    if (webtoon.Webtoon_Name === "똑 닮은 딸") {
+      return "/WebtoonImg/web1/web1_thumbnail.jpg";
+    } else if (webtoon.Webtoon_Name === "마루는 강쥐") {
+      return "/WebtoonImg/web2/web2_thumbnail.jpg";
+    } else if (webtoon.Webtoon_Name === "소녀재판") {
+      return "/WebtoonImg/web3/web3_thumbnail.jpg";
+    } else if (webtoon.Webtoon_Name === "신혼일기") {
+        return "/WebtoonImg/web4/web4_thumbnail.jpg";
+    } else if (webtoon.Webtoon_Name === "외모지상주의") {
+      return "/WebtoonImg/web5/web5_thumbnail.jpg";
+    }else if (webtoon.Webtoon_Name === "퀘스트지상주의") {
+      return "/WebtoonImg/web6/web6_thumbnail.jpg";
+    }
+    // 기본값으로 설정할 썸네일 이미지 경로
+    return "";
+  };
+
   console.log(webtoonData);
 
   return (
@@ -33,7 +52,7 @@ function SerchWebToon() {
             <li key={index}>
               <div className="ListItem">
                 <div className="ListImg">
-                  <img src="1.jpg" alt="s" />
+                <img src={getThumbnailImage(webtoon)} alt="" />
                 </div>
                 <div className="ListItemContent">
                   <p className="Episode">

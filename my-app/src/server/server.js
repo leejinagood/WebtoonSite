@@ -116,7 +116,7 @@ server.get('/api/daywebtoon', async (req, res) => {
 // });
 
 //메인페이지에서 좋아요가 가장 높은 웹툰 중 top5 제목과 작가 출력
-//위 코드를 프로시저로 사용 
+//위 코드를 프로시저로 수정
 server.get('/popular', async (req, res) => {
   const conn = await getConn();
   const query = 'CALL Like_Top();'; // 프로시저 호출
@@ -159,9 +159,17 @@ server.get('/api/search', async (req, res) => {
 server.get('/api/new', async (req, res) => {
     const conn = await getConn();
     const query = 'SELECT Webtoon_Table.Webtoon_Name FROM Webtoon_Table JOIN Webtoon_Detail_Table ON Webtoon_Table.Webtoon_Id = Webtoon_Detail_Table.Webtoon_Id WHERE Webtoon_Date >= DATE_SUB(NOW(), INTERVAL 7 DAY);';
+    try{
     let [rows] = await conn.query(query);
-    const result = rows.map((row) => row.webtoon_name).join(', '); //웹툰 제목만 출력
-    res.send(result);
+    const result = rows.map((row) => row.Webtoon_Name); //웹툰 제목만 출력
+    console.log({result});
+    res.send({result});
+    }catch(error) {
+      console.error(error);
+      res.status(500).json({ error: '서버 스크립트의 오류' });
+    } finally {
+      conn.release(); // 연결 해제
+    }
 });
 
 
@@ -229,92 +237,96 @@ server.post('/api/SignUpPage', async (req, res) => {
 
 
 // 로그인 메서드
-// server.get('/api/LoginPage', async (req, res) => {
-//   const conn = await getConn();
-//   const { ID, password } = req.query;
-
-//   // 비밀번호 비교 함수
-//   async function comparePassword(plainPassword, hashedPassword) {
-//     return await bcrypt.compare(plainPassword, hashedPassword);
-//   }
-
-//   try {
-//     // 이메일에 해당하는 회원 정보 가져오기
-//     const query = 'SELECT * FROM User_Table WHERE User_Email = ?;';
-//     const [rows] = await conn.query(query, [ID]);
-
-//     if (rows.length === 0) {
-//       // 회원 정보가 없는 경우
-//       res.send("아이디가 없습니다");
-//     } else {
-//       const saltRounds = 10;
-//       const { User_Password } = rows[0];
-
-//       // 입력한 비밀번호를 암호화하여 저장된 비밀번호와 비교
-//       const isMatch = await comparePassword(password, User_Password);
-
-//       console.log(password);
-//       console.log(User_Password);
-//       console.log(isMatch);
-
-//       if (isMatch) {
-//         // 비밀번호 일치
-//         const token = jwt.sign(
-//           { userId: rows[0].User_Id, userEmail: rows[0].User_Email },
-//           'your-secret-key',
-//           { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
-//         );
-//         // 토큰을 응답으로 전송
-//         res.send({ success: true, token });
-//         console.log(token); // 토큰 출력으로 디버깅
-//       } else {
-//         // 비밀번호 불일치
-//         return res.send("비밀번호 불일치");
-//       }
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json("로그인 실패");
-//   } finally {
-//     conn.release();
-//   }
-// });
-
-
-// 기존 로그인 코드
 server.get('/api/LoginPage', async (req, res) => {
   const conn = await getConn();
   const { ID, password } = req.query;
-  
-  const values = [ID, password];
-  const query = 'SELECT User_Name FROM User_Table WHERE User_Email = ? AND User_Password = ?;';
+
+  // 비밀번호 비교 함수
+  async function comparePassword(plainPassword, hashedPassword) {
+    try {
+      const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
+      console.log("잘 됨");
+      return isMatch;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   try {
-    const [rows] = await conn.query(query, values);
-    console.log(rows);
-    if (rows.length > 0) { //응답을 한 번만 보내도록
-      // 로그인 성공
-      const user = rows[0];
-      // 토큰 생성
-      const token = jwt.sign(
-        { userId: user.User_ID, userEmail: user.User_Email },
-        'your-secret-key',
-        { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
-      );
-      // 토큰을 응답으로 전송
-      res.send({ success: true, token });
-      console.log(token); //토큰 출력으로 디버깅 
+    // 이메일에 해당하는 회원 정보 가져오기
+    const query = 'SELECT * FROM User_Table WHERE User_Email = ?;';
+    const [rows] = await conn.query(query, [ID]);
+
+    if (rows.length === 0) {
+      // 회원 정보가 없는 경우
+      res.send("아이디가 없습니다");
     } else {
-      // 로그인 실패
-      res.status(401).send({ error: '요청이 거부' });
+      const { User_Password } = rows[0];
+
+      // 입력한 비밀번호를 암호화하여 저장된 비밀번호와 비교
+      const isMatch = await comparePassword(password, User_Password);
+
+      console.log(password);
+      console.log(User_Password);
+      console.log(isMatch);
+
+      if (isMatch) {
+        // 비밀번호 일치
+        const token = jwt.sign(
+          { userId: rows[0].User_Id, userEmail: rows[0].User_Email },
+          'your-secret-key',
+          { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
+        );
+        // 토큰을 응답으로 전송
+        res.send({ success: true, token });
+        console.log(token); // 토큰 출력으로 디버깅
+      } else {
+        // 비밀번호 불일치
+        res.send(isMatch);
+      }
     }
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: '서버 스크립트 오류' });
+    res.status(500).json("로그인 실패");
   } finally {
-    conn.release(); // 연결 해제
+    conn.release();
   }
 });
 
+
+// 기존 로그인 코드
+// server.get('/api/LoginPage', async (req, res) => {
+//   const conn = await getConn();
+//   const { ID, password } = req.query;
+  
+//   const values = [ID, password];
+//   const query = 'SELECT User_Name FROM User_Table WHERE User_Email = ? AND User_Password = ?;';
+//   try {
+//     const [rows] = await conn.query(query, values);
+//     console.log(rows);
+//     if (rows.length > 0) { //응답을 한 번만 보내도록
+//       // 로그인 성공
+//       const user = rows[0];
+//       // 토큰 생성
+//       const token = jwt.sign(
+//         { userId: user.User_ID, userEmail: user.User_Email },
+//         'your-secret-key',
+//         { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
+//       );
+//       // 토큰을 응답으로 전송
+//       res.send({ success: true, token });
+//       console.log(token); //토큰 출력으로 디버깅 
+//     } else {
+//       // 로그인 실패
+//       res.status(401).send({ error: '요청이 거부' });
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send({ error: '서버 스크립트 오류' });
+//   } finally {
+//     conn.release(); // 연결 해제
+//   }
+// });
 
 
 // 댓글 입력 메서드
