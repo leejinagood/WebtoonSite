@@ -1,62 +1,66 @@
-@media screen and (max-width:361px) and (min-width:10px) {
-.NewToonInfo{
-    width: 80% !important;
-    height: 30vw !important;
-    background-color: honeydew;
-    margin: 0 auto;
-  }
-  .DayToon h3{
-    font-size: 1px !important;
-    width: 100%; 
-  }
-  .NewToon{
-    background-color: honeydew;
-    width: 80% !important;
-    margin: 0 auto;
-    margin-left: 5% !important;
-    min-height: 5%;
-  }
-  .NewToonInfo img {
-    width: 100% !important;
-    height: 100px !important;
-    background-color: red;
-  }
-  
-  .NewToonInfo{
-    float: left;
-  }
-  .NewToonInfo img{
-    width: 100vw !important;
-    
+.NewToonPage {
+  background-color: yellow;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.slider {
+  display: flex;
+}
+
+.NewToonInfo {
+  width: 30%;
+  height: 180px;
+  background-color: aqua;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.NewToonInfo.active {
+  background-color: pink;
+}
+
+.NewToonItem {
+  width: 100%;
+  height: 100%;
+  background-color: rebeccapurple;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.NewToonInfo img {
+  height: 150px;
+
+  border: 1px solid #000;
+  background-color: red;
+  object-fit: contain;
+}
+
+@media screen and (max-width: 767px) {
+  .NewToonInfo {
+    flex: 0 0 100%;
   }
 }
-.NewToonInfo {
-    margin-top: 1vw;
-    background-color: rebeccapurple;
-    width: 45%;
-    height: 150px;
-    display: flex; /* 수정: float 속성 대신 display: flex; 사용 */
+.slide-animation {
+  transition: transform 0.5s;
+}
 
-    margin-bottom: 1.5vw;
-  }
-  
-  .NewToonInfo img {
-    width: 100%;
-    height: 150px;
-    border: 1px solid #000;
-    background-color: red;
-    object-fit: cover;
-  }
-  
-  .NewToonInfo .Title {
-    position: relative;
-    top: 0px;
-  }
-  
-  .NewToonTitle{
-    position: absolute;
-    margin-top: 9%;
-    padding: 10px;
-  }
+.slide-animation .NewToonInfo {
+  transition: transform 0.5s;
+}
 
-  
+.slide-animation .NewToonInfo:first-child {
+  transform: translateX(90%);
+}
+
+.slide-animation .NewToonInfo:last-child {
+  transform: translateX(50%);
+}
+
+.slide-animation .NewToonInfo.active {
+  transform: translateX(0);
+}
