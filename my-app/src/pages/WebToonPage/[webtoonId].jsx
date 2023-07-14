@@ -92,14 +92,18 @@ const WebToonPage = () => {
     <div className="WebToonPage" onClick={handleScreenClick}>
       <Header />
       <div className="WebToonBox">
+      {/* webtoons.map 배열로 이미지를 표시 */}
         {webtoons.map((webtoon, index) => (
           <div className="WebToonCut" key={index} onClick={() => handleWebToonCutClick(webtoon)}>
+            {/* 조건을 사용하여 웹툰 이름과 에피소드를 비교 */}
             {webtoon.webtoon_name === webtoonName && episodeNumber ? (
+              // 일치하면 getWebtoonImage 함수 호출
               getWebtoonImage(webtoon, episodeNumber).map((image, imageIndex) => (
-                <img key={imageIndex} src={image} alt={`Webtoon Image ${imageIndex}`} />
+                <img key={imageIndex} src={image} alt="" />
               ))
             ) : (
-              <img src={getWebtoonImage(webtoon, 1)[0]} alt="Webtoon Image" />
+              // 일치하지 않으면 ""
+              <img src="" alt="Webtoon Image" />
             )}
           </div>
         ))}
