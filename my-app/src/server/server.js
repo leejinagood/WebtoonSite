@@ -15,8 +15,6 @@
 
 const restify = require('restify');
 const fs = require('fs');
-const jwt = require('jsonwebtoken'); //jwt
-const bcrypt = require('bcrypt');
 
 //서버 설정 및 미들웨어
 const server = restify.createServer();
@@ -143,7 +141,7 @@ server.get('/popular', async (req, res) => {
 server.get('/api/search', async (req, res) => {
     const conn = await getConn();
     const { word } = req.query;
-    const query = 'CALL Serch_Webtoon(?);'; //제목과, 작가와, 카테고리 출력
+    const query = 'CALL Search_Webtoon(?);'; //제목과, 작가와, 카테고리 출력
     try {
       const [rows] = await conn.query(query, [word]);
       console.log(rows);
@@ -193,6 +191,8 @@ server.get('/api/webtoondetail', async (req, res) => {
   }
 });
 
+const jwt = require('jsonwebtoken'); //jwt
+const bcrypt = require('bcrypt');
 
 //회원가입 메서드
 server.post('/api/SignUpPage', async (req, res) => {
