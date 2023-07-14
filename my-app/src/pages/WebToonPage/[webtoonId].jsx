@@ -99,6 +99,7 @@ const WebToonPage = () => {
             {webtoon.webtoon_name === webtoonName && episodeNumber ? (
               // 일치하면 getWebtoonImage 함수 호출
               getWebtoonImage(webtoon, episodeNumber).map((image, imageIndex) => (
+                //src 속성은 해당 이미지의 경로
                 <img key={imageIndex} src={image} alt="" />
               ))
             ) : (
