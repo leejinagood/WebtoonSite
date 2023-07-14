@@ -279,9 +279,8 @@ server.get('/api/LoginPage', async (req, res) => {
       );
       //토큰을 응답으로 디버깅
       res.send({ success: true, token });
-    } else {
-      // 비밀번호 불일치
-      res.send('비밀번호 불일치');
+    } else {      // 비밀번호 불일치
+      res.send();
     }
   } catch (error) {
     console.error(error);
