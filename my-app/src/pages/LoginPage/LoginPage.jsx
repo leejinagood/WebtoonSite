@@ -27,7 +27,11 @@ const LoginPage = () => {
       if (response.data === "") {
         console.log(response.data);
         alert("로그인 실패");
-      } else {
+      } else if((response.data === '아이디가 없습니다')){
+        console.log(response.data);
+        alert("로그인 실패");
+      }
+      else {
         console.log(response.data);
         alert("로그인 성공");
 
