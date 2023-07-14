@@ -282,7 +282,7 @@ server.get('/api/LoginPage', async (req, res) => {
         console.log(token); // 토큰 출력으로 디버깅
       } else {
         // 비밀번호 불일치
-        res.send(isMatch);
+        res.send();
       }
     }
   } catch (error) {
