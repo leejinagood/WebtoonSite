@@ -384,7 +384,7 @@ server.get('/api/next_episode', async(req, res) => {
     //다음 화가 존재하면 1 아니면 0
     res.send({ exists: exists ? 1 : 0 }); //response 하기 전에 상태코드를 지정하여 보내주기
   }catch (error) {
-    console.error(error);
+    // console.error(error); 너무 많이 호출되기 때문에 임시 주석처리
     res.status(500).send({ error: '서버 스크립트의 오류' });
   } finally {
     conn.release(); // 연결 해제
@@ -406,7 +406,7 @@ server.get('/api/prev_episode', async(req, res) => {
     //이전 화가 존재하면 1 아니면 0
     res.send({ exists: exists ? 1 : 0 }); //response 하기 전에 상태코드를 지정하여 보내주기 
   }catch (error) {
-    console.error(error);
+    // console.error(error); 너무 많이 호출되기 때문에 임시 주석처리
     res.status(500).send({ error: '서버 스크립트의 오류' });
   } finally {
     conn.release(); // 연결 해제
