@@ -88,7 +88,9 @@ const WebToonPage = () => {
           <div className="WebToonCut" key={index} onClick={() => handleWebToonCutClick(webtoon)}>
             {/* 주소창에 받아온 내용과 일치하는지 */}
             {webtoon.webtoon_name === webtoonName && episodeNumber ? (
+              //key 속성을 사용하여 각 이미지를 고유하게 식별
               webtoonImages.map((image, imageIndex) => (
+                //imageIndex는 순서를 나타내기 위함
                 <img key={imageIndex} src={image} alt={`Webtoon Image ${imageIndex}`} />
               ))
             ) : (
