@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/NewToonCss.css";
+import "../styles/MainPageCss.css"
+import Slider from "react-slick";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const NewToon = () => {
   const [result, setResult] = useState([]);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [slideAnimation, setSlideAnimation] = useState(""); // 슬라이드 애니메이션 클래스
+  const sliderRef = useRef(null);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,37 +27,44 @@ const NewToon = () => {
     fetchData();
   }, []);
 
-  const handleImageClick = (index) => {
-    if (index === activeIndex) return;
-
-    const slides = result.slice();
-    const activeSlide = slides.splice(index, 1)[0];
-    slides.splice(1, 0, activeSlide);
-
-    setResult(slides);
-    setActiveIndex(1);
-
-    setSlideAnimation("slide-animation"); // 슬라이드 애니메이션 클래스 추가
-    setTimeout(() => {
-      setSlideAnimation(""); // 일정 시간 후에 슬라이드 애니메이션 클래스 제거
-    }, 500); // 애니메이션 시간 설정 (0.5초)
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.clientX - sliderRef.current.offsetLeft);
+    setScrollLeft(sliderRef.current.scrollLeft);
   };
 
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.clientX - sliderRef.current.offsetLeft;
+    const walk = x - startX;
+    sliderRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+
+  
+
   return (
-    <div className="NewToonPage">
-      <div className={`slider ${slideAnimation}`}>
+    <div
+      className="NewToonPage"
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      ref={sliderRef}
+    >
+      <Slider>
         {result.map((title, index) => (
-          <div
-            className={`NewToonInfo ${activeIndex === index ? "active" : ""}`}
-            key={index}
-            onClick={() => handleImageClick(index)}
-          >
+          <div className={`NewToonInfo ${index === 1 ? "active" : ""}`} key={index}>
             <div className="NewToonItem">
               <img src={`/${index + 1}.jpg`} alt={title} />
             </div>
           </div>
         ))}
-      </div>
+  </Slider>
     </div>
   );
 };
