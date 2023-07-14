@@ -5,14 +5,16 @@
     margin: 0 auto;
 }
 .tagItem{
-    background-color: aliceblue;
+    width: 100%;
+    float: left;
 }
 .tag .tagItem li{
-    width: 3.5vw;
+    width: 16%;
     float: left;
     height: 0.3vw;
     line-height: 0.5vw;
-    margin-right:0.2vw;
+    margin-right:1.5%;
+    margin-left: 1.5%;
     margin-bottom: 0.5vw;
     list-style: none;
     text-align: center;
@@ -30,12 +32,31 @@
     margin-bottom: 15px;
 }
 
-@media screen and (max-width:500px) and (min-width:30px){
-    .tag .tagItem{
-        margin-left: 7%;
-        
+@media screen and (max-width:721px) and (min-width:363px){
+    .tag{
+        width: 80%;
+    }
+    .tagItem{
+        width: 100%;
     }
     .tagItem li{
+        width: 17% !important;
+        margin-bottom: 15px !important;
+        margin-left: 20px;
+    }
+    .tah h3{
+    }
+
+
+}
+
+@media screen and (max-width:362px) and (min-width:30px){
+    .tag{
+        width: 80%;
+    }
+
+    .tagItem li{
+        margin-right: 2px !important;
         margin-bottom: 15px !important;
     }
     .tah h3{

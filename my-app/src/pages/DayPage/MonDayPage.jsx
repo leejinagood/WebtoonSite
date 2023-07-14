@@ -6,6 +6,7 @@ import Footer from "../Footer/footer";
 import NewToon from "../../item/NewToon";
 import DayMain from "../../item/DayMain";
 import Rank from "../../item/Rank";
+import Slider from "../../item/Slider";
 
 class MondayPage extends Component {
   constructor(props) {
@@ -68,8 +69,9 @@ class MondayPage extends Component {
       <div className="DayBox">
         <Header />
         <h3 className="Categories">{week}요일 추천 웹툰</h3>
-        <div className="NewToon">
-          <NewToon />
+        <div className="MNewToon">
+          {/* <NewToon /> */}
+          <NewToon/>
         </div>
         <div className="Mid">
           <div >

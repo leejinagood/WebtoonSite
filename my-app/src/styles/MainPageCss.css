@@ -372,18 +372,24 @@
     width: 360px;
     margin:  0 auto;
 }
-@media screen and (max-width:500px) and (min-width:30px){
+@media screen and (max-width:362px) and (min-width:30px){
     *{
         width:80%;
     }
     .AllToonInfo img{
-        width: 21vw !important;
-        margin-left: 15%;
+        width: 100% !important;
         height: 26vw !important;
     }
     .AllToonInfo {
+        width: 30vw !important;
         height: 30vw !important;
+        float: left !important;
+    }
+    .AllToon{
+        width: 100%;
+        margin: 0 auto;
         float: left;
+        border-collapse:collapse;
     }
     
 }
@@ -556,3 +562,5 @@ tr{
       .Mid .DayToon .DayToonItem.second-item {
         margin-left: 20px;
       }
+
+

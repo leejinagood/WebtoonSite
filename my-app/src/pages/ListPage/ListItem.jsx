@@ -31,7 +31,6 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick, maxEp }) => {
   return (
     // <div onClick={WebToonPageMove}>
     // <Link href={`/WebToonPage/WebToonPage?WebToonName=${webtoonName}&Episode=${ep}`}>
-    <div className="ListItem" onClick={handleItemClick}>
       <Link href={`/WebToonPage/WebToonPage?webtoonName=${encodeURIComponent(webtoonName)}&episodeNumber=${encodeURIComponent(ep)}`}>
       <div className="ListItem" onClick={handleItemClick}>
         <div className="ListImg">
@@ -48,7 +47,6 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick, maxEp }) => {
         </div>
       </div>
       </Link>
-      </div>
 
   );
 };
