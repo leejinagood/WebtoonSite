@@ -1,4 +1,4 @@
-@media screen and (max-width:721px) and (min-width:420px) {
+@media screen and (max-width:721px) and (min-width:362px) {
   .MNewToon{
     width: 720px;
   }
@@ -11,28 +11,37 @@
 
 
 }
-@media screen and (max-width:419px) and (min-width:363px) {
-  .MNewToon{
-    width: 400px;
-  }
-  .NewToonPage
-  {
-    width: 80% !important;
-    margin: 0 auto;
-    float: left;
-  }
-  .NewToonInfo {
-    width: 100%  !important;
-    height: 100px !important;
-    align-items: center;
+@media screen and (max-width: 419px) and (min-width: 363px) {
+
+  .MNewToon {
     float: left !important;
-    margin-left: 17% !important;
-    justify-content: center;
+    width: 100% !important;
+    position: relative;
+    background-color: rebeccapurple;
+    height: 200px;
+  }
+  .NewToonPage {
+    width: 100% !important;
+    margin: 0 auto;
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+
+  .NewToonInfo {
+    width: 100% !important;
+    height: 100px !important;
     cursor: pointer;
   }
-
-
+  .NewToonInfo img {
+    
+    height: 170px !important;
+    border: 1px solid #000;
+    background-color: red;
+  }
 }
+
+
+
 @media screen and (max-width:361px) and (min-width:100px) {
   .MNewToon{
     width: 360px;
