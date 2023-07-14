@@ -5,16 +5,21 @@
         width: 720px !important;
         margin: 0 auto;
     }
-
+    
+    .Mid .DayToon .DayToonItem.second-item {
+        margin-left: 20px !important;
+    }   
     .AllToonInfo {
         width: calc(33.3% - 10px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
         margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
         display: flex;
         flex-wrap: wrap; /* 요소들을 여러 줄로 감싸기 */
+        margin-right: 1%;
     }
     .AllToonInfo img{
-        width: 24vw !important; /* 이미지를 부모 요소에 꽉 차게 설정 */
-        height: 18vw !important; /* 이미지 비율 유지 */
+        margin-left: 12%;
+        width: 100px !important; /* 이미지를 부모 요소에 꽉 차게 설정 */
+        height: 150px !important; /* 이미지 비율 유지 */
     }
     .AllTonnbox{
 
@@ -263,14 +268,13 @@
     
     .AllToonInfo {
         margin-top:6% !important;
-        width: calc(37.3% - 15px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
         margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
         display: flex;
         flex-wrap: wrap; /* 요소들을 여러 줄로 감싸기 */
     }
     .AllToonInfo img{
-        width: 40vw !important; /* 이미지를 부모 요소에 꽉 차게 설정 */
-        height: 18vw !important; /* 이미지 비율 유지 */
+        width: 100px !important;
+        height: 150px !important;
     }
     table{ 
         margin: 0 !important;
@@ -377,10 +381,12 @@
         width:80%;
     }
     .AllToonInfo img{
-        width: 100% !important;
-        height: 26vw !important;
+        width: 100px !important;
+        height: 150px !important;
     }
     .AllToonInfo {
+        margin-bottom: 50px !important;
+
         width: 30vw !important;
         height: 30vw !important;
         float: left !important;
@@ -471,7 +477,7 @@ tr{
 .DayToon{
     display: flex;
     flex-wrap: wrap;
-    width: calc(50% - 15px); /* 전체 너비에서 Rank 영역의 너비와 여백을 뺀 값으로 설정 */
+    /* width: calc(50% - 15px); 전체 너비에서 Rank 영역의 너비와 여백을 뺀 값으로 설정 */
     float: left;
 }
 
@@ -480,14 +486,14 @@ tr{
     flex-wrap: wrap;
     width: calc(45% - 10px); /* 전체 너비에서 Rank 영역의 너비와 여백을 뺀 값으로 설정 */
     float: left;
-
 } 
 
 .Mid .DayToon .DayToonItem {
-    width: 6vw;
-    height: 8vw;
+    width: 150px;
+    height: 200px;
     margin-bottom: 50px;
-  }
+    margin-left: 0px;
+}
 
   .Mid .DayToon .DayToonItem.second-item {
     margin-left: 0px;
@@ -558,9 +564,6 @@ tr{
 .ToonTitle{
     float: left;
 }
-    
-      .Mid .DayToon .DayToonItem.second-item {
-        margin-left: 20px;
-      }
+
 
 
