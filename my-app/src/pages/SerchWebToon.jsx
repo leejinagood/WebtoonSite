@@ -42,7 +42,7 @@ function SerchWebToon() {
                     <span className="tab">{webtoon.Webtoon_Author}</span>
                   </p>
                   <p className="SU">
-                    <span className="tab">{webtoon.Category_Kind}</span>
+                    <span className="tab">{webtoon.Category_Kinds}</span>
                   </p>
                 </div>
               </div>
