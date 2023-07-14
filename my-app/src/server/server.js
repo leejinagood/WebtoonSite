@@ -266,9 +266,9 @@ server.get('/api/LoginPage', async (req, res) => {
     const isMatch = await bcrypt.compare(password, User_Password);
     
     //디버깅용
-    console.log(password);
-    console.log(User_Password);
-    console.log(isMatch);
+    // console.log(password);
+    // console.log(User_Password);
+    // console.log(isMatch);
 
     if (isMatch) { 
       // 비밀번호 일치
@@ -278,7 +278,8 @@ server.get('/api/LoginPage', async (req, res) => {
         { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
       );
       //토큰을 응답으로 디버깅
-      res.send({ success: true, token });
+      res.send({ ID,token });
+      console.log(ID, token);
     } else {      // 비밀번호 불일치
       res.send();
     }
