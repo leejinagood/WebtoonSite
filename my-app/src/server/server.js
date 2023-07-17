@@ -9,6 +9,9 @@
 // npm install multer --save
 // npm install jsonwebtoken
 // npm install jsonwebtoken bcrypt
+// npm install restify-cookies
+// npm install dotenv
+
 
 // const { error } = require('console');
 // const express = require('express');
@@ -199,13 +202,11 @@ server.get('/api/webtoondetail', async (req, res) => {
   }
 });
 
- 
 const jwt = require('jsonwebtoken'); //jwt
 const bcrypt = require('bcrypt');
+const dotenv = require('dotenv');
+const Cookies = require('restify-cookies');
 
-
-const jwt = require('jsonwebtoken'); //jwt
-const bcrypt = require('bcrypt'); //암호화
 
 // 회원가입 메서드
 server.post('/api/SignUpPage', async (req, res) => {
@@ -247,9 +248,6 @@ server.post('/api/SignUpPage', async (req, res) => {
   }
 });
 
-
-// jwt.sign --> 토큰 발급
-// jwt.verify --> 토큰 인증(확인)
 
 // 로그인 메서드
 server.get('/api/LoginPage', async (req, res) => {
@@ -308,7 +306,6 @@ server.get('/api/LoginPage', async (req, res) => {
 });
 
 
-
 // 토큰 검증 api
 server.get('/api/Token', async (req, res) => {
   // 클라이언트에서 전달된 쿠키 가져오기
@@ -331,6 +328,7 @@ server.get('/api/Token', async (req, res) => {
     res.status(401).send('쿠키 없음');
   }
 });
+
 
 
 // 기존 로그인 코드
@@ -508,7 +506,6 @@ server.put('/api/update_like', async (req, res)=> {
     }
 });
 
-
 //webtoon_name을 입력받고 Episode_Id를 보내주는 메서드 
 server.get('/api/Episode_Id', async(req, res) => {
   const conn = await getConn();
@@ -546,7 +543,6 @@ server.get('/api/Webtoon_Asc', async(req, res) => {
     conn.release(); // 연결 해제
 }});
 
-
 //웹툰을 최신화부터 episode_Number를 출력하는 메서드
 server.get('/api/Webtoon_Desc', async(req, res) => {
   const conn = await getConn();
@@ -566,7 +562,6 @@ server.get('/api/Webtoon_Desc', async(req, res) => {
   } finally {
     conn.release(); // 연결 해제
 }});
-
 
 // 제목과 에피소드를 파라미터로 받고 웹툰의 이미지 경로와 카운트 컬럼을 추출하는 메서드
 server.get('/api/Webtoon_Img', async (req, res) => {
