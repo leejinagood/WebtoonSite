@@ -1,3 +1,20 @@
+@media screen and (max-width:721px) and (min-width:362px) {
+    .CommentComponent{
+        width: 80%;
+        margin: 0 auto !important;
+    }
+    .CommentBox{
+        width: 100% !important;
+    }
+    .CommentList{
+        width: 100% !important;
+    }
+    .CommentComponent li{
+        list-style: none;
+        width: 100%;
+        border-bottom: 1px solid #000;
+    }
+}
 .CommentComponent{
     float: left;
 }

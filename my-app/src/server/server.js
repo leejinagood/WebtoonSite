@@ -379,7 +379,29 @@ server.get('/api/Token', async (req, res) => {
 
 
 // 댓글 입력 메서드
-server.post('/api/comment_insert', async (req, res)=> {
+// server.post('/api/comment_insert', async (req, res)=> {
+//   const conn = await getConn();
+//   const { CommentContent, UserEmail, WebtoonName, EpisodeNumber } = req.body;
+//   const query = 'call Comment_insert(?, ?, ?, ?)';
+//   const values = [CommentContent, UserEmail, WebtoonName, EpisodeNumber];
+//   try {
+//     const authResponse = await axios.post('http://your-server/api/Token', { token });
+//     if (authResponse.data === '토큰 인증 성공') {
+//     await conn.query(query, values);
+//     res.send("댓글 입력 성공");
+//   } else {
+//     res.status(401).send('토큰 인증 실패');
+//   }
+//   }catch (error) {
+//     console.error(error);
+//     res.status(500).json("입력 실패");
+//   } finally {
+//     conn.release();
+//   }
+// })
+
+//test용 댓글 api
+server.post('/api/comment_insert', async (req, res) => {
   const conn = await getConn();
   const { CommentContent, UserEmail, WebtoonName, EpisodeNumber } = req.body;
   const query = 'call Comment_insert(?, ?, ?, ?)';
@@ -387,18 +409,19 @@ server.post('/api/comment_insert', async (req, res)=> {
   try {
     const authResponse = await axios.post('http://your-server/api/Token', { token });
     if (authResponse.data === '토큰 인증 성공') {
-    await conn.query(query, values);
-    res.send("댓글 입력 성공");
-  } else {
-    res.status(401).send('토큰 인증 실패');
-  }
-  }catch (error) {
+      await conn.query(query, values);
+      res.send("댓글 입력 성공");
+    } else {
+      res.status(401).send('토큰 인증 실패');
+    }
+  } catch (error) {
     console.error(error);
-    res.status(500).json("입력 실패");
+    res.status(500).send("입력 실패");
   } finally {
     conn.release();
   }
-})
+});
+//
 
 
 //파라미터로 Webtoon_Name과 episode_Number를 받아와 댓글을 확인할 수 있는 메서드

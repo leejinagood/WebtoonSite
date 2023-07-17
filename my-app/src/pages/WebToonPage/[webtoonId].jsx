@@ -88,7 +88,7 @@ const WebToonPage = () => {
   };
 
   return (
-    <div>
+    <div className="WebToonPage">
       <Header />
       <div className="WebToonBox" >
         {/* 각 이미지를 배열로 순회 */}
