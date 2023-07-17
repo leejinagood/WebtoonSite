@@ -247,6 +247,9 @@ server.post('/api/SignUpPage', async (req, res) => {
 });
 
 
+// jwt.sign --> 토큰 발급
+// jwt.verify --> 토큰 인증(확인)
+
 // 로그인 메서드
 server.get('/api/LoginPage', async (req, res) => {
   const conn = await getConn();
