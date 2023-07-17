@@ -279,6 +279,7 @@ server.get('/api/LoginPage', async (req, res) => {
         { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
       );
       //토큰을 응답으로 디버깅
+      // 유저 닉네임과 유저 이메일을 응답으로
       res.send( selectUserResult[0].User_Name, selectUserResult[0].User_Email,token );
       console.log(selectUserResult[0].User_Name, token);
     } else {      // 비밀번호 불일치
