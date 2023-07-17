@@ -32,15 +32,15 @@ const AllToonInfo = () => {
   );
 };
 
-const Thumbnail = ({ webtoon }) => {
+const Thumbnail = ({ webtoon }) => { //webtoon prop을 매개변수로 받아오는 썸네일 컴포넌트
   const [thumbnailSrc, setThumbnailSrc] = useState("");
 
-  useEffect(() => {
+  useEffect(() => { //webtoon_name이 변경될 때마다
     const fetchThumbnail = async () => {
-      try {
+      try {//엔드포인트
         const response = await fetch(`/api/Webtoon_Thumbnail?webtoonName=${webtoon.webtoon_name}`);
         const data = await response.json();
-        const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail;
+        const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail; //썸네일 값 추출
         if (thumbnail) {
           setThumbnailSrc(thumbnail);
         }
@@ -48,8 +48,7 @@ const Thumbnail = ({ webtoon }) => {
         console.error("Error fetching API:", error);
       }
     };
-
-    fetchThumbnail();
+    fetchThumbnail(); //fetchThumbnail가 실행되어 썸네일 이미지 경로를 가져오고 thumbnailSrc 상태가 변함
   }, [webtoon.webtoon_name]);
 
   return <img src={thumbnailSrc} alt="" />;

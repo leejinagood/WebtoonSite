@@ -27,12 +27,12 @@ const NewToon = () => {
     fetchData();
   }, []);
 
-  const getThumbnailImage = async (index) => {
+  const getThumbnailImage = async (index) => { //index를 매개변수로 받음
     try {
-      const response = await fetch(`/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(result[index])}`);
+      const response = await fetch(`/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(result[index])}`); //result 배열에서 인코딩
       const data = await response.json();
-      const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail;
-      return thumbnail || ""; 
+      const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail; // 썸네일 이미지 경로 추출하여 thumbnail 변수에 할당
+      return thumbnail || "";  //존재하지 않을 땐 빈 문자열
     } catch (error) {
       console.error("Error fetching API:", error);
       return "";
@@ -70,10 +70,10 @@ const NewToon = () => {
           <Link href={`/ListPage/ListPage?webtoonName=${encodeURIComponent(result[index])}`} key={index}>
             <div className={`NewToonInfo ${index === 1 ? "active" : ""}`}>
               <div className="NewToonItem">
-                <img src="" alt={title} ref={imgRef => {
-                  if (imgRef) {
-                    getThumbnailImage(index)
-                      .then(thumbnail => imgRef.src = thumbnail)
+                <img src="" alt={title} ref={imgRef => { //imgRef 를 매개변수로 받음
+                  if (imgRef) { //존재할 때
+                    getThumbnailImage(index) //호출
+                      .then(thumbnail => imgRef.src = thumbnail) //src 속성을 동적으로 설정
                       .catch(error => console.error("Error loading thumbnail:", error));
                   }
                 }} />

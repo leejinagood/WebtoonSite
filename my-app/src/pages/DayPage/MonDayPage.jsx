@@ -45,11 +45,11 @@ class MondayPage extends Component {
   };
 
   getThumbnailImage = async (webtoon) => {
-    try {
+    try { //엔드포인드로 호출
       const response = await fetch(`/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`);
       const data = await response.json();
-      const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail;
-      return thumbnail || ""; 
+      const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail; //썸네일 이미지 경로 추출
+      return thumbnail || ""; //비어있을 경우 빈 문자열 
     } catch (error) {
       console.error("Error fetching API:", error);
       return ""; 
@@ -76,10 +76,10 @@ class MondayPage extends Component {
                   <div className="DayToon" key={subIndex}>
                     {webtoons[subIndex] && (
                       <div className={`DayToonItem ${subIndex === 1 ? "second-item" : ""}`}>
-                        <img src="" alt={webtoons[subIndex].webtoon_name} ref={imgRef => {
-                          if (imgRef) {
-                            this.getThumbnailImage(webtoons[subIndex])
-                              .then(thumbnail => imgRef.src = thumbnail)
+                        <img src="" alt={webtoons[subIndex].webtoon_name} ref={imgRef => { //ref에서 getThumbnailImage 호출
+                          if (imgRef) { //존재할 때 
+                            this.getThumbnailImage(webtoons[subIndex]) 
+                              .then(thumbnail => imgRef.src = thumbnail) //thumbnail을 동적으로 수정
                               .catch(error => console.error("Error loading thumbnail:", error));
                           }
                         }} />
