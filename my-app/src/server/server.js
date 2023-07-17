@@ -306,6 +306,18 @@ server.get('/api/LoginPage', async (req, res) => {
 });
 
 
+// 쿠키에서 토큰 추출하는 함수
+function extractTokenFromCookies(cookies) {
+  const cookieArr = cookies.split(';');
+  const tokenCookie = cookieArr.find(cookie => cookie.trim().startsWith('token='));
+  if (tokenCookie) {
+    const token = tokenCookie.split('=')[1];
+    return token.trim();
+  }
+  return null;
+}
+
+
 // 토큰 검증 api
 server.get('/api/Token', async (req, res) => {
   // 클라이언트에서 전달된 쿠키 가져오기
@@ -321,11 +333,11 @@ server.get('/api/Token', async (req, res) => {
       res.send('토큰 인증 성공');
     } catch (error) {
       // 토큰이 유효하지 않은 경우
-      res.send(401).send('토큰 인증 실패');
+      res.status(401).send('토큰 인증 실패');
     }
   } else {
     // 쿠키가 없는 경우 처리
-    res.send(401).send('쿠키 없음');
+    res.status(401).send('쿠키 없음');
   }
 });
 
