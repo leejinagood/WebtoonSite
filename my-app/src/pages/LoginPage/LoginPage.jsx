@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import LoginCss from "./styles/LoginCss.css";
 import Link from 'next/link';
+import Router from "next/router";
+import { useRouter } from "next/router";
 
 const LoginPage = () => {
   const [ID, setID] = useState("");
   const [password, setPassword] = useState("");
-
   const handleIDChange = (e) => {
     setID(e.target.value);
   };
@@ -24,24 +25,24 @@ const LoginPage = () => {
           password: password
         }
       });
-      //응답이 null이면
-      if (response.data === "") {
-        console.log(response.data);
+  
+      if (response.data.token) {
+        const token = response.data.token;
+        const userName = response.data.User_Name;
+  
+        // 로그인 성공 처리
+        console.log("토큰:", token);
+        console.log("사용자 이름:", userName);
+  
+        // 토큰 저장
+        localStorage.setItem("token", token);
+  
+        // 사용자 이름 활용 예시: 다른 페이지로 이동할 때 query string으로 전달
+        Router.push(`/?userName=${encodeURIComponent(userName)}`);
+      } else {
+        // 로그인 실패 처리
+        console.log("로그인 실패");
         alert("로그인 실패");
-      } //응답이 아이디가 없다면  
-      else if((response.data === '아이디가 없습니다')){
-        console.log(response.data);
-        alert("로그인 실패");
-      } // 로그인 성공 이후 이벤트
-      else {
-        console.log(response.data);
-        alert("로그인 성공");
-
-        // 로그인 성공 시 토큰 저장
-        // localStorage에 저장하지만 추후 수정 필요 !!
-        localStorage.setItem("token", response.data.token);
-
-        window.location.href = 'http://localhost:3000/';
       }
     } catch (error) {
       console.error(error);
@@ -51,9 +52,9 @@ const LoginPage = () => {
   return (
     <div className="LoginPage">
       <div className="LoginBox">
-      <Link href="/mainpage">
-        <h2 className="LoginLogo">AVATYE</h2>
-      </Link>
+        <Link href="/mainpage">
+          <h2 className="LoginLogo">AVATYE</h2>
+        </Link>
         <form onSubmit={handleSubmit}>
           <table>
             <tbody>

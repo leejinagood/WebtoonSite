@@ -6,8 +6,12 @@ import SerchWebToon from "../SerchWebToon";
 import { useRouter } from "next/router";
 
 const Header = () => {
-  const [userId, setUserId] = useState("login");
+  const [token, setToken] = useState('');
+
+  const [userId, setUserId] = useState(null);
   const [webtoonData, setWebtoonData] = useState([]);
+  const router = useRouter();
+  const { userName = "login"} = router.query;
 
   // 유저가 검색창에 입력하는 값
   const [userInput, setUserInput] = useState('');
@@ -16,6 +20,15 @@ const Header = () => {
     setUserInput(e.target.value);
   };
 
+
+
+
+
+
+
+
+
+  
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); // 기본 동작 막기
@@ -23,14 +36,15 @@ const Header = () => {
     }
   };
 
+
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const response = await fetch(`/api/Token`);
+        const response = await axios.get("/api/Token");
         if (response.status === 200) {
-          setUserId("유저네임"); // 로그인 상태일 때 유저네임으로 변경
+          setUserId(response.data.userId);
         } else {
-          setUserId("login"); // 로그인 상태가 아니면 login으로 설정
+          setUserId(null);
         }
       } catch (error) {
         console.error("Error fetching API:", error);
@@ -40,59 +54,21 @@ const Header = () => {
     checkLoginStatus();
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`/api/search?word=${userInput}`);
-        const data = await response.json();
-        setWebtoonData(data);
-      } catch (error) {
-        console.error("Error fetching API:", error);
-      }
-    };
-
-    fetchData();
-  }, [userInput]);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      // 토큰이 존재하는 경우 서버에 토큰 검증 요청
-      axios.get("/api/Token")
-        .then((response) => {
-          if (response.status === 200) {
-            // 토큰이 유효한 경우 로그인한 아이디를 가져와 userId 상태에 설정
-            setUserId(response.data.userId);
-          } else {
-            // 토큰 검증 실패 또는 유효하지 않은 토큰인 경우
-            setUserId("login");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-          setUserId("login");
-        });
-    } else {
-      setUserId("login");
-    }
-  }, [userId]);
-
   const handleLinkClick = async (day) => {
     try {
       const response = await axios.get('/api/daywebtoon', {
         params: { day }
       });
       console.log(response.data);
-      // 여기서 서버 응답 데이터를 처리하거나 상태 업데이트를 수행할 수 있습니다.
     } catch (error) {
       console.error(error);
     }
   };
 
   const handleLogout = () => {
-    // 로그아웃 시 토큰을 제거하고 userId 상태를 "login"으로 설정
     localStorage.removeItem("token");
-    setUserId("login");
+    setUserId(null);
+    router.push("/");
   };
 
   return (
@@ -114,14 +90,14 @@ const Header = () => {
                   />
                   <div className="BTN">
                     <button type="submit" className="SerchBtn">검색</button>
-                    {userId === "login" ? (
-                      <Link href="/LoginPage/LoginPage">
-                        <p className="LoginBtn">로그인</p>
-                      </Link>
-                    ) : (
+                    {userId ? (
                       <p className="LoginBtn" onClick={handleLogout}>
                         {userId} (로그아웃)
                       </p>
+                    ) : (
+                      <Link href="/LoginPage/LoginPage">
+                        <p className="LoginBtn">{userName}</p>
+                      </Link>
                     )}
                   </div>
                 </div>
