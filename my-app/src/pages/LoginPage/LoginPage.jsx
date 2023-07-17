@@ -39,7 +39,7 @@ const LoginPage = () => {
 
         // 로그인 성공 시 토큰 저장
         // localStorage에 저장하지만 추후 수정 필요 !!
-        localStorage.setItem("token", response.data.token);
+        
 
         window.location.href = 'http://localhost:3000/';
       }

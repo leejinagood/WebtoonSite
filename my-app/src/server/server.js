@@ -369,9 +369,9 @@ server.get('/api/Token', async (req, res) => {
 // 댓글 입력 메서드
 server.post('/api/comment_insert', async (req, res)=> {
   const conn = await getConn();
-  const { Comment_Content, User_Id, webtoon_Id, Episode_Id } = req.body;
-  const query = 'insert into Comment_Table (Comment_Date, Comment_Content, User_Id, webtoon_Id, Episode_Id) values (now(), ? , ?, ?, ?);';
-  const values = [Comment_Content, User_Id, webtoon_Id, Episode_Id];
+  const { CommentContent, UserEmail, WebtoonName, EpisodeNumber } = req.body;
+  const query = 'call Comment_insert(?, ?, ?, ?)';
+  const values = [CommentContent, UserEmail, WebtoonName, EpisodeNumber];
   try {
     const authResponse = await axios.post('http://your-server/api/Token', { token });
     if (authResponse.data === '토큰 인증 성공') {
