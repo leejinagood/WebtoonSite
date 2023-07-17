@@ -272,14 +272,16 @@ server.get('/api/LoginPage', async (req, res) => {
 
     if (isMatch) { 
       // 비밀번호 일치
-      const token = jwt.sign(
+      let token = "";
+      token = jwt.sign(
         { userId: selectUserResult[0].User_Id, userEmail: selectUserResult[0].User_Email },
         'your-secret-key',
         { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
       );
       //토큰을 응답으로 디버깅
-      res.send({ ID,token });
-      console.log(ID, token);
+      // 유저 닉네임과 유저 이메일을 응답으로
+      res.send( selectUserResult[0].User_Name, selectUserResult[0].User_Email,token );
+      console.log(selectUserResult[0].User_Name, token);
     } else {      // 비밀번호 불일치
       res.send();
     }
