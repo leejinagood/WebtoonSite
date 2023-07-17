@@ -9,35 +9,29 @@ class Rank extends Component {
     };
   }
 
-  componentDidMount() {
-    fetch(`http://localhost:4000/popular`) 
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ webtoons: data });
-      })
-      .catch((error) => {
-        console.error("Error fetching API:", error);
-      });
+  async componentDidMount() {
+    try {
+      const response = await fetch(`http://localhost:4000/popular`);
+      const data = await response.json();
+      this.setState({ webtoons: data });
+    } catch (error) {
+      console.error("Error fetching API:", error);
+    }
   }
 
+  getThumbnailImage = async (webtoon) => {
+    try {
+      const response = await fetch(`/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`);
+      const data = await response.json();
+      const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail;
+      return thumbnail || ""; 
+    } catch (error) {
+      console.error("Error fetching API:", error);
+      return ""; 
+    }
+  };
+
   render() {
-    const getThumbnailImage = (webtoon) => {
-      if (webtoon.webtoon_name === "똑 닮은 딸") {
-        return "/WebtoonImg/web1/web1_thumbnail.jpg";
-      } else if (webtoon.webtoon_name === "마루는 강쥐") {
-        return "/WebtoonImg/web2/web2_thumbnail.jpg";
-      } else if (webtoon.webtoon_name === "소녀재판") {
-        return "/WebtoonImg/web3/web3_thumbnail.jpg";
-      } else if (webtoon.webtoon_name === "신혼일기") {
-          return "/WebtoonImg/web4/web4_thumbnail.jpg";
-      } else if (webtoon.webtoon_name === "외모지상주의") {
-        return "/WebtoonImg/web5/web5_thumbnail.jpg";
-      }else if (webtoon.webtoon_name === "퀘스트지상주의") {
-        return "/WebtoonImg/web6/web6_thumbnail.jpg";
-      }
-      // 기본값으로 설정할 썸네일 이미지 경로
-      return "";
-    };
     const { webtoons } = this.state;
 
     return (
@@ -46,11 +40,17 @@ class Rank extends Component {
         <div className="HotToon">
           {webtoons.map((webtoon, index) => (
             <div className="RBox" key={index}>
-              <Link href={`/ListPage/ListPage?webtoonName=${webtoon.webtoon_name}`}>
+              <Link href={`/ListPage/ListPage?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`}>
                 <div className="Rank">
                   <div className="Rankitem">
                     <div className="RankImg">
-                    <img src={getThumbnailImage(webtoon)} alt={`${index + 1}등`}  />
+                      <img src="" alt={`${index + 1}등`} ref={imgRef => {
+                        if (imgRef) {
+                          this.getThumbnailImage(webtoon)
+                            .then(thumbnail => imgRef.src = thumbnail)
+                            .catch(error => console.error("Error loading thumbnail:", error));
+                        }
+                      }} />
                     </div>
                     <div className="RankNum">
                       <h2>{`${index + 1}등`}</h2>

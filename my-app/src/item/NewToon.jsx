@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/NewToonCss.css";
-import "../styles/MainPageCss.css"
+import "../styles/MainPageCss.css";
 import Slider from "react-slick";
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
 
 const NewToon = () => {
@@ -12,14 +12,13 @@ const NewToon = () => {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(`/api/new`);
         const data = await response.json();
         setResult(data.result);
-        console.log(data.result);
-
       } catch (error) {
         console.error("Error fetching API:", error);
       }
@@ -28,27 +27,17 @@ const NewToon = () => {
     fetchData();
   }, []);
 
-  const getThumbnailImage = (index) => {
-    if (result[index] === "똑 닮은 딸") {
-      return "/WebtoonImg/web1/web1_thumbnail.jpg";
-    } else if (result[index] === "마루는 강쥐") {
-      return "/WebtoonImg/web2/web2_thumbnail.jpg";
-    } else if (result[index] === "소녀재판") {
-      return "/WebtoonImg/web3/web3_thumbnail.jpg";
-    } else if (result[index] === "신혼일기") {
-      return "/WebtoonImg/web4/web4_thumbnail.jpg";
-    } else if (result[index] === "외모지상주의") {
-      return "/WebtoonImg/web5/web5_thumbnail.jpg";
-    } else if (result[index] === "퀘스트지상주의") {
-      return "/WebtoonImg/web6/web6_thumbnail.jpg";
+  const getThumbnailImage = async (index) => {
+    try {
+      const response = await fetch(`/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(result[index])}`);
+      const data = await response.json();
+      const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail;
+      return thumbnail || ""; 
+    } catch (error) {
+      console.error("Error fetching API:", error);
+      return "";
     }
-    
-    // 기본값으로 설정할 썸네일 이미지 경로
-    return "";
   };
-  
-    
-    // 기본값으로 설정할 썸네일 이미지 경로
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
@@ -68,9 +57,6 @@ const NewToon = () => {
     setIsDragging(false);
   };
 
-
-  
-
   return (
     <div
       className="NewToonPage"
@@ -80,19 +66,22 @@ const NewToon = () => {
       ref={sliderRef}
     >
       <Slider>
-
         {result.map((title, index) => (
-      <Link href={`/ListPage/ListPage?webtoonName=${result[index]}`}>
-
-          <div className={`NewToonInfo ${index === 1 ? "active" : ""}`} key={index}>
-            <div className="NewToonItem">
-              <img src={getThumbnailImage(index)} alt={title} />
+          <Link href={`/ListPage/ListPage?webtoonName=${encodeURIComponent(result[index])}`} key={index}>
+            <div className={`NewToonInfo ${index === 1 ? "active" : ""}`}>
+              <div className="NewToonItem">
+                <img src="" alt={title} ref={imgRef => {
+                  if (imgRef) {
+                    getThumbnailImage(index)
+                      .then(thumbnail => imgRef.src = thumbnail)
+                      .catch(error => console.error("Error loading thumbnail:", error));
+                  }
+                }} />
+              </div>
             </div>
-          </div>
-        </Link>
-
+          </Link>
         ))}
-  </Slider>
+      </Slider>
     </div>
   );
 };
