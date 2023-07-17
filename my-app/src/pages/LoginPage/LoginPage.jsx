@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import LoginCss from "./styles/LoginCss.css";
 import Link from 'next/link';
-import { useRouter } from "next/router";
 
 const LoginPage = () => {
-  const router = useRouter();
   const [ID, setID] = useState("");
   const [password, setPassword] = useState("");
 
@@ -42,8 +40,6 @@ const LoginPage = () => {
         // 로그인 성공 시 토큰 저장
         // localStorage에 저장하지만 추후 수정 필요 !!
         localStorage.setItem("token", response.data.token);
-        console.log(response.data.token);
-        router.push("/");;
 
         window.location.href = 'http://localhost:3000/';
       }
