@@ -22,7 +22,7 @@
 }
 
   .Layout{
-    clear: both;
+    width: 360px;
   }
   .LayoutContent {
     width: 100% !important;

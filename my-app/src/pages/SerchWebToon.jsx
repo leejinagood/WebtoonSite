@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header/header";
 import Footer from "./Footer/Footer";
 import { useRouter } from "next/router";
-
+import SerchWebToonCss from "./SerchWebToonCss.css";
+import MainPageCss from "../styles/MainPageCss.css";
+import Link from "next/link";
 function SerchWebToon() {
   const router = useRouter();
   const { word } = router.query;
@@ -50,6 +52,7 @@ function SerchWebToon() {
         <ul>
           {webtoonData.map((webtoon, index) => (
             <li key={index}>
+              <Link href={`/ListPage/ListPage?webtoonName=${webtoon.Webtoon_Name}`}>
               <div className="ListItem">
                 <div className="ListImg">
                 <img src={getThumbnailImage(webtoon)} alt="" />
@@ -64,7 +67,9 @@ function SerchWebToon() {
                     <span className="tab">{webtoon.Category_Kinds}</span>
                   </p>
                 </div>
+             
               </div>
+              </Link>
             </li>
           ))}
         </ul>

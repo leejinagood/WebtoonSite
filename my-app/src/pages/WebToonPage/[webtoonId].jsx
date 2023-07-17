@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
+import MainPageCss from "@/src/styles/MainPageCss.css";
+
 import ClickLayoutComponent from "./ClickLayoutComponent";
 import WebToonPageCss from "./styles/WebToonPageCss.css";
-
 const WebToonPage = () => {
   const router = useRouter();
   const { webtoonName } = router.query;
@@ -55,6 +56,10 @@ const WebToonPage = () => {
       }
     };
 
+
+
+
+    
     //선택된 웹툰을 selectedWebtoon 상태로 설정, 모든 웹툰 목록을 webtoons 상태로..
     if (webtoonName) {
       fetchData();
@@ -80,6 +85,7 @@ const WebToonPage = () => {
   };
 
   return (
+    <div>
     <div className="WebToonPage" onClick={handleScreenClick}>
       <Header />
       <div className="WebToonBox">
@@ -102,7 +108,10 @@ const WebToonPage = () => {
       {selectedWebtoon && isVisible && (
         <ClickLayoutComponent webtoonName={webtoonName} episodeNumber={episodeNumber} maxEp={count} />
       )}
-      <Footer />
+
+<Footer/>
+
+    </div>
     </div>
   );
 };

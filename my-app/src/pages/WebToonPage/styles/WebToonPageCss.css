@@ -2,13 +2,20 @@
     .WebToonPage{
         width: 720px !important;
         margin: 0 auto;
+        
     }
     .WebToonBox{
         width: 80% !important;
+        
     }
     .WebToonCut{
         width:80% !important;
         float: left;
+    }
+    .WebToonCut img {
+        width: 360px !important;
+        margin-left: 27%;
+        margin-right: 27%;
     }
 
 }
@@ -40,15 +47,20 @@
         float: left;
     }
 }
-
-.WebToonBox{
-    width: 100% !important;
+.WebToonPage{
+    width: 360px;
     margin: 0 auto;
+}
+.WebToonBox{
+    width: 80%;
     float: left;
 }
 
 .WebToonCut{
     width: 100%;
-    background-color: blue;
-    height: 25vw;
+    margin: 0 auto;
+}
+.WebToonCut img{
+    width: 125%;
+    height: 900px;
 }

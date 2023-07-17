@@ -1,0 +1,10 @@
+.SerchWebToon{
+    width: 100%;
+}
+.SerchWebToon li{
+    list-style: none;
+}
+.SerchWebToon img{
+    width: 150px;
+    height: 200px;
+}
