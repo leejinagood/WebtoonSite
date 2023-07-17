@@ -254,13 +254,13 @@ server.get('/api/LoginPage', async (req, res) => {
   const conn = await getConn();
   const { ID, password } = req.query;
 
-  try { //아이디가 있는지 확인
+  try {
+    // 아이디가 있는지 확인
     const selectQuery = 'SELECT * FROM User_Table WHERE User_Email = ?;';
     //아이디에 맞는 row를 selectUserResult 배열 변수에 저장
     const [selectUserResult] = await conn.query(selectQuery, [ID]);
-
+    // 회원 정보가 없는 경우 
     if (selectUserResult.length === 0) {
-      // 회원 정보가 없는 경우
       res.send('아이디가 없습니다');
       return;
     }
@@ -268,15 +268,9 @@ server.get('/api/LoginPage', async (req, res) => {
     const { User_Password } = selectUserResult[0];
     //입력한 비밀번호와 db에 저장된 비밀번호 일치하는지 
     const isMatch = await bcrypt.compare(password, User_Password);
-    
-    //디버깅용
-    // console.log(password);
-    // console.log(User_Password);
-    // console.log(isMatch);
 
-    if (isMatch) { 
+    if (isMatch) {
       // 비밀번호 일치
-      // 토큰 발급 분리 필요
       let token = "";
       token = jwt.sign(
         { userId: selectUserResult[0].User_Id, userEmail: selectUserResult[0].User_Email },
@@ -285,9 +279,17 @@ server.get('/api/LoginPage', async (req, res) => {
       );
       //토큰을 응답으로 디버깅
       // 유저 닉네임과 유저 이메일을 응답으로
-      res.send(selectUserResult[0].User_Name, selectUserResult[0].User_Email,token)
+      // 쿠키에 데이터를 담아 응답 보내기
+      res.setHeader('Set-Cookie', [
+        `User_Name=${selectUserResult[0].User_Name}`,
+        `User_Email=${selectUserResult[0].User_Email}`,
+        `token=${token}`
+      ]);
+
+      res.send(selectUserResult[0].User_Name, selectUserResult[0].User_Email, token);
       console.log(selectUserResult[0].User_Name, token);
-    } else {      // 비밀번호 불일치
+    } else {
+      // 비밀번호 불일치
       res.send();
     }
   } catch (error) {
@@ -297,6 +299,7 @@ server.get('/api/LoginPage', async (req, res) => {
     conn.release();
   } 
 });
+
 
 
 
