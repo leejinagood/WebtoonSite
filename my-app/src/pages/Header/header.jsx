@@ -37,7 +37,6 @@ const Header = () => {
     fetchData();
   }, [userInput]);
 
-  console.log(webtoonData);
 
   const handleLinkClick = async (day) => {
     try {

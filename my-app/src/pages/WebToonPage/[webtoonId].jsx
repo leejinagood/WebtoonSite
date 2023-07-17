@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useRef } from "react";
 import { useRouter } from "next/router";
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
 import MainPageCss from "@/src/styles/MainPageCss.css";
-
+import Comment from "./Comment";
 import ClickLayoutComponent from "./ClickLayoutComponent";
 import WebToonPageCss from "./styles/WebToonPageCss.css";
 const WebToonPage = () => {
+
+  
+
   const router = useRouter();
   const { webtoonName } = router.query;
   //undefined일 때 경우 추가
@@ -86,17 +89,16 @@ const WebToonPage = () => {
 
   return (
     <div>
-    <div className="WebToonPage" onClick={handleScreenClick}>
       <Header />
-      <div className="WebToonBox">
+      <div className="WebToonBox" >
         {/* 각 이미지를 배열로 순회 */}
         {webtoons.map((webtoon, index) => (
           <div className="WebToonCut" key={index} onClick={() => handleWebToonCutClick(webtoon)}>
             {/* 주소창에 받아온 내용과 일치하는지 */}
             {webtoon.webtoon_name === webtoonName && episodeNumber ? (
-              //key 속성을 사용하여 각 이미지를 고유하게 식별
+              // key 속성을 사용하여 각 이미지를 고유하게 식별
               webtoonImages.map((image, imageIndex) => (
-                //imageIndex는 순서를 나타내기 위함
+                // imageIndex는 순서를 나타내기 위함
                 <img key={imageIndex} src={image} alt={`Webtoon Image ${imageIndex}`} />
               ))
             ) : (
@@ -108,12 +110,11 @@ const WebToonPage = () => {
       {selectedWebtoon && isVisible && (
         <ClickLayoutComponent webtoonName={webtoonName} episodeNumber={episodeNumber} maxEp={count} />
       )}
-
-<Footer/>
-
-    </div>
+      <Comment webtoonName={webtoonName} episodeNumber={episodeNumber} />
+      <Footer />
     </div>
   );
+  
 };
 
 export default WebToonPage;

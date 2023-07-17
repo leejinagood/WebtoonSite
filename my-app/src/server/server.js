@@ -9,9 +9,6 @@
 // npm install multer --save
 // npm install jsonwebtoken
 // npm install jsonwebtoken bcrypt
-// npm install restify-cookies
-// npm install dotenv
-
 
 // const { error } = require('console');
 // const express = require('express');
@@ -204,8 +201,7 @@ server.get('/api/webtoondetail', async (req, res) => {
 
 const jwt = require('jsonwebtoken'); //jwt
 const bcrypt = require('bcrypt');
-const dotenv = require('dotenv');
-const Cookies = require('restify-cookies');
+
 
 
 // 회원가입 메서드
@@ -276,7 +272,6 @@ server.get('/api/LoginPage', async (req, res) => {
 
     if (isMatch) { 
       // 비밀번호 일치
-      // 토큰 발급 분리 필요
       let token = "";
       token = jwt.sign(
         { userId: selectUserResult[0].User_Id, userEmail: selectUserResult[0].User_Email },
@@ -285,9 +280,7 @@ server.get('/api/LoginPage', async (req, res) => {
       );
       //토큰을 응답으로 디버깅
       // 유저 닉네임과 유저 이메일을 응답으로
-      res.cookie("x_auth", token)
-    .status(200)
-    .json(selectUserResult[0].User_Name, selectUserResult[0].User_Email,token)
+      res.send( selectUserResult[0].User_Name, selectUserResult[0].User_Email,token );
       console.log(selectUserResult[0].User_Name, token);
     } else {      // 비밀번호 불일치
       res.send();
@@ -299,9 +292,6 @@ server.get('/api/LoginPage', async (req, res) => {
     conn.release();
   } 
 });
-
-
-
 
 
 // 기존 로그인 코드
@@ -361,7 +351,7 @@ server.post('/api/comment_insert', async (req, res)=> {
 //파라미터로 Webtoon_Name과 episode_Number를 받아와 댓글을 확인할 수 있는 메서드
 server.get('/api/comment', async(req, res)=>{
   const conn = await getConn();
-  const { WebtoonName, EpisodeNumber } = req.query;
+  const { WebtoonName, ₩ } = req.query;
   const values = [WebtoonName, EpisodeNumber];
   const query = 'call Comment_View(?);';
   try {

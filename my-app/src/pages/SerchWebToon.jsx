@@ -10,7 +10,6 @@ function SerchWebToon() {
   const { word } = router.query;
   const [webtoonData, setWebtoonData] = useState([]);
 
-  console.log(word);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,7 +42,7 @@ function SerchWebToon() {
     return "";
   };
 
-  console.log(webtoonData);
+
 
   return (
     <div className="SerchWebToon">

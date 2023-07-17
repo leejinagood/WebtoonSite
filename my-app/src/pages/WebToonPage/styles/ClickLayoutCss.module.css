@@ -55,3 +55,13 @@
     width: 40%;
     float: right;
   }
+
+  .ScrollDown{
+    /* position: fixed; */
+    bottom: 100px;
+    width: 50px;
+}
+.ScrollTop{
+  bottom: 120px;
+  width: 50px;
+}

@@ -1,0 +1,31 @@
+.CommentComponent{
+    float: left;
+}
+.CommentComponent li{
+    list-style: none;
+    width: 98%;
+    border-bottom: 1px solid #000;
+}
+.Comment_Content{
+    font-size: 13px;
+}
+.NameDay{
+    font-size: 11px;
+}
+.CommentList{
+    position: relative;
+    right: 27%;
+    width: 70% !important;
+}
+.CommentBox{
+    width: 
+    100%;
+    float: left;
+}
+.CommentBox textarea{
+    width: 98%;
+}
+.CommentUpload{
+    width: 100%;
+    height: 25px;
+}
