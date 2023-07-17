@@ -41,7 +41,7 @@ const LoginPage = () => {
         // localStorage에 저장하지만 추후 수정 필요 !!
         localStorage.setItem("token", response.data.token);
 
-        window.location.href = 'http://localhost:3000/mainpage';
+        window.location.href = 'http://localhost:3000/';
       }
     } catch (error) {
       console.error(error);
