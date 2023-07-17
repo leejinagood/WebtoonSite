@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from "next/router";
 
 const ListItem = ({ webtoonName, ep, uploadDate, handleClick, maxEp }) => {
-  const [thumbnailSrc, setThumbnailSrc] = useState(""); // 초기값은 빈 문자열
+  const [thumbnailSrc, setThumbnailSrc] = useState(""); // 초기값은 빈 문자열로 셋팅
 
   const handleItemClick = () => {
     handleClick(ep);
@@ -16,8 +16,9 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick, maxEp }) => {
       try {
         const response = await fetch(`/api/Episode_Thumbnail?webtoonName=${encodeURIComponent(webtoonName)}&episodeNumber=${ep}`);
         const data = await response.json();
-        const thumbnail = data.rows[0]?.[0]?.Episode_Thumbnail; // 서버 응답에서 썸네일 URL 추출
+        const thumbnail = data.rows[0]?.[0]?.Episode_Thumbnail; // 썸네일 이미지 경로 추출 
         if (thumbnail) {
+          // 썸네일 변수에 할당
           setThumbnailSrc(thumbnail);
         }
       } catch (error) {
@@ -32,7 +33,8 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick, maxEp }) => {
     <Link href={`/WebToonPage/WebToonPage?webtoonName=${encodeURIComponent(webtoonName)}&episodeNumber=${encodeURIComponent(ep)}`}>
       <div className="ListItem" onClick={handleItemClick}>
         <div className="ListImg">
-          {thumbnailSrc && <img src={thumbnailSrc} alt="s" />} {/* 이미지 URL이 존재할 때에만 이미지 요소 렌더링 */}
+          {/* thumbnailSrc가 true일 때 조건부 렌더링 */}
+          {thumbnailSrc && <img src={thumbnailSrc} alt="s" />} 
         </div>
         <div className="ListItemContent">
           <p className="Episode">
