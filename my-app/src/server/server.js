@@ -285,9 +285,7 @@ server.get('/api/LoginPage', async (req, res) => {
       );
       //토큰을 응답으로 디버깅
       // 유저 닉네임과 유저 이메일을 응답으로
-      res.cookie("x_auth", token)
-    .status(200)
-    .json(selectUserResult[0].User_Name, selectUserResult[0].User_Email,token)
+      res.send(selectUserResult[0].User_Name, selectUserResult[0].User_Email,token)
       console.log(selectUserResult[0].User_Name, token);
     } else {      // 비밀번호 불일치
       res.send();
