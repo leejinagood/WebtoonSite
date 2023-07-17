@@ -201,7 +201,7 @@ server.get('/api/webtoondetail', async (req, res) => {
 
 const jwt = require('jsonwebtoken'); //jwt
 const bcrypt = require('bcrypt');
-
+const dotenv = require('dotenv');
 
 
 // 회원가입 메서드
@@ -272,6 +272,7 @@ server.get('/api/LoginPage', async (req, res) => {
 
     if (isMatch) { 
       // 비밀번호 일치
+      // 토큰 발급 분리 필요
       let token = "";
       token = jwt.sign(
         { userId: selectUserResult[0].User_Id, userEmail: selectUserResult[0].User_Email },
@@ -292,6 +293,9 @@ server.get('/api/LoginPage', async (req, res) => {
     conn.release();
   } 
 });
+
+
+
 
 
 // 기존 로그인 코드
