@@ -614,3 +614,20 @@ server.get('/api/Episode_Thumbnail', async (req, res) => {
     conn.release(); // 연결 해제
   }
 });
+
+//에피소드 썸네일 보여주는 메서드
+server.get('/api/Webtoon_Thumbnail', async (req, res) => {
+  const conn = await getConn();
+  const query = "call Webtoon_Thumbnail(?);";
+  const { webtoonName } = req.query;
+  const values = [webtoonName];
+  try {
+    const [rows] = await conn.query(query, values);
+    res.send({ rows });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: '서버 스크립트의 오류' });
+  } finally {
+    conn.release(); // 연결 해제
+  }
+});
