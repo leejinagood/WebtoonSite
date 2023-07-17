@@ -272,22 +272,27 @@ server.get('/api/LoginPage', async (req, res) => {
     if (isMatch) {
       // 비밀번호 일치
       let token = "";
+      //jwt 회원 정보를 받은 후 토큰을 생성
       token = jwt.sign(
         { userId: selectUserResult[0].User_Id, userEmail: selectUserResult[0].User_Email },
-        'your-secret-key',
+        'your-secret-key', // 비밀키
         { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
       );
       //토큰을 응답으로 디버깅
-      // 유저 닉네임과 유저 이메일을 응답으로
       // 쿠키에 데이터를 담아 응답 보내기
       res.setHeader('Set-Cookie', [
         `User_Name=${selectUserResult[0].User_Name}`,
         `User_Email=${selectUserResult[0].User_Email}`,
         `token=${token}`
       ]);
-
-      res.send(selectUserResult[0].User_Name, selectUserResult[0].User_Email, token);
-      console.log(selectUserResult[0].User_Name, token);
+      // 유저 닉네임과 유저 이메일, 토큰을 응답으로
+      res.send({
+        User_Name: selectUserResult[0].User_Name,
+        User_Email: selectUserResult[0].User_Email,
+        token: token
+      });
+      
+      console.log(selectUserResult[0].User_Name,selectUserResult[0].User_Email, token);
     } else {
       // 비밀번호 불일치
       res.send();
@@ -301,7 +306,28 @@ server.get('/api/LoginPage', async (req, res) => {
 });
 
 
+// 토큰 검증 api
+server.get('/api/Token', async (req, res) => {
+  // 클라이언트에서 전달된 쿠키 가져오기
+  const cookies = req.headers.cookie;
+  if (cookies) {
+    // 쿠키가 존재하는 경우 처리
+    const token = extractTokenFromCookies(cookies); // 쿠키에서 토큰 추출
 
+    try {
+      const decodedToken = jwt.verify(token, 'your-secret-key');
+      // 토큰이 유효한 경우
+      const userId = decodedToken.userId;
+      res.send('토큰 인증 성공');
+    } catch (error) {
+      // 토큰이 유효하지 않은 경우
+      res.status(401).send('토큰 인증 실패');
+    }
+  } else {
+    // 쿠키가 없는 경우 처리
+    res.status(401).send('쿠키 없음');
+  }
+});
 
 
 
@@ -347,10 +373,14 @@ server.post('/api/comment_insert', async (req, res)=> {
   const query = 'insert into Comment_Table (Comment_Date, Comment_Content, User_Id, webtoon_Id, Episode_Id) values (now(), ? , ?, ?, ?);';
   const values = [Comment_Content, User_Id, webtoon_Id, Episode_Id];
   try {
+    const authResponse = await axios.post('http://your-server/api/Token', { token });
+    if (authResponse.data === '토큰 인증 성공') {
     await conn.query(query, values);
     res.send("댓글 입력 성공");
-    // console.log(Comment_Content);
-  } catch (error) {
+  } else {
+    res.status(401).send('토큰 인증 실패');
+  }
+  }catch (error) {
     console.error(error);
     res.status(500).json("입력 실패");
   } finally {
@@ -448,6 +478,7 @@ server.get('/api/like_exists', async(req, res) => {
   }
 })
 
+
 //위 코드에서 0일 때만 좋아요를 누를 수 있음
 //User_Id와 Webtoon_Id을 파라미터로 받아서 좋아요 누르면 +1 되도록 
 server.put('/api/update_like', async (req, res)=> {
@@ -456,6 +487,8 @@ server.put('/api/update_like', async (req, res)=> {
   const {User_Id, Webtoon_Id} = req.body;
   const value = [User_Id, Webtoon_Id];
   try {
+      const authResponse = await axios.post('http://your-server/api/Token', { token });
+      if (authResponse.data === '토큰 인증 성공') {
       await conn.query(query, [value]); 
       // const result_query = "select count(Likes)  from Like_Table where Likes = true and Webtoon_Id = ? group by Webtoon_Id;";
       // const result = await conn.query(result_query, [value.Webtoon_Id]); 
@@ -463,6 +496,8 @@ server.put('/api/update_like', async (req, res)=> {
       // console.log(result);
       // console.log("좋아요 추가 성공");
       res.send("좋아요 추가 성공");
+      }else {
+        res.status(401).send('토큰 인증 실패'); }
     } catch (error) {
       console.error(error);
       res.status(500).json("입력 실패");
