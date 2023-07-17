@@ -4,7 +4,9 @@ import axios from 'axios';
 import HederCss from "./styles/Heder.css";
 import SerchWebToon from "../SerchWebToon";
 import { useRouter } from "next/router";
+
 const Header = () => {
+  const [userId, setUserId] = useState("login");
   const [webtoonData, setWebtoonData] = useState([]);
 
   // 유저가 검색창에 입력하는 값
@@ -12,16 +14,31 @@ const Header = () => {
 
   const handleChange = (e) => {
     setUserInput(e.target.value);
-    console.log(userInput);
   };
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); // 기본 동작 막기
-
-      window.location.href = `/SerchWebToon?word=${userInput}`;  
+      window.location.href = `/SerchWebToon?word=${userInput}`;
     }
-  }
+  };
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await fetch(`/api/Token`);
+        if (response.status === 200) {
+          setUserId("유저네임"); // 로그인 상태일 때 유저네임으로 변경
+        } else {
+          setUserId("login"); // 로그인 상태가 아니면 login으로 설정
+        }
+      } catch (error) {
+        console.error("Error fetching API:", error);
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +54,28 @@ const Header = () => {
     fetchData();
   }, [userInput]);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      // 토큰이 존재하는 경우 서버에 토큰 검증 요청
+      axios.get("/api/Token")
+        .then((response) => {
+          if (response.status === 200) {
+            // 토큰이 유효한 경우 로그인한 아이디를 가져와 userId 상태에 설정
+            setUserId(response.data.userId);
+          } else {
+            // 토큰 검증 실패 또는 유효하지 않은 토큰인 경우
+            setUserId("login");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          setUserId("login");
+        });
+    } else {
+      setUserId("login");
+    }
+  }, [userId]);
 
   const handleLinkClick = async (day) => {
     try {
@@ -50,11 +89,17 @@ const Header = () => {
     }
   };
 
+  const handleLogout = () => {
+    // 로그아웃 시 토큰을 제거하고 userId 상태를 "login"으로 설정
+    localStorage.removeItem("token");
+    setUserId("login");
+  };
+
   return (
     <div className="HederBox">
       <div className="header">
         <div className="TopHeader">
-          <div className="LogoBox">      
+          <div className="LogoBox">
             <h1 className="Logo">AVATOON</h1>
           </div>
           <div className="rb">
@@ -69,7 +114,15 @@ const Header = () => {
                   />
                   <div className="BTN">
                     <button type="submit" className="SerchBtn">검색</button>
-                    <Link href="/LoginPage/LoginPage"><button className="LoginBtn">login</button></Link>
+                    {userId === "login" ? (
+                      <Link href="/LoginPage/LoginPage">
+                        <p className="LoginBtn">로그인</p>
+                      </Link>
+                    ) : (
+                      <p className="LoginBtn" onClick={handleLogout}>
+                        {userId} (로그아웃)
+                      </p>
+                    )}
                   </div>
                 </div>
               </form>
