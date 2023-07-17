@@ -70,7 +70,7 @@ const LoginPage = () => {
               </tr>
             </tbody>
           </table>
-          <button type="submit" className="LoginPageBtn">fh</button> 
+          <button type="submit" className="LoginPageBtn">로그인</button> 
         </form>
         <div className="LoginMenu">
           <Link href="/password" ><li>비밀번호 찾기</li></Link>
