@@ -6,35 +6,12 @@ import Footer from "../Footer/footer";
 import ListItem from "./ListItem";
 
 const ListPage = () => {
-  
   const router = useRouter();
   const [webtoonInfo, setWebtoonInfo] = useState(null);
   const [webtoons, setWebtoons] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [like, setLike] = useState(0);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 추가
-  const [ep, setEp] = useState(1); // ep 값을 상태로 관리
-
-
-  const [totalCount, setTotalCount] = useState(0); // 총 에피소드 개수 상태
-
-  const getThumbnailImage = (webtoon) => {
-    if (webtoon.webtoon_name === "똑 닮은 딸") {
-      return "/WebtoonImg/web1/web1_thumbnail.jpg";
-    } else if (webtoon.webtoon_name === "마루는 강쥐") {
-      return "/WebtoonImg/web2/web2_thumbnail.jpg";
-    } else if (webtoon.webtoon_name === "소녀재판") {
-      return "/WebtoonImg/web3/web3_thumbnail.jpg";
-    } else if (webtoon.webtoon_name === "신혼일기") {
-        return "/WebtoonImg/web4/web4_thumbnail.jpg";
-    } else if (webtoon.webtoon_name === "외모지상주의") {
-      return "/WebtoonImg/web5/web5_thumbnail.jpg";
-    }else if (webtoon.webtoon_name === "퀘스트지상주의") {
-      return "/WebtoonImg/web6/web6_thumbnail.jpg";
-    }
-    // 기본값으로 설정할 썸네일 이미지 경로
-    return "";
-  };
+  const [totalCount, setTotalCount] = useState(0); // 총 개수 상태 추가
 
   useEffect(() => {
     const { webtoonName } = router.query;
@@ -46,7 +23,7 @@ const ListPage = () => {
           const { webtoons, count } = data; // 카운터 값을 가져와서 상태에 설정
           setWebtoonInfo(webtoons[0]);
           setWebtoons(webtoons);
-          setCount(count);
+          setTotalCount(count);
         })
         .catch((error) => {
           console.error("Error fetching API:", error);
@@ -56,6 +33,18 @@ const ListPage = () => {
         });
     }
   }, [router.query.webtoonName]);
+
+  const getThumbnailImage = async (webtoonName) => {
+    try {
+      const response = await fetch(`/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(webtoonName)}`);
+      const data = await response.json();
+      const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail;
+      return thumbnail || "";
+    } catch (error) {
+      console.error("Error fetching API:", error);
+      return "";
+    }
+  };
 
   const handleLike = () => {
     setLike((prevLike) => prevLike + 1);
@@ -69,8 +58,6 @@ const ListPage = () => {
     setEp(ep); // ep 값 업데이트
   };
 
-  
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -79,20 +66,23 @@ const ListPage = () => {
   const totalWebtoons = webtoons.length;
   const totalPages = Math.ceil(totalWebtoons / webtoonsPerPage);
 
-  const startWebtoonIndex = (currentPage - 1) * webtoonsPerPage;
-  const endWebtoonIndex = currentPage * webtoonsPerPage;
-
   return (
     <div className="ListPage">
       <Header />
 
       <div className="ListInfoBox">
         <div className="ListInfo">
-        <div className="ListImgBox">
-      {webtoonInfo && (
-        <img src={getThumbnailImage(webtoonInfo)} alt={webtoonInfo.webtoon_name} />
-      )}
-    </div>
+          <div className="ListImgBox">
+            {webtoonInfo && (
+              <img src="" alt={webtoonInfo.webtoon_name} ref={imgRef => {
+                if (imgRef) {
+                  getThumbnailImage(webtoonInfo.webtoon_name)
+                    .then(thumbnail => imgRef.src = thumbnail)
+                    .catch(error => console.error("Error loading thumbnail:", error));
+                }
+              }} />
+            )}
+          </div>
           <div className="ListInfo">
             <div className="TextBox">
               <p id="line" className="tab2">
