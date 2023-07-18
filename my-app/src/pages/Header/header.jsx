@@ -4,20 +4,23 @@ import axios from 'axios';
 import HederCss from "./styles/Heder.css";
 import SerchWebToon from "../SerchWebToon";
 import { useRouter } from "next/router";
+import { parseCookies } from 'nookies'; // nookies 라이브러리 import
+import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
 
 const Header = () => {
   const [userId, setUserId] = useState(null);
   const [webtoonData, setWebtoonData] = useState([]);
   const router = useRouter();
-  const { userName = "login" } = router.query; // userName 값 가져오기
+  // const { userName = "login" } = router.query; // userName 값 가져오기
 
   // 유저가 검색창에 입력하는 값
   const [userInput, setUserInput] = useState('');
+  const [userName, setUserName] = useState(""); // API 응답에서 가져온 유저 이름
 
   const handleChange = (e) => {
     setUserInput(e.target.value);
   };
-
+  console.log(userName);
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); // 기본 동작 막기
@@ -26,7 +29,6 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    // localStorage.removeItem("token");
     sessionStorage.removeItem("token");
     setUserId(null);
     router.push("/");
@@ -39,11 +41,9 @@ const Header = () => {
         if (response.status === 200) {
           setUserId(response.data.userId);
           console.log("토큰:", sessionStorage.getItem("token"));
-
         } else {
           setUserId(null);
           console.log("토큰:", sessionStorage.getItem("token"));
-
         }
       } catch (error) {
         console.error("API 호출 에러:", error);
@@ -66,7 +66,7 @@ const Header = () => {
           if (response.status === 200) {
             const { User_Name } = response.data;
             console.log("유저 이름:", User_Name);
-            setUserId(response.data.User_Name);
+            setUserName(User_Name);
           }
         }
       } catch (error) {
@@ -102,7 +102,7 @@ const Header = () => {
                       </p>
                     ) : (
                       <Link href="/LoginPage/LoginPage">
-                        <p className="LoginBtn">로그인</p>
+                        <p className="LoginBtn">{userName}</p>
                       </Link>
                     )}
                   </div>

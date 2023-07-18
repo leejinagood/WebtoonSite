@@ -7,6 +7,7 @@ import DayMain from "../../item/DayMain";
 import Rank from "../../item/Rank";
 import Slider from "../../item/Slider";
 import { parseCookies } from 'nookies'; // nookies 라이브러리 import
+import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
 
 class MondayPage extends Component {
   constructor(props) {
@@ -39,7 +40,8 @@ class MondayPage extends Component {
   componentDidMount() {
     const { day } = this.props;
     const { token } = parseCookies({}); // 쿠키에서 토큰 가져오기
-
+    const tokenPayload = jwt.decode(token);
+    
     fetch(`/api/daywebtoon?day=${day}`, {
       headers: {
         Authorization: `Bearer ${token}`
@@ -68,7 +70,8 @@ class MondayPage extends Component {
     const { dayToonItemCounts, webtoons } = this.state;
     const { week, writer, star } = this.props;
     const { token } = parseCookies({});
-  
+    const tokenPayload = jwt.decode(token);
+
     return (
       <div className="DayBox">
         <Header token={token} />

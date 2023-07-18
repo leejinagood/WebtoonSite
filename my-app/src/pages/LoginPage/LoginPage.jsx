@@ -4,6 +4,7 @@ import LoginCss from "./styles/LoginCss.css";
 import Link from 'next/link';
 import Router from "next/router";
 import { useRouter } from "next/router";
+import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
 
 const LoginPage = () => {
   const [ID, setID] = useState("");
@@ -27,19 +28,25 @@ const LoginPage = () => {
       });
 
       if (response.data.token) {
-        const token = response.data.token;
-        const userName = response.data.User_Name;
+        const tokenPayload = {
+          User_Name: response.data.User_Name,
+          User_Email: response.data.User_Email
+        };
+        console.log(tokenPayload.User_Name);
+        console.log(tokenPayload.User_Email);
+
+        const token = jwt.sign(tokenPayload, 'your-secret-key');
 
         // 로그인 성공 처리
         console.log("토큰:", token);
-        console.log("사용자 이름:", userName);
+        console.log("사용자 이름:", response.data.User_Name);
+        console.log("사용자 이메일:", response.data.User_Email);
 
         // 토큰 저장
-        // localStorage.setItem("token", token);
         sessionStorage.setItem("token", token);
 
         // 사용자 이름 활용 예시: 다른 페이지로 이동할 때 query string으로 전달
-        Router.push(`/?userName=${encodeURIComponent(userName)}`);
+        Router.push(`/?userName=${encodeURIComponent(response.data.User_Name)}`);
       } else {
         // 로그인 실패 처리
         console.log("로그인 실패");
