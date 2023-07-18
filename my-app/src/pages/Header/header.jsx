@@ -5,13 +5,10 @@ import HederCss from "./styles/Heder.css";
 import SerchWebToon from "../SerchWebToon";
 import { useRouter } from "next/router";
 
-const Header = () => {
-  const [token, setToken] = useState('');
-
+const Header = ({ token }) => {
   const [userId, setUserId] = useState(null);
   const [webtoonData, setWebtoonData] = useState([]);
   const router = useRouter();
-  const { userName = "login"} = router.query;
 
   // 유저가 검색창에 입력하는 값
   const [userInput, setUserInput] = useState('');
@@ -20,48 +17,12 @@ const Header = () => {
     setUserInput(e.target.value);
   };
 
+  console.log(token);
 
-
-
-
-
-
-
-
-  
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); // 기본 동작 막기
       window.location.href = `/SerchWebToon?word=${userInput}`;
-    }
-  };
-
-
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      try {
-        const response = await axios.get("/api/Token");
-        if (response.status === 200) {
-          setUserId(response.data.userId);
-        } else {
-          setUserId(null);
-        }
-      } catch (error) {
-        console.error("Error fetching API:", error);
-      }
-    };
-
-    checkLoginStatus();
-  }, []);
-
-  const handleLinkClick = async (day) => {
-    try {
-      const response = await axios.get('/api/daywebtoon', {
-        params: { day }
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -70,6 +31,49 @@ const Header = () => {
     setUserId(null);
     router.push("/");
   };
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await axios.get("/api/Token");
+        if (response.status === 200) {
+          setUserId(response.data.userId);
+          console.log(token);
+        } else {
+          setUserId(null);
+          console.log(token);
+        }
+      } catch (error) {
+        console.error("API 호출 에러:", error);
+      }
+    };
+  
+    checkLoginStatus();
+  }, []);
+  
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get("/api/userInfo", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.status === 200) {
+          const { User_Name } = response.data;
+          console.log("유저 이름:", User_Name);
+          setUserId(response.data.User_Name);
+        }
+      } catch (error) {
+        console.error("API 호출 에러:", error);
+      }
+    };
+
+    if (token) {
+      fetchUserInfo();
+    }
+  }, [token]);
 
   return (
     <div className="HederBox">
@@ -96,7 +100,7 @@ const Header = () => {
                       </p>
                     ) : (
                       <Link href="/LoginPage/LoginPage">
-                        <p className="LoginBtn">{userName}</p>
+                        <p className="LoginBtn">로그인</p>
                       </Link>
                     )}
                   </div>
@@ -109,28 +113,28 @@ const Header = () => {
       <div className="HDayBox">
         <div className="Day">
           <Link href={{ pathname: '/', query: { day: 'All' } }}>
-            <li id="AD" className="AllDay" onClick={() => handleLinkClick('/all')}>전체요일</li>
+            <li id="AD" className="AllDay">전체요일</li>
           </Link>
           <Link href={{ pathname: '/DayPage/MonDayPage', query: { day: 'mon' } }}>
-            <li className="AllDay" onClick={() => handleLinkClick('mon')}>월</li>
+            <li className="AllDay">월</li>
           </Link>
           <Link href={{ pathname: '/DayPage/TuesDayPage', query: { day: 'tues' } }}>
-            <li className="AllDay" onClick={() => handleLinkClick('tues')}>화</li>
+            <li className="AllDay">화</li>
           </Link>
           <Link href={{ pathname: '/DayPage/WednesDayPage', query: { day: 'wedes' } }}>
-            <li className="AllDay" onClick={() => handleLinkClick('wedes')}>수</li>
+            <li className="AllDay">수</li>
           </Link>
           <Link href={{ pathname: '/DayPage/ThursDayPage', query: { day: 'thu' } }}>
-            <li className="AllDay" onClick={() => handleLinkClick('thu')}>목</li>
+            <li className="AllDay">목</li>
           </Link>
           <Link href={{ pathname: '/DayPage/FirDayPage', query: { day: 'fir' } }}>
-            <li className="AllDay" onClick={() => handleLinkClick('fir')}>금</li>
+            <li className="AllDay">금</li>
           </Link>
           <Link href={{ pathname: '/DayPage/SaturDaypage', query: { day: 'satur' } }}>
-            <li className="AllDay" onClick={() => handleLinkClick('satur')}>토</li>
+            <li className="AllDay">토</li>
           </Link>
           <Link href={{ pathname: '/DayPage/SunDayPage', query: { day: 'sun' } }}>
-            <li className="AllDay" onClick={() => handleLinkClick('sun')}>일</li>
+            <li className="AllDay">일</li>
           </Link>
         </div>
       </div>

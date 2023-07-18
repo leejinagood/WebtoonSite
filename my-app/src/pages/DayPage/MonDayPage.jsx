@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,useEffect,useState } from "react";
 import MainPageCss from "@/src/styles/MainPageCss.css";
 
 import Header from "../Header/header";
@@ -9,6 +9,7 @@ import Rank from "../../item/Rank";
 import Slider from "../../item/Slider";
 
 class MondayPage extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -18,11 +19,13 @@ class MondayPage extends Component {
   }
 
   componentDidMount() {
-    // 다른 요일페이지의 key day를 가져오는것
     const { day } = this.props;
-
-    //요청 메서드, 결과값 추출
-    fetch(`/api/daywebtoon?day=${day}`)
+    const token = localStorage.getItem("token"); // 토큰 받아오기
+    fetch(`/api/daywebtoon?day=${day}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then((response) => response.json())
       .then((data) => {
         const { webtoons } = data;
@@ -32,7 +35,6 @@ class MondayPage extends Component {
         console.error("Error fetching API:", error);
       });
     const fetchedDayToonItemCounts = [3, 0, 0];
-    //요일별 아이템 갯수
     this.setState({ dayToonItemCounts: fetchedDayToonItemCounts });
   }
 
@@ -45,6 +47,9 @@ class MondayPage extends Component {
   }
 
   render() {
+    
+
+
     const getThumbnailImage = (webtoon) => {
       if (webtoon.webtoon_name === "똑 닮은 딸") {
         return "/WebtoonImg/web1/web1_thumbnail.jpg";

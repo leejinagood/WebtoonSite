@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MainPageCss from "../styles/MainPageCss.css";
 import Header from "./Header/header";
 import Footer from "./Footer/footer";
@@ -6,29 +6,32 @@ import NewToon from "../item/NewToon";
 import Tag from "./Tag/Tag";
 import Head from 'next/head';
 import AllToonInfo from "../item/AllToonInfo";
+import { useRouter } from "next/router";
+
 const MainPage = () => {
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    setToken(token);
+  }, []);
+
   return (
-    
     <div className="MainPage">
       <Head>
         <link rel="manifest" href="/manifest.json" />
-        {/* test */}
       </Head>
-      <Header />
+      <Header token={token} />
       <div className="MNewToon">
         <NewToon />
-
       </div>
       <h3 className="Categories">요일별 전체 웹툰</h3>
       <div className="AllToon">
         <div className="AllTonnbox">
-
-                  <AllToonInfo/>
-
+          <AllToonInfo />
         </div>
       </div>
-
-      <Tag/>
+      <Tag />
       <Footer />
     </div>
   );

@@ -12,10 +12,6 @@ const LoginPage = () => {
     setID(e.target.value);
   };
 
-
-  
-
-
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
@@ -39,10 +35,12 @@ const LoginPage = () => {
         console.log("사용자 이름:", userName);
   
         // 토큰 저장
-        localStorage.setItem("token", token);
+        // localStorage.setItem("token", token);
+        sessionStorage.setItem("token", token);
+
   
         // 사용자 이름 활용 예시: 다른 페이지로 이동할 때 query string으로 전달
-        Router.push(`/?userName=${encodeURIComponent(userName)}`);
+        Router.push(`/?token=${encodeURIComponent(token)}`);
       } else {
         // 로그인 실패 처리
         console.log("로그인 실패");
