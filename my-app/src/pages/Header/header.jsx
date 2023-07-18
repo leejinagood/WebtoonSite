@@ -10,8 +10,6 @@ import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
 const Header = () => {
   const [userId, setUserId] = useState(null);
   const [webtoonData, setWebtoonData] = useState([]);
-  const router = useRouter();
-  // const { userName = "login" } = router.query; // userName 값 가져오기
 
   // 유저가 검색창에 입력하는 값
   const [userInput, setUserInput] = useState('');
@@ -20,7 +18,6 @@ const Header = () => {
   const handleChange = (e) => {
     setUserInput(e.target.value);
   };
-  console.log(userName);
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); // 기본 동작 막기
