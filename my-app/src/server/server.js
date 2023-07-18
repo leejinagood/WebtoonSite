@@ -32,7 +32,6 @@ server.use(restify.plugins.queryParser());
 // const app = express();
 const port = 4000;
 
-
 const corsMiddleware = require('restify-cors-middleware');
 
 
@@ -202,10 +201,9 @@ server.get('/api/webtoondetail', async (req, res) => {
   }
 });
 
+
 const jwt = require('jsonwebtoken'); //jwt
-const bcrypt = require('bcrypt');
-const dotenv = require('dotenv');
-const Cookies = require('restify-cookies');
+const bcrypt = require('bcrypt'); //암호화
 
 
 // 회원가입 메서드
@@ -341,7 +339,6 @@ server.get('/api/Token', async (req, res) => {
     res.status(401).send('쿠키 없음');
   }
 });
-
 
 
 // 기존 로그인 코드
@@ -514,7 +511,8 @@ server.get('/api/prev_episode', async(req, res) => {
 //     conn.release();
 //   }
 // });
-// 위 두 코드를 합친 코드 : 좋아요를 먼저 select한 후 true이면 1을, 아니면 0 을 출력함. 결과가 0일때만 추가로 좋아요를 누를 수 있음. 
+
+// 위 두 코드를 합친 코드 : 좋아요를 먼저 select한 후 true이면 1을, 아니면 0 을 출력함. 결과가 0일때랑 User_Email, Webtoon_Name이 존재할 때만 추가로 좋아요를 누를 수 있음. 
 server.put('/api/update_like', async (req, res) => {
   const conn = await getConn();
   const selectQuery = 'SELECT EXISTS (SELECT * FROM Like_Table WHERE User_Id = (SELECT User_Id FROM User_Table WHERE User_Email = ?) AND Webtoon_Id = (SELECT Webtoon_Id FROM Webtoon_Table WHERE Webtoon_Name = ?) AND Likes = 1) AS likeExists;';
@@ -548,8 +546,6 @@ server.put('/api/update_like', async (req, res) => {
     conn.release();
   }
 });
-
-
 
 
 //webtoon_name을 입력받고 Episode_Id를 보내주는 메서드 
@@ -589,6 +585,7 @@ server.get('/api/Webtoon_Asc', async(req, res) => {
     conn.release(); // 연결 해제
 }});
 
+
 //웹툰을 최신화부터 episode_Number를 출력하는 메서드
 server.get('/api/Webtoon_Desc', async(req, res) => {
   const conn = await getConn();
@@ -608,6 +605,7 @@ server.get('/api/Webtoon_Desc', async(req, res) => {
   } finally {
     conn.release(); // 연결 해제
 }});
+
 
 // 제목과 에피소드를 파라미터로 받고 웹툰의 이미지 경로와 카운트 컬럼을 추출하는 메서드
 server.get('/api/Webtoon_Img', async (req, res) => {
@@ -648,6 +646,7 @@ server.get('/api/Episode_Thumbnail', async (req, res) => {
     conn.release(); // 연결 해제
   }
 });
+
 
 //에피소드 썸네일 보여주는 메서드
 server.get('/api/Webtoon_Thumbnail', async (req, res) => {
