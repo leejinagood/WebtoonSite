@@ -312,6 +312,7 @@ function extractTokenFromCookies(cookies) {
   const tokenCookie = cookieArr.find(cookie => cookie.trim().startsWith('token='));
   if (tokenCookie) {
     const token = tokenCookie.split('=')[1];
+    //토큰만 추출하여 return
     return token.trim();
   }
   return null;
@@ -385,11 +386,13 @@ server.post('/api/comment_insert', async (req, res)=> {
   const query = 'call Comment_insert(?, ?, ?, ?)';
   const values = [CommentContent, UserEmail, WebtoonName, EpisodeNumber];
   try {
+    // 토큰 인증을 받아야만 댓글 입력
     const authResponse = await axios.post('http://your-server/api/Token', { token });
     if (authResponse.data === '토큰 인증 성공') {
     await conn.query(query, values);
     res.send("댓글 입력 성공");
   } else {
+    // 아니면 실패
     res.status(401).send('토큰 인증 실패');
   }
   }catch (error) {
@@ -473,15 +476,15 @@ server.get('/api/prev_episode', async(req, res) => {
 server.get('/api/like_exists', async(req, res) => {
   const conn = await getConn();
   const query = 'call exists_like(?);';
-  const {Webtoon_Id, User_Id} = req.query;
-  const values = [Webtoon_Id, User_Id] //웹툰 아이디와 현재 에피소드 번호를 넘겨줌. 
+  const {WebtoonName, UserEmail} = req.query;
+  const values = [WebtoonName, UserEmail] //웹툰 아이디와 현재 에피소드 번호를 넘겨줌. 
   try{
     const [result] = await conn.query(query, [values]);
     //result에서 EXISTS 값을 추출
-    const exists = result[0][0]["exists(\n\tselect Likes\n    from Like_Table\n    where Webtoon_Id=WebtoonId and User_Id = UserId and Likes = 1)"];
+    const exists = result[0][0].Result === 1 ? 1 : 0;
     // console.log(exists);
     //좋아요를 눌렀으면 1 안 눌렀으면 0
-    res.send({ exists: exists ? 1 : 0 }); //response 하기 전에 상태코드를 지정하여 보내주기
+    res.send({ result: exists }); // 결과를 숫자 1 또는 0으로 전송 
   }catch (error) {
     console.error(error);
     res.status(500).send({ error: '서버 스크립트의 오류' });
@@ -492,31 +495,28 @@ server.get('/api/like_exists', async(req, res) => {
 
 
 //위 코드에서 0일 때만 좋아요를 누를 수 있음
-//User_Id와 Webtoon_Id을 파라미터로 받아서 좋아요 누르면 +1 되도록 
-server.put('/api/update_like', async (req, res)=> {
+//User_Email과 Webtoon_Name을 파라미터로 받아서 좋아요 누르면 +1 되도록 
+server.put('/api/update_like', async (req, res) => {
   const conn = await getConn();
-  const query = 'call update_like(?)';
-  const {User_Id, Webtoon_Id} = req.body;
-  const value = [User_Id, Webtoon_Id];
+  const query = 'UPDATE Like_Table SET Likes = true WHERE User_Id = (SELECT User_Table.User_Id FROM User_Table WHERE User_Table.User_Email = ?) AND Webtoon_Id = (SELECT Webtoon_Table.Webtoon_Id FROM Webtoon_Table WHERE Webtoon_Table.Webtoon_Name = ?);';
+  const { UserEmail, WebtoonName } = req.body;
+  const values = [UserEmail, WebtoonName];
   try {
-      const authResponse = await axios.post('http://your-server/api/Token', { token });
-      if (authResponse.data === '토큰 인증 성공') {
-      await conn.query(query, [value]); 
-      // const result_query = "select count(Likes)  from Like_Table where Likes = true and Webtoon_Id = ? group by Webtoon_Id;";
-      // const result = await conn.query(result_query, [value.Webtoon_Id]); 
-      // res.send(result);
-      // console.log(result);
-      // console.log("좋아요 추가 성공");
-      res.send("좋아요 추가 성공");
-      }else {
-        res.status(401).send('토큰 인증 실패'); }
-    } catch (error) {
-      console.error(error);
-      res.status(500).json("입력 실패");
-    } finally {
-      conn.release(); 
-    }
+        // 토큰 인증을 받아야만 좋아요 누를 수 있게끔
+        const authResponse = await axios.post('http://your-server/api/Token', { token });
+        if (authResponse.data === '토큰 인증 성공') {
+          await conn.query(query, values);
+          res.send("좋아요 추가 성공");
+        }else {
+          res.status(401).send('토큰 인증 실패'); }
+      }catch (error) {
+    console.error(error);
+    res.status(500).json('입력 실패');
+  } finally {
+    conn.release();
+  }
 });
+
 
 //webtoon_name을 입력받고 Episode_Id를 보내주는 메서드 
 server.get('/api/Episode_Id', async(req, res) => {
