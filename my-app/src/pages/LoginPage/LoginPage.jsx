@@ -25,20 +25,19 @@ const LoginPage = () => {
           password: password
         }
       });
-  
+
       if (response.data.token) {
         const token = response.data.token;
         const userName = response.data.User_Name;
-  
+
         // 로그인 성공 처리
         console.log("토큰:", token);
         console.log("사용자 이름:", userName);
-  
+
         // 토큰 저장
         // localStorage.setItem("token", token);
         sessionStorage.setItem("token", token);
 
-  
         // 사용자 이름 활용 예시: 다른 페이지로 이동할 때 query string으로 전달
         Router.push(`/?userName=${encodeURIComponent(userName)}`);
       } else {
@@ -72,7 +71,7 @@ const LoginPage = () => {
               </tr>
             </tbody>
           </table>
-          <button type="submit" className="LoginPageBtn">fh</button> 
+          <button type="submit" className="LoginPageBtn">fh</button>
         </form>
         <div className="LoginMenu">
           <Link href="/password" ><li>비밀번호 찾기</li></Link>

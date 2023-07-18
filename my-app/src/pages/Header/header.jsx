@@ -1,11 +1,11 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import axios from 'axios';
 import HederCss from "./styles/Heder.css";
 import SerchWebToon from "../SerchWebToon";
 import { useRouter } from "next/router";
 
-const Header = ({ token }) => {
+const Header = () => {
   const [userId, setUserId] = useState(null);
   const [webtoonData, setWebtoonData] = useState([]);
   const router = useRouter();
@@ -18,8 +18,6 @@ const Header = ({ token }) => {
     setUserInput(e.target.value);
   };
 
-  console.log(token);
-
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); // 기본 동작 막기
@@ -28,7 +26,8 @@ const Header = ({ token }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    // localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     setUserId(null);
     router.push("/");
   };
@@ -39,11 +38,11 @@ const Header = ({ token }) => {
         const response = await axios.get("/api/Token");
         if (response.status === 200) {
           setUserId(response.data.userId);
-          console.log(token);
+          console.log("토큰:", sessionStorage.getItem("token"));
 
         } else {
           setUserId(null);
-          console.log(token);
+          console.log("토큰:", sessionStorage.getItem("token"));
 
         }
       } catch (error) {
@@ -57,25 +56,26 @@ const Header = ({ token }) => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get("/api/userInfo", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (response.status === 200) {
-          const { User_Name } = response.data;
-          console.log("유저 이름:", User_Name);
-          setUserId(response.data.User_Name);
+        const token = sessionStorage.getItem("token");
+        if (token) {
+          const response = await axios.get("/api/userInfo", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          if (response.status === 200) {
+            const { User_Name } = response.data;
+            console.log("유저 이름:", User_Name);
+            setUserId(response.data.User_Name);
+          }
         }
       } catch (error) {
         console.error("API 호출 에러:", error);
       }
     };
 
-    if (token) {
-      fetchUserInfo();
-    }
-  }, [token]);
+    fetchUserInfo();
+  }, []);
 
   return (
     <div className="HederBox">

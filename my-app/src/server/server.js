@@ -285,6 +285,7 @@ server.get('/api/LoginPage', async (req, res) => {
         `User_Email=${selectUserResult[0].User_Email}`,
         `token=${token}`
       ]);
+      // 요기봐야함 솔빈
       // 유저 닉네임과 유저 이메일, 토큰을 응답으로
       res.send({
         User_Name: selectUserResult[0].User_Name,

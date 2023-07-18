@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MainPageCss from "../styles/MainPageCss.css";
 import Header from "./Header/header";
 import Footer from "./Footer/footer";
@@ -7,21 +7,18 @@ import Tag from "./Tag/Tag";
 import Head from 'next/head';
 import AllToonInfo from "../item/AllToonInfo";
 import { useRouter } from "next/router";
+import { parseCookies } from 'nookies'; // nookies 라이브러리 import
 
 const MainPage = () => {
-  const [token, setToken] = useState('');
-
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    setToken(token);
-  }, []);
+  const router = useRouter();
+  const { token } = parseCookies({}); // 쿠키에서 토큰 가져오기
 
   return (
     <div className="MainPage">
       <Head>
         <link rel="manifest" href="/manifest.json" />
       </Head>
-      <Header token={token} />
+      <Header token={token} /> {/* Header 컴포넌트에 토큰 전달 */}
       <div className="MNewToon">
         <NewToon />
       </div>
@@ -31,7 +28,7 @@ const MainPage = () => {
           <AllToonInfo />
         </div>
       </div>
-      <Tag />
+      <Tag/>
       <Footer />
     </div>
   );
