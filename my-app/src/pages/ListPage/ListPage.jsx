@@ -12,6 +12,7 @@ const ListPage = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 추가
   const [totalCount, setTotalCount] = useState(0); // 총 개수 상태 추가
+  const [ep, setEp] = useState(1); // ep 값을 상태로 관리
 
   useEffect(() => {
     const { webtoonName } = router.query;
