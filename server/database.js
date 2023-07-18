@@ -1,3 +1,5 @@
+//database 관련 코드
+
 const getConn = async () => {
     return await pool.getConnection(async(conn) => conn) ;
 }
