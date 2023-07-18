@@ -5,7 +5,7 @@ import MondayPage from './MonDayPage';
 class TuesDayPage extends Component {
     render() {
       return (
-        <MondayPage week="금" day="fir"/>
+        <MondayPage week="금" day="fri"/>
       );
     }
   }
