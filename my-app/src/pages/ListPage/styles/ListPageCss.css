@@ -48,7 +48,7 @@
         bottom: 10vw !important;
     }
     .List{
-        margin-top: 5%;
+        margin-top:7% !important;
         width: 75% !important;
     }
     .ListItem{
@@ -119,7 +119,6 @@
         bottom: 20vw !important;
     }
     .List{
-        margin-top: 1vw;
         width: 80% !important;
         float: left !important;
     }
@@ -217,7 +216,7 @@
         bottom: 20vw !important;
     }
     .List{
-        margin-top: 1vw;
+        margin-top: 3% !important;
         width: 80% !important;
         float: left !important;
     }
@@ -344,7 +343,7 @@ li{
 
 
 .List{
-    margin-top: 10%;
+    margin-top: 15%;
     float: left;
     width: 100%;
 

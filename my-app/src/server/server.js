@@ -283,6 +283,7 @@ server.get('/api/LoginPage', async (req, res) => {
         `User_Email=${selectUserResult[0].User_Email}`,
         `token=${token}`
       ]);
+      // 요기봐야함 솔빈
       // 유저 닉네임과 유저 이메일, 토큰을 응답으로
       res.send({
         User_Name: selectUserResult[0].User_Name,
@@ -376,20 +377,18 @@ server.get('/api/Token', async (req, res) => {
 // });
 
 
-// 댓글 입력 메서드
+//댓글 입력 메서드
 server.post('/api/comment_insert', async (req, res)=> {
   const conn = await getConn();
   const { CommentContent, UserEmail, WebtoonName, EpisodeNumber } = req.body;
   const query = 'call Comment_insert(?, ?, ?, ?)';
   const values = [CommentContent, UserEmail, WebtoonName, EpisodeNumber];
   try {
-    // 토큰 인증을 받아야만 댓글 입력
     const authResponse = await axios.post('http://your-server/api/Token', { token });
     if (authResponse.data === '토큰 인증 성공') {
     await conn.query(query, values);
     res.send("댓글 입력 성공");
   } else {
-    // 아니면 실패
     res.status(401).send('토큰 인증 실패');
   }
   }catch (error) {
@@ -399,6 +398,7 @@ server.post('/api/comment_insert', async (req, res)=> {
     conn.release();
   }
 })
+
 
 
 //파라미터로 Webtoon_Name과 episode_Number를 받아와 댓글을 확인할 수 있는 메서드

@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import MainPageCss from "@/src/styles/MainPageCss.css";
-
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
 import NewToon from "../../item/NewToon";
 import DayMain from "../../item/DayMain";
 import Rank from "../../item/Rank";
 import Slider from "../../item/Slider";
+import { parseCookies } from 'nookies'; // nookies 라이브러리 import
+import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
 
 class MondayPage extends Component {
   constructor(props) {
@@ -17,12 +18,19 @@ class MondayPage extends Component {
     };
   }
 
-  componentDidMount() {
-    // 다른 요일페이지의 key day를 가져오는것
-    const { day } = this.props;
 
-    //요청 메서드, 결과값 추출
-    fetch(`/api/daywebtoon?day=${day}`)
+
+
+  componentDidMount() {
+    const { day } = this.props;
+    const { token } = parseCookies({}); // 쿠키에서 토큰 가져오기
+    const tokenPayload = jwt.decode(token);
+    
+    fetch(`/api/daywebtoon?day=${day}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then((response) => response.json())
       .then((data) => {
         const { webtoons } = data;
@@ -32,7 +40,6 @@ class MondayPage extends Component {
         console.error("Error fetching API:", error);
       });
     const fetchedDayToonItemCounts = [3, 0, 0];
-    //요일별 아이템 갯수
     this.setState({ dayToonItemCounts: fetchedDayToonItemCounts });
   }
 
@@ -55,14 +62,15 @@ class MondayPage extends Component {
       return ""; 
     }
   };
-
   render() {
     const { dayToonItemCounts, webtoons } = this.state;
     const { week, writer, star } = this.props;
+    const { token } = parseCookies({});
+    const tokenPayload = jwt.decode(token);
 
     return (
       <div className="DayBox">
-        <Header />
+        <Header token={token} />
         <h3 className="Categories">{week}요일 추천 웹툰</h3>
         <div className="MNewToon">
           <NewToon />

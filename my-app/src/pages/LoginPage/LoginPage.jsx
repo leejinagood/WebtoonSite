@@ -3,11 +3,13 @@ import axios from "axios";
 import LoginCss from "./styles/LoginCss.css";
 import Link from 'next/link';
 import Router from "next/router";
-import { useRouter } from "next/router";
+import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
 
 const LoginPage = () => {
   const [ID, setID] = useState("");
   const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState(""); // User_Name 값을 저장하는 상태
+
   const handleIDChange = (e) => {
     setID(e.target.value);
   };
@@ -25,20 +27,30 @@ const LoginPage = () => {
           password: password
         }
       });
-  
+
       if (response.data.token) {
-        const token = response.data.token;
-        const userName = response.data.User_Name;
-  
+        const tokenPayload = {
+          User_Name: response.data.User_Name,
+          User_Email: response.data.User_Email
+        };
+        console.log(tokenPayload.User_Name);
+        console.log(tokenPayload.User_Email);
+
+        const token = jwt.sign(tokenPayload, 'your-secret-key');
+
         // 로그인 성공 처리
         console.log("토큰:", token);
-        console.log("사용자 이름:", userName);
-  
+        console.log("사용자 이름:", response.data.User_Name);
+        console.log("사용자 이메일:", response.data.User_Email);
+
         // 토큰 저장
-        localStorage.setItem("token", token);
-  
-        // 사용자 이름 활용 예시: 다른 페이지로 이동할 때 query string으로 전달
-        Router.push(`/?userName=${encodeURIComponent(userName)}`);
+        sessionStorage.setItem("token", token);
+
+        // 사용자 이름 저장
+        setUserName(response.data.User_Name);
+
+        // 페이지 이동
+        Router.push("/mainpage");
       } else {
         // 로그인 실패 처리
         console.log("로그인 실패");
@@ -70,7 +82,7 @@ const LoginPage = () => {
               </tr>
             </tbody>
           </table>
-          <button type="submit" className="LoginPageBtn">로그인</button> 
+          <button type="submit" className="LoginPageBtn">fh</button>
         </form>
         <div className="LoginMenu">
           <Link href="/password" ><li>비밀번호 찾기</li></Link>
