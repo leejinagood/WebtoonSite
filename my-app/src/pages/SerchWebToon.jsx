@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import SerchWebToonCss from "./SerchWebToonCss.css";
 import MainPageCss from "../styles/MainPageCss.css";
 import Link from "next/link";
+
 function SerchWebToon() {
   const router = useRouter();
   const { word } = router.query;
@@ -23,26 +24,17 @@ function SerchWebToon() {
     fetchData();
   }, [word]);
 
-  // 웹툰 제목을 받고 일치하는 제목이면 img src 경로 수정
-  const getThumbnailImage = (webtoon) => {
-    if (webtoon.Webtoon_Name === "똑 닮은 딸") {
-      return "/WebtoonImg/web1/web1_thumbnail.jpg";
-    } else if (webtoon.Webtoon_Name === "마루는 강쥐") {
-      return "/WebtoonImg/web2/web2_thumbnail.jpg";
-    } else if (webtoon.Webtoon_Name === "소녀재판") {
-      return "/WebtoonImg/web3/web3_thumbnail.jpg";
-    } else if (webtoon.Webtoon_Name === "신혼일기") {
-        return "/WebtoonImg/web4/web4_thumbnail.jpg";
-    } else if (webtoon.Webtoon_Name === "외모지상주의") {
-      return "/WebtoonImg/web5/web5_thumbnail.jpg";
-    }else if (webtoon.Webtoon_Name === "퀘스트지상주의") {
-      return "/WebtoonImg/web6/web6_thumbnail.jpg";
+  const getThumbnailImage = async (webtoonName) => {
+    try {
+      const response = await fetch(`/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(webtoonName)}`);
+      const data = await response.json();
+      const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail;
+      return thumbnail || "";
+    } catch (error) {
+      console.error("Error fetching API:", error);
+      return "";
     }
-    // 기본값으로 설정할 썸네일 이미지 경로
-    return "";
   };
-
-
 
   return (
     <div className="SerchWebToon">
@@ -52,22 +44,27 @@ function SerchWebToon() {
           {webtoonData.map((webtoon, index) => (
             <li key={index}>
               <Link href={`/ListPage/ListPage?webtoonName=${webtoon.Webtoon_Name}`}>
-              <div className="ListItem">
-                <div className="ListImg">
-                <img src={getThumbnailImage(webtoon)} alt="" />
+                <div className="ListItem">
+                  <div className="ListImg">
+                    <img src="" ref={imgRef => {
+                      if (imgRef) {
+                        getThumbnailImage(webtoon.Webtoon_Name)
+                          .then(thumbnail => imgRef.src = thumbnail)
+                          .catch(error => console.error("Error loading thumbnail:", error));
+                      }
+                    }} />
+                  </div>
+                  <div className="ListItemContent">
+                    <p className="Episode">
+                      {webtoon.Webtoon_Name}
+                      <br />
+                      <span className="tab">{webtoon.Webtoon_Author}</span>
+                    </p>
+                    <p className="SU">
+                      <span className="tab">{webtoon.Category_Kinds}</span>
+                    </p>
+                  </div>
                 </div>
-                <div className="ListItemContent">
-                  <p className="Episode">
-                    {webtoon.Webtoon_Name}
-                    <br />
-                    <span className="tab">{webtoon.Webtoon_Author}</span>
-                  </p>
-                  <p className="SU">
-                    <span className="tab">{webtoon.Category_Kinds}</span>
-                  </p>
-                </div>
-             
-              </div>
               </Link>
             </li>
           ))}
