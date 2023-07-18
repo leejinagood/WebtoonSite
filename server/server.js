@@ -45,27 +45,13 @@ const cors = corsMiddleware({
 server.pre(cors.preflight);
 server.use(cors.actual);
 
-
-const getConn = async () => {
-    return await pool.getConnection(async(conn) => conn) ;
+const { getConn } = require('./database');
+async function someFunction() {
+  const connection = await getConn();
+  // 데이터베이스 연결 관련 작업 수행
+  // ...
+  connection.release(); // 사용 후 연결 반환
 }
-
-
-//데이터베이스 연동
-const mysql = require('mysql2/promise');
-const pool = mysql.createPool({
-    host : 'webtoon.cq14nnpiflfq.us-east-1.rds.amazonaws.com',
-    port : '3306',
-    user : 'admin',
-    password : 'abcd1234',
-    database : 'webtoon'
-
-    // host : '127.0.0.1',
-    // port : '3306',
-    // user : 'root',
-    // password : '2098',
-    // database : 'webtoon'
-});
 
 //http://localhost:4000/ 접속
 server.listen(port, ()=>{
