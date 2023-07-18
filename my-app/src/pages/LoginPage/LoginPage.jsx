@@ -40,7 +40,7 @@ const LoginPage = () => {
 
   
         // 사용자 이름 활용 예시: 다른 페이지로 이동할 때 query string으로 전달
-        Router.push(`/?token=${encodeURIComponent(token)}`);
+        Router.push(`/?userName=${encodeURIComponent(userName)}`);
       } else {
         // 로그인 실패 처리
         console.log("로그인 실패");

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React,{useState,useEffect} from "react";
 import Link from 'next/link';
 import axios from 'axios';
 import HederCss from "./styles/Heder.css";
@@ -9,6 +9,7 @@ const Header = ({ token }) => {
   const [userId, setUserId] = useState(null);
   const [webtoonData, setWebtoonData] = useState([]);
   const router = useRouter();
+  const { userName = "login" } = router.query; // userName 값 가져오기
 
   // 유저가 검색창에 입력하는 값
   const [userInput, setUserInput] = useState('');
@@ -39,18 +40,19 @@ const Header = ({ token }) => {
         if (response.status === 200) {
           setUserId(response.data.userId);
           console.log(token);
+
         } else {
           setUserId(null);
           console.log(token);
+
         }
       } catch (error) {
         console.error("API 호출 에러:", error);
       }
     };
-  
+
     checkLoginStatus();
   }, []);
-  
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -96,7 +98,7 @@ const Header = ({ token }) => {
                     <button type="submit" className="SerchBtn">검색</button>
                     {userId ? (
                       <p className="LoginBtn" onClick={handleLogout}>
-                        {userId} (로그아웃)
+                        {userName} (로그아웃)
                       </p>
                     ) : (
                       <Link href="/LoginPage/LoginPage">
