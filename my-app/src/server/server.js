@@ -472,44 +472,67 @@ server.get('/api/prev_episode', async(req, res) => {
 })
 
 
-//좋아요를 눌렀으면 1 출력, 안 눌렀으면 0 출력
-server.get('/api/like_exists', async(req, res) => {
-  const conn = await getConn();
-  const query = 'call exists_like(?);';
-  const {WebtoonName, UserEmail} = req.query;
-  const values = [WebtoonName, UserEmail] //웹툰 아이디와 현재 에피소드 번호를 넘겨줌. 
-  try{
-    const [result] = await conn.query(query, [values]);
-    //result에서 EXISTS 값을 추출
-    const exists = result[0][0].Result === 1 ? 1 : 0;
-    // console.log(exists);
-    //좋아요를 눌렀으면 1 안 눌렀으면 0
-    res.send({ result: exists }); // 결과를 숫자 1 또는 0으로 전송 
-  }catch (error) {
-    console.error(error);
-    res.status(500).send({ error: '서버 스크립트의 오류' });
-  } finally {
-    conn.release(); // 연결 해제
-  }
-})
+// //좋아요를 눌렀으면 1 출력, 안 눌렀으면 0 출력
+// server.get('/api/like_exists', async(req, res) => {
+//   const conn = await getConn();
+//   const query = 'call exists_like(?);';
+//   const {WebtoonName, UserEmail} = req.query;
+//   const values = [WebtoonName, UserEmail] //웹툰 아이디와 현재 에피소드 번호를 넘겨줌. 
+//   try{
+//     const [result] = await conn.query(query, [values]);
+//     //result에서 EXISTS 값을 추출
+//     const exists = result[0][0].Result === 1 ? 1 : 0;
+//     // console.log(exists);
+//     //좋아요를 눌렀으면 1 안 눌렀으면 0
+//     res.send({ result: exists }); // 결과를 숫자 1 또는 0으로 전송 
+//   }catch (error) {
+//     console.error(error);
+//     res.status(500).send({ error: '서버 스크립트의 오류' });
+//   } finally {
+//     conn.release(); // 연결 해제
+//   }
+// })
+// //위 코드에서 0일 때만 좋아요를 누를 수 있음
+// //User_Email과 Webtoon_Name을 파라미터로 받아서 좋아요 누르면 +1 되도록 
+// server.put('/api/update_like', async (req, res) => {
+//   const conn = await getConn();
+//   const query = 'UPDATE Like_Table SET Likes = true WHERE User_Id = (SELECT User_Table.User_Id FROM User_Table WHERE User_Table.User_Email = ?) AND Webtoon_Id = (SELECT Webtoon_Table.Webtoon_Id FROM Webtoon_Table WHERE Webtoon_Table.Webtoon_Name = ?);';
+//   const { UserEmail, WebtoonName } = req.body;
+//   const values = [UserEmail, WebtoonName];
+//   try {
+//         // 토큰 인증을 받아야만 좋아요 누를 수 있게끔
+//         const authResponse = await axios.post('http://your-server/api/Token', { token });
+//         if (authResponse.data === '토큰 인증 성공') {
+//           await conn.query(query, values);
+//           res.send("좋아요 추가 성공");
+//         }else {
+//           res.status(401).send('토큰 인증 실패'); }
+//       }catch (error) {
+//     console.error(error);
+//     res.status(500).json('입력 실패');
+//   } finally {
+//     conn.release();
+//   }
+// });
 
 
-//위 코드에서 0일 때만 좋아요를 누를 수 있음
-//User_Email과 Webtoon_Name을 파라미터로 받아서 좋아요 누르면 +1 되도록 
+// 위 두 코드를 합친 코드 : 좋아요를 먼저 select한 후 true이면 1을, 아니면 0 을 출력함. 결과가 0일때만 추가로 좋아요를 누를 수 있음. 
 server.put('/api/update_like', async (req, res) => {
   const conn = await getConn();
-  const query = 'UPDATE Like_Table SET Likes = true WHERE User_Id = (SELECT User_Table.User_Id FROM User_Table WHERE User_Table.User_Email = ?) AND Webtoon_Id = (SELECT Webtoon_Table.Webtoon_Id FROM Webtoon_Table WHERE Webtoon_Table.Webtoon_Name = ?);';
+  const selectQuery = 'SELECT EXISTS (SELECT * FROM Like_Table WHERE User_Id = (SELECT User_Id FROM User_Table WHERE User_Email = ?) AND Webtoon_Id = (SELECT Webtoon_Id FROM Webtoon_Table WHERE Webtoon_Name = ?) AND Likes = 1) AS likeExists;';
+  const updateQuery = 'UPDATE Like_Table SET Likes = true WHERE User_Id = (SELECT User_Id FROM User_Table WHERE User_Email = ?) AND Webtoon_Id = (SELECT Webtoon_Id FROM Webtoon_Table WHERE Webtoon_Name = ?);';
   const { UserEmail, WebtoonName } = req.body;
   const values = [UserEmail, WebtoonName];
   try {
-        // 토큰 인증을 받아야만 좋아요 누를 수 있게끔
-        const authResponse = await axios.post('http://your-server/api/Token', { token });
-        if (authResponse.data === '토큰 인증 성공') {
-          await conn.query(query, values);
-          res.send("좋아요 추가 성공");
-        }else {
-          res.status(401).send('토큰 인증 실패'); }
-      }catch (error) {
+    const [result] = await conn.query(selectQuery, values);
+    const likeExists = result[0].likeExists;
+    if (likeExists === 0) {
+      await conn.query(updateQuery, values);
+      res.send('좋아요 추가 성공');
+    } else {
+      res.send('이미 좋아요를 눌렀습니다.');
+    }
+  } catch (error) {
     console.error(error);
     res.status(500).json('입력 실패');
   } finally {
