@@ -5,7 +5,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-        <title>AVATOON</title>
         <link rel="manifest" href="/manifest.json" />
 
           {/* <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> */}

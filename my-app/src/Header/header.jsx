@@ -114,7 +114,7 @@ const Header = () => {
           <Link href={{ pathname: '/', query: { day: 'All' } }}>
             <li id="AD" className="AllDay">전체요일</li>
           </Link>
-          <Link href={{ pathname: '/DayPage/MonDayPage', query: { day: 'mon' } }}>
+          <Link href={{ pathname: '/daypage', query: { day: 'mon' } }}>
             <li className="AllDay">월</li>
           </Link>
           <Link href={{ pathname: '/DayPage/TuesDayPage', query: { day: 'tues' } }}>

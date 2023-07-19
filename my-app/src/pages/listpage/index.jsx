@@ -5,41 +5,46 @@ import ListPageCss from "./styles/ListPageCss.css";
 import Footer from "@/src/Footer/footer";
 import ListItem from "@/src/Component/ListItem";
 import Head from "next/head";
+
 const ListPage = () => {
   const router = useRouter();
-  const {webtoonName} = router.query;
+  const { webtoonName } = router.query;
   const [webtoonInfo, setWebtoonInfo] = useState(null);
   const [webtoons, setWebtoons] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 추가
-  const [totalCount, setTotalCount] = useState(0); // 총 개수 상태 추가
-  const [ep, setEp] = useState(1); // ep 값을 상태로 관리
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [ep, setEp] = useState(1);
 
   useEffect(() => {
-    const { webtoonName } = router.query;
-    console.log(webtoonName);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/listdetail?name=${encodeURIComponent(webtoonName)}`);
+        const data = await response.json();
+        const { webtoons } = data;
+        setWebtoonInfo(webtoons[0]);
+        setWebtoons(webtoons);
+        setTotalCount(webtoons.length);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching API:", error);
+        setLoading(false);
+      }
+    };
+
     if (webtoonName) {
-      fetch(`http://192.168.0.98:4000/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`)
-        .then((response) => response.json())
-        .then((data) => {
-          const { webtoons, count } = data;
-          setWebtoonInfo(webtoons[0]);
-          setWebtoons(webtoons);
-          setTotalCount(count);
-          console.log(webtoonName);
-        })
-        .catch((error) => {
-          console.error("Error fetching API:", error);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      fetchData();
+    } else {
+      setWebtoonInfo(null);
+      setWebtoons([]);
+      setTotalCount(0);
+      setLoading(false);
     }
-  }, [router.query.webtoonName]);
+  }, [webtoonName]);
 
   const getThumbnailImage = async (webtoonName) => {
     try {
-      const response = await fetch(`/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(webtoonName)}`);
+      const response = await fetch(`/api/thumnail?webtoonName=${encodeURIComponent(webtoonName)}`);
       const data = await response.json();
       const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail;
       return thumbnail || "";
@@ -50,15 +55,18 @@ const ListPage = () => {
   };
 
   const handleLike = () => {
-    setLike((prevLike) => prevLike + 1);
+    setWebtoonInfo((prevInfo) => ({
+      ...prevInfo,
+      like: prevInfo.like + 1
+    }));
   };
 
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber); // 페이지 변경 시 현재 페이지 업데이트
+    setCurrentPage(pageNumber);
   };
 
   const handleEpChange = (ep) => {
-    setEp(ep); // ep 값 업데이트
+    setEp(ep);
   };
 
   if (loading) {
@@ -71,67 +79,70 @@ const ListPage = () => {
 
   return (
     <div className="ListPage">
-            <Head>
+      <Head>
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#317EFB"/>
-        <meta name="name" content="#317EFB"/>
-
+        <meta name="theme-color" content="#317EFB" />
+        <meta name="name" content="#317EFB" />
       </Head>
-      
+
       <Header />
 
       <div className="ListInfoBox">
         <div className="ListInfo">
           <div className="ListImgBox">
             {webtoonInfo && (
-              <img src="" alt={webtoonInfo.webtoon_name} ref={imgRef => {
-                if (imgRef) {
-                  getThumbnailImage(webtoonInfo.webtoon_name)
-                    .then(thumbnail => imgRef.src = thumbnail)
-                    .catch(error => console.error("Error loading thumbnail:", error));
-                }
-              }} />
+              <img
+                src=""
+                alt={webtoonInfo.webtoon_name}
+                ref={(imgRef) => {
+                  if (imgRef) {
+                    getThumbnailImage(webtoonInfo.webtoon_name)
+                      .then((thumbnail) => (imgRef.src = thumbnail))
+                      .catch((error) => console.error("Error loading thumbnail:", error));
+                  }
+                }}
+              />
             )}
           </div>
           <div className="ListInfo">
-          <div className="TextBox">
-  {webtoonInfo && (
-    <>
-      <p id="line" className="tab2">
-        {webtoonInfo.webtoon_name}
-      </p>
-      <p id="line" className="GrayP">
-        글/그림<span>{webtoonInfo.author}</span> | {webtoonInfo.week} 요웹툰
-        <br />
-        {webtoonInfo.content}
-        <div className="InfoBtn">
-          <button id="PointBtn" className="IBtn" onClick={handleLike}>
-            좋아요 {webtoonInfo.like}
-          </button>
-          <button className="IBtn">첫화보기 1화</button>
-          <button className="SNSBTN">공유하기</button>
-        </div>
-      </p>
-    </>
-  )}
-</div>
+            <div className="TextBox">
+              {webtoonInfo && (
+                <>
+                  <p id="line" className="tab2">
+                    {webtoonInfo.webtoon_name}
+                  </p>
+                  <p id="line" className="GrayP">
+                    글/그림<span>{webtoonInfo.author}</span> | {webtoonInfo.week} 요웹툰
+                    <br />
+                    {webtoonInfo.content}
+                    <div className="InfoBtn">
+                      <button id="PointBtn" className="IBtn" onClick={handleLike}>
+                        좋아요 {webtoonInfo.like}
+                      </button>
+                      <button className="IBtn">첫화보기 1화</button>
+                      <button className="SNSBTN">공유하기</button>
+                    </div>
+                  </p>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
       <ul className="List">
-  {/* 카운터 값을 이용하여 리스트 아이템 렌더링 */}
-  {Array.from({ length: webtoonInfo?.count || 0 }).map((_, index) => (
-    <li key={index}>
-      <ListItem
-        webtoonName={webtoonInfo?.webtoon_name}
-        ep={index + 1}
-        uploadDate={webtoonInfo?.Episode_Number}
-        handleClick={handleEpChange} // 클릭 시 handleEpChange 함수 호출
-      />
-    </li>
-  ))}
-</ul>
+        {webtoonInfo &&
+          Array.from({ length: webtoonInfo.count }).map((_, index) => (
+            <li key={index}>
+              <ListItem
+                webtoonName={webtoonInfo.webtoon_name}
+                ep={index + 1}
+                uploadDate={webtoonInfo.upload_date}
+                handleClick={handleEpChange}
+              />
+            </li>
+          ))}
+      </ul>
 
       <div className="Pagination">
         <span className="Arrow">{"<"}</span>
