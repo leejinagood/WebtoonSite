@@ -28,15 +28,15 @@ server.get('/api/daywebtoon', async (req, res) => {
   });
 
 
-//메인페이지에서 좋아요가 가장 높은 웹툰 중 top5 제목과 작가 출력
-server.get('/popular', async (req, res) => {
+//메인페이지에서 좋아요가 가장 높은 웹툰 중 top5 제목과 작가, 썸네일 출력
+server.get('/api/popular', async (req, res) => {
     const conn = await getConn();
     const query = 'CALL Like_Top();'; // 프로시저 호출
     try {
       const [rows] = await conn.query(query);
       const result = rows[0].map((row) => ({
-        webtoon_name: row.Webtoon_Name,
-        author: row.Webtoon_Author
+        webtoon_name: row.webtoonName,
+        author: row.webtoonAuthor
       }));
       res.send(result);
       // console.log(result);
