@@ -36,7 +36,8 @@ server.get('/api/popular', async (req, res) => {
       const [rows] = await conn.query(query);
       const result = rows[0].map((row) => ({
         webtoon_name: row.webtoonName,
-        author: row.webtoonAuthor
+        author: row.webtoonAuthor,
+        thumbnail: row.webtoonThumbnail
       }));
       res.send(result);
       // console.log(result);
