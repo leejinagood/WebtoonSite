@@ -19,7 +19,7 @@ const server = restify.createServer();
 server.use(restify.plugins.bodyParser());// JSON 데이터 파싱을 위한 미들웨어
 server.use(restify.plugins.queryParser());
 
-// //기본 포트번호 설정\
+// 기본 포트번호 설정
 const port = 4000;
 
 // CORS 정책 설정
@@ -40,22 +40,23 @@ async function someFunction() {
 }
 someFunction();
 
+//웹툰 api 
 const webtoonAPI = require('./apiCode/webtoon');
 webtoonAPI(server, getConn);
 
-// 댓글 API 실행
+// 댓글 api
 const commentAPI = require('./apiCode/comment');
 commentAPI(server, getConn);
 
-// 좋아요 API 실행
+// 좋아요 api 
 const likeAPI = require('./apiCode/like');
 likeAPI(server, getConn);
 
-// 사용자 API 실행
+// 사용자 api 
 const userAPI = require('./apiCode/user');
 userAPI(server, getConn);
 
-// 웹툰 목록 API 실행
+// 웹툰 목록 api 
 const webtoonListAPI = require('./apiCode/webtoonList');
 webtoonListAPI(server, getConn);
 
