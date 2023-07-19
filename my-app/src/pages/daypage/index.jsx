@@ -34,7 +34,9 @@ class MondayPage extends Component {
       .then((response) => response.json())
       .then((data) => {
         const { webtoons } = data;
+        const {thumbnail} = webtoons.thumbnail;
         this.setState({ webtoons });
+
       })
       .catch((error) => {
         console.error("Error fetching API:", error);
