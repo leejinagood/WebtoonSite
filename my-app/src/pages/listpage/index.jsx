@@ -7,6 +7,7 @@ import ListItem from "@/src/Component/ListItem";
 import Head from "next/head";
 const ListPage = () => {
   const router = useRouter();
+  const {webtoonName} = router.query;
   const [webtoonInfo, setWebtoonInfo] = useState(null);
   const [webtoons, setWebtoons] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,12 +17,12 @@ const ListPage = () => {
 
   useEffect(() => {
     const { webtoonName } = router.query;
-
+    console.log(webtoonName);
     if (webtoonName) {
-      fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`)
+      fetch(`http://192.168.0.98:4000/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`)
         .then((response) => response.json())
         .then((data) => {
-          const { webtoons, count } = data; // 카운터 값을 가져와서 상태에 설정
+          const { webtoons, count } = data;
           setWebtoonInfo(webtoons[0]);
           setWebtoons(webtoons);
           setTotalCount(count);
