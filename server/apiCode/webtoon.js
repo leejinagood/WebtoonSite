@@ -1,28 +1,30 @@
 //웹툰의 정보를 볼 수 있는 api
 
+//요일별 웹툰, 전체 웹툰 중 신규웹툰
 const webtoonAPI = (server, getConn) => {
   server.get('/api/webtoons', async (req, res) => {
     const conn = await getConn();
     const { day } = req.query;
-    const query = day ? 'CALL usp_get_dayWebtoon(?);' : 'call usp_get_New();';
-    const WebtoonDetailquery = 'CALL usp_get_Webtoon_ID(?);';
+    const query = day ? 'CALL usp_get_dayWebtoon(?);' : 'call usp_get_New();'; //매개변수 있을 때와 없을 때
+    // day라는 매개변수가 있을 때는 usp_get_dayWebtoon 프로시저 호출 (요일별 웹툰ID 출력)
+    // 매개변수가 없을 때는 그냥 전체 웹툰에서의 일주일 된 신규웹툰 ID를 출력
+    const WebtoonDetailquery = 'CALL usp_get_Webtoon_ID(?);'; //ID를 받아와 웹툰 정보를 출력하는 sp
     
     try {
-      let [rows] = await conn.query(query, [day]);
-      const ID = rows[0].map((row) => row.webtoonID);
+      let [rows] = await conn.query(query, [day]); //day를 파라미터로 받아온 후
+      const ID = rows[0].map((row) => row.webtoonID); //ID를 추출
   
-      const webtoonDetails = [];
-      for (const webtoonID of ID) {
+      const webtoonDetails = []; //배열로 초기화
+      for (const webtoonID of ID) { //요일별 웹툰과 신규 웹툰 전부 ID를 받아서 
         const [rows] = await conn.query(WebtoonDetailquery, [webtoonID]);
         const [row] = rows[0];
         webtoonDetails.push({
-          webtoon_name: row.webtoonName,
-          webtoon_en_name: row.webtoonEnName,
-          thumbnail: row.webtoonThumbnail,
+          webtoon_name: row.webtoonName, //웹툰 제목과
+          webtoon_en_name: row.webtoonEnName, //웹툰 영어 제목과
+          thumbnail: row.webtoonThumbnail, //웹툰 썸네일을 추출
         });
       }
-      
-      res.send(webtoonDetails);
+      res.send(webtoonDetails); //응답으로 보냄
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: '서버 스크립트의 오류' });
