@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import styles from "./styles/ClickLayoutCss.module.css";
+import styles from "./ClickLayoutCss.module.css";
 
 const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
   const router = useRouter();
@@ -51,7 +51,8 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
     } else if (exists === 1) {
       const nextEp = episodeNumber + 1;
       console.log(episodeNumber, nextEp);
-      router.push(`/WebToonPage/WebToonPage?webtoonName=${webtoonName}&episodeNumber=${nextEp}`);
+      console.log("실행");
+      router.push(`/webtoonpage?webtoonName=${webtoonName}&episodeNumber=${nextEp}`);
     }
   };
 
@@ -59,7 +60,7 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
     if (episodeNumber > 1) {
       const PrevEp = episodeNumber - 1;
       console.log(episodeNumber);
-      router.push(`/WebToonPage/WebToonPage?webtoonName=${webtoonName}&episodeNumber=${PrevEp}`);
+      router.push(`/webtoonpage?webtoonName=${webtoonName}&episodeNumber=${PrevEp}`);
       // router.push({pathname: "about", query: {keyword: WebToonName}});
     } else {
       console.log("이전화가 없음");

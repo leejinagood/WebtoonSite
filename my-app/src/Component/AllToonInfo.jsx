@@ -19,7 +19,7 @@ const AllToonInfo = () => {
     <div className="ATBox">
       {webtoons.map((webtoon, index) => (
         <div className="AllToonInfo" key={index}>
-          <Link href={`/ListPage/ListPage?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`}>
+          <Link href={`/listpage?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`}>
             <Thumbnail webtoon={webtoon} />
             <p className="ToonTitle">{webtoon.webtoon_name}</p>
           </Link>

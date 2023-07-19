@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import axios from 'axios';
 import HederCss from "./styles/Heder.css";
-import SerchWebToon from "../SerchWebToon";
 import { useRouter } from "next/router";
 import { parseCookies } from 'nookies'; // nookies 라이브러리 import
 import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
@@ -21,7 +20,8 @@ const Header = () => {
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); // 기본 동작 막기
-      window.location.href = `/SerchWebToon?word=${userInput}`;
+      window.location.href = `/serachwebtoonpage?word=${userInput}`;
+      //나중에 라우트로 변경
     }
   };
 
@@ -98,8 +98,8 @@ const Header = () => {
                         {userName} (로그아웃)
                       </p>
                     ) : (
-                      <Link href="/LoginPage/LoginPage">
-                        <p className="LoginBtn">{userName}</p>
+                      <Link href="/loginpage">
+                        <p className="LoginBtn">{userName}로긴</p>
                       </Link>
                     )}
                   </div>

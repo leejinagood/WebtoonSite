@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Header from "../Header/header";
+import Header from "@/src/Header/header";
 import ListPageCss from "./styles/ListPageCss.css";
-import Footer from "../Footer/footer";
-import ListItem from "./ListItem";
-
+import Footer from "@/src/Footer/footer";
+import ListItem from "@/src/Component/ListItem";
+import Head from "next/head";
 const ListPage = () => {
   const router = useRouter();
   const [webtoonInfo, setWebtoonInfo] = useState(null);
@@ -25,6 +25,7 @@ const ListPage = () => {
           setWebtoonInfo(webtoons[0]);
           setWebtoons(webtoons);
           setTotalCount(count);
+          console.log(webtoonName);
         })
         .catch((error) => {
           console.error("Error fetching API:", error);
@@ -69,6 +70,13 @@ const ListPage = () => {
 
   return (
     <div className="ListPage">
+            <Head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#317EFB"/>
+        <meta name="name" content="#317EFB"/>
+
+      </Head>
+      
       <Header />
 
       <div className="ListInfoBox">
@@ -85,40 +93,44 @@ const ListPage = () => {
             )}
           </div>
           <div className="ListInfo">
-            <div className="TextBox">
-              <p id="line" className="tab2">
-                {webtoonInfo.webtoon_name}
-              </p>
-              <p id="line" className="GrayP">
-                글/그림<span>{webtoonInfo.author}</span> | {webtoonInfo.week} 요웹툰
-                <br />
-                {webtoonInfo.content}
-                <div className="InfoBtn">
-                  <button id="PointBtn" className="IBtn" onClick={handleLike}>
-                    좋아요 {webtoonInfo.like}
-                  </button>
-                  <button className="IBtn">첫화보기 1화</button>
-                  <button className="SNSBTN">공유하기</button>
-                </div>
-              </p>
-            </div>
+          <div className="TextBox">
+  {webtoonInfo && (
+    <>
+      <p id="line" className="tab2">
+        {webtoonInfo.webtoon_name}
+      </p>
+      <p id="line" className="GrayP">
+        글/그림<span>{webtoonInfo.author}</span> | {webtoonInfo.week} 요웹툰
+        <br />
+        {webtoonInfo.content}
+        <div className="InfoBtn">
+          <button id="PointBtn" className="IBtn" onClick={handleLike}>
+            좋아요 {webtoonInfo.like}
+          </button>
+          <button className="IBtn">첫화보기 1화</button>
+          <button className="SNSBTN">공유하기</button>
+        </div>
+      </p>
+    </>
+  )}
+</div>
           </div>
         </div>
       </div>
 
       <ul className="List">
-        {/* 카운터 값을 이용하여 리스트 아이템 렌더링 */}
-        {Array.from({ length: webtoonInfo.count }).map((_, index) => (
-          <li key={index}>
-            <ListItem
-              webtoonName={webtoonInfo.webtoon_name}
-              ep={index + 1}
-              uploadDate={webtoonInfo.Episode_Number}
-              handleClick={handleEpChange} // 클릭 시 handleEpChange 함수 호출
-            />
-          </li>
-        ))}
-      </ul>
+  {/* 카운터 값을 이용하여 리스트 아이템 렌더링 */}
+  {Array.from({ length: webtoonInfo?.count || 0 }).map((_, index) => (
+    <li key={index}>
+      <ListItem
+        webtoonName={webtoonInfo?.webtoon_name}
+        ep={index + 1}
+        uploadDate={webtoonInfo?.Episode_Number}
+        handleClick={handleEpChange} // 클릭 시 handleEpChange 함수 호출
+      />
+    </li>
+  ))}
+</ul>
 
       <div className="Pagination">
         <span className="Arrow">{"<"}</span>

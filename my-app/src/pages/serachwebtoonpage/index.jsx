@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header/header";
-import Footer from "./Footer/Footer";
+import Header from "@/src/Header/header";
+import Footer from "@/src/Footer/Footer";
 import { useRouter } from "next/router";
 import SerchWebToonCss from "./SerchWebToonCss.css";
-import MainPageCss from "../styles/MainPageCss.css";
+import MainPageCss from "@/src/styles/MainPageCss.css";
 import Link from "next/link";
 
 function SerchWebToon() {
