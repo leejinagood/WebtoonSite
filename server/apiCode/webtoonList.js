@@ -1,5 +1,7 @@
 //웹툰 리스트에 사용될 api
 
+const webtoonListAPI = (server, getConn) => {
+
 //웹툰 list에 들어갈 정보
 //Rank에서 웹툰 이미지나 제목을 클릭했을 때 보이는 웹툰 정보들
 server.get('/api/webtoondetail', async (req, res) => {
@@ -187,3 +189,6 @@ try {
     conn.release(); // 연결 해제
 }
 });
+
+}
+module.exports = webtoonListAPI;

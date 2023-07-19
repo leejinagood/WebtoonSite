@@ -1,5 +1,7 @@
 //좋아요 관련 api
 
+const likeAPI = (server, getConn) => {
+
 // sp의 서브쿼리가 1개 이상의 행을 반환하기 때문에 일반 쿼리로 변경
 // 위 두 코드를 합친 코드 : 좋아요를 먼저 select한 후 true이면 1을, 아니면 0 을 출력함. 결과가 0일때랑 User_Email, Webtoon_Name이 존재할 때만 추가로 좋아요를 누를 수 있음. 
 server.put('/api/update_like', async (req, res) => {
@@ -35,3 +37,6 @@ try {
     conn.release();
 }
 });
+
+}
+module.exports = likeAPI;

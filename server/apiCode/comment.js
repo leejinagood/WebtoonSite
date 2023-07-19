@@ -1,7 +1,8 @@
 //댓글관련 api
 
+const commentAPI = (server, getConn) => {
 
-//댓글 입력 메서드
+//댓글 입력 메서드 
 server.post('/api/comment_insert', async (req, res)=> {
 const conn = await getConn();
 const { CommentContent, UserEmail, WebtoonName, EpisodeNumber } = req.body;
@@ -47,3 +48,6 @@ try {
     conn.release(); // 연결 해제
 }
 })
+
+}
+module.exports = commentAPI;

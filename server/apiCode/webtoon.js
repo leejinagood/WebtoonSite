@@ -1,5 +1,7 @@
 //웹툰의 정보를 볼 수 있는 api
 
+const webtoonAPI = (server, getConn) => {
+
 //요일별 서브페이지
 //url에서 요일을 받아와 웹툰 제목을 출력하는 메서드
 server.get('/api/daywebtoon', async (req, res) => {
@@ -80,3 +82,8 @@ server.get('/api/new', async (req, res) => {
       conn.release(); // 연결 해제
     }
 });
+
+
+
+}
+module.exports = webtoonAPI;

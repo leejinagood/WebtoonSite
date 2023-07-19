@@ -1,5 +1,6 @@
 //User_Table에서 사용할 수 있는 api
 
+const userAPI = (server, getConn) => {
 
 const jwt = require('jsonwebtoken'); //jwt
 const bcrypt = require('bcrypt'); //암호화
@@ -138,3 +139,7 @@ server.get('/api/Token', async (req, res) => {
     res.status(401).send('쿠키 없음');
   }
 });
+
+}
+
+module.exports = userAPI;
