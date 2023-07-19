@@ -4,11 +4,11 @@ import axios from "axios";
 
 export default async function handler(req, res) {
   const { query } = req;
-  const { name } = query;
+  const { day } = query;
 
-  if (name) {
+  if (day) {
     try {
-      const response = await axios.get(`http://192.168.0.98:4000/api/webtoondetail?name=${encodeURIComponent(name)}`);
+      const response = await axios.get(`http://192.168.0.98:4000/api/daywebtoon?day=${day}`);
       const { webtoons ,count } = response.data;
       res.status(200).json({ webtoons, count });
 

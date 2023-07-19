@@ -8,7 +8,8 @@ export default async function handler(req, res) {
     try {
       const response = await axios.get(`http://192.168.0.98:4000/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(webtoonName)}`);
       const thumbnail = response.data.rows[0]?.[0]?.Webtoon_Thumbnail;
-      res.status(200).json({ thumbnail });
+      const rows = response.data.rows;
+      res.status(200).json({ thumbnail , rows});
       return thumbnail || "";
     } catch (error) {
       console.error("Error fetching API:", error);

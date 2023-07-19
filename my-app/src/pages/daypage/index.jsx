@@ -26,7 +26,7 @@ class MondayPage extends Component {
     const { token } = parseCookies({}); // 쿠키에서 토큰 가져오기
     const tokenPayload = jwt.decode(token);
     
-    fetch(`/api/daywebtoon?day=${day}`, {
+    fetch(`/api/daytoon?day=${day}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

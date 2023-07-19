@@ -7,6 +7,7 @@ import ListItem from "@/src/Component/ListItem";
 import Head from "next/head";
 
 const ListPage = () => {
+  const [thumbnailIMG,setThumbnailIMG] =useState([]);
   const router = useRouter();
   const { webtoonName } = router.query;
   const [webtoonInfo, setWebtoonInfo] = useState(null);
@@ -44,8 +45,9 @@ const ListPage = () => {
 
   const getThumbnailImage = async (webtoonName) => {
     try {
-      const response = await fetch(`/api/thumnail?webtoonName=${encodeURIComponent(webtoonName)}`);
+      const response = await fetch(`/api/thumbnail?webtoonName=${encodeURIComponent(webtoonName)}`);
       const data = await response.json();
+      
       const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail;
       return thumbnail || "";
     } catch (error) {
@@ -53,6 +55,7 @@ const ListPage = () => {
       return "";
     }
   };
+
 
   const handleLike = () => {
     setWebtoonInfo((prevInfo) => ({
@@ -89,21 +92,25 @@ const ListPage = () => {
 
       <div className="ListInfoBox">
         <div className="ListInfo">
-          <div className="ListImgBox">
-            {webtoonInfo && (
-              <img
-                src=""
-                alt={webtoonInfo.webtoon_name}
-                ref={(imgRef) => {
-                  if (imgRef) {
-                    getThumbnailImage(webtoonInfo.webtoon_name)
-                      .then((thumbnail) => (imgRef.src = thumbnail))
-                      .catch((error) => console.error("Error loading thumbnail:", error));
-                  }
-                }}
-              />
-            )}
-          </div>
+        <div className="ListImgBox">
+  {webtoonInfo && (
+    <img
+      src=""
+      alt={webtoonInfo.webtoon_name}
+      ref={async (imgRef) => {
+        if (imgRef) {
+          try {
+            const thumbnail = await getThumbnailImage(webtoonInfo.webtoon_name);
+            imgRef.src = thumbnail || ""; // 이미지 주소를 할당합니다.
+          } catch (error) {
+            console.error("Error loading thumbnail:", error);
+          }
+        }
+      }}
+    />
+  )}
+</div>
+
           <div className="ListInfo">
             <div className="TextBox">
               {webtoonInfo && (
