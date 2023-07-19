@@ -8,18 +8,25 @@ server.get('/api/webtoondetail', async (req, res) => {
 const conn = await getConn();
 const { name } = req.query;
 const query = 'call Webtoon_Detail (?);';
+const Idquery = 'call usp_get_webtoonID(?);';
 try {
-    const [rows] = await conn.query(query, [name]);
+    //웹툰 제목에서 webtoonID를 뽑아 변수에 넣음
+    const [resultId] = await conn.query(Idquery, [name]);
+    const webtoonID = resultId[0][0].webtoonID;
+
+    //webtoonID를 받고 webtoonDetail 출력
+    const [rows] = await conn.query(query, [webtoonID]);
+    console.log(rows); // 확인용 로그
+
     const webtoons = rows[0].map(row => ({
-    webtoon_name: row.Webtoon_Name, //웹툰 제목
-    author: row.Webtoon_Author, //작가 이름
-    like: row.Likes_Count, //좋아요 갯수
-    content: row.Webtoon_Content, //웹툰 상세 설명
-    count: row.Episode_Count, //에피소드 갯수 
-    week: row.Webtoon_Week //무슨 요일에 업로드 하는지
+    webtoon_name: row.webtoonName, // 웹툰 제목
+    webtoon_en_name : row.webtoonEnName, //웹툰 영어 제목
+    author: row.webtoonAuthor, // 작가 이름
+    like: row.LikesCount, // 좋아요 갯수
+    content: row.webtoonContent, // 웹툰 상세 설명
+    thumbnail: row.webtoonThumbnail, //웹툰 썸네일
+    week: row.webtoonWeek // 요일
     }));
-    // console.log({webtoons});
-    res.send({ webtoons });
 } catch (error) {
     console.error(error);
     res.status(500).send({ error: '서버 스크립트의 오류' });

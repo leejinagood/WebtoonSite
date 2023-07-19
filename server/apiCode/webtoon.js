@@ -3,7 +3,7 @@
 const webtoonAPI = (server, getConn) => {
 
 //요일별 서브페이지
-//url에서 요일을 받아와 웹툰 제목을 출력하는 메서드
+//day를 파라미터로 받아와 웹툰 제목을 출력하는 메서드 
 server.get('/api/daywebtoon', async (req, res) => {
     const conn = await getConn();
     const { day } = req.query;
@@ -12,11 +12,12 @@ server.get('/api/daywebtoon', async (req, res) => {
       const [rows] = await conn.query(query, [day]);
       //웹툰 정보 추출 
       const webtoons = rows[0].map(row => ({
-        webtoon_name: row.Webtoon_Name, //제목
-        author: row.Webtoon_Author, //작가
-        like: row.Likes_Count //좋아요 갯수
+        webtoon_name: row.webtoonName, //제목
+        webtoon_en_name: row.webtoonEnName, //영어제목
+        author: row.webtoonAuthor, //작가
+        thumbnail: row.webtoonThumbnail, //썸네일
+        like: row.LikesCount //좋아요 갯수
       }));
-      // console.log({webtoons});
       res.send({ webtoons });
     } catch (error) {
       console.error(error);
