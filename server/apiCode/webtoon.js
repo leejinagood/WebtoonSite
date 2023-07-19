@@ -2,36 +2,71 @@
 
 const webtoonAPI = (server, getConn) => {
 
-//요일별 서브페이지
 //day를 파라미터로 받아와 웹툰 제목을 출력하는 메서드 
 server.get('/api/daywebtoon', async (req, res) => {
-    const conn = await getConn();
-    const { day } = req.query;
-    const query = 'CALL Day_Webtoon(?);';
-    try {
-      const [rows] = await conn.query(query, [day]);
-      //웹툰 정보 추출 
-      const webtoons = rows[0].map(row => ({
-        webtoon_name: row.webtoonName, //제목
-        webtoon_en_name: row.webtoonEnName, //영어제목
-        author: row.webtoonAuthor, //작가
-        thumbnail: row.webtoonThumbnail, //썸네일
-        like: row.LikesCount //좋아요 갯수
-      }));
-      res.send({ webtoons });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: '서버 스크립트의 오류' });
-    } finally {
-      conn.release();
+  const conn = await getConn();
+  const { day } = req.query;
+  const query = 'CALL usp_get_dayWebtoon(?);';
+  const WebtoonDetailquery = 'CALL usp_get_Webtoon_ID(?);';
+  try {
+    const [row] = await conn.query(query, [day]); 
+    const result = row[0].map((row) => row.webtoonID); //day로 출력된 ID를 result값에
+
+    const webtoonDetails = [];
+    for (const webtoonID of result) {
+      const [rows] = await conn.query(WebtoonDetailquery, [webtoonID]);
+      const [row] = rows[0]; //받아온 ID를 다시 WebtoonDetailquery 넣고 추출된 웹툰 제목과 썸네일의 값
+      webtoonDetails.push({
+        webtoon_name: row.webtoonName, // 제목
+        webtoon_en_name: row.webtoonEnName, // 영어제목
+        thumbnail: row.webtoonThumbnail, // 썸네일
+      });
     }
-  });
+    //응답은 웹툰 제목과, 영어제목, 썸네일을 보냄
+    res.send(webtoonDetails);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: '서버 스크립트의 오류' });
+  } finally {
+    conn.release();
+  }
+});
+
+
+//새롭게 업로드된지 일주일 된 신규 웹툰의 제목을 출력
+server.get('/api/new', async (req, res) => {
+  const conn = await getConn();
+  const query = 'call usp_get_New();';
+  const WebtoonDetailquery = 'CALL usp_get_Webtoon_ID(?);';
+  try{
+  let [rows] = await conn.query(query);
+  const ID = rows[0].map((row) => row.webtoonID); //웹툰 제목만 출력
+  
+  const webtoonDetails = [];
+  for (const webtoonID of ID) {
+    const [rows] = await conn.query(WebtoonDetailquery, [webtoonID]);
+    const [row] = rows[0]; //받아온 ID를 다시 WebtoonDetailquery 넣고 추출된 웹툰 제목과 썸네일의 값
+    webtoonDetails.push({
+      webtoon_name: row.webtoonName, // 제목
+      webtoon_en_name: row.webtoonEnName, // 영어제목
+      thumbnail: row.webtoonThumbnail, // 썸네일
+    });
+  }
+  //응답은 웹툰 제목과, 영어제목, 썸네일을 보냄
+  res.send(webtoonDetails);
+  }catch(error) {
+    console.error(error);
+    res.status(500).json({ error: '서버 스크립트의 오류' });
+  } finally {
+    conn.release(); // 연결 해제
+  }
+});
 
 
 //메인페이지에서 좋아요가 가장 높은 웹툰 중 top5 제목과 작가, 썸네일 출력
 server.get('/api/popular', async (req, res) => {
     const conn = await getConn();
-    const query = 'CALL Like_Top();'; // 프로시저 호출
+    const query = 'call usp_get_Like_Top();'; 
     try {
       const [rows] = await conn.query(query);
       const result = rows[0].map((row) => ({
@@ -68,22 +103,7 @@ server.get('/api/search', async (req, res) => {
   });
   
 
-//새롭게 업로드된지 일주일 된 신규 웹툰의 제목을 출력
-server.get('/api/new', async (req, res) => {
-    const conn = await getConn();
-    const query = 'SELECT Webtoon_Table.Webtoon_Name FROM Webtoon_Table JOIN Webtoon_Detail_Table ON Webtoon_Table.Webtoon_Id = Webtoon_Detail_Table.Webtoon_Id WHERE Webtoon_Date >= DATE_SUB(NOW(), INTERVAL 7 DAY);';
-    try{
-    let [rows] = await conn.query(query);
-    const result = rows.map((row) => row.Webtoon_Name); //웹툰 제목만 출력
-    // console.log({result});
-    res.send({result});
-    }catch(error) {
-      console.error(error);
-      res.status(500).json({ error: '서버 스크립트의 오류' });
-    } finally {
-      conn.release(); // 연결 해제
-    }
-});
+
 
 
 
