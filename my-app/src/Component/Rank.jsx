@@ -40,7 +40,7 @@ class Rank extends Component {
         <div className="HotToon">
           {webtoons.map((webtoon, index) => (
             <div className="RBox" key={index}>
-              <Link href={`/ListPage/ListPage?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`}>
+              <Link href={`/listpage?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`}>
                 <div className="Rank">
                   <div className="Rankitem">
                     <div className="RankImg">

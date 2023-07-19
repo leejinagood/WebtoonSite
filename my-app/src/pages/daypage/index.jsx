@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import MainPageCss from "@/src/styles/MainPageCss.css";
-import Header from "../Header/header";
-import Footer from "../Footer/footer";
-import NewToon from "../../item/NewToon";
-import DayMain from "../../item/DayMain";
-import Rank from "../../item/Rank";
-import Slider from "../../item/Slider";
+import Header from "@/src/Header/header";
+import Footer from "@/src/Footer/footer";
+import NewToon from "../../Component/NewToon";
+import DayMain from "../../Component/DayMain";
+import Rank from "../../Component/Rank";
+import Slider from "../../Component/Slider";
 import { parseCookies } from 'nookies'; // nookies 라이브러리 import
 import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
 
@@ -26,7 +26,7 @@ class MondayPage extends Component {
     const { token } = parseCookies({}); // 쿠키에서 토큰 가져오기
     const tokenPayload = jwt.decode(token);
     
-    fetch(`/api/daywebtoon?day=${day}`, {
+    fetch(`/api/daytoon?day=${day}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

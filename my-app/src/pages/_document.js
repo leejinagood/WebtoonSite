@@ -5,8 +5,9 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+        <link rel="manifest" href="/manifest.json" />
+
+          {/* <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> */}
         </Head>
         <body>
           <Main />

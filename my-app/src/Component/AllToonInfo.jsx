@@ -5,7 +5,7 @@ const AllToonInfo = () => {
   const [webtoons, setWebtoons] = useState([]);
 
   useEffect(() => {
-    fetch("/api/daywebtoon?day=All")
+    fetch("/api/daytoon?day=All")
       .then((response) => response.json())
       .then((data) => {
         setWebtoons(data.webtoons);
@@ -19,7 +19,7 @@ const AllToonInfo = () => {
     <div className="ATBox">
       {webtoons.map((webtoon, index) => (
         <div className="AllToonInfo" key={index}>
-          <Link href={`/ListPage/ListPage?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`}>
+          <Link href={`/listpage?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`}>
             <Thumbnail webtoon={webtoon} />
             <p className="ToonTitle">{webtoon.webtoon_name}</p>
           </Link>
@@ -38,9 +38,9 @@ const Thumbnail = ({ webtoon }) => { //webtoon prop을 매개변수로 받아오
   useEffect(() => { //webtoon_name이 변경될 때마다
     const fetchThumbnail = async () => {
       try {//엔드포인트
-        const response = await fetch(`/api/Webtoon_Thumbnail?webtoonName=${webtoon.webtoon_name}`);
+        const response = await fetch(`/api/thumbnail?webtoonName=${webtoon.webtoon_name}`);
         const data = await response.json();
-        const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail; //썸네일 값 추출
+        const {thumbnail} =data;
         if (thumbnail) {
           setThumbnailSrc(thumbnail);
         }

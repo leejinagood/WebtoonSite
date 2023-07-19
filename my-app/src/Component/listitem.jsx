@@ -8,7 +8,7 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick, maxEp }) => {
   const handleItemClick = () => {
     handleClick(ep);
     const queryString = `?webtoonName=${encodeURIComponent(webtoonName)}&episodeNumber=${ep}`;
-    window.location.href = `/WebToonPage/WebToonPage${queryString}`;
+    window.location.href = `/webtoonpage${queryString}`;
   };
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick, maxEp }) => {
   }, [webtoonName, ep]);
 
   return (
-    <Link href={`/WebToonPage/WebToonPage?webtoonName=${encodeURIComponent(webtoonName)}&episodeNumber=${encodeURIComponent(ep)}`}>
+    <Link href={`/webtoonpage?webtoonName=${encodeURIComponent(webtoonName)}&episodeNumber=${encodeURIComponent(ep)}`}>
       <div className="ListItem" onClick={handleItemClick}>
         <div className="ListImg">
           {/* thumbnailSrc가 true일 때 조건부 렌더링 */}

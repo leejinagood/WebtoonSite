@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import CommentCss from "./styles/CommetCss.css";
+import CommentCss from "./CommetCss.css";
 
 const Comment = ({ webtoonName, episodeNumber }) => {
   const [comments, setComments] = useState([]);

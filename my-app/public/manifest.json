@@ -1,6 +1,6 @@
 {
-  "name": "My React App",
-  "short_name": "React App",
+  "name": "AVATOON",
+  "short_name": "AVATOON",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#ffffff",

@@ -1,6 +1,6 @@
 import React from "react";
 import Link from 'next/link';
-import FooterCss from './styles/FooterCss.css';
+import FooterCss from "./styles/FooterCss.css"
 const footer = () =>{
     return(
         <div className="footer">

@@ -1,11 +1,11 @@
 import React from "react";
 import MainPageCss from "../styles/MainPageCss.css";
-import Header from "./Header/header";
-import Footer from "./Footer/footer";
-import NewToon from "../item/NewToon";
-import Tag from "./Tag/Tag";
+import Header from "../Header/header";
+import Footer from "../Footer/footer";
+import NewToon from "../Component/NewToon";
+import Tag from "../Component/Tag/Tag";
 import Head from 'next/head';
-import AllToonInfo from "../item/AllToonInfo";
+import AllToonInfo from "../Component/AllToonInfo";
 import { useRouter } from "next/router";
 import { parseCookies } from 'nookies'; // nookies 라이브러리 import
 
@@ -17,6 +17,9 @@ const MainPage = () => {
     <div className="MainPage">
       <Head>
         <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#317EFB"/>
+        <title>AVATOON</title>
+
       </Head>
       <Header token={token} /> {/* Header 컴포넌트에 토큰 전달 */}
       <div className="MNewToon">

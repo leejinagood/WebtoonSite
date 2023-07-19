@@ -1,12 +1,13 @@
 import React, { useState, useEffect ,useRef } from "react";
 import { useRouter } from "next/router";
-import Header from "../Header/header";
-import Footer from "../Footer/footer";
+import Header from "@/src/Header/header";
+import Footer from "@/src/Footer/footer";
 import MainPageCss from "@/src/styles/MainPageCss.css";
-import Comment from "./Comment";
-import ClickLayoutComponent from "./ClickLayoutComponent";
+import Comment from "@/src/Component/Comment";
+import ClickLayoutComponent from "@/src/Component/ClickLayoutComponent";
 import WebToonPageCss from "./styles/WebToonPageCss.css";
-const WebToonPage = () => {
+const webtoonpage
+ = () => {
 
   
 
@@ -117,4 +118,4 @@ const WebToonPage = () => {
   
 };
 
-export default WebToonPage;
+export default webtoonpage;

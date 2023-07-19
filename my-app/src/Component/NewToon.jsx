@@ -67,7 +67,7 @@ const NewToon = () => {
     >
       <Slider>
         {result.map((title, index) => (
-          <Link href={`/ListPage/ListPage?webtoonName=${encodeURIComponent(result[index])}`} key={index}>
+          <Link href={`/listpage?webtoonName=${encodeURIComponent(result[index])}`} key={index}>
             <div className={`NewToonInfo ${index === 1 ? "active" : ""}`}>
               <div className="NewToonItem">
                 <img src="" alt={title} ref={imgRef => { //imgRef 를 매개변수로 받음
