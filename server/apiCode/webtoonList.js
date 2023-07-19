@@ -27,6 +27,8 @@ try {
     thumbnail: row.webtoonThumbnail, //웹툰 썸네일
     week: row.webtoonWeek // 요일
     }));
+    res.send({webtoons});
+
 } catch (error) {
     console.error(error);
     res.status(500).send({ error: '서버 스크립트의 오류' });
