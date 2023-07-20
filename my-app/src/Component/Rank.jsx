@@ -34,9 +34,10 @@ const Rank = () => {
                     <h2>{`${index + 1}등`}</h2>
                   </div>
                   <div className="RankText">
-                    <p>{webtoon.webtoon_name}</p>
-                    <p>{webtoon.author}</p>
+                    <p className="RankWN">{webtoon.webtoon_name}</p>
+                    <p className="RankAT">{webtoon.author}</p>
                   </div>
+                  
                 </div>
               </div>
             </Link>
