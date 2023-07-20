@@ -1,9 +1,8 @@
 //웹툰의 정보를 볼 수 있는 api
 
-//요일별 웹툰, 전체 웹툰 중 신규웹툰, 좋아요 상위 5개 웹툰
 const webtoonAPI = (server, getConn) => {
 
-  
+  //요일별 웹툰, 전체 웹툰 중 신규웹툰, 좋아요 상위 5개 웹툰
   server.get('/api/webtoons', async (req, res) => {
     const conn = await getConn();
     const { day , rank5} = req.query;
@@ -17,7 +16,7 @@ const webtoonAPI = (server, getConn) => {
     // 매개변수가 없을 때는 그냥 전체 웹툰에서의 일주일 된 신규웹툰 ID를 출력
 
     //위 조건에 맞는 ID를 받아온 후 ID에 맞는 웹툰 정보를 추출하는 sp에 대입
-    const WebtoonDetailquery = 'CALL usp_get_webtoonDetail_ID(?);'; // ID를 받아와 웹툰 정보를 출력하는 SP
+    const webtoonQuery = 'CALL usp_get_webtoonDetail_ID(?);'; // ID를 받아와 웹툰 정보를 출력하는 SP
     
     try {
       let [rows] = await conn.query(query, [day]); // day를 파라미터로 받아온 후
@@ -25,7 +24,7 @@ const webtoonAPI = (server, getConn) => {
   
       const webtoonDetails = []; // 배열로 초기화
       for (const webtoonID of ID) { // 요일별 웹툰과 신규 웹툰 전부 ID를 받음. rank5에 파라미터 내용은 없어도 되기 때문에 값을 안 받아도 됨
-        const [rows] = await conn.query(WebtoonDetailquery, [webtoonID]);
+        const [rows] = await conn.query(webtoonQuery, [webtoonID]);
         const [row] = rows[0]; // 배열의 첫번째 부분 
         webtoonDetails.push({
           webtoon_name: row.webtoonName, // 웹툰 제목과
@@ -46,19 +45,19 @@ const webtoonAPI = (server, getConn) => {
   });
 
 
-  //검색하면 그 단어를 포함한 웹툰 제목과 작가, 카테고리를 출력하는 메서드
+  //검색하면 그 단어를 포함한 웹툰 제목과 작가, 썸네일을 출력하는 메서드
   server.get('/api/search', async (req, res) => {
     const conn = await getConn();
     const { word } = req.query;
     const query = 'CALL usp_get_search(?);'; //제목과, 영어제목과 메인썸네일, 카테고리 출력
-    const WebtoonDetailquery = 'CALL usp_get_Webtoon_ID(?);';
+    const webtoonQuery = 'CALL usp_get_Webtoon_ID(?);';
     try {
       const [rows] = await conn.query(query, [word]);
       const ID = rows[0].map((row) => row.webtoonID); // ID를 추출
 
       const webtoonDetails = []; // 배열로 초기화
       for (const webtoonID of ID) { 
-        const [rows] = await conn.query(WebtoonDetailquery, [webtoonID]);
+        const [rows] = await conn.query(webtoonQuery, [webtoonID]);
         const [row] = rows[0]; // 배열의 첫번째 부분 
         webtoonDetails.push({
           webtoon_name: row.webtoonName, // 웹툰 제목과
@@ -66,7 +65,7 @@ const webtoonAPI = (server, getConn) => {
           thumbnail: row.webtoonThumbnail, // 웹툰 썸네일을 추출
         });
       }
-      res.send(webtoonDetails);
+      res.send(webtoonDetails); //응답으로 보내기
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: '서버 스크립트의 오류' });
@@ -74,10 +73,6 @@ const webtoonAPI = (server, getConn) => {
       conn.release(); // 연결 해제
     }
   });
-
-
-
-
 
 
 }
