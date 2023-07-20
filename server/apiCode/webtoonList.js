@@ -41,41 +41,41 @@ const webtoonListAPI = (server, getConn) => {
     });
 
 
-
     server.get('/api/webtoonlist', async (req, res) => {
         const conn = await getConn();
-        const { EnName } = req.query; //영어이름
-        const query = 'call usp_get_webtoonID_EnName (?);';
-        const webtoonQuery = 'CALL usp_get_webtoonDetail_ID(?);'; // ID를 받아와 웹툰 정보를 출력하는 SP
-    
+        const { EnName, sort } = req.query; // 영어이름과 sort 파라미터를 받아옴
+        const query = 'CALL usp_get_webtoonID_EnName(?);';
+        const webtoonQuery = 'CALL usp_get_WebtoonEpisode(?, ?);'; // ID를 받아와 웹툰 정보를 출력하는 SP
+      
         try {
-            let [rows] = await conn.query(query, [EnName]); // EnName 파라미터로 받아온 후
-            const ID = rows[0].map((row) => row.webtoonID); // ID를 추출
-    
-            const webtoonDetails = []; // 배열로 초기화
-            for (const webtoonID of ID) { // 요일별 웹툰과 신규 웹툰 전부 ID를 받음.
-                const [rows] = await conn.query(webtoonQuery, [webtoonID]);
-                const [row] = rows[0]; // 배열의 첫번째 부분 
-                webtoonDetails.push({
+          let [rows] = await conn.query(query, [EnName]); // EnName 파라미터로 받아온 후
+          const ID = rows[0].map((row) => row.webtoonID); // ID를 추출
+      
+          const webtoonDetails = []; // 배열로 초기화
+          for (const webtoonID of ID) { // 요일별 웹툰과 신규 웹툰 전부 ID를 받음.
+            const [rows] = await conn.query(webtoonQuery, [webtoonID, sort]);
+            for (const row of rows[0]) { // 각 행에 대해 반복하여 웹툰 정보를 추가
+              webtoonDetails.push({
                 webtoon_name: row.webtoonName, // 웹툰 제목과
                 webtoon_en_name: row.webtoonEnName, // 웹툰 영어 제목과
-                thumbnail: row.webtoonThumbnail, // 웹툰 썸네일을 추출
-                author: row.webtoonAuthor, // 웹툰 작가 추출
-                week: row.webtoonWeek, // 무슨 요일에 연재하는지
-                content: row.webtoonContent, //웹툰 상세 내용
-                like: row.LikesCount // 좋아요 갯수
-                });
+                episode_number: row.episodeNumber, //에피소드 이름과
+                epiosde_thumbnail: row.episodeThumbnail, //에피소드 각 화마다의 썸네일
+                update: row.uploadDate, // 업로드 날짜
+                count: row.countEpisode // 총 에피소드 화
+              });
             }
-            console.log(ID);
-            console.log(webtoonDetails);
-            res.send(webtoonDetails); // 응답으로 보냄
+          }
+      
+          res.send(webtoonDetails); // 응답으로 보냄
         } catch (error) {
-            console.error(error);
-            res.status(500).send({ error: '서버 스크립트의 오류' });
+          console.error(error);
+          res.status(500).send({ error: '서버 스크립트의 오류' });
         } finally {
-            conn.release(); // 연결 해제
+          conn.release(); // 연결 해제
         }
-        });
+      });
+      
+    
 
 
 
