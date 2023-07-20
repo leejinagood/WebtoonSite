@@ -59,7 +59,7 @@ const webtoonListAPI = (server, getConn) => {
                 webtoon_name: row.webtoonName, // 웹툰 제목과
                 webtoon_en_name: row.webtoonEnName, // 웹툰 영어 제목과
                 episode_number: row.episodeNumber, //에피소드 이름과
-                epiosde_thumbnail: row.episodeThumbnail, //에피소드 각 화마다의 썸네일
+                episode_thumbnail: row.episodeThumbnail, //에피소드 각 화마다의 썸네일
                 update: row.uploadDate, // 업로드 날짜
                 count: row.countEpisode // 총 에피소드 화
                 });
