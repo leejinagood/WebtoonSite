@@ -21,10 +21,8 @@ class Rank extends Component {
 
   getThumbnailImage = async (webtoon) => {
     try { // 엔드포인트로 값 호출
-      const response = await fetch(`/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`);
+      const response = await fetch(`/api/rank?day=rank`);
       const data = await response.json();
-      const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail; //썸네일 이미지 경로 추출
-      return thumbnail || "";  // 비어있을 경우 빈 문자열
     } catch (error) {
       console.error("Error fetching API:", error);
       return ""; 
@@ -40,7 +38,7 @@ class Rank extends Component {
         <div className="HotToon">
           {webtoons.map((webtoon, index) => (
             <div className="RBox" key={index}>
-              <Link href={`/listpage?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`}>
+              <Link href={`/listpage?webtoonName=${encodeURIComponent(webtoon.webtoon_en_name)}`}>
                 <div className="Rank">
                   <div className="Rankitem">
                     <div className="RankImg">

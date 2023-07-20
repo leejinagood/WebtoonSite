@@ -1,43 +1,29 @@
-import React, { useState, useEffect, useRef } from "react";
-import "../styles/NewToonCss.css";
-import "../styles/MainPageCss.css";
+import React, { useEffect, useState, useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
 
 const NewToon = () => {
-  const [result, setResult] = useState([]);
+  const [webtoons, setWebtoons] = useState([]);
   const sliderRef = useRef(null);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-
+  const day = "new";
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/newtoon`);
+        const response = await fetch(`/api/newtoon?day=new`);
         const data = await response.json();
-        const { thumbnail, webtoon_name, webtoon_en_name } = data; // 해결된 데이터에서 추출
+        setWebtoons(data);
       } catch (error) {
-        console.error("Error fetching API:", error);
+        console.error("API를 불러오는 도중 오류가 발생했습니다:", error);
       }
     };
 
     fetchData();
   }, []);
-
-  const getThumbnailImage = async (index) => { //index를 매개변수로 받음
-    try {
-      const response = await fetch(`/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(result[index])}`); //result 배열에서 인코딩
-      const data = await response.json();
-      const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail; // 썸네일 이미지 경로 추출하여 thumbnail 변수에 할당
-      return thumbnail || "";  //존재하지 않을 땐 빈 문자열
-    } catch (error) {
-      console.error("Error fetching API:", error);
-      return "";
-    }
-  };
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
@@ -66,21 +52,21 @@ const NewToon = () => {
       ref={sliderRef}
     >
       <Slider>
-        {result.map((title, index) => (
-          <Link href={`/listpage?webtoonName=${encodeURIComponent(result[index])}`} key={index}>
-            <div className={`NewToonInfo ${index === 1 ? "active" : ""}`}>
-              <div className="NewToonItem">
-                <img src="" alt={title} ref={imgRef => { //imgRef 를 매개변수로 받음
-                  if (imgRef) { //존재할 때
-                    getThumbnailImage(index) //호출
-                      .then(thumbnail => imgRef.src = thumbnail) //src 속성을 동적으로 설정
-                      .catch(error => console.error("Error loading thumbnail:", error));
-                  }
-                }} />
+        {Array.isArray(webtoons) &&
+          webtoons.map((webtoon, index) => (
+            <Link
+              key={index}
+              href={`/listpage?webtoonName=${encodeURIComponent(
+                webtoon.webtoon_en_name
+              )}`}
+            >
+              <div className={`NewToonInfo ${index === 1 ? "active" : ""}`}>
+                <div className="NewToonItem">
+                  <img src={webtoon.thumbnail} alt={webtoon.webtoon_name} />
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))}
       </Slider>
     </div>
   );

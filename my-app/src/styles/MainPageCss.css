@@ -432,6 +432,7 @@ table , th ,td ,td{
 .AllToon .AllToonInfo img{
     width:7.5vw;
     height: 10vw;
+    object-fit: contain;
     float: left;
     text-align: center;
     border-collapse:collapse;
@@ -564,3 +565,9 @@ tr{
 
 
 
+.DayToonItem img{
+    width: 135px;
+    height: 185px;
+    object-fit: contain;
+
+}
