@@ -3,32 +3,34 @@ import Header from "@/src/Header/header";
 import Footer from "@/src/Footer/footer";
 import NewToon from "../../Component/NewToon";
 import Rank from "../../Component/Rank";
-import { parseCookies } from 'nookies'; // nookies 라이브러리 import
-import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
+import { parseCookies } from 'nookies';
+import jwt from 'jsonwebtoken';
+import { useRouter } from "next/router";
 
-const WeekPage = ({ day }) => {
+const WeekPage = () => {
+  const router = useRouter();
+  const { day } = router.query;
   const [dayToonItemCounts, setDayToonItemCounts] = useState([]);
-  const [webtoons, setWebtoons] = useState([]);
   const { token } = parseCookies({});
   const tokenPayload = jwt.decode(token);
 
+  const [webtoons, setWebtoons] = useState([]);
+
   useEffect(() => {
-    fetch(`/api/daytoon?day=${day}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      const { webtoons } = data;
-      const { thumbnail } = webtoons[0] || {};
-      setWebtoons(webtoons);
-      setDayToonItemCounts([3, 0, 0]); // 예시로 하드코딩된 배열을 대체할 데이터를 받아서 설정하세요.
-    })
-    .catch((error) => {
-      console.error("Error fetching API:", error);
-    });
-  }, [day, token]);
+    fetch(`/api/daytoon?day=${day}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setWebtoons(data);
+        setDayToonItemCounts([3, 0, 0]); // 예시로 하드코딩된 배열을 대체할 데이터를 받아서 설정하세요.
+      })
+      .catch((error) => {
+        console.error("Error fetching API:", error);
+      });
+  }, [day]);
+
+  const Thumbnail = ({ day }) => {
+    return <img src={day.thumbnail} alt="" />;
+  };
 
   return (
     <div className="DayBox">
@@ -46,7 +48,7 @@ const WeekPage = ({ day }) => {
                 const webtoon = webtoons[subIndex];
                 return webtoon ? (
                   <div className={`DayToonItem ${subIndex === 1 ? "second-item" : ""}`} key={subIndex}>
-                    <Thumbnail className="DayToonItem" webtoon={webtoon} />
+                    <Thumbnail className="DayToonItem" day={webtoon} />
                     <p className="ToonTitle">{webtoon.webtoon_name}</p>
                     <p className="Writer">{webtoon.author}</p>
                     <p className="Star">⭐️{webtoon.like}</p>
