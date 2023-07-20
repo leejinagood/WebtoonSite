@@ -49,7 +49,7 @@ const WeekPage = () => {
   }, [day]);
 
   const Thumbnail = ({ day }) => {
-    return <img src={day.thumbnail} alt="" />;
+    return <img className="DayToonIMG" src={day.thumbnail} alt="" />;
   };
   
   
@@ -73,7 +73,7 @@ const WeekPage = () => {
                   <div className={`DayToonItem ${subIndex === 1 ? "second-item" : ""}`} key={subIndex}>
                   <Link href={`/listpage?webtoonName=${encodeURIComponent(webtoon.webtoon_en_name)}`}>
 
-                    <Thumbnail className="DayToonItem" day={webtoon} />
+                    <Thumbnail day={webtoon} />
                     <p className="ToonTitle">{webtoon.webtoon_name}</p>
                     <p className="Writer">{webtoon.author}</p>
                     <p className="Star">⭐️{webtoon.like}</p>

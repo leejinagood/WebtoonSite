@@ -56,7 +56,7 @@ const NewToon = () => {
           webtoons.map((webtoon, index) => (
             <Link
               key={index}
-              href={`/listpage?webtoonName=${encodeURIComponent(
+              href={`/listpage?EnName=${encodeURIComponent(
                 webtoon.webtoon_en_name
               )}`}
             >
