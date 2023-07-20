@@ -16,9 +16,9 @@ const NewToon = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/new`);
+        const response = await fetch(`/api/newtoon`);
         const data = await response.json();
-        setResult(data.result);
+        const { thumbnail, webtoon_name, webtoon_en_name } = data; // 해결된 데이터에서 추출
       } catch (error) {
         console.error("Error fetching API:", error);
       }

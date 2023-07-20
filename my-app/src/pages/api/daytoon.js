@@ -1,5 +1,3 @@
-// 서버 측 API (api/webtoondetail.js)
-
 import axios from "axios";
 
 export default async function handler(req, res) {
@@ -8,16 +6,21 @@ export default async function handler(req, res) {
 
   if (day) {
     try {
-      const response = await axios.get(`http://192.168.0.98:4000/api/daywebtoon?day=${day}`);
-      const { webtoons ,count } = response.data;
-      res.status(200).json({ webtoons, count });
-
+      const response = await axios.get(`http://192.168.0.98:4000/api/webtoons?day=${day}`);
+      const webtoons = response.data;
+      res.status(200).json(webtoons);
     } catch (error) {
       console.error("Error fetching API:", error);
       res.status(500).json({ error: "Error fetching API" });
     }
   } else {
-    res.status(400).json({ error: "Missing parameters" + name });
-
+    try {
+      const response = await axios.get("http://192.168.0.98:4000/api/webtoons");
+      const webtoons = response.data;
+      res.status(200).json(webtoons);
+    } catch (error) {
+      console.error("Error fetching API:", error);
+      res.status(500).json({ error: "Error fetching API" });
+    }
   }
 }

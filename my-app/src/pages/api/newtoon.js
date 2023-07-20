@@ -1,23 +1,13 @@
-// 서버 측 API (api/webtoondetail.js)
-
 import axios from "axios";
 
 export default async function handler(req, res) {
-  const { query } = req;
-  const { day } = query;
-
-  if (day) {
-    try {
-      const response = await axios.get(`http://192.168.0.98:4000/api/new`);
-      const {thumbnail , webtoon_name , webtoon_en_name} = response.data;
-      res.status(200).json({ webtoons, count });
-
-    } catch (error) {
-      console.error("Error fetching API:", error);
-      res.status(500).json({ error: "Error fetching API" });
-    }
-  } else {
-    res.status(400).json({ error: "Missing parameters" + name });
-
+  try {
+    const response = await axios.get("http://192.168.0.98:4000/api/webtoons");
+    const data = await response.data; // response.data가 해결될 때까지 대기
+    const { thumbnail, webtoon_name, webtoon_en_name } = data; // 해결된 데이터에서 추출
+    res.status(200).json({ thumbnail, webtoon_name, webtoon_en_name });
+  } catch (error) {
+    console.error("Error fetching API:", error);
+    res.status(500).json({ error: "Error fetching API" });
   }
 }
