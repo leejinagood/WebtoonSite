@@ -93,6 +93,7 @@ const webtoonListAPI = (server, getConn) => {
                 const [row] = rows[0]; // 배열의 첫번째 부분 
                 webtoonContent.push({
                 webtoonImg: row.episodeImg, //웹툰 이미지 경로
+                count: row.episodeImgCount,
                 nextEpisode: row.next  //다음화 있는지 없는지
                 });
             }
