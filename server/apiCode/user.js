@@ -6,43 +6,43 @@ const userAPI = (server, getConn) => {
   const bcrypt = require('bcrypt'); //암호화
 
   // 회원가입 메서드
-  server.post('/api/SignUpPage', async (req, res) => {
-    const conn = await getConn();
-    const { email, pass, name, age } = req.body;
-    const saltRounds = 10; // 솔트 생성에 사용되는 라운드 수
+    server.post('/api/SignUpPage', async (req, res) => {
+      const conn = await getConn();
+      const { email, pass, name, age } = req.body;
+      const saltRounds = 10; // 솔트 생성에 사용되는 라운드 수
 
-    try {
-      // 트랜잭션 시작
-      await conn.beginTransaction(); 
+      try {
+        // 트랜잭션 시작
+        await conn.beginTransaction(); 
 
-      //bcrypt.hash()로 비밀번호 암호화 
-      const hashedPassword = await bcrypt.hash(pass, saltRounds);
+        //bcrypt.hash()로 비밀번호 암호화 
+        const hashedPassword = await bcrypt.hash(pass, saltRounds);
 
-      const query = 'INSERT INTO UserTable (userEmail, userPassword, userName, userAge) VALUES (?, ?, ?, ?);';
-      const value = [email, hashedPassword, name, age];
-      //쿼리에 비밀번호 암호화된 내용으로 삽입
-      await conn.query(query, value);
+        const query = 'INSERT INTO UserTable (userEmail, userPassword, userName, userAge) VALUES (?, ?, ?, ?);';
+        const value = [email, hashedPassword, name, age];
+        //쿼리에 비밀번호 암호화된 내용으로 삽입
+        await conn.query(query, value);
 
-      //삽입된 회원의 정보를 이메일을 통해 조회하여 가져옴
-      const selectUserId = 'SELECT userID FROM UserTable WHERE userEmail = ?;';
-      const [selectResult] = await conn.query(selectUserId, [email]);
-      //userID 를 추출
-      const userId = selectResult[0]?.userID;
+        //삽입된 회원의 정보를 이메일을 통해 조회하여 가져옴
+        const selectUserId = 'SELECT userID FROM UserTable WHERE userEmail = ?;';
+        const [selectResult] = await conn.query(selectUserId, [email]);
+        //userID 를 추출
+        const userId = selectResult[0]?.userID;
 
-      if (userId) { //userId가 있으면 모든 Webtoon_Id에 대한 likes 를 초기화하는 프로시저 호출
-        const callProc = 'CALL usp_basic_like(?);';
-        await conn.query(callProc, [userId]);
+        if (userId) { //userId가 있으면 모든 Webtoon_Id에 대한 likes 를 초기화하는 프로시저 호출
+          const callProc = 'CALL usp_basic_like(?);';
+          await conn.query(callProc, [userId]);
+        }
+
+        await conn.commit(); // 트랜잭션 커밋
+        res.send('입력 성공');
+      } catch (error) {
+        console.error(error);
+        await conn.rollback(); // 트랜잭션 롤백
+        res.status(500).json('입력 실패');
+      } finally {
+        conn.release();
       }
-
-      await conn.commit(); // 트랜잭션 커밋
-      res.send('입력 성공');
-    } catch (error) {
-      console.error(error);
-      await conn.rollback(); // 트랜잭션 롤백
-      res.status(500).json('입력 실패');
-    } finally {
-      conn.release();
-    }
   });
 
 
@@ -116,7 +116,7 @@ const userAPI = (server, getConn) => {
     return null;
   }
 
-
+  // 토큰이 유효한지 검증하는 api 추가 필요
   // 토큰 검증 api
   server.get('/api/Token', async (req, res) => {
     // 클라이언트에서 전달된 쿠키 가져오기

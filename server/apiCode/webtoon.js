@@ -42,8 +42,8 @@ const webtoonAPI = (server, getConn) => {
   server.get('/api/search', async (req, res) => {
     const conn = await getConn();
     const { word } = req.query;
-    const query = 'CALL usp_get_search(?);'; //제목과, 영어제목과 메인썸네일, 카테고리 출력
-    const webtoonQuery = 'CALL usp_get_Webtoon_ID(?);';
+    const query = 'CALL usp_get_search(?);'; //검색한 웹툰의 Id를 출력
+    const webtoonQuery = 'CALL usp_get_Webtoon_ID(?);'; //웹툰 정보 출력
     try { 
       const [rows] = await conn.query(query, [word]);
       const ID = rows[0].map((row) => row.webtoonID); // ID를 추출
