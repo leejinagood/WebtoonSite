@@ -67,6 +67,5 @@ const webtoonAPI = (server, getConn) => {
     }
   });
 
-
 }
 module.exports = webtoonAPI;
