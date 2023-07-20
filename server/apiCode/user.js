@@ -76,23 +76,23 @@ const userAPI = (server, getConn) => {
           { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
         );
         //토큰을 응답으로 디버깅
-        // 쿠키에 데이터를 담아 응답 보내기
+        // 쿠키로 헤더에 데이터를 담아 응답 보내기
         res.setHeader('Set-Cookie', [
           `userName=${selectUserResult[0].userName}`,
           `userEmail=${selectUserResult[0].userEmail}`,
           `token=${token}`
         ]);
-        // 요기봐야함 솔빈
+        // 요기봐야함 솔빈 <- 궁금한 거 여쭤보셔요^_^
         // 유저 닉네임과 유저 이메일, 토큰을 응답으로
         res.send({
           userName: selectUserResult[0].userName,
           userEmail: selectUserResult[0].userEmail,
           token: token
         });
-        
-        console.log(selectUserResult[0].userName,selectUserResult[0].userEmail, token);
+        //디버깅용 콘솔 출력
+        //console.log(selectUserResult[0].userName,selectUserResult[0].userEmail, token);
       } else {
-        // 비밀번호 불일치
+        // 비밀번호 불일치 응답을 "" 로
         res.send();
       }
     } catch (error) {
@@ -105,9 +105,9 @@ const userAPI = (server, getConn) => {
 
 
   // 쿠키에서 토큰 추출하는 함수
-  function extractTokenFromCookies(cookies) {
-    const cookieArr = cookies.split(';');
-    const tokenCookie = cookieArr.find(cookie => cookie.trim().startsWith('token='));
+  function DelisousCookie(cookies) {
+    const cookieA = cookies.split(';');
+    const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('token=')); //토큰부분만 빼내기
     if (tokenCookie) {
       const token = tokenCookie.split('=')[1];
       //토큰만 추출하여 return
@@ -123,13 +123,13 @@ const userAPI = (server, getConn) => {
     const cookies = req.headers.cookie;
     if (cookies) {
       // 쿠키가 존재하는 경우 처리
-      const token = extractTokenFromCookies(cookies); // 쿠키에서 토큰 추출
+      const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
 
       try {
-        const decodedToken = jwt.verify(token, 'your-secret-key');
+        const TokenA = jwt.verify(token, 'your-secret-key');
         // 토큰이 유효한 경우
-        const userID = decodedToken.userID;
-        res.send('토큰 인증 성공');
+        // const userID = TokenA.userID;
+        res.send('토큰 인증 성공'); //문자열 수정 XXX
       } catch (error) {
         // 토큰이 유효하지 않은 경우
         res.status(401).send('토큰 인증 실패');

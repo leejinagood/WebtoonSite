@@ -2,19 +2,19 @@
 
 const commentAPI = (server, getConn) => {
 
-    //파라미터로 Webtoon_Name과 episode_Number를 받아와 댓글을 확인할 수 있는 메서드
+    //댓글을 확인할 수 있는 메서드
     server.get('/api/comment', async(req, res)=>{
         const conn = await getConn();
         const { Name, Ep } = req.query; //영어이름과 에피소드 몇 화인지 받아옴
         const values = [ Name, Ep ]
-        const epIDQuery = 'call usp_get_EpiosdeID (?, ?);';
-        const viewCommentQuery = 'call usp_get_comment(?);';
+        const epIDQuery = 'call usp_get_EpiosdeID (?, ?);'; //제목과 epNumber로 episodeID 추출
+        const viewCommentQuery = 'call usp_get_comment(?);'; //댓글 조회
         try {
 
             const [rows] = await conn.query(epIDQuery, values); // Name, Ep 파라미터로 받아온 후
             const ID = rows[0].map((row) => row.episodeID); // episodeID를 추출
 
-            const[result] = await conn.query(viewCommentQuery, [ID]);
+            const[result] = await conn.query(viewCommentQuery, [ID]); //episodeID로 댓글 조회
             const comment = result[0].map(row => ({
             Comment_Content: row.commentContent, //댓글 내용
             Comment_Date: row.commentDate, //댓글을 입력한 날짜
@@ -37,9 +37,9 @@ const commentAPI = (server, getConn) => {
         const values = [WebEnName, Ep];
         const user_email = [UserEmail];
         const Content = [content];
-        const epIDQuery = 'CALL usp_get_EpiosdeID(?, ?);';
-        const userIDQuery = 'CALL usp_get_userID(?);';
-        const insertQuery = 'CALL usp_post_comment(?, ?, ?)';
+        const epIDQuery = 'CALL usp_get_EpiosdeID(?, ?);'; //episodeID
+        const userIDQuery = 'CALL usp_get_userID(?);'; //UserID
+        const insertQuery = 'CALL usp_post_comment(?, ?, ?)'; //댓글 입력
     
         try {
             const [epID] = await conn.query(epIDQuery, values); // Name, Ep 파라미터로 받아온 후
@@ -50,7 +50,7 @@ const commentAPI = (server, getConn) => {
 
             const authResponse = await axios.post('http://your-server/api/Token', { token });
             if (authResponse.data === '토큰 인증 성공') {
-            await conn.query(insertQuery, [EpId, UsId, Content]); //댓글 입력
+            await conn.query(insertQuery, [EpId, UsId, Content]); //episodeID, userID, content 입력 후 댓글 삽입
             res.send('댓글이 성공적으로 작성되었습니다.'); 
         } else {
             res.status(401).send('토큰 인증 실패');
@@ -63,6 +63,5 @@ const commentAPI = (server, getConn) => {
         }
     });
     
-
 }
 module.exports = commentAPI;
