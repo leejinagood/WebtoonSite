@@ -117,22 +117,22 @@ const Header = () => {
           <Link href={{ pathname: '/daypage', query: { day: 'mon' } }}>
             <li className="AllDay">월</li>
           </Link>
-          <Link href={{ pathname: '/DayPage/TuesDayPage', query: { day: 'tues' } }}>
+          <Link href={{ pathname: '/daypage', query: { day: 'tues' } }}>
             <li className="AllDay">화</li>
           </Link>
-          <Link href={{ pathname: '/DayPage/WednesDayPage', query: { day: 'wedes' } }}>
+          <Link href={{ pathname: '/daypage', query: { day: 'wendes' } }}>
             <li className="AllDay">수</li>
           </Link>
-          <Link href={{ pathname: '/DayPage/ThursDayPage', query: { day: 'thu' } }}>
+          <Link href={{ pathname: '/daypage', query: { day: 'thurs' } }}>
             <li className="AllDay">목</li>
           </Link>
-          <Link href={{ pathname: '/DayPage/FirDayPage', query: { day: 'fir' } }}>
+          <Link href={{ pathname: 'daypage', query: { day: 'fir' } }}>
             <li className="AllDay">금</li>
           </Link>
-          <Link href={{ pathname: '/DayPage/SaturDaypage', query: { day: 'satur' } }}>
+          <Link href={{ pathname: '/daypage', query: { day: 'satur' } }}>
             <li className="AllDay">토</li>
           </Link>
-          <Link href={{ pathname: '/DayPage/SunDayPage', query: { day: 'sun' } }}>
+          <Link href={{ pathname: '/daypage', query: { day: 'sun' } }}>
             <li className="AllDay">일</li>
           </Link>
         </div>
