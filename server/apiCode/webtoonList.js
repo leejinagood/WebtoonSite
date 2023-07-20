@@ -26,7 +26,8 @@ const webtoonListAPI = (server, getConn) => {
                 author: row.webtoonAuthor, // 웹툰 작가 추출
                 week: row.webtoonWeek, // 무슨 요일에 연재하는지
                 content: row.webtoonContent, //웹툰 상세 내용
-                like: row.LikesCount // 좋아요 갯수
+                like: row.LikesCount, // 좋아요 갯수
+                count: row.countEpisode // 총 에피소드 화
                 });
             }
             res.send(webtoonDetails); // 응답으로 보냄

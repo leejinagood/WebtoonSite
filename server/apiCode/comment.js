@@ -10,7 +10,6 @@ const commentAPI = (server, getConn) => {
         const epIDQuery = 'call usp_get_EpiosdeID (?, ?);'; //제목과 epNumber로 episodeID 추출
         const viewCommentQuery = 'call usp_get_comment(?);'; //댓글 조회
         try {
-
             const [rows] = await conn.query(epIDQuery, values); // Name, Ep 파라미터로 받아온 후
             const ID = rows[0].map((row) => row.episodeID); // episodeID를 추출
 
@@ -20,7 +19,7 @@ const commentAPI = (server, getConn) => {
             Comment_Date: row.commentDate, //댓글을 입력한 날짜
             User_Name: row.userName  //사용자 닉네임
             }));
-            res.send(comment);
+            res.send(comment); //댓글 내용을 응답으로
         } catch (error) {
             console.error(error);
             res.status(500).send({ error: '서버 스크립트의 오류' });
