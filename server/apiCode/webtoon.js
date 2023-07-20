@@ -8,7 +8,7 @@ const webtoonAPI = (server, getConn) => {
     const query = day ? 'CALL usp_get_dayWebtoon(?);' : 'call usp_get_New();'; //매개변수 있을 때와 없을 때
     // day라는 매개변수가 있을 때는 usp_get_dayWebtoon 프로시저 호출 (요일별 웹툰ID 출력)
     // 매개변수가 없을 때는 그냥 전체 웹툰에서의 일주일 된 신규웹툰 ID를 출력
-    const WebtoonDetailquery = 'CALL usp_get_Webtoon_ID(?);'; //ID를 받아와 웹툰 정보를 출력하는 sp
+    const WebtoonDetailquery = 'CALL usp_get_webtoonDetail_ID(?);'; //ID를 받아와 웹툰 정보를 출력하는 sp
     
     try {
       let [rows] = await conn.query(query, [day]); //day를 파라미터로 받아온 후
@@ -22,6 +22,9 @@ const webtoonAPI = (server, getConn) => {
           webtoon_name: row.webtoonName, //웹툰 제목과
           webtoon_en_name: row.webtoonEnName, //웹툰 영어 제목과
           thumbnail: row.webtoonThumbnail, //웹툰 썸네일을 추출
+          author: row.webtoonAuthor, // 웹툰 작가 추출
+          week: row.webtoonWeek, //무슨 요일에 연재하는지
+          like: row.LikesCount // 좋아요 갯수
         });
       }
       res.send(webtoonDetails); //응답으로 보냄
