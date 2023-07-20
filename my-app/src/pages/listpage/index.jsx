@@ -9,7 +9,7 @@ import Head from "next/head";
 const ListPage = () => {
   const [thumbnailIMG,setThumbnailIMG] =useState([]);
   const router = useRouter();
-  const { webtoonName } = router.query;
+  const { webtoon_en_name } = router.query;
   const [webtoonInfo, setWebtoonInfo] = useState(null);
   const [webtoons, setWebtoons] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,7 +20,7 @@ const ListPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/listdetail?name=${encodeURIComponent(webtoonName)}`);
+        const response = await fetch(`/api/listinfo?webtoon_ed_name=${encodeURIComponent(webtoon_en_name)}`);
         const data = await response.json();
         const { webtoons } = data;
         setWebtoonInfo(webtoons[0]);
@@ -33,7 +33,7 @@ const ListPage = () => {
       }
     };
 
-    if (webtoonName) {
+    if (webtoon_en_name) {
       fetchData();
     } else {
       setWebtoonInfo(null);
@@ -41,11 +41,11 @@ const ListPage = () => {
       setTotalCount(0);
       setLoading(false);
     }
-  }, [webtoonName]);
+  }, [webtoon_en_name]);
 
-  const getThumbnailImage = async (webtoonName) => {
+  const getThumbnailImage = async (webtoon_en_name) => {
     try {
-      const response = await fetch(`/api/thumbnail?webtoonName=${encodeURIComponent(webtoonName)}`);
+      const response = await fetch(`/api/thumbnail?webtoonName=${encodeURIComponent(webtoon_en_name)}`);
       const data = await response.json();
       
       const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail;

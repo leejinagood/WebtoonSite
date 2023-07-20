@@ -6,7 +6,7 @@ const Tag =()=>{
 
     return(
         <div className="tag">
-        <h3 className="Categories">웹툰 바로가기</h3>
+        <h3 className="Categories" id="tagtop">웹툰 바로가기</h3>
             <div className="tagItem">
                 <Link href="/SerchWebToon?word=로멘스"><li>#로멘스</li></Link>
                 <Link href="/SerchWebToon?word=액션"><li>#액션</li></Link>

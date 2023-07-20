@@ -27,7 +27,7 @@ return (
     {webtoons.length > 0 && webtoons.map((webtoon, index) => (
       <div className="AllToonInfo" key={index}>
         <Link href={`/listpage?webtoonName=${encodeURIComponent(webtoon.webtoon_en_name)}`}>
-          <Thumbnail day={webtoon} />
+          <Thumbnail className="ATimg" day={webtoon} />
           <p className="ToonTitle">{webtoon.webtoon_name}</p>
         </Link>
       </div>
@@ -42,6 +42,6 @@ return (
 };
 
 const Thumbnail = ({ day }) => {
-  return <img src={day.thumbnail} alt="" />;
+  return <img className="ATIMG" src={day.thumbnail} alt="" />;
 };
 export default AllToonInfo;
