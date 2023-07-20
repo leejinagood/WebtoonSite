@@ -1,114 +1,98 @@
-import React, { Component } from "react";
-import MainPageCss from "@/src/styles/MainPageCss.css";
+import React, { useEffect, useState } from "react";
 import Header from "@/src/Header/header";
 import Footer from "@/src/Footer/footer";
 import NewToon from "../../Component/NewToon";
-import DayMain from "../../Component/DayMain";
 import Rank from "../../Component/Rank";
-import Slider from "../../Component/Slider";
-import { parseCookies } from 'nookies'; // nookies 라이브러리 import
-import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
+import { parseCookies } from 'nookies';
+import jwt from 'jsonwebtoken';
+import { useRouter } from "next/router";
+import Link from "next/link";
+const WeekPage = () => {
+  const router = useRouter();
+  const { day } = router.query;
+  const [dayToonItemCounts, setDayToonItemCounts] = useState([]);
+  const { token } = parseCookies({});
+  const tokenPayload = jwt.decode(token);
 
-class MondayPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dayToonItemCounts: [],
-      webtoons: []
-    };
-  }
+  const [webtoons, setWebtoons] = useState([]);
+  const [week , setWeek] = useState([]);
 
 
 
-
-  componentDidMount() {
-    const { day } = this.props;
-    const { token } = parseCookies({}); // 쿠키에서 토큰 가져오기
-    const tokenPayload = jwt.decode(token);
-    
-    fetch(`/api/daytoon?day=${day}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+  useEffect(() => {
+    fetch(`/api/daytoon?day=${day}`)
       .then((response) => response.json())
       .then((data) => {
-        const { webtoons } = data;
-        const {thumbnail} = webtoons.thumbnail;
-        this.setState({ webtoons });
-
+        setWebtoons(data);
+        setDayToonItemCounts([3, 0, 0]); // 예시로 하드코딩된 배열을 대체할 데이터를 받아서 설정하세요.
       })
       .catch((error) => {
         console.error("Error fetching API:", error);
       });
-    const fetchedDayToonItemCounts = [3, 0, 0];
-    this.setState({ dayToonItemCounts: fetchedDayToonItemCounts });
-  }
 
-  //기본값 월요일
-  static defaultProps = {
-    day: "mon",
-    week: "월",
-    writer: "작가",
-    star: 9.9
+      if(day=="mon"){
+        setWeek("월")
+      }else if(day=="tues"){
+        setWeek("화")
+      }else if(day=="wendes"){
+        setWeek("수")
+      }else if(day=="thurs"){
+        setWeek("목")
+      }else if(day=="fri"){
+        setWeek("금")
+      }else if(day=="satur"){
+        setWeek("토")
+      }else if(day=="sun"){
+        setWeek("일")
+      }
+    
+  }, [day]);
+
+  const Thumbnail = ({ day }) => {
+    return <img src={day.thumbnail} alt="" />;
   };
+  
+  
 
-  getThumbnailImage = async (webtoon) => {
-    try { //엔드포인드로 호출
-      const response = await fetch(`/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(webtoon.webtoon_name)}`);
-      const data = await response.json();
-      const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail; //썸네일 이미지 경로 추출
-      return thumbnail || ""; //비어있을 경우 빈 문자열 
-    } catch (error) {
-      console.error("Error fetching API:", error);
-      return ""; 
-    }
-  };
-  render() {
-    const { dayToonItemCounts, webtoons } = this.state;
-    const { week, writer, star } = this.props;
-    const { token } = parseCookies({});
-    const tokenPayload = jwt.decode(token);
-
-    return (
-      <div className="DayBox">
-        <Header token={token} />
-        <h3 className="Categories">{week}요일 추천 웹툰</h3>
-        <div className="MNewToon">
-          <NewToon />
-        </div>
-        <div className="Mid">
-          <div>
-            <h3>전체{week}요 웹툰</h3>
-            {dayToonItemCounts.map((count, index) => (
-              <div className="DayToonBox" key={index}>
-                {[...Array(count)].map((_, subIndex) => (
-                  <div className="DayToon" key={subIndex}>
-                    {webtoons[subIndex] && (
-                      <div className={`DayToonItem ${subIndex === 1 ? "second-item" : ""}`}>
-                        <img src="" alt={webtoons[subIndex].webtoon_name} ref={imgRef => { //ref에서 getThumbnailImage 호출
-                          if (imgRef) { //존재할 때 
-                            this.getThumbnailImage(webtoons[subIndex]) 
-                              .then(thumbnail => imgRef.src = thumbnail) //thumbnail을 동적으로 수정
-                              .catch(error => console.error("Error loading thumbnail:", error));
-                          }
-                        }} />
-                        <p className="ToonTitle">{webtoons[subIndex].webtoon_name}</p>
-                        <p className="Writer">{webtoons[subIndex].author}</p>
-                        <p className="Star">⭐️{webtoons[subIndex].like}</p>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-          <Rank />
-        </div>
-        <Footer />
+  return (
+    <div className="DayBox">
+      <Header token={token} />
+      <h3 className="Categories">{week}요일 추천 웹툰</h3>
+      <div className="MNewToon">
+        <NewToon />
       </div>
-    );
-  }
-}
+      <div className="Mid">
+        <div>
+          <h3>전체{week}요 웹툰</h3>
+          {dayToonItemCounts.map((count, index) => (
+            <div className="DayToonBox" key={index}>
+              {[...Array(count)].map((_, subIndex) => {
+                const webtoon = webtoons[subIndex];
+                return webtoon ? (
+                  
+                  <div className={`DayToonItem ${subIndex === 1 ? "second-item" : ""}`} key={subIndex}>
+                  <Link href={`/listpage?webtoonName=${encodeURIComponent(webtoon.webtoon_en_name)}`}>
 
-export default MondayPage;
+                    <Thumbnail className="DayToonItem" day={webtoon} />
+                    <p className="ToonTitle">{webtoon.webtoon_name}</p>
+                    <p className="Writer">{webtoon.author}</p>
+                    <p className="Star">⭐️{webtoon.like}</p>
+                    </Link>
+                  </div>
+                ) : null;
+              })}
+            </div>
+          ))}
+        </div>
+        <Rank />
+      </div>
+      <Footer />
+    </div>
+  );
+};
+
+const Thumbnail = ({ webtoon }) => {
+  return <img src={webtoon.thumbnail} alt="" />;
+};
+
+export default WeekPage;

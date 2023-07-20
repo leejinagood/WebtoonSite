@@ -255,3 +255,8 @@
 .AllDay{
     width: 15% !important;
 }
+
+.AllDay{
+    position: relative;    
+    z-index: 99;
+}
