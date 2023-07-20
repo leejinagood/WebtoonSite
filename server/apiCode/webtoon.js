@@ -38,7 +38,7 @@ const webtoonAPI = (server, getConn) => {
   });
 
 
-  //검색하면 그 단어를 포함한 웹툰 제목과 작가, 썸네일을 출력하는 메서드
+  //검색하면 그 단어를 포함한 웹툰 제목과 영어제목, 썸네일을 출력하는 메서드
   server.get('/api/search', async (req, res) => {
     const conn = await getConn();
     const { word } = req.query;
