@@ -37,7 +37,7 @@ const likeAPI = (server, getConn) => {
             const cookies = req.headers.cookie; // 쿠키 가져오기
             const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
 
-            const authResponse = await axios.get('http://localhost:4000/api/Token', { //이 경로로 요청을 보내야 됨
+            const authResponse = await axios.get('http://localhost:4000/api/Token', { //이 경로로 요청을 보내야 됨 (토큰 인증 경로)
             headers: {
                 Cookie: `token=${token}`, // 토큰을 쿠키 형식으로 전달
                 },
