@@ -2,8 +2,10 @@
     .ListPage{
         width: 720px !important;
     }
+
     #PointBtn{
         width: 100% !important;
+        margin-bottom: 10px;
     }
     .IBtn{
         width: 65% !important;
@@ -22,7 +24,7 @@
         line-height: 10px;
     }
     .ListInfoBox{
-        height: 500px !important;
+        height: 300px !important;
         width: 80% !important;
     }
     .ListImgBox{
@@ -33,8 +35,8 @@
         height: 100% !important;
     }
     .SNSBTN{
-        width: 30% !important;
-        margin-left: 5%;
+        width: 32% !important;
+        margin-left:3%;
     }
     /* 썸네일 밑에 제목 글자 간격 조정 */
 
@@ -47,9 +49,16 @@
         position: relative;
         bottom: 10vw !important;
     }
+    .ListBox{
+        margin-top: 3%;
+        width: 80% !important;
+    }
     .List{
-        margin-top:7% !important;
-        width: 75% !important;
+        position: relative;
+        left:20px;
+        width: 90% !important;
+
+        margin-top: 7%;
     }
     .ListItem{
         position: relative;
@@ -62,15 +71,15 @@
 
 /* test */
 @media screen and (max-width:414px) and (min-width:362px) {
-
+    .ListPage{
+        width: 400 !important;
+    }
  
 
     #PointBtn{
         width: 100% !important;
     }
-    .ListPage{
-        width: 360px !important;
-    }
+
     .IBtn{
         width:50% !important;
         font-size: 10px !important;
@@ -157,24 +166,28 @@
 /* test */
 @media screen and (max-width:361px) and (min-width:10px) {
 
+    .ListPage{
+        overflow: hidden;
+        width: 360px !important;
+    }
  
-    
 
-
-
+    .InfoBtn{
+        width: 80% !important;
+    }
     #PointBtn{
         width: 100% !important;
     }
-    .ListPage{
-        width: 360px !important;
-    }
     .IBtn{
-        width:50% !important;
+        margin-top: 5px;
+        width:55% !important;
         font-size: 10px !important;
     }
     
     .SNSBTN{
-        width: 47.5% !important;
+        font-size: 10px;
+        width: 43% !important;
+        margin-left: 5px;
     }
     .InfoBtn{
         margin: 0 auto !important;
@@ -191,8 +204,15 @@
         line-height: 10px;
     }
     .ListInfoBox{
-        height: 500px !important;
-        width: 85% !important;
+        height: 310px !important;
+        width: 84.4% !important;
+    }
+    .TextBox{
+        height: 100px;
+        float: left;
+        width: 94.5% !important;
+        margin: 0 auto;
+        
     }
     .ListImgBox {
         display: flex;
@@ -222,7 +242,7 @@
     }
     .ListItem{
         position: relative;
-        right:27% !important; 
+        right:15% !important; 
         width: 100%;
     }
     .ListImg {
@@ -250,12 +270,15 @@
         width: 30% !important;
         float: left !important;
     }
+    .Episode{
+        margin-top: 23px !important; 
+    }
 }
 
 
 
 .ListPage{
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
 }
 .ListInfo{
@@ -271,12 +294,11 @@
     bottom: 1.6vw;
 }
 .ListImgBox img{
-
     float: left;
+    background-color: rgba(128, 128, 128, 0.209);
     width: 100%;
-
-
-    height: 160px;
+    height: 300px;
+    object-fit: contain;
     margin-right: 15px;
 }
 
@@ -304,16 +326,22 @@
     height: 150px;
     font-size: 1vw;
     width: 100%;
+    float: left;
+}
+.List{
+    padding: 0;
 }
 
 .InfoBtn{
     width: 100%;
     float: left;
-    margin-top: 6%;
+    margin-top: 4%;
+
 }
 
 .IBtn{
     width: 60%;
+    
     height: 35px;
     border-radius: 5px;
     border: 1px solid rgb(230, 226, 226);
@@ -335,19 +363,19 @@
 li{
     list-style: none;
 }
+/* // 버튼이랑 리스트 겹치는 원인 높이  */
 .ListInfoBox{
     width: 100%;
     float: left;
-    height: 300px !important;
+    height: 500px;
 }
 
-
-.List{
-    margin-top: 15%;
+.ListBox{
+    width: 100%; 
     float: left;
-    width: 100%;
-
 }
+
+
 .Pagination{
     float: left;
     width: 100%;
@@ -361,21 +389,23 @@ li{
     margin-right: 8px;
     width: 10%;
 }
+.ListImg{
+    width: 100%;
+}
 .ListItem{
-    position: relative;
-    right: 11%;
-    height: 80px;
+    box-sizing: border-box; /* padding과 border가 요소 크기에 포함되도록 설정 */
+    height: 65px;
     border-bottom: 1px solid rgb(230, 226, 226);
 }
 .ListItem .ListImg img{
-    width:15%;
-    height: 80px;
+    width:30%;
+    height: 100%;
+    object-fit: contain;
     float: left;
-    background-color: yellow;
 }
 .Episode{
     margin-top: 1.5vw;
-    width: 80%;
+    width: 50%;
     height: 30px;
     font-size: 10px;
     font-weight: bold;
@@ -387,3 +417,4 @@ li{
 .SU span{
     margin-left: 20px;
 }
+

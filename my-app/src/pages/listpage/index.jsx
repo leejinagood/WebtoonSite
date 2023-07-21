@@ -39,6 +39,44 @@ const ListPage = () => {
   }, [EnName]);
 
   
+  //리스트아이템 
+  const [webtoonItem, setWebtoonItem] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/listitem?EnName=${encodeURIComponent(EnName)}`);
+        const { webtoonData } = await response.json();
+        setWebtoonItem(webtoonData);
+        
+      } catch (error) {
+        console.error("Error fetching API:", error);
+      }
+    };
+
+    if (EnName) {
+      fetchData();
+    } else {
+      setWebtoonItem(null);
+    }
+  }, [EnName]);
+  const handleItemClick = () => {
+    handleClick(ep);
+    const queryString = `?EnName=${encodeURIComponent(webtoonName)}&ep=${ep}`;
+    window.location.href = `/webtoonpage${queryString}`;
+  };
+
+  if (!webtoonItem) {
+    return "no data"; // 로딩 중이거나 데이터가 없을 때 null을 반환하여 아무 내용도 표시하지 않습니다.
+  }
+  console.log(webtoonItem);
+  console.log(webtoonItem.episode_number);
+  console.log(webtoonItem.episode_number);
+  console.log(webtoonItem.episode_thumbnail);
+  console.log(webtoonItem.webtoon_name);
+
+
+
+
 
 
   const handleLike = () => {
@@ -68,6 +106,8 @@ const ListPage = () => {
   const totalWebtoons = webtoons.length;
   const totalPages = Math.ceil(totalWebtoons / webtoonsPerPage);
 
+
+
   return (
     <div className="ListPage">
       <Head>
@@ -87,6 +127,7 @@ const ListPage = () => {
                 alt={webtoonInfo.webtoon_name}
               />
             </div>
+            
             <div className="ListInfo">
               <div className="TextBox">
                 <>
@@ -110,28 +151,33 @@ const ListPage = () => {
             </div>
           </div>
         )}
+        
       </div>
-      {loading ? (
+      {!webtoonItem ? (
   <div>Loading...</div>
 ) : (
   <>
-      <ul className="List">
-        {webtoonInfo && Array.from({ length:3 }).map((_, index) => (
-          <li key={index}>
-            sss
-            <ListItem
-              webtoonName={webtoonInfo.webtoon_en_name}
-              ep={index + 1}
-              uploadDate={webtoonInfo.update}
-              handleClick={handleEpChange}
-            />
-          </li>
-        ))}
-      </ul>
+  <div className="ListBox">
+    <ul className="List">
+      {webtoonInfo && Array.from({ length: webtoonInfo.count }).map((_, index) => (
+        <li key={index}>
+          <ListItem
+            thumbnail = {webtoonItem[index]?.episode_thumbnail}
+            webtoonName={webtoonItem[index]?.webtoon_name}
+            ep={webtoonItem[index]?.episode_number}
+            uploadDate={webtoonItem[index]?.update}
+            handleClick={handleEpChange}
+          />
+        </li>
+      ))}
+    </ul>
+    </div>
   </>
 )}
 
+
       <div className="Pagination">
+        
         <span className="Arrow">{"<"}</span>
         {Array.from({ length: totalPages }).map((_, index) => (
           <button

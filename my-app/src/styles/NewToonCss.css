@@ -6,7 +6,17 @@
   {
     width: 80% !important;
     margin: 0 auto;
+
     float: left;
+  }
+  .NewToonInfo{
+    height: 310px !important;
+
+  }
+  .NewToonItem img{
+    height: 300px !important;
+    width: 100% !important;
+    object-fit: contain !important;
   }
 
 
@@ -28,7 +38,7 @@
 
   .NewToonInfo {
     width: 100% !important;
-    height: 100px !important;
+    height: 200px !important;
     cursor: pointer;
   }
   .NewToonInfo img {
@@ -48,24 +58,24 @@
   {
     width: 80% !important;
     margin: 0 auto;
-    height: 100px !important;
+    height: 170px !important;
     
     float: left;
   }
   .NewToonInfo {
     width: 100%  !important;
-    height: 100px !important;
+    height: 169px !important;
     align-items: center;
     float: left !important;
     margin-left: 17% !important;
     justify-content: center;
     cursor: pointer;
   }
-
-  .NewToonItem img{
-    max-width: 200%;
-    height: 100px !important;
+  .NewToonInfo img {
+    
   }
+
+
 
 
 }
@@ -73,6 +83,7 @@
 
 .NewToonPage {
   width: 100%;
+  background-color: rgb(159, 142, 142);
   display: flex;
   justify-content: center;
 }
@@ -87,7 +98,7 @@
 
 .NewToonInfo {
   width: 100%;
-  height: 180px;
+  height: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,17 +107,11 @@
 
 
 
-.NewToonItem {
+
+.NewToonItem img {
+  object-fit: contain ;
+  height: 250px;
   width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.NewToonInfo img {
-  height: 170px;
-  border: 1px solid #000;
-  object-fit: contain;
-}
 

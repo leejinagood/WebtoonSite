@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
+import NewToonCss from "@/src/styles/NewToonCss.css"
 
 const NewToon = () => {
   const [webtoons, setWebtoons] = useState([]);
