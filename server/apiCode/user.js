@@ -104,6 +104,76 @@ const userAPI = (server, getConn) => {
   });
 
 
+  server.get('/api/KakaoLoginPage', async (req, res) => {
+    const { code } = req.query;
+  
+    try {
+      // 카카오 토큰 받아오기
+      const kakaoTokenResponse = await axios.post(
+        'https://kauth.kakao.com/oauth/token',
+        {
+          grant_type: 'authorization_code',
+          client_id: 'YOUR_KAKAO_CLIENT_ID',
+          redirect_uri: 'YOUR_REDIRECT_URI',
+          code,
+        }
+      );
+  
+      // 받아온 카카오 토큰으로 카카오 사용자 정보 받아오기
+      const kakaoUserInfoResponse = await axios.get(
+        'https://kapi.kakao.com/v2/user/me',
+        {
+          headers: {
+            Authorization: `Bearer ${kakaoTokenResponse.data.access_token}`,
+          },
+        }
+      );
+  
+      // 카카오에서 받은 사용자 정보 활용 (예시로 카카오 닉네임 사용)
+      const { nickname } = kakaoUserInfoResponse.data.kakao_account.profile;
+  
+      // 아이디로 사용할 카카오 고유 ID
+      const kakaoUserId = `kakao:${kakaoUserInfoResponse.data.id}`;
+  
+      // 아이디가 있는지 확인
+      const selectQuery = 'SELECT * FROM UserTable WHERE userEmail = ?;';
+      const [selectUserResult] = await conn.query(selectQuery, [kakaoUserId]);
+  
+      // 회원 정보가 없는 경우 새로 생성
+      if (selectUserResult.length === 0) {
+        const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName) VALUES (?, ?, ?);';
+        const hashedPassword = await bcrypt.hash('YOUR_RANDOM_PASSWORD', 10); // 임시로 랜덤 비밀번호를 해시화하여 저장
+        await conn.query(insertQuery, [kakaoUserId, hashedPassword, nickname]);
+      }
+  
+      // 토큰 생성
+      const token = jwt.sign(
+        { UserId: kakaoUserId, UserEmail: kakaoUserId }, // 이 예시에서는 카카오 고유 ID를 사용
+        'your-secret-key', // 비밀키
+        { expiresIn: '30m' } // 토큰 만료 시간 30분 설정
+      );
+  
+      // 쿠키로 토큰과 사용자 정보를 응답으로 보내기
+      res.setHeader('Set-Cookie', [
+        `userName=${nickname}`,
+        `userEmail=${kakaoUserId}`,
+        `token=${token}`
+      ]);
+  
+      // 사용자 정보와 토큰을 클라이언트에 응답으로 보내기
+      res.send({
+        userName: nickname,
+        userEmail: kakaoUserId,
+        token: token
+      });
+  
+    } catch (error) {
+      console.error(error);
+      res.status(500).json('로그인 실패');
+    }
+  });
+
+
   // 쿠키에서 토큰 추출하는 함수
   function DelisousCookie(cookies) {
     const cookieA = cookies.split(';');
