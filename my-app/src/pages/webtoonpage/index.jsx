@@ -57,7 +57,7 @@ const WebtoonPage = () => {
   const handleWebToonCutClick = (webtoon) => {
     setSelectedWebtoon(webtoon);
     setIsVisible(true);
-
+  
     setTimeout(() => {
       setIsVisible(false);
     }, 2500);
