@@ -79,6 +79,7 @@ const Header = () => {
       <div className="header">
         <div className="TopHeader">
           <div className="LogoBox">
+          <link rel="manifest" href="/manifest.json" />
             <h1 className="Logo">AVATOON</h1>
           </div>
           <div className="rb">

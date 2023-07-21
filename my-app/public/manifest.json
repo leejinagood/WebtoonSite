@@ -1,10 +1,6 @@
 {
   "name": "AVATOON",
   "short_name": "AVATOON",
-  "start_url": "/",
-  "display": "standalone",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
   "icons": [
     {
       "src": "./icon-192x192.png",
@@ -16,5 +12,9 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "start_url": "/",
+    "display": "standalone",
+    "background_color": "#121212",
+    "theme_color": "#f1718c"
 }
