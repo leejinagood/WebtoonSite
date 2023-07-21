@@ -10,6 +10,7 @@
 // npm install jsonwebtoken bcrypt
 // npm install restify-cookies
 // npm install dotenv
+// npm install axios
 
 const restify = require('restify');
 const fs = require('fs');
