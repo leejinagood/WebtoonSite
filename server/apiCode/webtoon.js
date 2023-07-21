@@ -6,13 +6,25 @@ const webtoonAPI = (server, getConn) => {
   server.get('/api/webtoons', async (req, res) => {
     const conn = await getConn();
     const { pi_vch_condition } = req.query;
-    const query = 'CALL usp_get_Webtoon(?);';
+
+    //1개의 sp를 4개로 나눔
+    //const query = 'CALL usp_get_Webtoon(?);';
 
     //파라미터 조건에 맞는 ID를 받아온 후 ID에 맞는 웹툰 정보를 추출하는 sp에 대입
     const webtoonQuery = 'CALL usp_get_webtoonDetail_ID(?);'; // ID를 받아와 웹툰 정보를 출력하는 SP
     
-    try {
-      let [rows] = await conn.query(query, [pi_vch_condition]); // pi_vch_condition를 파라미터로 받아온 후
+    try { // pi_vch_condition를 파라미터로 받아온 후
+      let rows;
+      if (pi_vch_condition === 'All') {
+        [rows] = await conn.query('CALL usp_get_AllWebtoons();'); //All일 때 웹툰 전체
+      } else if (pi_vch_condition === 'rank') {
+        [rows] = await conn.query('CALL usp_get_Top5LikedWebtoons();'); //rank일 때 웹툰 좋아요 상위 top5
+      } else if (pi_vch_condition === 'new') {
+        [rows] = await conn.query('CALL usp_get_NewWebtoons();'); //new일 때 생성된지 1주일 된 웹툰들
+      } else {
+        [rows] = await conn.query('CALL usp_get_WebtoonsByDay(?);', [pi_vch_condition]); //요일받는 파라미터
+      }
+
       const ID = rows[0].map((row) => row.webtoonID); // ID를 추출
   
       const webtoonDetails = []; // 배열로 초기화
@@ -56,6 +68,8 @@ const webtoonAPI = (server, getConn) => {
           webtoon_name: row.webtoonName, // 웹툰 제목과
           webtoon_en_name: row.webtoonEnName, // 웹툰 영어 제목과
           thumbnail: row.webtoonThumbnail, // 웹툰 썸네일을 추출
+          webtoon_author: row.webtoonAuthor, // 웹툰 작가 추출
+          categoris : row.CategoryKinds //카테고리들
         });
       }
       res.send(webtoonDetails); //응답으로 보내기
