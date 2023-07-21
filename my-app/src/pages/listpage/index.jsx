@@ -127,6 +127,7 @@ const ListPage = () => {
                 alt={webtoonInfo.webtoon_name}
               />
             </div>
+            
             <div className="ListInfo">
               <div className="TextBox">
                 <>
@@ -150,11 +151,13 @@ const ListPage = () => {
             </div>
           </div>
         )}
+        
       </div>
       {!webtoonItem ? (
   <div>Loading...</div>
 ) : (
   <>
+  <div className="ListBox">
     <ul className="List">
       {webtoonInfo && Array.from({ length: webtoonInfo.count }).map((_, index) => (
         <li key={index}>
@@ -168,10 +171,13 @@ const ListPage = () => {
         </li>
       ))}
     </ul>
+    </div>
   </>
 )}
 
+
       <div className="Pagination">
+        
         <span className="Arrow">{"<"}</span>
         {Array.from({ length: totalPages }).map((_, index) => (
           <button

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-
+import ListCss from "@/src/pages/listpage/styles/ListPageCss.css";
 const ListItem = ({ thumbnail,webtoonName, ep, uploadDate, handleClick }) => {
 
 
@@ -16,7 +16,7 @@ const ListItem = ({ thumbnail,webtoonName, ep, uploadDate, handleClick }) => {
             <span className="tab">{ep}화</span>
           </p>
           <p className="SU">
-            <span className="tab">{uploadDate}</span>
+            {/* <span className="tab">{uploadDate}</span> */}
           </p>
         </div>
       </div>
