@@ -39,8 +39,6 @@ const Comment = ({ webtoonName, episodeNumber }) => {
       .then((response) => response.json())
       .then((data) => {
         const  comment  = data.comment;
-        console.log(webtoonName, episodeNumber);
-        console.log(comment);
 
         // API 응답으로 받아온 코멘트 목록을 comments 상태에 업데이트
         setComments(comment);
@@ -50,8 +48,6 @@ const Comment = ({ webtoonName, episodeNumber }) => {
       });
   }, [webtoonName, episodeNumber]);
 
-  console.log(webtoonName);
-  console.log(episodeNumber);
 
   return (
     <div className="CommentComponent">

@@ -57,7 +57,7 @@ const WebtoonPage = () => {
   const handleWebToonCutClick = (webtoon) => {
     setSelectedWebtoon(webtoon);
     setIsVisible(true);
-
+  
     setTimeout(() => {
       setIsVisible(false);
     }, 2500);
@@ -84,8 +84,8 @@ const WebtoonPage = () => {
       </div>
       {selectedWebtoon && isVisible && (
         <ClickLayoutComponent
-          webtoonName={selectedWebtoon.webtoon_name}
-          episodeNumber={selectedWebtoon.ep}
+          webtoonName={EnName}
+          episodeNumber={ep}
           maxEp={count}
         />
       )}

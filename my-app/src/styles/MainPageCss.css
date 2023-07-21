@@ -1,5 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 *{
-    
+    font-family: 'Jua', sans-serif;
     text-decoration-style: none;
     text-decoration: none; /* 링크의 밑줄 제거 */
     color: inherit; /* 링크의 색상 제거 */
@@ -32,7 +33,10 @@
         width: 100% !important;
     }
     .ToonTitle{
-        margin-left: 10% !important;margin-top: 3% !important;
+        font-size: 20px !important;
+        line-height: 5px !important; 
+        margin-bottom: 15px !important;
+
     }
     .ATBox {
         width: 100% !important;
@@ -366,7 +370,10 @@
         height: 30vw !important;
         float: left !important;
     }
-
+    .ToonTitle{
+        position: relative;
+        right: 5px;
+    }
     
 }
 .Categories{
@@ -525,6 +532,7 @@ tr{
 
 .ToonTitle{
     float: left;
+    line-height: 2px;
 }
 
 

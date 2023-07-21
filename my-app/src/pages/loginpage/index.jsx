@@ -50,7 +50,7 @@ const LoginPage = () => {
         setUserName(response.data.User_Name);
 
         // 페이지 이동
-        Router.push("/mainpage");
+        Router.push("/");
       } else {
         // 로그인 실패 처리
         console.log("로그인 실패");
