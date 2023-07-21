@@ -73,7 +73,7 @@ const userAPI = (server, getConn) => {
         token = jwt.sign(
           { UserId: selectUserResult[0].userID, UserEmail: selectUserResult[0].userEmail },
           'your-secret-key', // 비밀키
-          { expiresIn: '1h' } // 토큰 만료 시간 1시간 설정
+          { expiresIn: '30m' } // 토큰 만료 시간 30분 설정
         );
         //토큰을 응답으로 디버깅
         // 쿠키로 헤더에 데이터를 담아 응답 보내기

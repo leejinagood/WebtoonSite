@@ -60,17 +60,17 @@ const commentAPI = (server, getConn) => {
             const [usID] = await conn.query(userIDQuery, user_email); // UserEmail 파라미터로 받아온 후
             const UsId = usID[0].map((row) => row.userID); // userID를 추출
 
-            const cookies = req.headers.cookie;
+            const cookies = req.headers.cookie; //쿠키 가져와
             const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
 
-            const authResponse = await axios.get('http://localhost:4000/api/Token', {
+            const authResponse = await axios.get('http://localhost:4000/api/Token', { //이 경로로 요청을 보냄
             headers: {
                 Cookie: `token=${token}`, // 토큰을 쿠키 형식으로 전달
-            },
+                },
             });
-            if (authResponse.data === '토큰 인증 성공') {
-            await conn.query(insertQuery, [EpId, UsId, Content]); //episodeID, userID, content 입력 후 댓글 삽입
-            res.send('댓글이 성공적으로 작성되었습니다.'); 
+            if (authResponse.data === '토큰 인증 성공') { //인증 성공일 때 댓글 달 수 있음
+                await conn.query(insertQuery, [EpId, UsId, Content]); //episodeID, userID, content 입력 후 댓글 삽입
+                res.send('댓글이 성공적으로 작성되었습니다.');  //응답
             } else {
                 res.status(401).send('토큰 인증 실패');
             }
