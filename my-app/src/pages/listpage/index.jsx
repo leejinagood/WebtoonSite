@@ -116,16 +116,15 @@ const ListPage = () => {
 ) : (
   <>
       <ul className="List">
-        {webtoonInfo && Array.from({ length:3 }).map((_, index) => (
-          <li key={index}>
-            sss
-            <ListItem
-              webtoonName={webtoonInfo.webtoon_en_name}
-              ep={index + 1}
-              uploadDate={webtoonInfo.update}
-              handleClick={handleEpChange}
-            />
-          </li>
+        {webtoonInfo && Array.from({ length:webtoonInfo.count }).map((_, index) => (
+        <li key={index}>
+        <ListItem
+          webtoonName={EnName}
+          ep={episode.episode_number}
+          uploadDate={episode.update}
+          handleClick={handleEpChange}
+        />
+      </li>
         ))}
       </ul>
   </>

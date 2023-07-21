@@ -8,8 +8,8 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick }) => {
     const fetchData = async () => {
       try {
         const response = await fetch(`/api/listitem?EnName=${encodeURIComponent(webtoonName)}`);
-        const { listData } = await response.json();
-        setWebtoonItem(listData[0]);
+        const { webtoonData } = await response.json();
+        setWebtoonItem(webtoonData[0]);
         
       } catch (error) {
         console.error("Error fetching API:", error);
@@ -22,7 +22,6 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick }) => {
       setWebtoonItem(null);
     }
   }, [webtoonName]);
-
   const handleItemClick = () => {
     handleClick(ep);
     const queryString = `?EnName=${encodeURIComponent(webtoonName)}&ep=${ep}`;
@@ -30,14 +29,17 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick }) => {
   };
 
   if (!webtoonItem) {
-    return "ㅇㄴㅇㄴ"; // 로딩 중이거나 데이터가 없을 때 null을 반환하여 아무 내용도 표시하지 않습니다.
+    return "no data"; // 로딩 중이거나 데이터가 없을 때 null을 반환하여 아무 내용도 표시하지 않습니다.
   }
+
+
+  console.log(webtoonItem);
 
   return (
     <Link href={`/webtoonpage?EnName=${encodeURIComponent(webtoonName)}&ep=${encodeURIComponent(ep)}`}>
       <div className="ListItem" onClick={handleItemClick}>
         <div className="ListImg">
-          <img src={webtoonItem.epiosde_thumbnail} alt="s" />
+          <img src={webtoonItem.episode_thumbnail} alt="s" />
         </div>
         <div className="ListItemContent">
           <p className="Episode">
@@ -45,7 +47,7 @@ const ListItem = ({ webtoonName, ep, uploadDate, handleClick }) => {
             <span className="tab">{ep}화</span>
           </p>
           <p className="SU">
-            <span className="tab">{uploadDate}</span>
+            <span className="tab">{webtoonItem.update}</span>
           </p>
         </div>
       </div>
