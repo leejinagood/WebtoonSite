@@ -71,7 +71,7 @@ const WeekPage = () => {
                 return webtoon ? (
                   
                   <div className={`DayToonItem ${subIndex === 1 ? "second-item" : ""}`} key={subIndex}>
-                  <Link href={`/listpage?webtoonName=${encodeURIComponent(webtoon.webtoon_en_name)}`}>
+                  <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoon_en_name)}`}>
 
                     <Thumbnail day={webtoon} />
                     <p className="ToonTitle">{webtoon.webtoon_name}</p>

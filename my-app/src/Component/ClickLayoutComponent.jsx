@@ -33,26 +33,26 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
 
 
   useEffect(() => {
-    fetch(`/api/next_episode?Webtoon_Name=${webtoonName}&Episode_Number=${episodeNumber}`)
+    fetch(`/api/webtoon?EnName=${webtoonName}&ep=${episodeNumber}`)
       .then((response) => response.json())
       .then((data) => {
-        const { exists } = data;
-        setExists(exists);
+        const [webtoonData] = data; // 첫 번째 웹툰 데이터를 가져옴
+        setExists(webtoonData.nextEpisode);
       })
       .catch((error) => {
         console.error("Error fetching API:", error);
       });
   }, [webtoonName, episodeNumber]);
-
+  console.log(exists);
   const handleNextEpisode = () => {
     if (exists === 0) {
       console.log("다음화가 없음");
       // router.push({pathname: "about", query: {keyword: WebToonName}});
     } else if (exists === 1) {
-      const nextEp = episodeNumber + 1;
+      const nextEp = parseInt(episodeNumber, 10)  + 1;
       console.log(episodeNumber, nextEp);
       console.log("실행");
-      router.push(`/webtoonpage?webtoonName=${webtoonName}&episodeNumber=${nextEp}`);
+      router.push(`/webtoonpage?EnName=${webtoonName}&ep=${nextEp}`);
     }
   };
 
@@ -60,7 +60,7 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
     if (episodeNumber > 1) {
       const PrevEp = episodeNumber - 1;
       console.log(episodeNumber);
-      router.push(`/webtoonpage?webtoonName=${webtoonName}&episodeNumber=${PrevEp}`);
+      router.push(`/webtoonpage?EnName=${webtoonName}&ep=${PrevEp}`);
       // router.push({pathname: "about", query: {keyword: WebToonName}});
     } else {
       console.log("이전화가 없음");

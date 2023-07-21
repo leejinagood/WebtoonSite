@@ -84,8 +84,8 @@ const WebtoonPage = () => {
       </div>
       {selectedWebtoon && isVisible && (
         <ClickLayoutComponent
-          webtoonName={selectedWebtoon.webtoon_name}
-          episodeNumber={selectedWebtoon.ep}
+          webtoonName={EnName}
+          episodeNumber={ep}
           maxEp={count}
         />
       )}

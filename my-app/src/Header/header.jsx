@@ -80,7 +80,7 @@ const Header = () => {
         <div className="TopHeader">
           <div className="LogoBox">
           <link rel="manifest" href="/manifest.json" />
-            <h1 className="Logo">AVATOON</h1>
+            <h1 className="Logo"><span className="Color">A</span>VA<span className="Color">T</span>OON</h1>
           </div>
           <div className="rb">
             <div className="SerchBar">

@@ -260,3 +260,7 @@
     position: relative;    
     z-index: 99;
 }
+
+.Color{
+    color:red;
+}

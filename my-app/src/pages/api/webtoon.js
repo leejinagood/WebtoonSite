@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export default async function handler(req, res) {
-  const { query } = req;
-  const { EnName ,ep} = query;
+  const { EnName ,ep} = req.query;
+  console.log(EnName);
 
   if (EnName) {
     try {
