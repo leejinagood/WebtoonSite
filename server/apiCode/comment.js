@@ -72,7 +72,7 @@ const commentAPI = (server, getConn) => {
                 await conn.query(insertQuery, [EpId, UsId, Content]); //episodeID, userID, content 입력 후 댓글 삽입
                 res.send('댓글이 성공적으로 작성되었습니다.');  //응답
             } else {
-                res.status(401).send('토큰 인증 실패');
+                res.status(401).send('로그인 하세요');
             }
         } catch (error) {
             console.error(error);
