@@ -13,7 +13,7 @@ const webtoonAPI = (server, getConn) => {
     //파라미터 조건에 맞는 ID를 받아온 후 ID에 맞는 웹툰 정보를 추출하는 sp에 대입
     const webtoonQuery = 'CALL usp_get_webtoonDetail_ID(?);'; // ID를 받아와 웹툰 정보를 출력하는 SP
     
-    try { // pi_vch_condition를 파라미터로 받아온 후
+    try { // pi_vch_condition를 파라미터로 받아온 후 rows에 대입
       let rows;
       if (pi_vch_condition === 'All') {
         [rows] = await conn.query('CALL usp_get_AllWebtoons();'); //All일 때 웹툰 전체

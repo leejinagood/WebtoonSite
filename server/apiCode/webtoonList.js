@@ -53,17 +53,17 @@ const webtoonListAPI = (server, getConn) => {
         
             const webtoonDetails = []; // 배열로 초기화
             for (const webtoonID of ID) {  //webtoonID를 sp에 넣음
-            const [rows] = await conn.query(webtoonQuery, [webtoonID, sort]);
-            for (const row of rows[0]) { // 각 행에 대해 반복하여 웹툰 정보를 추가
-                webtoonDetails.push({
-                webtoon_name: row.webtoonName, // 웹툰 제목과
-                webtoon_en_name: row.webtoonEnName, // 웹툰 영어 제목과
-                episode_number: row.episodeNumber, //에피소드 이름과
-                episode_thumbnail: row.episodeThumbnail, //에피소드 각 화마다의 썸네일
-                update: row.uploadDate, // 업로드 날짜
-                count: row.countEpisode // 총 에피소드 화
-                });
-            }
+                const [rows] = await conn.query(webtoonQuery, [webtoonID, sort]);
+                for (const row of rows[0]) { // 각 행에 대해 반복하여 웹툰 정보를 추가
+                    webtoonDetails.push({
+                    webtoon_name: row.webtoonName, // 웹툰 제목과
+                    webtoon_en_name: row.webtoonEnName, // 웹툰 영어 제목과
+                    episode_number: row.episodeNumber, //에피소드 이름과
+                    episode_thumbnail: row.episodeThumbnail, //에피소드 각 화마다의 썸네일
+                    update: row.uploadDate, // 업로드 날짜
+                    count: row.countEpisode // 총 에피소드 화
+                    });
+                }
             }
             res.send(webtoonDetails); // 응답으로 보냄
         } catch (error) {
@@ -78,8 +78,8 @@ const webtoonListAPI = (server, getConn) => {
     //웹툰 영어이름, episodeNumber을 받으면 웹툰의 이미지와, 다음 화가 있는지
     server.get('/api/webtoonpage', async (req, res) => {
         const conn = await getConn();
-        const { webtoonName, ep } = req.query; //영어이름, 몇 화?
-        const values = [webtoonName, ep]
+        const { EnName, ep } = req.query; //영어이름, 몇 화?
+        const values = [EnName, ep]
         const query = 'call usp_get_EpiosdeID (?, ?);'; //웹툰의 영어이름과 몇 화인지 받고 고유한 episodeID를 추출하는 sp
         const ImgAndNext = 'CALL usp_get_webtoonPages(?);'; // episodeID를 받아와 웹툰 정보를 출력하는 SP
 

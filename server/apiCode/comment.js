@@ -5,8 +5,8 @@ const commentAPI = (server, getConn) => {
     //댓글을 확인할 수 있는 메서드
     server.get('/api/comment', async(req, res)=>{
         const conn = await getConn();
-        const { Name, Ep } = req.query; //영어이름과 에피소드 몇 화인지 받아옴
-        const values = [ Name, Ep ]
+        const { EnName, ep } = req.query; //영어이름과 에피소드 몇 화인지 받아옴
+        const values = [ EnName, ep ]
         const epIDQuery = 'call usp_get_EpiosdeID (?, ?);'; //제목과 epNumber로 episodeID 추출
         const viewCommentQuery = 'call usp_get_comment(?);'; //댓글 조회
         try {
