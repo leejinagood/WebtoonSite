@@ -112,34 +112,39 @@ const userAPI = (server, getConn) => {
   
     try {
       // 카카오 인증 정보 받아오기
-      const response = await axios.post('https://kauth.kakao.com/oauth/token', {
-        grant_type: 'authorization_code',
-        client_id: '6298e4ccbcce464caa91f6a4a0e9c7a3', // 카카오 애플리케이션의 REST API 키
-        redirect_uri: 'http://localhost:3000', // 카카오 인증 완료 후 리다이렉트할 URI
-        code: code // 클라이언트에서 받은 카카오 인증 코드
-      });
+      try {
+        const response = await axios.post('https://kauth.kakao.com/oauth/token', {
+          grant_type: 'authorization_code',
+          client_id: '6298e4ccbcce464caa91f6a4a0e9c7a3',
+          redirect_uri: 'http://localhost:3000',
+          code: code
+        });
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+      
   
-      const { access_token, refresh_token } = response.data;
-  
+      const { access_token } = response.data;
       // access_token으로 카카오 사용자 정보 받아오기
-      const userResponse = await axios.get('https://kapi.kakao.com/v2/user/me', {
+      const Response = await axios.get('https://kapi.kakao.com/v2/user/me', {
         headers: {
           Authorization: `Bearer ${access_token}`
         }
       });
-  
-      const { id, kakao_account } = userResponse.data;
+
+      const { id, kakao_account } = Response.data;
       const { email, nickname } = kakao_account;
   
       // 이메일을 기준으로 사용자 정보 조회
       const selectQuery = 'SELECT * FROM UserTable WHERE userEmail = ?;';
-      const [selectUserResult] = await conn.query(selectQuery, [email]);
+      const [Result] = await conn.query(selectQuery, [email]);
   
-      if (selectUserResult.length === 0) {
+      if (Result.length === 0) {
         // 사용자 정보가 없으면 새로운 회원으로 가입
         const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName) VALUES (?, ?, ?);';
-        const hashedPassword = await bcrypt.hash(id, saltRounds); // 카카오 ID를 사용하여 비밀번호 암호화
-        const values = [email, hashedPassword, nickname];
+        const Password = await bcrypt.hash(id, saltRounds); // 카카오 ID를 사용하여 비밀번호 암호화
+        const values = [email, Password, nickname];
         await conn.query(insertQuery, values);
       }
   
