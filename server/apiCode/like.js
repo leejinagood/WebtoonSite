@@ -23,7 +23,7 @@ const likeAPI = (server, getConn) => {
             //추출한 webtoonID와 userID를 좋아요 수정 쿼리에 삽입
             const [Result] = await conn.query(putLikeQuery, [UserID, WebID]);
 
-            const authResponse = await axios.post('http://your-server/api/Token', { token });
+            const authResponse = await axios.post('http://192.168.0.98:4000/api/Token', { token });
             if (authResponse.data === '토큰 인증 성공') {
             //db에서 수행되어 행이 수정된 갯수 
             if (Result.affectedRows > 0) { //1개 이상이면 좋아요 수정 성공

@@ -124,15 +124,21 @@ const userAPI = (server, getConn) => {
     if (cookies) {
       // 쿠키가 존재하는 경우 처리
       const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
-
-      try {
-        const TokenA = jwt.verify(token, 'your-secret-key');
-        // 토큰이 유효한 경우
-        // const userID = TokenA.userID;
-        res.send('토큰 인증 성공'); //문자열 수정 XXX
-      } catch (error) {
-        // 토큰이 유효하지 않은 경우
-        res.status(401).send('토큰 인증 실패');
+  
+      if (token) {
+        try {
+          // verify가 만료됐는지 확인
+          const TokenA = jwt.verify(token, 'your-secret-key');
+          // 토큰이 유효한 경우
+          // const userID = TokenA.userID;
+          res.send('토큰 인증 성공');
+        } catch (error) {
+          // 토큰이 유효하지 않은 경우
+          res.status(401).send('토큰 인증 실패');
+        }
+      } else {
+        // 토큰이 없는 경우 처리
+        res.status(401).send('쿠키에 토큰이 없음');
       }
     } else {
       // 쿠키가 없는 경우 처리

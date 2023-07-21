@@ -18,6 +18,5 @@
     "restify-cookies": "^0.2.6",
     "restify-cors-middleware": "^1.1.1"
   },
-  "devDependencies": {},
   "description": ""
 }
