@@ -38,7 +38,7 @@ const Comment = ({ webtoonName, episodeNumber }) => {
     fetch(`/api/commentlist?EnName=${webtoonName}&ep=${episodeNumber}`)
       .then((response) => response.json())
       .then((data) => {
-        const { comment } = data;
+        const  comment  = data.comment;
         console.log(webtoonName, episodeNumber);
         console.log(comment);
 
@@ -52,12 +52,13 @@ const Comment = ({ webtoonName, episodeNumber }) => {
 
   console.log(webtoonName);
   console.log(episodeNumber);
-return (
+
+  return (
     <div className="CommentComponent">
       <div className="Comment">
         <div className="CommentList">
           <ul>
-            {comments.length > 0 ? (
+            {comments && comments.length > 0 ? ( // Check if comments is not undefined
               comments.map((comment, index) => (
                 <li key={index}>
                   <span className="NameDay">
@@ -85,6 +86,7 @@ return (
       </div>
     </div>
   );
+
 };
 
 export default Comment;

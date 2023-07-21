@@ -14,43 +14,43 @@ const WebtoonPage = () => {
   const [webtoons, setWebtoons] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
   const [selectedWebtoon, setSelectedWebtoon] = useState(null);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const [webtoonImages, setWebtoonImages] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/webtoon?webtoonName=${EnName}&${ep}`);
+        const response = await fetch(`/api/webtoon?EnName=${EnName}&ep=${ep}`);
         const data = await response.json();
-        const { webtoons } = data;
-        const selectedWebtoon = webtoons.find(
-          (webtoon) => webtoon.webtoon_name === EnName
-        );
-        setSelectedWebtoon(selectedWebtoon);
-        setWebtoons(webtoons);
-        setCount(selectedWebtoon?.count || 0);
+        const [webtoonData] = data; // 첫 번째 웹툰 데이터를 가져옴
+        setSelectedWebtoon(webtoonData);
+        setWebtoons(data);
+        setCount(webtoonData?.count || 0); // count 값 설정
       } catch (error) {
         console.error("API 호출 오류:", error);
       }
     };
-
-    const fetchImg = async () => {
+  
+    const fetchImg = async (count) => {
       const images = [];
       // webtoonImages 설정
       for (let i = 1; i <= count; i++) {
         const response = await fetch(
-          `/WebtoonImg/${EnName}/${ep}/${EnName}_${i}_.png`
+          `/WebtoonImg/${EnName}/${ep}/${EnName}_${ep}_${i}.png`
         );
+        
         const blob = await response.blob();
         const imageUrl = URL.createObjectURL(blob);
         images.push(imageUrl);
       }
       setWebtoonImages(images);
     };
-
+  
     if (EnName && ep) {
-      fetchData();
-      fetchImg();
+      fetchData().then(() => {
+        // API 호출이 완료된 후에 fetchImg 실행
+        fetchImg(count);
+      });
     }
   }, [EnName, ep, count]);
 
