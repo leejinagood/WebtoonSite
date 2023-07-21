@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   if (EnName) {
     try {
-      const response = await axios.get(`http://192.168.0.98:4000/api/comment?Name=${EnName}&Ep=${ep}`);
+      const response = await axios.get(`http://192.168.0.98:4000/api/comment?EnName=${EnName}&ep=${ep}`);
 
       const comment = response.data;
       res.status(200).json({ comment });

@@ -83,7 +83,7 @@
 
 .NewToonPage {
   width: 100%;
-  background-color: rgb(159, 142, 142);
+  background-color: rgba(159, 142, 142,0.4);
   display: flex;
   justify-content: center;
 }
