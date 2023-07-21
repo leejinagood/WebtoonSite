@@ -49,10 +49,10 @@ const likeAPI = (server, getConn) => {
                 if (Result.affectedRows > 0) { //1개 이상이면 좋아요 수정 성공
                 res.send("좋아요 추가"); 
                 } else {
-                res.status(500).json('좋아요 실패'); 
+                res.status(500).json('좋아요를 이미 누르셨습니다'); 
                 }
             } else {
-                res.status(401).send('토큰 인증 실패');
+                res.status(401).send('로그인 하세요');
             }
         } catch (error) {
             console.error(error);
