@@ -32,19 +32,21 @@ const Comment = ({ webtoonName, episodeNumber }) => {
   };
 
   useEffect(() => {
-    fetch(`/api/comment?WebtoonName=${webtoonName}&EpisodeNumber=${episodeNumber}`)
+    fetch(`/api/commentlist?EnName=${webtoonName}&ep=${episodeNumber}`)
       .then((response) => response.json())
       .then((data) => {
         const { comment } = data;
-        setComments(comment);
         console.log(webtoonName, episodeNumber);
         console.log(comment);
       })
       .catch((error) => {
         console.error("Error fetching API:", error);
       });
+
   }, [webtoonName, episodeNumber]);
 
+  console.log(webtoonName);
+  console.log(episodeNumber);
   return (
     <div className="CommentComponent">
       <div className="Comment">

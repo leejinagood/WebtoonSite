@@ -14,27 +14,18 @@ function SerchWebToon() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/search?word=${word}`);
+        const response = await fetch(`/api/searchtoon?word=${word}`);
         const data = await response.json();
-        setWebtoonData(data[0]);
+        setWebtoonData(data);
       } catch (error) {
         console.error("Error fetching API:", error);
       }
     };
     fetchData();
   }, [word]);
+  console.log(word);
+  console.log(webtoonData);
 
-  const getThumbnailImage = async (webtoonName) => {
-    try {
-      const response = await fetch(`/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(webtoonName)}`);
-      const data = await response.json();
-      const thumbnail = data.rows[0]?.[0]?.Webtoon_Thumbnail;
-      return thumbnail || "";
-    } catch (error) {
-      console.error("Error fetching API:", error);
-      return "";
-    }
-  };
 
   return (
     <div className="SerchWebToon">
@@ -43,25 +34,19 @@ function SerchWebToon() {
         <ul>
           {webtoonData.map((webtoon, index) => (
             <li key={index}>
-              <Link href={`/ListPage/ListPage?webtoonName=${webtoon.Webtoon_Name}`}>
+              <Link href={`/ListPage/ListPage?webtoonName=${webtoon.webtoon_Name}`}>
                 <div className="ListItem">
                   <div className="ListImg">
-                    <img src="" ref={imgRef => {
-                      if (imgRef) {
-                        getThumbnailImage(webtoon.Webtoon_Name)
-                          .then(thumbnail => imgRef.src = thumbnail)
-                          .catch(error => console.error("Error loading thumbnail:", error));
-                      }
-                    }} />
+                    <img src={webtoon.thumbnail}/>
                   </div>
                   <div className="ListItemContent">
                     <p className="Episode">
-                      {webtoon.Webtoon_Name}
+                      {webtoon.webtoon_name}
                       <br />
-                      <span className="tab">{webtoon.Webtoon_Author}</span>
+                      <span className="tab">{webtoon.webtoon_author}</span>
                     </p>
                     <p className="SU">
-                      <span className="tab">{webtoon.Category_Kinds}</span>
+                      <span className="tab">{webtoon.category_kinds}</span>
                     </p>
                   </div>
                 </div>
