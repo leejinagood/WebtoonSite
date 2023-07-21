@@ -6,15 +6,19 @@ import MainPageCss from "@/src/styles/MainPageCss.css";
 import Comment from "@/src/Component/Comment";
 import ClickLayoutComponent from "@/src/Component/ClickLayoutComponent";
 import WebToonPageCss from "./styles/WebToonPageCss.css";
+
+
 const webtoonpage
  = () => {
 
   
 
   const router = useRouter();
-  const { webtoonName } = router.query;
+  const { EnName ,ep} = router.query;
   //undefined일 때 경우 추가
-  const episodeNumber = typeof router.query.episodeNumber === "string" ? parseInt(router.query.episodeNumber) : undefined;
+  
+  
+  // const episodeNumber = typeof router.query.episodeNumber === "string" ? parseInt(router.query.episodeNumber) : undefined;
   const [webtoons, setWebtoons] = useState([]);
   // parseInt 함수를 사용하여 문자열로 변환된 경우에만 숫자로 변환하도록
   const [isVisible, setIsVisible] = useState(true);
@@ -22,10 +26,12 @@ const webtoonpage
   const [count, setCount] = useState(0);
   const [webtoonImages, setWebtoonImages] = useState([]);
 
+
   useEffect(() => {
+    
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/webtoondetail?name=${encodeURIComponent(webtoonName)}`);
+        const response = await fetch(`/api/webtoon?webtoonName=${EnName}&${ep}`);
         const data = await response.json();
         const { webtoons } = data;
          //data 의 webtoon_name을 찾아 맞는 webtoon_name를
@@ -65,15 +71,15 @@ const webtoonpage
 
     
     //선택된 웹툰을 selectedWebtoon 상태로 설정, 모든 웹툰 목록을 webtoons 상태로..
-    if (webtoonName) {
+    if (EnName) {
       fetchData();
     }
 
-    if (webtoonName && episodeNumber) {
+    if (EnName && ep) {
       // 가져온 api를 가지고 webtoonImages 설정
       fetchImg();
     }
-  }, [webtoonName, episodeNumber]);
+  }, [EnName, ep]);
 
   const handleWebToonCutClick = (webtoon) => {
     setSelectedWebtoon(webtoon);
@@ -111,7 +117,7 @@ const webtoonpage
       {selectedWebtoon && isVisible && (
         <ClickLayoutComponent webtoonName={webtoonName} episodeNumber={episodeNumber} maxEp={count} />
       )}
-      <Comment webtoonName={webtoonName} episodeNumber={episodeNumber} />
+      <Comment webtoonName={EnName} episodeNumber={ep} />
       <Footer />
     </div>
   );

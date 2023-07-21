@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import ListCss from "@/src/pages/listpage/styles/ListPageCss.css";
-const ListItem = ({ thumbnail,webtoonName, ep, uploadDate, handleClick }) => {
+const ListItem = ({ EnName,thumbnail,webtoonName, ep, uploadDate, handleClick }) => {
 
 
   return (
-    <Link href={`/webtoonpage?EnName=${encodeURIComponent(webtoonName)}&ep=${encodeURIComponent(ep)}`}>
+    <Link href={`/webtoonpage?EnName=${EnName}&ep=${encodeURIComponent(ep)}`}>
       <div className="ListItem" onClick={handleClick}>
         <div className="ListImg">
           <img src={thumbnail} alt={thumbnail} />

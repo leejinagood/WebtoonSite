@@ -61,8 +61,7 @@ const ListPage = () => {
   }, [EnName]);
   const handleItemClick = () => {
     handleClick(ep);
-    const queryString = `?EnName=${encodeURIComponent(webtoonName)}&ep=${ep}`;
-    window.location.href = `/webtoonpage${queryString}`;
+    window.location.href = `/webtoonpage?EnName=${EnName}&ep=${ep}}`;
   };
 
   if (!webtoonItem) {
@@ -162,6 +161,7 @@ const ListPage = () => {
       {webtoonInfo && Array.from({ length: webtoonInfo.count }).map((_, index) => (
         <li key={index}>
           <ListItem
+            EnName={EnName}
             thumbnail = {webtoonItem[index]?.episode_thumbnail}
             webtoonName={webtoonItem[index]?.webtoon_name}
             ep={webtoonItem[index]?.episode_number}
