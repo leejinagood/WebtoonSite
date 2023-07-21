@@ -147,5 +147,4 @@ const userAPI = (server, getConn) => {
   });
 
 }
-
 module.exports = userAPI;

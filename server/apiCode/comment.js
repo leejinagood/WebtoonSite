@@ -28,6 +28,19 @@ const commentAPI = (server, getConn) => {
         }
     })
 
+    const axios = require('axios'); 
+
+    // 쿠키에서 토큰 추출하는 함수
+    function DelisousCookie(cookies) {
+        const cookieA = cookies.split(';');
+        const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('token=')); //토큰부분만 빼내기
+        if (tokenCookie) {
+        const token = tokenCookie.split('=')[1];
+        //토큰만 추출하여 return
+        return token.trim();
+        }
+        return null;
+    }
 
     //댓글 입력 메서드 
     server.post('/api/comment_insert', async (req, res) => {
@@ -47,7 +60,14 @@ const commentAPI = (server, getConn) => {
             const [usID] = await conn.query(userIDQuery, user_email); // UserEmail 파라미터로 받아온 후
             const UsId = usID[0].map((row) => row.userID); // userID를 추출
 
-            const authResponse = await axios.post('http://your-server/api/Token', { token });
+            const cookies = req.headers.cookie;
+            const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
+
+            const authResponse = await axios.get('http://localhost:4000/api/Token', {
+            headers: {
+                Cookie: `token=${token}`, // 토큰을 쿠키 형식으로 전달
+            },
+            });
             if (authResponse.data === '토큰 인증 성공') {
             await conn.query(insertQuery, [EpId, UsId, Content]); //episodeID, userID, content 입력 후 댓글 삽입
             res.send('댓글이 성공적으로 작성되었습니다.'); 
