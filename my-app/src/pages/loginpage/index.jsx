@@ -4,7 +4,6 @@ import LoginCss from "./styles/LoginCss.css";
 import Link from 'next/link';
 import Router from "next/router";
 import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
-import {Kakao_Auth_Url} from "/Users/leejina/Desktop/leejina/WebtoonSite/my-app/src/OAuth.js";
 
 const LoginPage = () => {
   const [ID, setID] = useState("");
@@ -84,11 +83,6 @@ const LoginPage = () => {
             </tbody>
           </table>
           <button type="submit" className="LoginPageBtn">fh</button>
-          <button>
-          <a href = {Kakao_Auth_Url}>
-            카카오 로그인
-          </a>
-          </button>
         </form>
         <div className="LoginMenu">
           <Link href="/password" ><li>비밀번호 찾기</li></Link>
