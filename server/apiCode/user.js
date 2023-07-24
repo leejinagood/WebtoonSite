@@ -105,7 +105,7 @@ const userAPI = (server, getConn) => {
   });
 
 
-  require('dotenv').config(); // dotenv 로드
+  require('dotenv').config(); // .env 접근
   const querystring = require('querystring');
   const Id = process.env.CLIENT_ID; // 환경 변수에서 클라이언트 아이디
   const Secret = process.env.CLIENT_SECRET; // 환경 변수에서 클라이언트 시크릿 키 
@@ -115,40 +115,39 @@ const userAPI = (server, getConn) => {
     const { code } = req.query; // 클라이언트에서 받은 카카오 인증 코드
   
     try {
-      const header = { 'Content-Type': 'application/x-www-form-urlencoded' };
+      const header = { 'Content-Type': 'application/x-www-form-urlencoded' }; //헤더정보
   
-      const response = await axios.post(
+      const response = await axios.post( //카카오 서버에 post로 요청을 보냄. 토큰을 발급받기 위함임.
         'https://kauth.kakao.com/oauth/token',
         {
           grant_type: 'authorization_code',
-          client_id: Id, // 환경 변수를 사용하여 클라이언트 아이디 참조
-          client_secret: Secret, // 환경 변수를 사용하여 클라이언트 시크릿 키 참조
+          client_id: Id, // 클라이언트 아이디 
+          client_secret: Secret, // 클라이언트 시크릿 키 
           redirect_uri: 'http://localhost:3000',
           code,
         },
         { headers: header }
       );
+
       const Token = response.data.access_token; // 카카오 서버로부터 받은 토큰
   
       // 카카오 서버에 사용자 정보 요청
-      const userResponse = await axios.get('https://kapi.kakao.com/v2/user/me', {
+      const userResponse = await axios.get('https://kapi.kakao.com/v2/user/me', { //인증된 사용자 정보를 얻기 위해 get으로 사용자 정보를 요청보냄
         headers: {
           Authorization: `Bearer ${Token}`,
         },
       });
   
-      console.log(Token);
-  
-      // 사용자 정보 추출
+      // userResponse에서 정보 추출
       const nickname = userResponse.data.kakao_account.profile.nickname;
       const email = userResponse.data.kakao_account.email;
-  
-      res.send({
-        userName: nickname,
-        userEmail: email,
-        token: Token
+
+      res.send({ //응답으로 
+        userName: nickname, //이름
+        userEmail: email, //이메일
+        token: Token //토큰 함께 보내기
       });
-      
+
     } catch (error) {
       console.error(error);
       res.status(500).json('카카오 로그인 실패');
