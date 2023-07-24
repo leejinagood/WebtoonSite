@@ -114,7 +114,7 @@ const userAPI = (server, getConn) => {
   //카카오 로그인 
   server.get('/api/Kakao', async (req, res) => {
     const { code } = req.query; // 클라이언트에서 받은 카카오 인증 코드
-  
+    const conn = await getConn();
     try {
       const header = { 'Content-Type': 'application/x-www-form-urlencoded' }; //헤더정보
   
@@ -163,10 +163,21 @@ const userAPI = (server, getConn) => {
 
       // 쿠키에 저장
       res.header('Set-Cookie', cookieValue);
+
+      //email과 동일한 행이 존재하는지
+      const selectQuery = "select userEmail from UserTable where userEmail = ?;";
+      const [Result] = await conn.query(selectQuery, [email]);
       
+      if (Result.length === 0) {
+        // 사용자 정보가 없으면 회원가입
+        const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName) VALUES (?, "", ?);';
+        const values = [email, nickname];
+        await conn.query(insertQuery, values);
+
+      }
+
       //응답으로 닉네임과 이메일과 토큰 전송
       res.send(cookieData);
-
 
     } catch (error) {
       console.error(error);
