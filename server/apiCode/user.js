@@ -76,13 +76,14 @@ const userAPI = (server, getConn) => {
           'your-secret-key', // 비밀키
           { expiresIn: '30m' } // 토큰 만료 시간 30분 설정
         );
-        //토큰을 응답으로 디버깅
+        
         // 쿠키로 헤더에 데이터를 담아 응답 보내기
         res.setHeader('Set-Cookie', [
           `userName=${selectUserResult[0].userName}`,
           `userEmail=${selectUserResult[0].userEmail}`,
           `token=${token}`
         ]);
+
         // 요기봐야함 솔빈 <- 궁금한 거 여쭤보셔요^_^
         // 유저 닉네임과 유저 이메일, 토큰을 응답으로
         res.send({
@@ -142,11 +143,30 @@ const userAPI = (server, getConn) => {
       const nickname = userResponse.data.kakao_account.profile.nickname;
       const email = userResponse.data.kakao_account.email;
 
-      res.send({ //응답으로 
-        userName: nickname, //이름
-        userEmail: email, //이메일
-        token: Token //토큰 함께 보내기
-      });
+      const cookieData = {
+        userName: nickname, // 이름
+        userEmail: email, // 이메일
+        token: Token // 토큰
+      };
+    
+      //한글과 기호가 포함되어 있기 때문에 쿠키로 보내기전 인코딩 해야 돰
+      const enNickname = encodeURIComponent(nickname);
+      const enEmail = encodeURIComponent(email);
+      const enToken = encodeURIComponent(Token);
+
+      // 쿠키에 저장하도록 배열로 
+      const cookieValue = [
+        `token=${enToken}`,
+        `userName=${enNickname}`,
+        `userEmail=${enEmail}`
+      ];
+
+      // 쿠키에 저장
+      res.header('Set-Cookie', cookieValue);
+      
+      //응답으로 닉네임과 이메일과 토큰 전송
+      res.send(cookieData);
+
 
     } catch (error) {
       console.error(error);
