@@ -105,78 +105,55 @@ const userAPI = (server, getConn) => {
   });
 
 
-  //카카오 로그인
+  require('dotenv').config(); // .env 접근
+  const querystring = require('querystring');
+  const Id = process.env.CLIENT_ID; // 환경 변수에서 클라이언트 아이디
+  const Secret = process.env.CLIENT_SECRET; // 환경 변수에서 클라이언트 시크릿 키 
+
+  //카카오 로그인 
   server.get('/api/Kakao', async (req, res) => {
-    const conn = await getConn();
     const { code } = req.query; // 클라이언트에서 받은 카카오 인증 코드
   
     try {
-      // 카카오 인증 정보 받아오기
-      try {
-        const response = await axios.post('https://kauth.kakao.com/oauth/token', {
-          grant_type: 'authorization_code',
-          client_id: '6298e4ccbcce464caa91f6a4a0e9c7a3',
-          redirect_uri: 'http://localhost:3000',
-          code: code
-        });
-        console.log(response);
-      } catch (error) {
-        console.error(error);
-      }
-      
+      const header = { 'Content-Type': 'application/x-www-form-urlencoded' }; //헤더정보
   
-      const { access_token } = response.data;
-      // access_token으로 카카오 사용자 정보 받아오기
-      const Response = await axios.get('https://kapi.kakao.com/v2/user/me', {
+      const response = await axios.post( //카카오 서버에 post로 요청을 보냄. 토큰을 발급받기 위함임.
+        'https://kauth.kakao.com/oauth/token',
+        {
+          grant_type: 'authorization_code',
+          client_id: Id, // 클라이언트 아이디 
+          client_secret: Secret, // 클라이언트 시크릿 키 
+          redirect_uri: 'http://localhost:3000',
+          code,
+        },
+        { headers: header }
+      );
+
+      const Token = response.data.access_token; // 카카오 서버로부터 받은 토큰
+  
+      // 카카오 서버에 사용자 정보 요청
+      const userResponse = await axios.get('https://kapi.kakao.com/v2/user/me', { //인증된 사용자 정보를 얻기 위해 get으로 사용자 정보를 요청보냄
         headers: {
-          Authorization: `Bearer ${access_token}`
-        }
+          Authorization: `Bearer ${Token}`,
+        },
+      });
+  
+      // userResponse에서 정보 추출
+      const nickname = userResponse.data.kakao_account.profile.nickname;
+      const email = userResponse.data.kakao_account.email;
+
+      res.send({ //응답으로 
+        userName: nickname, //이름
+        userEmail: email, //이메일
+        token: Token //토큰 함께 보내기
       });
 
-      const { id, kakao_account } = Response.data;
-      const { email, nickname } = kakao_account;
-  
-      // 이메일을 기준으로 사용자 정보 조회
-      const selectQuery = 'SELECT * FROM UserTable WHERE userEmail = ?;';
-      const [Result] = await conn.query(selectQuery, [email]);
-  
-      if (Result.length === 0) {
-        // 사용자 정보가 없으면 새로운 회원으로 가입
-        const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName) VALUES (?, ?, ?);';
-        const Password = await bcrypt.hash(id, saltRounds); // 카카오 ID를 사용하여 비밀번호 암호화
-        const values = [email, Password, nickname];
-        await conn.query(insertQuery, values);
-      }
-  
-      // 토큰 생성
-      const token = jwt.sign(
-        { UserId: id, UserEmail: email },
-        'your-secret-key', // 비밀키
-        { expiresIn: '30m' } // 토큰 만료 시간 30분 설정
-      );
-  
-      // 쿠키로 토큰과 사용자 정보를 응답 보내기
-      res.setHeader('Set-Cookie', [
-        `userName=${nickname}`,
-        `userEmail=${email}`,
-        `token=${token}`
-      ]);
-  
-      // 유저 닉네임과 유저 이메일, 토큰을 응답으로
-      res.send({
-        userName: nickname,
-        userEmail: email,
-        token: token
-      });
     } catch (error) {
       console.error(error);
-      res.status(500).json('로그인 실패');
-    } finally {
-      conn.release();
+      res.status(500).json('카카오 로그인 실패');
     }
   });
   
-
 
   // 쿠키에서 토큰 추출하는 함수
   function DelisousCookie(cookies) {

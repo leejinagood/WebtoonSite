@@ -15,8 +15,7 @@ const MainPage = () => {
 
   return (
     <div className="MainPage">
-      <a href="https://kauth.kakao.com/oauth/authorize?client_id=6298e4ccbcce464caa91f6a4a0e9c7a3&redirect_uri=http://localhost:3000&response_type=code&state=kakao_login">카카오 로그인</a>
-          <Head>
+      <Head>
        <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#317EFB"/>
         <title>AVATOON</title>
