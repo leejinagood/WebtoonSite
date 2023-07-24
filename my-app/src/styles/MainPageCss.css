@@ -33,10 +33,13 @@
         width: 100% !important;
     }
     .ToonTitle{
-        font-size: 20px !important;
-        line-height: 5px !important; 
+        line-height: 0px !important; 
         margin-bottom: 15px !important;
-
+    }
+    .AToonTitle{
+        font-size: 15px !important;
+        margin-top: 2px;
+        margin-bottom: 7px !important;
     }
     .ATBox {
         width: 100% !important;
@@ -362,8 +365,13 @@
     .AllToon{
         width: 80%;
     }
+    .AToonTitle{
+        margin-top: 3px;
+        margin-bottom: 0px !important;
+        width: 100% !important;
+    }
     .AllToonInfo {
-        margin-top: 10px;
+        margin-top: 4px;
 
         /* 솔 */
         width: calc(33.3% - 1px) !important;
@@ -374,14 +382,17 @@
         line-height: 3px !important;
         margin-bottom: 6px;
     }
-    
+    .Categories{
+        font-size: 12px !important;
+        margin-bottom: 0px !important;
+    }
 }
 .Categories{
-    font-size: 1vw;
+    font-size: 20px;
     width: 90%;
-    height: 2vw;
     float: left;
-    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 
@@ -398,7 +409,7 @@
 
 
 .AllToon .ToonTitle{
-    font-size: 1vw;
+    font-size: 11px !important;
 }
 .AllToon .AllToonInfo img{
     object-fit: contain;
@@ -562,4 +573,10 @@ tr{
 
 .Writer{
     line-height:18px;
+}
+
+
+.AToonTitle{
+    font-size: 10px;
+    line-height: 0px;
 }
