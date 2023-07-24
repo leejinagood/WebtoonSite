@@ -17,7 +17,7 @@ module.exports = {
           destination: 'http://192.168.0.98:4000/api/:path*',
         },
       ];
-    },
+    },generateEtags: false, // 또는
   };
 
 
