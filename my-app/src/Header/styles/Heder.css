@@ -3,10 +3,16 @@
         margin-top: 1.5% !important;
         font-size: 15px !important;
     }
+    .LoginBtn{
+        font-size: 10px;
+        margin-left: 3px;
+        
+        line-height: 45px;
+        float: left !important;
+    }
 
     .HederBox{
         width: 80% !important;
-        background-color: rebeccapurple;
         margin-left:0%;
     }
 
@@ -28,22 +34,16 @@
         bottom: 1vw;
     }
     .rb{
-        width: 20% !important;
-        background-color: rebeccapurple;
+        width: 10% !important;
         float: right !important;
         height:  100% !important;
     }
-    .SerchBar .LoginBtn{
-        height: 13px !important;
-        width: 5vw !important;
-        font-size: 1px;
-    }
+
 
     .SerchBtn{
-        width: 6vw !important;
-        height: 15px;
-        position: relative;
-        bottom: 1vw;
+        width: 40px !important;
+        height: 17px;
+        float: left !important;
     }
     .HDayBox{
         height:2.5vw !important;
@@ -65,11 +65,7 @@
     float: left !important;
     margin: 0 auto;
 }
-.BTN{
-    float: left !important;
-    width: 0%;
 
-}
 
     .SerchBar input{
         width: 20vw !important;
@@ -95,11 +91,8 @@
     .LogoBox .Logo{
         margin-top: 6.5%;
     }
-    .SerchBar{
-        line-height:6.5vw !important;
-
-        position: relative;
-        right: 31px;
+    .SerchBtn{
+        height: 17px !important;
     }
     .header{
         width: 100% !important;
@@ -110,23 +103,26 @@
         height: 25px !important;
         float: left !important;
     }
+
     .rb{
-        margin-right: 0px;
         width: 0% !important;
-        float: right !important;
         height:  100% !important;
     }
-    .SerchBar .LoginBtn{
-        height: 15px !important;
-        width: 10vw !important;
-        margin-top: 2vw ;
-        font-size: 1px;
+    .LoginBtn{
+        width: 19px !important;
+        font-size: 5px;
+        position: relative;
+        left:35px;
+        bottom: 18px;
+
+
+
     }
 
     .SerchBtn{
-        width: 9vw !important;
+        width: 33px !important;
         height: 15px;
-        float: left !important;
+        /* float: right !important; */
     }
     .HDayBox{
         height:5.5vw !important;
@@ -150,15 +146,17 @@
     margin: 0 auto;
 }
 .BTN{
-    float: right !important;
-    width: 10%;
-
+    float: left !important;
 }
+    .SerchBar{
+        position: relative;
+        right: 30px;    
+    }
 
     .SerchBar input{
-        width: 17.5vw !important;
-        margin-left: 8vw !important;
-        margin-top: 2vw !important;
+        width: 14.5vw !important;
+        /* margin-left: 9vw !important;
+        margin-top: 2vw !important; */
         height: 11px !important;
     }
 
@@ -200,24 +198,22 @@
 .SerchBar{
     line-height: 5.5vw;
     float: left;
-    margin-right: 5%;
     height: 100%;
-    width:100%;
 }
 .SerchBar input{
     width: 20%;
-    margin-left: 9vw;
+    margin-left: 15vw;
     float: left;
     margin-top: 2vw;
     font-size: 1px;
 }
 .LoginBtn{
     width: 12%;
-    margin-left: 1%;
-    height: 4%;
     float: left;
+    margin-left: 1.5px;
 
 }
+
 .SerchBtn{
     margin-top: 2vw;
     width:12%;
