@@ -96,12 +96,12 @@
         font-size: 15px !important;
         text-align: left;
       }
-    .Writer{
-        margin-left: 17px;
-    }
-    .Star{
-        margin-left: 17px;
-
+      .ToonTitle{
+        margin-top: 5px;
+      }
+      .Writer{
+        line-height: 3px !important;
+        margin-bottom: 4px;
     }
     .Mid .DayToon .DayToonItem {
         width: 100% !important;
@@ -370,9 +370,9 @@
         height: 30vw !important;
         float: left !important;
     }
-    .ToonTitle{
-        position: relative;
-        right: 5px;
+    .Star{
+        line-height: 3px !important;
+        margin-bottom: 6px;
     }
     
 }
@@ -558,4 +558,8 @@ tr{
 }
 .DayToonItem{
     width: 100%;
+}
+
+.Writer{
+    line-height:18px;
 }
