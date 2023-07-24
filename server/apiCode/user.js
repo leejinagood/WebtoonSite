@@ -191,7 +191,7 @@ const userAPI = (server, getConn) => {
       res.send(cookieData);
 
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       res.status(500).json('카카오 로그인 실패');
     }
   });
@@ -209,6 +209,19 @@ const userAPI = (server, getConn) => {
     return null;
   }
 
+  // 쿠키에서 카카오 토큰 추출하는 함수
+  function KakaoCookie(cookies) {
+    const cookieA = cookies.split(';');
+    const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('KakaoToken=')); //토큰부분만 빼내기
+    if (tokenCookie) {
+      const token = tokenCookie.split('=')[1];
+      //토큰만 추출하여 return
+      return token.trim();
+    }
+    return null;
+  }
+
+
   // 토큰이 유효한지 검증하는 api 추가 필요
   // 토큰 검증 api
   server.get('/api/Token', async (req, res) => {
@@ -217,7 +230,7 @@ const userAPI = (server, getConn) => {
     if (cookies) {
       // 쿠키가 존재하는 경우 처리
       const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
-  
+      const Ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
       if (token) {
         try {
           // verify가 만료됐는지 확인
@@ -229,6 +242,8 @@ const userAPI = (server, getConn) => {
           // 토큰이 유효하지 않은 경우
           res.status(401).send('토큰 인증 실패');
         }
+      } else if(Ktoken){ //카카오 토큰이 있을 경우 (코드 수정 필요)
+          res.send('토큰 인증 성공');
       } else {
         // 토큰이 없는 경우 처리
         res.status(401).send('쿠키에 토큰이 없음');
