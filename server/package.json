@@ -11,13 +11,16 @@
   "dependencies": {
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
+    "dotenv": "^16.3.1",
     "figlet": "^1.6.0",
     "jsonwebtoken": "^9.0.1",
     "mysql2": "^3.5.2",
     "nodejs": "^0.0.0",
+    "querystring": "^0.2.1",
     "restify": "^11.1.0",
     "restify-cookies": "^0.2.6",
     "restify-cors-middleware": "^1.1.1"
   },
+  "devDependencies": {},
   "description": ""
 }
