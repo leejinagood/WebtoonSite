@@ -10,7 +10,12 @@ const Header = () => {
   const [userId, setUserId] = useState(null);
   const [webtoonData, setWebtoonData] = useState([]);
   const router = useRouter();
+  let token;
 
+  if (typeof window !== 'undefined') {
+    // 브라우저 환경에서만 sessionStorage에 접근
+    token = sessionStorage.getItem("token");
+  }
   // 유저가 검색창에 입력하는 값
   const [userInput, setUserInput] = useState('');
   const [user, setUser] = useState("login"); // API 응답에서 가져온 유저 이름
@@ -29,6 +34,8 @@ const Header = () => {
   const handleLogout = () => {
     // 세션 스토리지에서 토큰 삭제
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userName");
+    console.log("토큰 유저네임 삭제");
     // userId와 userName 초기화
     setUserId(null);
     setUser("login");
@@ -79,11 +86,14 @@ const Header = () => {
                   />
                   <div className="BTN">
                     <button type="submit" className="SerchBtn">검색</button>
-                    {user != "login"? (
-                      // userId가 존재하면 userName 출력
-                      <p onClick={handleLogout} className="LoginBtn">{user}</p>
+                    {token ? (
+                      <>
+                        <p onClick={handleLogout} className="LoginBtn">{user}</p>
+                        {/* <button onClick={handleLogout} className="LogoutBtn">
+                          로그아웃
+                        </button> */}
+                      </>
                     ) : (
-                      // userId가 존재하지 않으면 "login" 출력
                       <Link href="/loginpage">
                         <p className="LoginBtn">login</p>
                       </Link>

@@ -16,9 +16,9 @@ const Comment = ({ webtoonName, episodeNumber }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        CommentContent: commentContent,
-        WebtoonName: webtoonName,
-        EpisodeNumber: episodeNumber,
+        Content: commentContent,
+        WebEnName: webtoonName,
+        epIDQuery: episodeNumber,
       }),
     })
       .then((response) => response.json())
