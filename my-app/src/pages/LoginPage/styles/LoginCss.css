@@ -1,8 +1,47 @@
-@media screen and (max-width:500px) and (min-width:10px) {
+@media screen and (max-width:721px) and (min-width:362px) {
+  .LoginMenu{
+    margin: 0 auto;
+    margin-right: 0px !important;
 
+  }
+
+  .LoginBox {
+
+    margin-top: 25% !important;
+  }
+
+
+  .LoginBox table input {
+    
+    width: 100% !important;
+  }
+  .LoginBox  table {
+    width: 100% !important;
+    border-radius: 10%;
+    margin-left: 10% !important;
+  }
 }
+
+@media screen and (max-width:361px) and (min-width:10px) {
+  .LoginMenu{
+    margin: 0 auto;
+    margin-right: 0px !important;
+
+  }
+  .LoginBox table input {
+    
+    width: 100% !important;
+  }
+  .LoginBox  table {
+    width: 100% !important;
+    border-radius: 10%;
+    margin-left: 10% !important;
+  }
+}
+
+
 .LoginPage {
-    width: 360px;
+    width: 100%;
     margin: 0 auto;
     text-align: center;
   }

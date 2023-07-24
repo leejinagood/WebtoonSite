@@ -100,7 +100,7 @@ const Header = () => {
                       </p>
                     ) : (
                       <Link href="/loginpage">
-                        <p className="LoginBtn">{userName}로긴</p>
+                        <p className="LoginBtn">{userName}login</p>
                       </Link>
                     )}
                   </div>
@@ -127,7 +127,7 @@ const Header = () => {
           <Link href={{ pathname: '/daypage', query: { day: 'thurs' } }}>
             <li className="AllDay">목</li>
           </Link>
-          <Link href={{ pathname: 'daypage', query: { day: 'fir' } }}>
+          <Link href={{ pathname: 'daypage', query: { day: 'fri' } }}>
             <li className="AllDay">금</li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'satur' } }}>

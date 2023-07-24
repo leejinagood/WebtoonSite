@@ -72,12 +72,12 @@ const LoginPage = () => {
           <table>
             <tbody>
               <tr>
-                <td>
+                <td className="INPUT">
                   <input type="text" name="ID" id="ID" value={ID} onChange={handleIDChange} placeholder="아이디를 입력하세요" />
                 </td>
               </tr>
               <tr>
-                <td>
+                <td className="INPUT">
                   <input type="password" name="password" id="password" value={password} onChange={handlePasswordChange} placeholder="비밀번호를 입력하세요" />
                 </td>
               </tr>
@@ -93,11 +93,11 @@ const LoginPage = () => {
         <div className="LoginMenu">
           <Link href="/password" ><li>비밀번호 찾기</li></Link>
           <Link href="/id"><li>아이디 찾기</li></Link>
-          <Link href="/SignUpPage/SignUpPage"><li>회원가입</li></Link>
+          <Link href="/signuppage"><li>회원가입</li></Link>
         </div>
       </div>
     </div>
   );
 };
-
+//test 1234
 export default LoginPage;
