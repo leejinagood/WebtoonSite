@@ -168,12 +168,23 @@ const userAPI = (server, getConn) => {
       const selectQuery = "select userEmail from UserTable where userEmail = ?;";
       const [Result] = await conn.query(selectQuery, [email]);
       
+      // 사용자 정보가 없으면 회원가입 및 좋아요 초기화
       if (Result.length === 0) {
-        // 사용자 정보가 없으면 회원가입
         const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName) VALUES (?, "", ?);';
         const values = [email, nickname];
         await conn.query(insertQuery, values);
-
+        
+        // user 이메일을
+        const userEmail = [email];
+        // 아래 sp에 넣어서 나온 ID 값을 
+        const selectIdQuery = "CALL usp_get_userID(?);";
+        const [ID] = await conn.query(selectIdQuery, userEmail);
+  
+        // 배열의 첫 번째 요소만 추출
+        const userID = ID[0][0].userID;
+        // 회원가입시 모든 웹툰에 대한 좋아요를 초기화
+        const likeQuery = 'CALL usp_basic_like(?)';
+        await conn.query(likeQuery, [userID]);
       }
 
       //응답으로 닉네임과 이메일과 토큰 전송
