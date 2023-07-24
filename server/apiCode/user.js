@@ -156,7 +156,7 @@ const userAPI = (server, getConn) => {
 
       // 쿠키에 저장하도록 배열로 
       const cookieValue = [
-        `token=${enToken}`,
+        `KakaoToken=${enToken}`,
         `userName=${enNickname}`,
         `userEmail=${enEmail}`
       ];
