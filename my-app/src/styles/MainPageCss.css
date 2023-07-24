@@ -388,7 +388,7 @@
     }
 }
 .Categories{
-    font-size: 20px;
+    font-size: 16px !important;
     width: 90%;
     float: left;
     margin-top: 5px;
