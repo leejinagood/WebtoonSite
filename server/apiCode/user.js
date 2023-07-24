@@ -4,6 +4,7 @@ const userAPI = (server, getConn) => {
 
   const jwt = require('jsonwebtoken'); //jwt
   const bcrypt = require('bcrypt'); //암호화
+  const axios = require('axios'); 
 
   // 회원가입 메서드
     server.post('/api/SignUpPage', async (req, res) => {
@@ -102,6 +103,79 @@ const userAPI = (server, getConn) => {
       conn.release();
     } 
   });
+
+
+  //카카오 로그인
+  server.get('/api/Kakao', async (req, res) => {
+    const conn = await getConn();
+    const { code } = req.query; // 클라이언트에서 받은 카카오 인증 코드
+  
+    try {
+      // 카카오 인증 정보 받아오기
+      try {
+        const response = await axios.post('https://kauth.kakao.com/oauth/token', {
+          grant_type: 'authorization_code',
+          client_id: '6298e4ccbcce464caa91f6a4a0e9c7a3',
+          redirect_uri: 'http://localhost:3000',
+          code: code
+        });
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+      
+  
+      const { access_token } = response.data;
+      // access_token으로 카카오 사용자 정보 받아오기
+      const Response = await axios.get('https://kapi.kakao.com/v2/user/me', {
+        headers: {
+          Authorization: `Bearer ${access_token}`
+        }
+      });
+
+      const { id, kakao_account } = Response.data;
+      const { email, nickname } = kakao_account;
+  
+      // 이메일을 기준으로 사용자 정보 조회
+      const selectQuery = 'SELECT * FROM UserTable WHERE userEmail = ?;';
+      const [Result] = await conn.query(selectQuery, [email]);
+  
+      if (Result.length === 0) {
+        // 사용자 정보가 없으면 새로운 회원으로 가입
+        const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName) VALUES (?, ?, ?);';
+        const Password = await bcrypt.hash(id, saltRounds); // 카카오 ID를 사용하여 비밀번호 암호화
+        const values = [email, Password, nickname];
+        await conn.query(insertQuery, values);
+      }
+  
+      // 토큰 생성
+      const token = jwt.sign(
+        { UserId: id, UserEmail: email },
+        'your-secret-key', // 비밀키
+        { expiresIn: '30m' } // 토큰 만료 시간 30분 설정
+      );
+  
+      // 쿠키로 토큰과 사용자 정보를 응답 보내기
+      res.setHeader('Set-Cookie', [
+        `userName=${nickname}`,
+        `userEmail=${email}`,
+        `token=${token}`
+      ]);
+  
+      // 유저 닉네임과 유저 이메일, 토큰을 응답으로
+      res.send({
+        userName: nickname,
+        userEmail: email,
+        token: token
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json('로그인 실패');
+    } finally {
+      conn.release();
+    }
+  });
+  
 
 
   // 쿠키에서 토큰 추출하는 함수
