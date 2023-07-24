@@ -8,6 +8,7 @@ import Head from 'next/head';
 import AllToonInfo from "../Component/AllToonInfo";
 import { useRouter } from "next/router";
 import { parseCookies } from 'nookies'; // nookies 라이브러리 import
+import {Kakao_Auth_Url} from "../OAuth";
 
 const MainPage = () => {
   const router = useRouter();
@@ -15,8 +16,12 @@ const MainPage = () => {
 
   return (
     <div className="MainPage">
-      <a href="https://kauth.kakao.com/oauth/authorize?client_id=6298e4ccbcce464caa91f6a4a0e9c7a3&redirect_uri=http://localhost:3000&response_type=code&state=kakao_login">카카오 로그인</a>
-          <Head>
+      
+      <a href = {Kakao_Auth_Url}>
+        카카오 로그인
+      </a>
+
+      <Head>
        <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#317EFB"/>
         <title>AVATOON</title>
