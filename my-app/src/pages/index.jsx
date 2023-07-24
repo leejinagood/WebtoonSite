@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import MainPageCss from "../styles/MainPageCss.css";
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
@@ -10,8 +10,22 @@ import { useRouter } from "next/router";
 import { parseCookies } from 'nookies'; // nookies 라이브러리 import
 
 const MainPage = () => {
+
   const router = useRouter();
   const { token } = parseCookies({}); // 쿠키에서 토큰 가져오기
+
+  useEffect(()=>{
+    //서비스워커
+    navigator.serviceWorker.register('./sw.js')
+    .then((registration) => {
+      console.log('Service Worker registered sucess:', registration);
+    })
+    .catch((error) => {
+      console.error('Service Worker registration failed:', error);
+    });
+  })
+    //
+
 
   return (
     <div className="MainPage">
