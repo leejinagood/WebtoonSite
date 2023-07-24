@@ -10,6 +10,7 @@ const LoginPage = () => {
   const [ID, setID] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState(""); // User_Name 값을 저장하는 상태
+  const [userEmail, setUserEmail] = useState(""); // User_Name 값을 저장하는 상태
 
   const handleIDChange = (e) => {
     setID(e.target.value);
@@ -22,39 +23,44 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get("/api/LoginPage", {
-        params: {
-          ID: ID,
-          password: password
-        }
-      });
-
+      const response = await axios.get(`/api/LoginPage`,        {params: {
+        ID: ID,
+        password: password
+      }
+    });
       if (response.data.token) {
         const tokenPayload = {
-          User_Name: response.data.User_Name,
-          User_Email: response.data.User_Email
+          userName: response.data.userName,
+          userEmail: response.data.userEmail
         };
-        console.log(tokenPayload.User_Name);
-        console.log(tokenPayload.User_Email);
+        console.log(tokenPayload.userName);
+        console.log(tokenPayload.userEmail);
+
 
         const token = jwt.sign(tokenPayload, 'your-secret-key');
 
         // 로그인 성공 처리
         console.log("토큰:", token);
-        console.log("사용자 이름:", response.data.User_Name);
-        console.log("사용자 이메일:", response.data.User_Email);
+        console.log("사용자 이름:", response.data.userName);
+        console.log("사용자 이메일:", response.data.userEmail);
+        console.log(tokenPayload.userName);
+        console.log(tokenPayload.userEmail);
+
 
         // 토큰 저장
         sessionStorage.setItem("token", token);
 
         // 사용자 이름 저장
-        setUserName(response.data.User_Name);
+        setUserName(response.data.userName);
+        setUserEmail(response.data.userEmail);
+        sessionStorage.setItem("userName", tokenPayload.userName);
+        sessionStorage.setItem("userEmail", tokenPayload.userEmail);
 
         // 페이지 이동
         Router.push("/");
       } else {
         // 로그인 실패 처리
-        console.log("로그인 실패");
+        console.log("로그인 실패" + ID + password +"토큰 :  "+response.data.token  + "유저네임 : " + userName + "유저이멜 :  " + userEmail );
         alert("로그인 실패");
       }
     } catch (error) {

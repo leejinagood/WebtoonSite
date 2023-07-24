@@ -175,7 +175,6 @@ const userAPI = (server, getConn) => {
     if (cookies) {
       // 쿠키가 존재하는 경우 처리
       const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
-  
       if (token) {
         try {
           // verify가 만료됐는지 확인
