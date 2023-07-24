@@ -104,32 +104,40 @@ const userAPI = (server, getConn) => {
     } 
   });
 
+  require('dotenv').config(); // dotenv 로드
+  const Id = process.env.CLIENT_ID; // 환경 변수로부터 클라이언트 아이디 가져오기
+  const Secret = process.env.CLIENT_SECRET; // 환경 변수로부터 클라이언트 시크릿 키 가져오기
 
   //카카오 로그인 
   server.get('/api/Kakao', async (req, res) => {
     const conn = await getConn();
     const { code } = req.query; // 클라이언트에서 받은 카카오 인증 코드
-    console.log("test");
+
     try {
+      const header = {'Content-Type': 'application/x-www-form-urlencoded'}
+
       const response = await axios.post(
-        'https://kauth.kakao.com/oauth/token',
+        'https://kauth.kakao.com/oauth/token',header,
         {
           grant_type: 'authorization_code',
-          client_id: '6298e4ccbcce464caa91f6a4a0e9c7a3',
+          client_id: Id, // 환경 변수를 사용하여 클라이언트 아이디 참조
+          client_secret: Secret, // 환경 변수를 사용하여 클라이언트 시크릿 키 참조
           redirect_uri: 'http://localhost:3000',
           code,
         }
       );
-
       const Token = response.data.access_token; // 카카오 서버로부터 받은 토큰
+
        // 카카오 서버에 사용자 정보 요청
        const userResponse = await axios.get('https://kapi.kakao.com/v2/user/me', {
         headers: {
           Authorization: `Bearer ${Token}`, 
         },
       });
+
+      console.log(Token);
     
-      console.log(userResponse.data); // 사용자 정보 확인
+      // console.log(userResponse.data); // 사용자 정보 확인
 
       // 사용자 정보 추출
       // const { id, kakao_account } = Response.data;
