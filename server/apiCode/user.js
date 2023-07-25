@@ -243,21 +243,15 @@ const userAPI = (server, getConn) => {
       const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
       const Ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
 
-      if (Ktoken && token) { // 둘 다 토큰이 있을 경우
-        res.status(401).send('동시에 두 종류의 토큰이 존재합니다.');
-      } else if (Ktoken) { // 카카오 토큰이 있을 경우 
-        try {
-          const response = await axios.get('https://kapi.kakao.com/v1/user/access_token_info', {
-            headers: {
-              Authorization: `Bearer ${Ktoken}`,
-            },
-          });
-          // 카카오 토큰 인증이 성공하면 응답
-          res.send('카카오 토큰 인증 성공');
-        } catch (error) {
-          // 카카오 토큰이 유효하지 않은 경우
-          res.status(401).send('카카오 토큰 인증 실패');
-        }
+      if (Ktoken) {//카카오 토큰이 있을 경우 
+        const response = await axios.get('https://kapi.kakao.com/v1/user/access_token_info', {
+          headers: {
+            Authorization: `Bearer ${Ktoken}`,
+          },
+        });
+        // console.log(response);
+        //토큰 인증이 성공하면 응답
+        res.send('카카오 토큰 인증 성공');
       } else if (token) { // 일반 토큰이 있을 때 
         try {
           // verify가 만료됐는지 확인
