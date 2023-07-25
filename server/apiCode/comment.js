@@ -82,19 +82,19 @@ const commentAPI = (server, getConn) => {
             const Ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
             //카카오 토큰을 추출하여 댓글 입력 코드 수정 필요
 
-            const authResponse = await axios.get('http://localhost:4000/api/Token', { //이 경로로 요청을 보냄 (토큰 인증 경로임)
+            const Response = await axios.get('http://localhost:4000/api/Token', { //이 경로로 요청을 보냄 (토큰 인증 경로임)
             headers: {
                 Cookie: `token=${token}`,// 토큰을 쿠키 형식으로 전달
                 },
             });
-            if (authResponse.data === '토큰 인증 성공') { //인증 성공일 때 댓글 달 수 있음
+            if (Response.data === '토큰 인증 성공') { //인증 성공일 때 댓글 달 수 있음
                 await conn.query(insertQuery, [EpId, UsId, Content]); //episodeID, userID, content 입력 후 댓글 삽입
                 res.send('댓글이 성공적으로 작성되었습니다.');  //응답
             } else {
                 res.status(401).send('로그인 하세요');
             }
         } catch (error) {
-            console.error(error);
+            // console.error(error);
             res.status(500).json('입력 실패');
         } finally {
             conn.release();

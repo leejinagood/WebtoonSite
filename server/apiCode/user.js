@@ -244,7 +244,7 @@ const userAPI = (server, getConn) => {
         // console.log(response);
         //토큰 인증이 성공하면 응답
         res.send('토큰 인증 성공');
-      } else if(token){  //일반 토큰이 있는 경우
+      } else if(token){  //
         try {
           // verify가 만료됐는지 확인
           jwt.verify(token, 'your-secret-key');
