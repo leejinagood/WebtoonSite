@@ -116,18 +116,18 @@ const userAPI = (server, getConn) => {
     const { code } = req.query; // 클라이언트에서 받은 카카오 인증 코드
     const conn = await getConn();
     try {
-      const header = { 'Content-Type': 'application/x-www-form-urlencoded' }; //헤더정보
+      const header = { 'Content-Type': 'application/x-www-form-urlencoded' }; //헤더정보, 인코딩 하라는 뜻임
   
       const response = await axios.post( //카카오 서버에 post로 요청을 보냄. 토큰을 발급받기 위함임.
-        'https://kauth.kakao.com/oauth/token',
+        'https://kauth.kakao.com/oauth/token', //카카오 인증 서버 주소
         {
-          grant_type: 'authorization_code',
+          grant_type: 'authorization_code', //인가코드 받기 위한
           client_id: Id, // 클라이언트 아이디 
           client_secret: Secret, // 클라이언트 시크릿 키 
           redirect_uri: 'http://localhost:3000',
           code,
         },
-        { headers: header }
+        { headers: header } //헤더정보 추가
       );
 
       const Token = response.data.access_token; // 카카오 서버로부터 받은 토큰
@@ -243,6 +243,8 @@ const userAPI = (server, getConn) => {
           res.status(401).send('토큰 인증 실패');
         }
       } else if(Ktoken){ //카카오 토큰이 있을 경우 (코드 수정 필요)
+
+        
           res.send('토큰 인증 성공');
       } else {
         // 토큰이 없는 경우 처리
