@@ -9,11 +9,17 @@ import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
 const Header = () => {
   const [userId, setUserId] = useState(null);
   const [webtoonData, setWebtoonData] = useState([]);
+  const router = useRouter();
+  let token;
 
+  if (typeof window !== 'undefined') {
+    // 브라우저 환경에서만 sessionStorage에 접근
+    token = sessionStorage.getItem("token");
+  }
   // 유저가 검색창에 입력하는 값
   const [userInput, setUserInput] = useState('');
-  const [userName, setUserName] = useState(""); // API 응답에서 가져온 유저 이름
-
+  const [user, setUser] = useState("login"); // API 응답에서 가져온 유저 이름
+  const userName = "";
   const handleChange = (e) => {
     setUserInput(e.target.value);
   };
@@ -26,9 +32,15 @@ const Header = () => {
   };
 
   const handleLogout = () => {
+    // 세션 스토리지에서 토큰 삭제
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userName");
+    console.log("토큰 유저네임 삭제");
+    // userId와 userName 초기화
     setUserId(null);
-    router.push("/");
+    setUser("login");
+    // 페이지 이동
+    router.push(router.pathname);
   };
 
   useEffect(() => {
@@ -37,7 +49,9 @@ const Header = () => {
         const response = await axios.get("/api/Token");
         if (response.status === 200) {
           setUserId(response.data.userId);
+          console.log("유저네임:",sessionStorage.getItem("userName") );
           console.log("토큰:", sessionStorage.getItem("token"));
+          setUser(sessionStorage.getItem("userName"));
         } else {
           setUserId(null);
           console.log("토큰:", sessionStorage.getItem("token"));
@@ -50,29 +64,7 @@ const Header = () => {
     checkLoginStatus();
   }, []);
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const token = sessionStorage.getItem("token");
-        if (token) {
-          const response = await axios.get("/api/userInfo", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          if (response.status === 200) {
-            const { User_Name } = response.data;
-            console.log("유저 이름:", User_Name);
-            setUserName(User_Name);
-          }
-        }
-      } catch (error) {
-        console.error("API 호출 에러:", error);
-      }
-    };
 
-    fetchUserInfo();
-  }, []);
 
   return (
     <div className="HederBox">
@@ -94,13 +86,16 @@ const Header = () => {
                   />
                   <div className="BTN">
                     <button type="submit" className="SerchBtn">검색</button>
-                    {userId ? (
-                      <p className="LoginBtn" onClick={handleLogout}>
-                        {userName} (로그아웃)
-                      </p>
+                    {token ? (
+                      <>
+                        <p onClick={handleLogout} className="LoginBtn">{user}</p>
+                        {/* <button onClick={handleLogout} className="LogoutBtn">
+                          로그아웃
+                        </button> */}
+                      </>
                     ) : (
                       <Link href="/loginpage">
-                        <p className="LoginBtn">{userName}login</p>
+                        <p className="LoginBtn">login</p>
                       </Link>
                     )}
                   </div>

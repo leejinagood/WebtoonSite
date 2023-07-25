@@ -7,6 +7,7 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
   const router = useRouter();
   const [exists, setExists] = useState(null);
   const scrollRef = useRef(null);
+  const [isSticky, setIsSticky] = useState(false);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -14,42 +15,39 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
       behavior: "smooth",
     });
   };
-  
+
   const handleButtonClick2 = () => {
     scrollToTop();
-    // 기타 원하는 동작 수행
   };
+
   const scrollToBottom = () => {
     window.scrollTo({
       top: document.documentElement.scrollHeight,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
   const handleButtonClick = () => {
     scrollToBottom();
-    // 기타 원하는 동작 수행
   };
-
 
   useEffect(() => {
     fetch(`/api/webtoon?EnName=${webtoonName}&ep=${episodeNumber}`)
       .then((response) => response.json())
       .then((data) => {
-        const [webtoonData] = data; // 첫 번째 웹툰 데이터를 가져옴
+        const [webtoonData] = data;
         setExists(webtoonData.nextEpisode);
       })
       .catch((error) => {
         console.error("Error fetching API:", error);
       });
   }, [webtoonName, episodeNumber]);
-  console.log(exists);
+
   const handleNextEpisode = () => {
     if (exists === 0) {
       console.log("다음화가 없음");
-      // router.push({pathname: "about", query: {keyword: WebToonName}});
     } else if (exists === 1) {
-      const nextEp = parseInt(episodeNumber, 10)  + 1;
+      const nextEp = parseInt(episodeNumber, 10) + 1;
       console.log(episodeNumber, nextEp);
       console.log("실행");
       router.push(`/webtoonpage?EnName=${webtoonName}&ep=${nextEp}`);
@@ -61,16 +59,29 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
       const PrevEp = episodeNumber - 1;
       console.log(episodeNumber);
       router.push(`/webtoonpage?EnName=${webtoonName}&ep=${PrevEp}`);
-      // router.push({pathname: "about", query: {keyword: WebToonName}});
     } else {
       console.log("이전화가 없음");
     }
   };
 
+  const handleScroll = () => {
+    const scrollY = window.scrollY;
+    setIsSticky(scrollY >= 100);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  
+
   return (
-    <div className={styles.ClickLayout}>
-      <div className={styles.LayoutContent}>
-        <div className={styles.Layout}>
+    <div className={`${styles.ClickLayout} ${isSticky ? styles.sticky : ""}`}>
+      <div className={`${styles.LayoutContent} ${isSticky ? styles.sticky : ""}`}>
+        <div className={`${styles.Layout} ${isSticky ? styles.sticky : ""}`}>
           <div className={styles.LeftLayout}>
             <div className={styles.LeftLayoutItem}>
               <div className={styles.Litem}>
@@ -91,7 +102,7 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
                     &lt;이전화
                   </span>
                   <Link href="../">
-                    <span>목록</span>
+                    <span> 목록 </span>
                   </Link>
                   <span className={styles.NextEpisode} onClick={handleNextEpisode}>
                     다음화&gt;
@@ -101,15 +112,16 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
             </div>
           </div>
         </div>
-        <div ref={scrollRef} /> {/* 스크롤 대상 요소를 참조하기 위한 빈 요소 */}
+        <div ref={scrollRef} />
       </div>
-
-      <button className={styles.ScrollTop} onClick={handleButtonClick2}>
-        맨 위로
-      </button>
-      <button className={styles.ScrollDown} onClick={handleButtonClick}>
-        맨 아래로
-      </button>
+      <div className={`${styles.ScrollBTN} ${isSticky ? styles.sticky : ""}`}>
+        <button className={`${styles.ScrollTop}`} onClick={handleButtonClick2}>
+          맨 위로
+        </button>
+        <button className={styles.ScrollDown} onClick={handleButtonClick}>
+          맨 아래로
+        </button>
+      </div>
     </div>
   );
 };

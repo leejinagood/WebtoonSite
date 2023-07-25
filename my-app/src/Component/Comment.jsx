@@ -3,8 +3,12 @@ import CommentCss from "./CommetCss.css";
 
 const Comment = ({ webtoonName, episodeNumber }) => {
   const [comments, setComments] = useState([]);
+  const [UserEmail, setUserEmail] = useState("");
+
+
 
   const commentInputRef = useRef(null); // useRef 훅을 사용하여 참조
+  console.log("comnent EnName:" + webtoonName + "Ep" + episodeNumber);
 
   const submitComment = () => {
     const commentContent = commentInputRef.current.value; // 참조한 요소의 value 가져옴
@@ -16,25 +20,46 @@ const Comment = ({ webtoonName, episodeNumber }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        CommentContent: commentContent,
-        WebtoonName: webtoonName,
-        EpisodeNumber: episodeNumber,
+        WebEnName: webtoonName,
+        Ep: episodeNumber,
+        UserEmail: UserEmail,
+        content: commentContent, // 댓글 내용으로 수정
       }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data); // 성공적으로 업로드되었을 때의 처리
         // 업로드가 성공했다는 메시지를 사용자에게 표시할 수 있습니다.
-
+        console.log(webtoonName + episodeNumber + UserEmail + commentContent);
         // 새로운 코멘트 컨텐츠를 리스트에 추가
         setComments((prevComments) => [...prevComments, data]); // data를 comments에 추가
+        loadComments();
+
       })
       .catch((error) => {
         console.error("Error uploading comment:", error);
       });
   };
 
+
+
+  const loadComments = () => {
+    fetch(`/api/commentlist?EnName=${webtoonName}&ep=${episodeNumber}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const comment = data.comment;
+        setComments(comment);
+      })
+      .catch((error) => {
+        console.error("Error fetching API:", error);
+      });
+  };
+
+
   useEffect(() => {
+
+    setUserEmail(sessionStorage.getItem("userName"));
+
     fetch(`/api/commentlist?EnName=${webtoonName}&ep=${episodeNumber}`)
       .then((response) => response.json())
       .then((data) => {

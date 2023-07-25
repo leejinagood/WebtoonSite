@@ -2,6 +2,16 @@
   .ClickLayout{
     width: 64% !important;
   }
+  .Litem{
+    position: relative;
+    right: 100px;
+    margin-left: 0px !important;
+  }
+  .Ritem{
+    float: left;
+    width: 20%;
+    margin-left: 120px !important;
+  }
 
 }
 
@@ -10,14 +20,18 @@
     width: 64% !important;
   }
   .Layout{
-     color:red;
      font-size: 12px;
+     line-height: 18px;
   }
   .Litem{
-    width: 100%;
+    width: 100% !important;
+    position: relative;
+    right: 35px;
   }
   .Ritem{
-    width: 40vw;
+    position: relative;
+    right: 75px;
+    width: 40vw !important;
   }
 }
 
@@ -45,9 +59,13 @@
   }
   .Litem{
     float: left;
+    width: 20%;
+    margin-left: 10px;
   }
   .Ritem{
-    float: right;
+    float: left;
+    width: 20%;
+    margin-left: 12px;
   }
   .RigthLayout{
 
@@ -56,12 +74,32 @@
     float: right;
   }
 
-  .ScrollDown{
-    /* position: fixed; */
-    bottom: 100px;
+.ScrollDown{
     width: 50px;
 }
 .ScrollTop{
-  bottom: 120px;
+
   width: 50px;
+}
+
+/* 
+.ClickLayout .sticky{
+  position: absolute !important;
+  bottom: 160px !important;
+  background-color: black !important;
+  color:red;  
+} */
+
+/* .LayoutContent .sticky{
+  position: absolute !important;
+  top: 77px !important;
+  height: 40px !important;
+} */
+
+
+
+.sticky{
+  top: 0 !important;
+  padding: 0;
+  margin: 0;
 }

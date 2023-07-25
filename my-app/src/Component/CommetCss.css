@@ -15,6 +15,30 @@
         border-bottom: 1px solid #000;
     }
 }
+@media screen and (max-width:361px) and (min-width:50px) {
+    .CommentComponent{
+        width: 80%;
+        margin: 0 auto !important;
+    }
+    .CommentBox{
+
+        width: 100% !important;
+    }
+    .Comment{
+
+        width: 100% !important;
+        background-color: rebeccapurple;
+    }
+    .CommentList{
+        min-width:100% !important;
+        float: left;
+        margin-left: 30px;
+    }
+    .CommentComponent li{
+        list-style: none;
+        border-bottom: 1px solid #000;
+    }
+}
 .CommentComponent{
     float: left;
 }

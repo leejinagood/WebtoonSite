@@ -63,7 +63,7 @@ const WeekPage = () => {
       </div>
       <div className="Mid">
         <div>
-          <h3>전체{week}요 웹툰</h3>
+          <h3 className="Categories">전체{week}요 웹툰</h3>
           {dayToonItemCounts.map((count, index) => (
             <div className="DayToonBox" key={index}>
               {[...Array(count)].map((_, subIndex) => {

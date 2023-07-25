@@ -10,6 +10,7 @@ import WebToonPageCss from "./styles/WebToonPageCss.css";
 const WebtoonPage = () => {
   const router = useRouter();
   const { EnName, ep } = router.query;
+  const scrollYRef = useRef(0);
 
   const [webtoons, setWebtoons] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
@@ -54,12 +55,17 @@ const WebtoonPage = () => {
     }
   }, [EnName, ep, count]);
 
+
   const handleWebToonCutClick = (webtoon) => {
     setSelectedWebtoon(webtoon);
     setIsVisible(true);
+
+    // 현재 스크롤 위치를 저장
+    scrollYRef.current = window.scrollY;
   
     setTimeout(() => {
       setIsVisible(false);
+      // 저장한 스크롤 위치로 스크롤 이동
     }, 2500);
   };
 

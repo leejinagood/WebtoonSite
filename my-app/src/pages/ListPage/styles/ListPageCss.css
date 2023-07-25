@@ -2,6 +2,10 @@
     .ListPage{
         width: 720px !important;
     }
+    .Pagination{
+        position: relative;
+        right: 50px;
+    }
 
     #PointBtn{
         width: 100% !important;
@@ -79,6 +83,7 @@
     #PointBtn{
         width: 100% !important;
     }
+
 
     .IBtn{
         width:50% !important;
@@ -171,7 +176,10 @@
         width: 360px !important;
     }
  
-
+    .Pagination{
+        position: relative;
+        right: 33px !important;
+    }
     .InfoBtn{
         width: 80% !important;
     }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-
 const AllToonInfo = () => {
   const [webtoons, setWebtoons] = useState([]);
 
@@ -29,7 +28,7 @@ return (
         <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoon_en_name)}`}>
           <Thumbnail className="ATimg" day={webtoon} />
           <div className="ATtext">
-          <p className="ToonTitle">{webtoon.webtoon_name}</p>
+          <p className="AToonTitle">{webtoon.webtoon_name}</p>
           </div>
           
         </Link>

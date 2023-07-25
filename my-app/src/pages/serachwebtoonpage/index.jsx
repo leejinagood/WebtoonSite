@@ -30,24 +30,22 @@ function SerchWebToon() {
   return (
     <div className="SerchWebToon">
       <Header />
-      <div>
+      <div className="SerchPage">
         <ul>
           {webtoonData.map((webtoon, index) => (
             <li key={index}>
-              <Link href={`/ListPage/ListPage?webtoonName=${webtoon.webtoon_Name}`}>
+              <Link href={`/listpage?EnName=${webtoon.webtoon_en_name}`}>
                 <div className="ListItem">
                   <div className="ListImg">
                     <img src={webtoon.thumbnail}/>
                   </div>
                   <div className="ListItemContent">
-                    <p className="Episode">
+                    <p className="EpisodeP">
                       {webtoon.webtoon_name}
                       <br />
-                      <span className="tab">{webtoon.webtoon_author}</span>
                     </p>
-                    <p className="SU">
-                      <span className="tab">{webtoon.category_kinds}</span>
-                    </p>
+                    <span className="tab2">{webtoon.webtoon_author} /</span>
+                      <span className="tab2"> {webtoon.categoris}</span>
                   </div>
                 </div>
               </Link>

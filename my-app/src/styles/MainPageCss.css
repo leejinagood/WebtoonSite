@@ -33,10 +33,13 @@
         width: 100% !important;
     }
     .ToonTitle{
-        font-size: 20px !important;
-        line-height: 5px !important; 
+        line-height: 0px !important; 
         margin-bottom: 15px !important;
-
+    }
+    .AToonTitle{
+        font-size: 15px !important;
+        margin-top: 2px;
+        margin-bottom: 7px !important;
     }
     .ATBox {
         width: 100% !important;
@@ -96,12 +99,12 @@
         font-size: 15px !important;
         text-align: left;
       }
-    .Writer{
-        margin-left: 17px;
-    }
-    .Star{
-        margin-left: 17px;
-
+      .ToonTitle{
+        margin-top: 5px;
+      }
+      .Writer{
+        line-height: 3px !important;
+        margin-bottom: 4px;
     }
     .Mid .DayToon .DayToonItem {
         width: 100% !important;
@@ -125,8 +128,10 @@
 
     }
     .HHH{
-        margin-top: 8%;
+        margin-top: 10%;
         float: left !important;
+        bottom: 30px !important;
+        background-color: rebeccapurple;
         margin-left: 6.5% !important;
     }
 
@@ -201,7 +206,6 @@
     }
 
     .HHH{
-        width: 20% !important;
         font-size: 1px !important        ;
         float: left !important;
     }
@@ -349,7 +353,7 @@
 }
     .HHH{
         width: 60% !important;
-        margin-top: 16%;
+        margin-top: 24% !important;
         float: left !important;
     }
 
@@ -362,26 +366,34 @@
     .AllToon{
         width: 80%;
     }
+    .AToonTitle{
+        margin-top: 3px;
+        margin-bottom: 0px !important;
+        width: 100% !important;
+    }
     .AllToonInfo {
-        margin-top: 10px;
+        margin-top: 4px;
 
         /* 솔 */
         width: calc(33.3% - 1px) !important;
         height: 30vw !important;
         float: left !important;
     }
-    .ToonTitle{
-        position: relative;
-        right: 5px;
+    .Star{
+        line-height: 3px !important;
+        margin-bottom: 6px;
     }
-    
+    .Categories{
+        font-size: 12px !important;
+        margin-bottom: 0px !important;
+    }
 }
 .Categories{
-    font-size: 1vw;
+    font-size: 16px !important;
     width: 90%;
-    height: 2vw;
     float: left;
-    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 
@@ -398,7 +410,7 @@
 
 
 .AllToon .ToonTitle{
-    font-size: 1vw;
+    font-size: 11px !important;
 }
 .AllToon .AllToonInfo img{
     object-fit: contain;
@@ -492,7 +504,9 @@ tr{
 /* rank 랭크 */
 .HHH{
     position: relative;
-    bottom: 23px;
+    bottom: 30px;
+    font-size: 15px;
+    margin-bottom: 1px;
     width: 50%;
     float: right;
 
@@ -558,4 +572,14 @@ tr{
 }
 .DayToonItem{
     width: 100%;
+}
+
+.Writer{
+    line-height:18px;
+}
+
+
+.AToonTitle{
+    font-size: 10px;
+    line-height: 0px;
 }
