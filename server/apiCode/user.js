@@ -114,6 +114,7 @@ const userAPI = (server, getConn) => {
   //카카오 로그인 
   server.get('/api/Kakao', async (req, res) => {
     const { code } = req.query; // 클라이언트에서 받은 카카오 인증 코드
+    
     const conn = await getConn();
     try {
       const header = { 'Content-Type': 'application/x-www-form-urlencoded' }; //헤더정보, 인코딩 하라는 뜻임
@@ -124,7 +125,7 @@ const userAPI = (server, getConn) => {
           grant_type: 'authorization_code', //인가코드 받기 위한
           client_id: Id, // 클라이언트 아이디 
           client_secret: Secret, // 클라이언트 시크릿 키 
-          redirect_uri: 'http://localhost:3000',
+          redirect_uri: 'http://localhost:4000/api/Kakao',
           code,
         },
         { headers: header } //헤더정보 추가
@@ -190,6 +191,13 @@ const userAPI = (server, getConn) => {
       //응답으로 닉네임과 이메일과 토큰 전송
       res.send(cookieData);
 
+      // //리다이렉트 코드
+      // res.writeHead(302, {
+      //   'Location': 'http://localhost:3000',
+      //   'Content-Type': 'text/plain'
+      // });
+      // res.end('Redirecting to http://localhost:3000');
+
     } catch (error) {
       // console.error(error);
       res.status(500).json('카카오 로그인 실패');
@@ -199,24 +207,28 @@ const userAPI = (server, getConn) => {
 
   // 쿠키에서 토큰 추출하는 함수
   function DelisousCookie(cookies) {
-    const cookieA = cookies.split(';');
-    const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('token=')); //토큰부분만 빼내기
-    if (tokenCookie) {
-      const token = tokenCookie.split('=')[1];
-      //토큰만 추출하여 return
-      return token.trim();
+    if (typeof cookies === 'string') {
+        const cookieA = cookies.split(';');
+        const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('token=')); //토큰부분만 빼내기
+        if (tokenCookie) {
+            const token = tokenCookie.split('=')[1];
+            //토큰만 추출하여 return
+            return token.trim();
+        }
     }
     return null;
   }
 
-  // 쿠키에서 카카오 토큰 추출하는 함수
+  // 쿠키에서 카카오 토큰 추출하는 함수 (동일한 방식으로 수정)
   function KakaoCookie(cookies) {
-    const cookieA = cookies.split(';');
-    const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('KakaoToken=')); //토큰부분만 빼내기
-    if (tokenCookie) {
-      const token = tokenCookie.split('=')[1];
-      //토큰만 추출하여 return
-      return token.trim();
+    if (typeof cookies === 'string') {
+        const cookieA = cookies.split(';');
+        const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('KakaoToken=')); //토큰부분만 빼내기
+        if (tokenCookie) {
+            const token = tokenCookie.split('=')[1];
+            //토큰만 추출하여 return
+            return token.trim();
+        }
     }
     return null;
   }
@@ -240,7 +252,7 @@ const userAPI = (server, getConn) => {
         // console.log(response);
         //토큰 인증이 성공하면 응답
         res.send('토큰 인증 성공');
-      } else if(token){ 
+      } else if(token){  //
         try {
           // verify가 만료됐는지 확인
           jwt.verify(token, 'your-secret-key');
