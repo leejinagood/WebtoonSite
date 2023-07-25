@@ -1,4 +1,4 @@
-const CLIENT_ID = "c3f27e51572a41e42f4204019b897192";
+export const CLIENT_ID = "c3f27e51572a41e42f4204019b897192";
 export const REDIRECT_URL = "http://192.168.0.98:4000/api/Kakao";
 
 
