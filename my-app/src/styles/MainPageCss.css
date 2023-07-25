@@ -128,8 +128,10 @@
 
     }
     .HHH{
-        margin-top: 8%;
+        margin-top: 10%;
         float: left !important;
+        bottom: 30px !important;
+        background-color: rebeccapurple;
         margin-left: 6.5% !important;
     }
 
@@ -204,7 +206,6 @@
     }
 
     .HHH{
-        width: 20% !important;
         font-size: 1px !important        ;
         float: left !important;
     }
@@ -352,7 +353,7 @@
 }
     .HHH{
         width: 60% !important;
-        margin-top: 16%;
+        margin-top: 24% !important;
         float: left !important;
     }
 
@@ -503,7 +504,9 @@ tr{
 /* rank 랭크 */
 .HHH{
     position: relative;
-    bottom: 23px;
+    bottom: 30px;
+    font-size: 15px;
+    margin-bottom: 1px;
     width: 50%;
     float: right;
 

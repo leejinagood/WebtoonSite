@@ -45,8 +45,8 @@ const commentAPI = (server, getConn) => {
     //댓글 입력 메서드 
     server.post('/api/comment_insert', async (req, res) => {
         const conn = await getConn();
-        const { EnName, ep, UserEmail, content } = req.body; // 영어 이름과 유저 이메일을 받아옴
-        const values = [EnName, ep];
+        const { WebEnName, Ep, UserEmail, content } = req.body; // 영어 이름과 유저 이메일을 받아옴
+        const values = [WebEnName, Ep];
         const user_email = [UserEmail];
         const Content = [content];
         const epIDQuery = 'CALL usp_get_EpiosdeID(?, ?);'; //episodeID
