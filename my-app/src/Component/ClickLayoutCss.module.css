@@ -81,3 +81,25 @@
 
   width: 50px;
 }
+
+/* 
+.ClickLayout .sticky{
+  position: absolute !important;
+  bottom: 160px !important;
+  background-color: black !important;
+  color:red;  
+} */
+
+/* .LayoutContent .sticky{
+  position: absolute !important;
+  top: 77px !important;
+  height: 40px !important;
+} */
+
+
+
+.sticky{
+  top: 0 !important;
+  padding: 0;
+  margin: 0;
+}
