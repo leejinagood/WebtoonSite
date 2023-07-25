@@ -4,13 +4,19 @@ import LoginCss from "./styles/LoginCss.css";
 import Link from 'next/link';
 import Router from "next/router";
 import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
+import {REDIRECT_URL} from "/src/OAuth.js";
 import {Kakao_Auth_Url} from "/src/OAuth.js";
+
 
 const LoginPage = () => {
   const [ID, setID] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState(""); // User_Name 값을 저장하는 상태
   const [userEmail, setUserEmail] = useState(""); // User_Name 값을 저장하는 상태
+  console.log(REDIRECT_URL);
+  console.log(Kakao_Auth_Url);
+  console.log(Kakao_Auth_Url.userName);
+  
 
   const handleIDChange = (e) => {
     setID(e.target.value);
@@ -68,6 +74,52 @@ const LoginPage = () => {
     }
   };
 
+
+  const kakaohandleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.get(`/api/kakao?${Kakao_Auth_Url}`);
+      if (response.data.token) {
+        const tokenPayload = {
+          userName: response.data.userName,
+          userEmail: response.data.userEmail
+        };
+        console.log(tokenPayload.userName);
+        console.log(tokenPayload.userEmail);
+
+
+        const token = jwt.sign(tokenPayload, 'your-secret-key');
+
+        // 로그인 성공 처리
+        console.log("토큰:", token);
+        console.log("사용자 이름:", response.data.userName);
+        console.log("사용자 이메일:", response.data.userEmail);
+        console.log(tokenPayload.userName);
+        console.log(tokenPayload.userEmail);
+
+
+        // 토큰 저장
+        sessionStorage.setItem("token", token);
+
+        // 사용자 이름 저장
+        setUserName(response.data.userName);
+        setUserEmail(response.data.userEmail);
+        sessionStorage.setItem("userName", tokenPayload.userName);
+        sessionStorage.setItem("userEmail", tokenPayload.userEmail);
+
+        // 페이지 이동
+        Router.push("/");
+      } else {
+        // 로그인 실패 처리
+        console.log("로그인 실패" + ID + password +"토큰 :  "+response.data.token  + "유저네임 : " + userName + "유저이멜 :  " + userEmail );
+        alert("로그인 실패");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
   return (
     <div className="LoginPage">
       <div className="LoginBox">
@@ -91,11 +143,13 @@ const LoginPage = () => {
           </table>
           <button type="submit" className="LoginPageBtn">fh</button>
         </form>
+        <Link href = "./">
+
         <button>
-          <a href = {Kakao_Auth_Url}>
             카카오 로그인
-          </a>
           </button>
+          </Link>
+
         <div className="LoginMenu">
           <Link href="/password" ><li>비밀번호 찾기</li></Link>
           <Link href="/id"><li>아이디 찾기</li></Link>
