@@ -125,7 +125,7 @@ const userAPI = (server, getConn) => {
           grant_type: 'authorization_code', //인가코드 받기 위한
           client_id: Id, // 클라이언트 아이디 
           client_secret: Secret, // 클라이언트 시크릿 키 
-          redirect_uri: 'http://localhost:4000/api/Kakao',
+          redirect_uri: 'http://192.168.0.98:4000/api/Kakao',
           code,
         },
         { headers: header } //헤더정보 추가
@@ -189,7 +189,7 @@ const userAPI = (server, getConn) => {
       }
 
       //응답으로 닉네임과 이메일과 토큰 전송
-      res.send(cookieData);
+      res.json(cookieData);
 
       // //리다이렉트 코드
       // res.writeHead(302, {
@@ -234,7 +234,6 @@ const userAPI = (server, getConn) => {
   }
 
 
-  // 토큰이 유효한지 검증하는 api 추가 필요
   // 토큰 검증 api
   server.get('/api/Token', async (req, res) => {
     // 클라이언트에서 전달된 쿠키 가져오기
@@ -243,21 +242,27 @@ const userAPI = (server, getConn) => {
       // 쿠키가 존재하는 경우 처리
       const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
       const Ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
-      if (Ktoken) {//카카오 토큰이 있을 경우 
-        const response = await axios.get('https://kapi.kakao.com/v1/user/access_token_info', {
-          headers: {
-            Authorization: `Bearer ${Ktoken}`,
-          },
-        });
-        // console.log(response);
-        //토큰 인증이 성공하면 응답
-        res.send('토큰 인증 성공');
-      } else if(token){  //
+
+      if (Ktoken && token) { // 둘 다 토큰이 있을 경우
+        res.status(401).send('동시에 두 종류의 토큰이 존재합니다.');
+      } else if (Ktoken) { // 카카오 토큰이 있을 경우 
+        try {
+          const response = await axios.get('https://kapi.kakao.com/v1/user/access_token_info', {
+            headers: {
+              Authorization: `Bearer ${Ktoken}`,
+            },
+          });
+          // 카카오 토큰 인증이 성공하면 응답
+          res.send('카카오 토큰 인증 성공');
+        } catch (error) {
+          // 카카오 토큰이 유효하지 않은 경우
+          res.status(401).send('카카오 토큰 인증 실패');
+        }
+      } else if (token) { // 일반 토큰이 있을 때 
         try {
           // verify가 만료됐는지 확인
           jwt.verify(token, 'your-secret-key');
           // 토큰이 유효한 경우
-          // const userID = TokenA.userID;
           res.send('토큰 인증 성공');
         } catch (error) {
           // 토큰이 유효하지 않은 경우
