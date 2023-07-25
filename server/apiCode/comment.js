@@ -42,6 +42,20 @@ const commentAPI = (server, getConn) => {
         return null;
     }
 
+
+    // 쿠키에서 카카오 토큰 추출하는 함수
+    function KakaoCookie(cookies) {
+        const cookieA = cookies.split(';');
+        const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('KakaoToken=')); //토큰부분만 빼내기
+        if (tokenCookie) {
+        const token = tokenCookie.split('=')[1];
+        //토큰만 추출하여 return
+        return token.trim();
+        }
+        return null;
+    }
+
+
     //댓글 입력 메서드 
     server.post('/api/comment_insert', async (req, res) => {
         const conn = await getConn();
@@ -62,10 +76,11 @@ const commentAPI = (server, getConn) => {
 
             const cookies = req.headers.cookie; //쿠키 가져와
             const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
+            const Ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
 
             const authResponse = await axios.get('http://localhost:4000/api/Token', { //이 경로로 요청을 보냄 (토큰 인증 경로임)
             headers: {
-                Cookie: `token=${token}`, // 토큰을 쿠키 형식으로 전달
+                Cookie: `token=${token}`,// 토큰을 쿠키 형식으로 전달
                 },
             });
             if (authResponse.data === '토큰 인증 성공') { //인증 성공일 때 댓글 달 수 있음
