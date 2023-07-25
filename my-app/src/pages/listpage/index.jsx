@@ -16,6 +16,9 @@ const ListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [ep, setEp] = useState(1);
 
+  const [ascSort, setAscSort] = useState(false); // 오름차순 여부
+  const [descSort, setDescSort] = useState(false); // 내림차순 여부
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -107,6 +110,26 @@ const ListPage = () => {
 
 
 
+  const handleAscSort = () => {
+    if (!ascSort) {
+      setAscSort(true);
+      setDescSort(false);
+      // webtoonItem을 오름차순으로 정렬
+      setWebtoonItem((prevItems) => prevItems.slice().sort((a, b) => a.episode_number - b.episode_number));
+    }
+  };
+
+  // 내림차순 정렬 버튼을 클릭했을 때
+  const handleDescSort = () => {
+    if (!descSort) {
+      setDescSort(true);
+      setAscSort(false);
+      // webtoonItem을 내림차순으로 정렬
+      setWebtoonItem((prevItems) => prevItems.slice().sort((a, b) => b.episode_number - a.episode_number));
+    }
+  };
+
+
   return (
     <div className="ListPage">
       <Head>
@@ -157,6 +180,9 @@ const ListPage = () => {
 ) : (
   <>
   <div className="ListBox">
+    <div className="DESC">
+      <span onClick={handleAscSort}>오름차순 /</span><span onClick={handleDescSort}> 내림차순</span>
+    </div>
     <ul className="List">
       {webtoonInfo && Array.from({ length: webtoonInfo.count }).map((_, index) => (
         <li key={index}>

@@ -426,3 +426,14 @@ li{
     margin-left: 20px;
 }
 
+
+
+
+.DESC{
+    font-size: 12px;
+    position: relative !important;
+    bottom: 12px !important;
+}
+.DESC span{
+    cursor: pointer;
+}
