@@ -88,13 +88,13 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
               <div className={styles.Ritem}>
                 <p>
                   <span className={styles.BackEpisode} onClick={handlePrevEpisode}>
-                    &lt;이전화
+                    &lt;이전화 
                   </span>
                   <Link href="../">
-                    <span>목록</span>
+                    <span> 목록 </span>
                   </Link>
                   <span className={styles.NextEpisode} onClick={handleNextEpisode}>
-                    다음화&gt;
+                     다음화&gt;
                   </span>
                 </p>
               </div>
