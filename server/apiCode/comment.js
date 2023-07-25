@@ -32,25 +32,28 @@ const commentAPI = (server, getConn) => {
 
     // 쿠키에서 토큰 추출하는 함수
     function DelisousCookie(cookies) {
-        const cookieA = cookies.split(';');
-        const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('token=')); //토큰부분만 빼내기
-        if (tokenCookie) {
-        const token = tokenCookie.split('=')[1];
-        //토큰만 추출하여 return
-        return token.trim();
+        if (typeof cookies === 'string') {
+            const cookieA = cookies.split(';');
+            const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('token=')); //토큰부분만 빼내기
+            if (tokenCookie) {
+                const token = tokenCookie.split('=')[1];
+                //토큰만 추출하여 return
+                return token.trim();
+            }
         }
         return null;
     }
 
-
-    // 쿠키에서 카카오 토큰 추출하는 함수
+    // 쿠키에서 카카오 토큰 추출하는 함수 (동일한 방식으로 수정)
     function KakaoCookie(cookies) {
-        const cookieA = cookies.split(';');
-        const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('KakaoToken=')); //토큰부분만 빼내기
-        if (tokenCookie) {
-        const token = tokenCookie.split('=')[1];
-        //토큰만 추출하여 return
-        return token.trim();
+        if (typeof cookies === 'string') {
+            const cookieA = cookies.split(';');
+            const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('KakaoToken=')); //토큰부분만 빼내기
+            if (tokenCookie) {
+                const token = tokenCookie.split('=')[1];
+                //토큰만 추출하여 return
+                return token.trim();
+            }
         }
         return null;
     }
