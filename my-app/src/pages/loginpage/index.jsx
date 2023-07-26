@@ -129,8 +129,10 @@ const LoginPage = () => {
           </table>
           <button type="submit" className="LoginPageBtn">fh</button>
         </form>
-        <button onClick={kakaohandleSubmit} >
+        <button >
+          <a href={Kakao_Auth_Url}>
             카카오 로그인
+            </a>
           </button>
         <div className="LoginMenu">
           <Link href="/password" ><li>비밀번호 찾기</li></Link>
