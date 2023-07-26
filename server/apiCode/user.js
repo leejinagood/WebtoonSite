@@ -92,7 +92,7 @@ const userAPI = (server, getConn) => {
           token: token
         });
         //디버깅용 콘솔 출력
-        //console.log(selectUserResult[0].userName,selectUserResult[0].userEmail, token);
+        console.log(selectUserResult[0].userName,selectUserResult[0].userEmail, token);
       } else {
         // 비밀번호 불일치 응답을 "" 로
         res.send();
@@ -125,7 +125,7 @@ const userAPI = (server, getConn) => {
           grant_type: 'authorization_code', //인가코드 받기 위한
           client_id: Id, // 클라이언트 아이디 
           client_secret: Secret, // 클라이언트 시크릿 키 
-          redirect_uri: 'http://192.168.0.98:4000/api/Kakao',
+          redirect_uri: 'http://localhost:4000/api/Kakao',
           code,
         },
         { headers: header } //헤더정보 추가
@@ -189,14 +189,15 @@ const userAPI = (server, getConn) => {
       }
 
       //응답으로 닉네임과 이메일과 토큰 전송
-      res.json(cookieData);
+      // res.json(cookieData);
+      console.log(cookieData);
 
-      // //리다이렉트 코드
-      // res.writeHead(302, {
-      //   'Location': 'http://localhost:3000',
-      //   'Content-Type': 'text/plain'
-      // });
-      // res.end('Redirecting to http://localhost:3000');
+      //리다이렉트 코드
+      res.writeHead(302, {
+        'Location': 'http://localhost:3000',
+        'Content-Type': 'text/plain'
+      });
+      res.end('Redirecting to http://localhost:3000');
 
     } catch (error) {
       // console.error(error);
