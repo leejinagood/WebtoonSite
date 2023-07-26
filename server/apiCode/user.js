@@ -190,7 +190,6 @@ const userAPI = (server, getConn) => {
 
       //응답으로 닉네임과 이메일과 토큰 전송
       // res.json(cookieData);
-      console.log(cookieData);
 
       //리다이렉트 코드
       res.writeHead(302, {
@@ -244,7 +243,7 @@ const userAPI = (server, getConn) => {
       const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
       const Ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
 
-      if (Ktoken !== null) {
+      if (Ktoken) {
         // 카카오 토큰이 있을 경우
         const response = await axios.get('https://kapi.kakao.com/v1/user/access_token_info', {
           headers: {
@@ -253,7 +252,7 @@ const userAPI = (server, getConn) => {
         });
         // 토큰 인증이 성공하면 응답
         res.send('카카오 토큰 인증 성공');
-      } else if (token !== null) { // 일반 토큰이 있을 때 
+      } else if (token) { // 일반 토큰이 있을 때 
         try {
           // verify가 만료됐는지 확인
           jwt.verify(token, 'your-secret-key');
@@ -272,7 +271,6 @@ const userAPI = (server, getConn) => {
       // 쿠키가 없는 경우 처리
       res.status(401).send('쿠키 없음');
     }
-    console.log(res);
   });
 
 }
