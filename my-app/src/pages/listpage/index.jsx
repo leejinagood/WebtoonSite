@@ -70,6 +70,9 @@ const ListPage = () => {
       setWebtoonItem(null);
     }
   }, [EnName]);
+
+
+
   const handleItemClick = () => {
     handleClick(ep);
     window.location.href = `/webtoonpage?EnName=${EnName}&ep=${ep}}`;
@@ -94,23 +97,35 @@ const ListPage = () => {
     // 토큰이 존재하면 유효한 것으로 간주합니다.
     return !!token;
   };
-  
 
   // 좋아요 버튼 클릭 시 호출되는 함수
   const handleLike = () => {
-    // 로그인 상태인 경우에만 좋아요를 처리하도록 합니다.
-    if (isTokenValid()) {
+    // 토큰이 있는 경우에만 userEmail 값을 가져오도록 합니다.
+    const tokenExists = isTokenValid();
+    if (tokenExists) {
+      const userEmail = sessionStorage.getItem("userEmail");
+      console.log(EnName,userEmail);
+  
+      fetch('/api/likeApi', {
+        method: 'POST', // POST 메서드로 변경
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          EnName: EnName,
+          UserEmail: userEmail // userEmail 변수를 사용
+        }),
+      });
+  
       setWebtoonInfo((prevInfo) => ({
         ...prevInfo,
         like: prevInfo.like + 1
       }));
     } else {
-      // 로그인되지 않은 경우에는 로그인 페이지로 이동하도록 합니다.
-      // 예시: 로그인 페이지 경로를 '/login'으로 가정
+
       window.alert("로그인 후 이용 가능합니다 ! ");
     }
   };
-
   if (loading) {
     return <div>Loading...</div>;
   }
