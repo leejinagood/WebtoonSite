@@ -74,7 +74,7 @@ const userAPI = (server, getConn) => {
         token = jwt.sign(
           { UserId: selectUserResult[0].userID, UserEmail: selectUserResult[0].userEmail },
           'your-secret-key', // 비밀키
-          { expiresIn: '1m' } // 토큰 만료 시간 30분 설정
+          { expiresIn: '10m' } // 토큰 만료 시간 30분 설정
         );
         
         // 쿠키로 헤더에 데이터를 담아 응답 보내기
@@ -243,6 +243,9 @@ const userAPI = (server, getConn) => {
       // 쿠키가 존재하는 경우 처리
       const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
       const Ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
+
+      // console.log(KakaoCookie(cookies))
+      console.log(DelisousCookie(cookies))
 
       if (Ktoken) {//카카오 토큰이 있을 경우 
         const response = await axios.get('https://kapi.kakao.com/v1/user/access_token_info', {
