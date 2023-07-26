@@ -49,9 +49,10 @@ const commentAPI = (server, getConn) => {
             const [usID] = await conn.query(userIDQuery, user_email); // UserEmail 파라미터로 받아온 후
             const UsId = usID[0].map((row) => row.userID); // userID를 추출
 
-            const Response = await axios.get('http://localhost:4000/api/Token', {
-                headers: {
-                    Cookie: req.headers.cookie, // 현재 요청의 쿠키를 그대로 전달
+            const Response = await axios.get('http://localhost:4000/api/Token', { //토큰 인증 호출
+                headers: { //헤더에
+                    // Cookie: `token=${token}; KakaoToken=${ktoken}; `
+                    Cookie: req.headers.cookie, // 현재 쿠키를 그대로 전달
                 },
             });
 

@@ -92,7 +92,7 @@ const userAPI = (server, getConn) => {
           token: token
         });
         //디버깅용 콘솔 출력
-        console.log(selectUserResult[0].userName,selectUserResult[0].userEmail, token);
+        // console.log(selectUserResult[0].userName,selectUserResult[0].userEmail, token);
       } else {
         // 비밀번호 불일치 응답을 "" 로
         res.send();
@@ -144,11 +144,12 @@ const userAPI = (server, getConn) => {
       const nickname = userResponse.data.kakao_account.profile.nickname;
       const email = userResponse.data.kakao_account.email;
 
-      const cookieData = {
-        userName: nickname, // 이름
-        userEmail: email, // 이메일
-        token: Token // 토큰
-      };
+      // 응답코드였음
+      // const cookieData = {
+      //   userName: nickname, // 이름
+      //   userEmail: email, // 이메일
+      //   token: Token // 토큰
+      // };
     
       //한글과 기호가 포함되어 있기 때문에 쿠키로 보내기전 인코딩 해야 돰
       const enNickname = encodeURIComponent(nickname);
@@ -192,8 +193,9 @@ const userAPI = (server, getConn) => {
       // res.json(cookieData);
 
       //리다이렉트 코드
-      res.writeHead(302, {
-        'Location': 'http://localhost:3000',
+      //리다리엑트는 기본적으로 쿠키를 함께 보냄! 같은 도메인이면 저장됨. 이를 쿠키의 동작 방식으로 도메인 기반 쿠키 라고 함
+      res.writeHead(302, { //상태는 302
+        'Location': 'http://localhost:3000', //주소
         'Content-Type': 'text/plain'
       });
       res.end('Redirecting to http://localhost:3000');
@@ -254,7 +256,7 @@ const userAPI = (server, getConn) => {
         res.send('카카오 토큰 인증 성공');
       } else if (token) { // 일반 토큰이 있을 때 
         try {
-          // verify가 만료됐는지 확인
+          // verify가 만료됐는지 확인하는 함수
           jwt.verify(token, 'your-secret-key');
           // 토큰이 유효한 경우
           res.send('토큰 인증 성공');
@@ -276,66 +278,3 @@ const userAPI = (server, getConn) => {
 }
 module.exports = userAPI;
 
-
-
-
-// server.get('/api/Token', async (req, res) => {
-//   // 클라이언트에서 전달된 쿠키 가져오기
-//   const cookies = req.headers.cookie;
-//   if (cookies) {
-//     // 쿠키가 존재하는 경우 처리
-//     const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
-//     const Ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
-
-//     // 토큰과 카카오 토큰이 모두 있는 경우
-//     if (token && Ktoken) {
-//       try {
-//         // 일반 토큰의 유효성 검증
-//         jwt.verify(token, 'your-secret-key');
-//         // 카카오 토큰의 유효성 검증
-//         const response = await axios.get('https://kapi.kakao.com/v1/user/access_token_info', {
-//           headers: {
-//             Authorization: `Bearer ${Ktoken}`,
-//           },
-//         });
-
-//         // 토큰과 카카오 토큰 모두 유효한 경우
-//         res.send('토큰 인증 성공');
-//       } catch (error) {
-//         // 유효성 검증에 실패한 경우
-//         res.status(401).send('토큰 인증 실패');
-//       }
-//     } else if (Ktoken) {// 카카오 토큰만 있는 경우
-//       try {
-//         // 카카오 토큰의 유효성 검증
-//         const response = await axios.get('https://kapi.kakao.com/v1/user/access_token_info', {
-//           headers: {
-//             Authorization: `Bearer ${Ktoken}`,
-//           },
-//         });
-
-//         // 카카오 토큰 유효한 경우
-//         res.send('카카오 토큰 인증 성공');
-//       } catch (error) {
-//         // 유효성 검증에 실패한 경우
-//         res.status(401).send('카카오 토큰 인증 실패');
-//       }
-//     } else if (token) { // 일반 토큰만 있는 경우
-//       try {
-//         // 일반 토큰의 유효성 검증
-//         jwt.verify(token, 'your-secret-key');
-//         // 토큰이 유효한 경우
-//         res.send('토큰 인증 성공');
-//       } catch (error) {
-//         // 유효성 검증에 실패한 경우
-//         res.status(401).send('토큰 인증 실패');
-//       }
-//     } else {
-//       // 토큰이 없는 경우 처리
-//       res.status(401).send('쿠키에 토큰이 없음');
-//     }
-//   } else {
-//     // 쿠키가 없는 경우 처리
-//     res.status(401).send('쿠키 없음');
-//   }
-// });
