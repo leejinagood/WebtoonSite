@@ -130,8 +130,10 @@ const LoginPage = () => {
           <button type="submit" className="LoginPageBtn">fh</button>
         </form>
 
-        <button onClick={kakaohandleSubmit}>
+        <button >
+        <a href = {Kakao_Auth_Url}>
             카카오 로그인
+            </a>
           </button>
 
         <div className="LoginMenu">
