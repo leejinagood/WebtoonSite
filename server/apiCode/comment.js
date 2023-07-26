@@ -30,34 +30,6 @@ const commentAPI = (server, getConn) => {
 
     const axios = require('axios'); 
 
-    // 쿠키에서 토큰 추출하는 함수
-    function DelisousCookie(cookies) {
-        if (typeof cookies === 'string') {
-            const cookieA = cookies.split(';');
-            const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('token=')); //토큰부분만 빼내기
-            if (tokenCookie) {
-                const token = tokenCookie.split('=')[1];
-                //토큰만 추출하여 return
-                return token.trim();
-            }
-        }
-        return null;
-    }
-
-    // 쿠키에서 카카오 토큰 추출하는 함수 (동일한 방식으로 수정)
-    function KakaoCookie(cookies) {
-        if (typeof cookies === 'string') {
-            const cookieA = cookies.split(';');
-            const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('KakaoToken=')); //토큰부분만 빼내기
-            if (tokenCookie) {
-                const token = tokenCookie.split('=')[1];
-                //토큰만 추출하여 return
-                return token.trim();
-            }
-        }
-        return null;
-    }
-
 
     //댓글 입력 메서드 
     server.post('/api/comment_insert', async (req, res) => {
@@ -77,18 +49,11 @@ const commentAPI = (server, getConn) => {
             const [usID] = await conn.query(userIDQuery, user_email); // UserEmail 파라미터로 받아온 후
             const UsId = usID[0].map((row) => row.userID); // userID를 추출
 
-            const cookies = req.headers.cookie; //쿠키 가져와
-            const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
-            const ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
-            //카카오 토큰을 추출하여 댓글 입력 코드 수정 필요
-
             const Response = await axios.get('http://localhost:4000/api/Token', {
                 headers: {
-                    Cookie: `token=${token}; KakaoToken=${ktoken}; `,// 토큰을 쿠키 형식으로 전달
+                    Cookie: req.headers.cookie, // 현재 요청의 쿠키를 그대로 전달
                 },
             });
-
-            console.log(Response.data);
 
             if (Response.data === '토큰 인증 성공' || Response.data === '카카오 토큰 인증 성공') { //인증 성공일 때 댓글 달 수 있음
                 await conn.query(insertQuery, [EpId, UsId, Content]); //episodeID, userID, content 입력 후 댓글 삽입

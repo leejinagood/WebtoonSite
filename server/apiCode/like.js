@@ -4,32 +4,6 @@ const likeAPI = (server, getConn) => {
 
     const axios = require('axios'); 
 
-    // 쿠키에서 토큰 추출하는 함수
-    function DelisousCookie(cookies) {
-        const cookieA = cookies.split(';');
-        const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('token=')); //토큰부분만 빼내기
-        if (tokenCookie) {
-        const token = tokenCookie.split('=')[1];
-        //토큰만 추출하여 return
-        return token.trim();
-        }
-        return null;
-    }
-
-    // 쿠키에서 카카오 토큰 추출하는 함수 (동일한 방식으로 수정)
-    function KakaoCookie(cookies) {
-        if (typeof cookies === 'string') {
-            const cookieA = cookies.split(';');
-            const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('KakaoToken=')); //토큰부분만 빼내기
-            if (tokenCookie) {
-                const token = tokenCookie.split('=')[1];
-                //토큰만 추출하여 return
-                return token.trim();
-            }
-        }
-        return null;
-    }
-
     //좋아요 달기
     server.put('/api/update_like', async (req, res) => {
         const conn = await getConn();
@@ -48,16 +22,12 @@ const likeAPI = (server, getConn) => {
             const [userIDResult] = await conn.query(userIDquery, [UserEmail]);
             const UID = userIDResult[0].map((row) => row.userID);
 
-            const cookies = req.headers.cookie; //쿠키 가져와
-            const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
-            // const ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
-
             const Response = await axios.get('http://localhost:4000/api/Token', {
                 headers: {
-                    Cookie: `token=${token};  `,// 토큰을 쿠키 형식으로 전달
+                    Cookie: req.headers.cookie, // 현재 요청의 쿠키를 그대로 전달
                 },
             });
-            if (Response.data === '토큰 인증 성공') {
+            if (Response.data === '토큰 인증 성공' || Response.data === '카카오 토큰 인증 성공') { //인증 성공일 때 
                 //추출한 webtoonID와 userID를 좋아요 수정 쿼리에 삽입
                 const [Result] = await conn.query(putLikeQuery, [UID, WID]);
                 //db에서 수행되어 행이 수정된 갯수 
