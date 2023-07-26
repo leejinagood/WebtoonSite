@@ -7,42 +7,43 @@ const userAPI = (server, getConn) => {
   const axios = require('axios'); 
 
   // 회원가입 메서드
-    server.post('/api/SignUpPage', async (req, res) => {
-      const conn = await getConn();
-      const { email, pass, name, age } = req.body;
-      const saltRounds = 10; // 솔트 생성에 사용되는 라운드 수
+  // 이메일, 비번, 닉네임 등 유효성 검사하는 로직 구현해야 됨.
+  server.post('/api/SignUpPage', async (req, res) => {
+    const conn = await getConn();
+    const { email, pass, name, age } = req.body;
+    const saltRounds = 10; // 솔트 생성에 사용되는 라운드 수
 
-      try {
-        // 트랜잭션 시작
-        await conn.beginTransaction(); 
+    try {
+      // 트랜잭션 시작
+      await conn.beginTransaction(); 
 
-        //bcrypt.hash()로 비밀번호 암호화 
-        const hashedPassword = await bcrypt.hash(pass, saltRounds);
+      //bcrypt.hash()로 비밀번호 암호화 
+      const hashedPassword = await bcrypt.hash(pass, saltRounds);
 
-        const query = 'INSERT INTO UserTable (userEmail, userPassword, userName, userAge) VALUES (?, ?, ?, ?);';
-        const value = [email, hashedPassword, name, age];
-        //쿼리에 비밀번호 암호화된 내용으로 삽입
-        await conn.query(query, value);
+      const query = 'INSERT INTO UserTable (userEmail, userPassword, userName, userAge) VALUES (?, ?, ?, ?);';
+      const value = [email, hashedPassword, name, age];
+      //쿼리에 비밀번호 암호화된 내용으로 삽입
+      await conn.query(query, value);
 
-        //삽입된 회원의 정보를 이메일을 통해 조회하여 가져옴
-        const selectUserId = 'SELECT userID FROM UserTable WHERE userEmail = ?;';
-        const [selectResult] = await conn.query(selectUserId, [email]);
-        //userID 를 추출
-        const userId = selectResult[0]?.userID;
+      //삽입된 회원의 정보를 이메일을 통해 조회하여 가져옴
+      const selectUserId = 'SELECT userID FROM UserTable WHERE userEmail = ?;';
+      const [selectResult] = await conn.query(selectUserId, [email]);
+      //userID 를 추출
+      const userId = selectResult[0]?.userID;
 
-        if (userId) { //userId가 있으면 모든 Webtoon_Id에 대한 likes 를 초기화하는 프로시저 호출
-          const callProc = 'CALL usp_basic_like(?);';
-          await conn.query(callProc, [userId]);
-        }
+      if (userId) { //userId가 있으면 모든 Webtoon_Id에 대한 likes 를 초기화하는 프로시저 호출
+        const callProc = 'CALL usp_basic_like(?);';
+        await conn.query(callProc, [userId]);
+      }
 
-        await conn.commit(); // 트랜잭션 커밋
-        res.send('입력 성공');
+      await conn.commit(); // 트랜잭션 커밋
+      res.send('입력 성공');
       } catch (error) {
-        console.error(error);
-        await conn.rollback(); // 트랜잭션 롤백
-        res.status(500).json('입력 실패');
+          console.error(error);
+          await conn.rollback(); // 트랜잭션 롤백
+          res.status(500).json('입력 실패');
       } finally {
-        conn.release();
+          conn.release();
       }
   });
 
@@ -74,7 +75,7 @@ const userAPI = (server, getConn) => {
         token = jwt.sign(
           { UserId: selectUserResult[0].userID, UserEmail: selectUserResult[0].userEmail },
           'your-secret-key', // 비밀키
-          { expiresIn: '10m' } // 토큰 만료 시간 30분 설정
+          { expiresIn: '10m' } // 토큰 만료 시간 10분 설정
         );
         
         // 쿠키로 헤더에 데이터를 담아 응답 보내기
@@ -84,13 +85,13 @@ const userAPI = (server, getConn) => {
           `token=${token}`
         ]);
 
-        // 요기봐야함 솔빈 <- 궁금한 거 여쭤보셔요^_^
         // 유저 닉네임과 유저 이메일, 토큰을 응답으로
         res.send({
           userName: selectUserResult[0].userName,
           userEmail: selectUserResult[0].userEmail,
           token: token
         });
+
         //디버깅용 콘솔 출력
         // console.log(selectUserResult[0].userName,selectUserResult[0].userEmail, token);
       } else {
@@ -126,7 +127,7 @@ const userAPI = (server, getConn) => {
           client_id: Id, // 클라이언트 아이디 
           client_secret: Secret, // 클라이언트 시크릿 키 
           redirect_uri: 'http://localhost:4000/api/Kakao',
-          code,
+          code, //인가코드도 함께 보내야 됨
         },
         { headers: header } //헤더정보 추가
       );
@@ -208,13 +209,13 @@ const userAPI = (server, getConn) => {
   
 
   // 쿠키에서 토큰 추출하는 함수
-  function DelisousCookie(cookies) {
-    if (typeof cookies === 'string') {
-        const cookieA = cookies.split(';');
+  function DelisousCookie(cookies) { //cookies라는 매개변수를
+    if (typeof cookies === 'string') { //문자열인지 확인
+        const cookieA = cookies.split(';'); //; 으로 나눔
         const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('token=')); //토큰부분만 빼내기
         if (tokenCookie) {
             const token = tokenCookie.split('=')[1];
-            //토큰만 추출하여 return
+            //토큰만 추출
             return token.trim();
         }
     }
@@ -222,13 +223,13 @@ const userAPI = (server, getConn) => {
   }
 
   // 쿠키에서 카카오 토큰 추출하는 함수 (동일한 방식으로 수정)
-  function KakaoCookie(cookies) {
-    if (typeof cookies === 'string') {
-        const cookieA = cookies.split(';');
+  function KakaoCookie(cookies) { //cookies라는 매개변수를
+    if (typeof cookies === 'string') { //문자열인지 확인
+        const cookieA = cookies.split(';'); //; 으로 나눔
         const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('KakaoToken=')); //토큰부분만 빼내기
         if (tokenCookie) {
             const token = tokenCookie.split('=')[1];
-            //토큰만 추출하여 return
+            //토큰만 추출
             return token.trim();
         }
     }
