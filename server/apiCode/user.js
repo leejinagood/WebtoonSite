@@ -74,7 +74,7 @@ const userAPI = (server, getConn) => {
         token = jwt.sign(
           { UserId: selectUserResult[0].userID, UserEmail: selectUserResult[0].userEmail },
           'your-secret-key', // 비밀키
-          { expiresIn: '1m' } // 토큰 만료 시간 30분 설정
+          { expiresIn: '10m' } // 토큰 만료 시간 30분 설정
         );
         
         // 쿠키로 헤더에 데이터를 담아 응답 보내기
@@ -244,16 +244,16 @@ const userAPI = (server, getConn) => {
       const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
       const Ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
 
-      if (Ktoken) {//카카오 토큰이 있을 경우 
+      if (Ktoken !== null) {
+        // 카카오 토큰이 있을 경우
         const response = await axios.get('https://kapi.kakao.com/v1/user/access_token_info', {
           headers: {
             Authorization: `Bearer ${Ktoken}`,
           },
         });
-        // console.log(response);
-        //토큰 인증이 성공하면 응답
+        // 토큰 인증이 성공하면 응답
         res.send('카카오 토큰 인증 성공');
-      } else if (token) { // 일반 토큰이 있을 때 
+      } else if (token !== null) { // 일반 토큰이 있을 때 
         try {
           // verify가 만료됐는지 확인
           jwt.verify(token, 'your-secret-key');
@@ -263,7 +263,8 @@ const userAPI = (server, getConn) => {
           // 토큰이 유효하지 않은 경우
           res.status(401).send('토큰 인증 실패');
         }
-      } else {
+      } 
+      else {
         // 토큰이 없는 경우 처리
         res.status(401).send('쿠키에 토큰이 없음');
       }
@@ -271,6 +272,7 @@ const userAPI = (server, getConn) => {
       // 쿠키가 없는 경우 처리
       res.status(401).send('쿠키 없음');
     }
+    console.log(res);
   });
 
 }
