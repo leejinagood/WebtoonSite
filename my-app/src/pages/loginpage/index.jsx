@@ -42,6 +42,7 @@ const LoginPage = () => {
         };
         console.log(tokenPayload.userName);
         console.log(tokenPayload.userEmail);
+        console.log(response.data.token);
 
 
         const token = jwt.sign(tokenPayload, 'your-secret-key');
