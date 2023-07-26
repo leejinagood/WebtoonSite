@@ -15,6 +15,7 @@ const commentAPI = (server, getConn) => {
 
             const[result] = await conn.query(viewCommentQuery, [ID]); //episodeID로 댓글 조회
             const comment = result[0].map(row => ({
+            Comment_ID : row.commentID, //댓글 고유의 ID
             Comment_Content: row.commentContent, //댓글 내용
             Comment_Date: row.commentDate, //댓글을 입력한 날짜
             User_Name: row.userName  //사용자 닉네임
