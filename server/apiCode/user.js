@@ -279,17 +279,16 @@ const userAPI = (server, getConn) => {
 
   // 로그아웃 메서드
   server.post('/api/logout', async (req, res) => {
-    res.setHeader('Set-Cookie', [ //걍 쿠키에 저장된 모든 값을 reset
-      `KakaoToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api;`,
-      `userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api;`,
-      `userEmail=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api;`,
-      `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api;`,
+    res.setHeader('Set-Cookie', [ //걍 쿠키에 저장된 모든 값을 없앰
+    // 쿠키 만료일을 과거로 설정해서 값을 제거함
+      `KakaoToken=; expires=Thu, 01 Jan 2023 00:00:00 UTC; path=/api;`,
+      `userName=; expires=Thu, 01 Jan 2023 00:00:00 UTC; path=/api;`,
+      `userEmail=; expires=Thu, 01 Jan 2023 00:00:00 UTC; path=/api;`,
+      `token=; expires=Thu, 01 Jan 2023 00:00:00 UTC; path=/api;`,
     ]);
     res.send('로그아웃 되었습니다.');
   });
   
-
-
 }
 module.exports = userAPI;
 
