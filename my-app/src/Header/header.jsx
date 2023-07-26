@@ -35,12 +35,13 @@ const Header = () => {
     // 세션 스토리지에서 토큰 삭제
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("userName");
+
     console.log("토큰 유저네임 삭제");
     // userId와 userName 초기화
     setUserId(null);
     setUser("login");
     // 페이지 이동
-    router.push(router.pathname);
+    router.push("/");
   };
 
   useEffect(() => {
