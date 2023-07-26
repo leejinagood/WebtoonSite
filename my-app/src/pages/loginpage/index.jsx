@@ -45,7 +45,7 @@ const LoginPage = () => {
         console.log(response.data.token);
 
 
-        const token = jwt.sign(tokenPayload, 'your-secret-key');
+        const token = response.data.token;
 
         // 로그인 성공 처리
         console.log("토큰:", token);
