@@ -98,7 +98,7 @@ const commentAPI = (server, getConn) => {
             });
 
             if (Response.data === '토큰 인증 성공' || Response.data === '카카오 토큰 인증 성공') { //인증 성공일 때 댓글 삭제 가능
-                await conn.query(delQuery, [EpId, UsId, comID]); //episodeID, userID, comID 입력 후 댓글 삽입
+                await conn.query(delQuery, [EpId, UsId, comID]); //episodeID, userID, comID 입력 후 댓글 삭제
                 res.send('댓글이 삭제되었습니다.');  //응답
             } else { //토큰 인증 실패했을 때 
                 res.status(401).send('로그인 하세요');
