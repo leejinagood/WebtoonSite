@@ -50,11 +50,11 @@ const likeAPI = (server, getConn) => {
 
             const cookies = req.headers.cookie; //쿠키 가져와
             const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
-            const ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
+            // const ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
 
             const Response = await axios.get('http://localhost:4000/api/Token', {
                 headers: {
-                    Cookie: `token=${token}; KakaoToken=${ktoken}; `,// 토큰을 쿠키 형식으로 전달
+                    Cookie: `token=${token};  `,// 토큰을 쿠키 형식으로 전달
                 },
             });
             if (Response.data === '토큰 인증 성공') {
