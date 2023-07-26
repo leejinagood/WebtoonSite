@@ -6,7 +6,14 @@
         position: relative;
         right: 50px;
     }
-
+    .DESC{
+        font-size: 9px;
+        position: relative !important;
+        bottom: 0px !important;
+        top: 25px !important;
+        right: 105px;
+        
+    }
     #PointBtn{
         width: 100% !important;
         margin-bottom: 10px;
@@ -78,7 +85,14 @@
     .ListPage{
         width: 400 !important;
     }
- 
+    .DESC{
+        font-size: 9px;
+        position: relative !important;
+        bottom: 0px !important;
+        top: 35px !important;
+        right: 105px;
+        
+    }
 
     #PointBtn{
         width: 100% !important;
@@ -190,6 +204,14 @@
         margin-top: 5px;
         width:55% !important;
         font-size: 10px !important;
+    }
+    .DESC{
+        font-size: 5px !important;
+        position: relative !important;
+        bottom: 0px !important;
+        top: 10px !important;
+        right: 35px;
+        
     }
     
     .SNSBTN{
@@ -426,3 +448,14 @@ li{
     margin-left: 20px;
 }
 
+
+
+
+.DESC{
+    font-size: 12px;
+    position: relative !important;
+    bottom: 12px !important;
+}
+.DESC span{
+    cursor: pointer;
+}

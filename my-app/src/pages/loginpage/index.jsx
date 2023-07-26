@@ -30,7 +30,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`/api/LoginPage`,        {params: {
+      const response = await axios.get(`/api/LoginPage`,{params: {
         ID: ID,
         password: password
       }
@@ -42,6 +42,7 @@ const LoginPage = () => {
         };
         console.log(tokenPayload.userName);
         console.log(tokenPayload.userEmail);
+        console.log(response.data.token);
 
 
         const token = jwt.sign(tokenPayload, 'your-secret-key');
@@ -90,7 +91,6 @@ const LoginPage = () => {
   
       // 토큰 저장
       sessionStorage.setItem("token", token);
-  
       // 사용자 이름 저장
       setUserName(userName);
       setUserEmail(userEmail);
@@ -129,11 +129,9 @@ const LoginPage = () => {
           </table>
           <button type="submit" className="LoginPageBtn">fh</button>
         </form>
-
-        <button onClick={kakaohandleSubmit}>
+        <button onClick={kakaohandleSubmit} >
             카카오 로그인
           </button>
-
         <div className="LoginMenu">
           <Link href="/password" ><li>비밀번호 찾기</li></Link>
           <Link href="/id"><li>아이디 찾기</li></Link>

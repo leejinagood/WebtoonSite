@@ -16,6 +16,9 @@ const ListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [ep, setEp] = useState(1);
 
+  const [ascSort, setAscSort] = useState(false); // 오름차순 여부
+  const [descSort, setDescSort] = useState(false); // 내림차순 여부
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -107,6 +110,43 @@ const ListPage = () => {
 
 
 
+  const handleAscSort = () => {
+    if (!ascSort) {
+      setAscSort(true);
+      setDescSort(false);
+      // webtoonItem을 오름차순으로 정렬
+      setWebtoonItem((prevItems) => prevItems.slice().sort((a, b) => a.episode_number - b.episode_number));
+    }
+  };
+
+  // 내림차순 정렬 버튼을 클릭했을 때
+  const handleDescSort = () => {
+    if (!descSort) {
+      setDescSort(true);
+      setAscSort(false);
+      // webtoonItem을 내림차순으로 정렬
+      setWebtoonItem((prevItems) => prevItems.slice().sort((a, b) => b.episode_number - a.episode_number));
+    }
+  };
+
+  let KrDay = "";
+
+  if(webtoonInfo.week == "mon"){
+    KrDay = "월";
+  }else if(webtoonInfo.week == "tues"){
+    KrDay = "화";
+  }else if(webtoonInfo.week == "wendes"){
+    KrDay = "수";
+  }else if(webtoonInfo.week == "thurs"){
+    KrDay = "목";
+  }else if(webtoonInfo.week == "fri"){
+    KrDay = "금";
+  }else if(webtoonInfo.week == "satur"){
+    KrDay = "토";
+  }else if(webtoonInfo.week == "sun"){
+    KrDay = "일";
+  }
+
   return (
     <div className="ListPage">
       <Head>
@@ -134,7 +174,7 @@ const ListPage = () => {
                     {webtoonInfo.webtoon_name}
                   </p>
                   <p id="line" className="GrayP">
-                    글/그림<span>{webtoonInfo.author}</span> | {webtoonInfo.week} 요웹툰
+                    글/그림<span>{webtoonInfo.author}</span> | {KrDay} 요웹툰
                     <br />
                     {webtoonInfo.content}
                     <div className="InfoBtn">
@@ -157,6 +197,9 @@ const ListPage = () => {
 ) : (
   <>
   <div className="ListBox">
+    <div className="DESC">
+      <span onClick={handleAscSort}>오름차순 /</span><span onClick={handleDescSort}> 내림차순</span>
+    </div>
     <ul className="List">
       {webtoonInfo && Array.from({ length: webtoonInfo.count }).map((_, index) => (
         <li key={index}>

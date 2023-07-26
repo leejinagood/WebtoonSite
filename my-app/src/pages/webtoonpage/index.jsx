@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef,useCallback } from "react";
 import { useRouter } from "next/router";
 import Header from "@/src/Header/header";
 import Footer from "@/src/Footer/footer";
@@ -69,10 +69,9 @@ const WebtoonPage = () => {
     }, 2500);
   };
 
-  const handleScreenClick = () => {
-    setIsVisible(!isVisible);
-  };
-
+  const handleScreenClick = useCallback(() => {
+    setIsVisible((prevIsVisible) => !prevIsVisible);
+  }, []);
   return (
     <div className="WebToonPage">
       <Header />

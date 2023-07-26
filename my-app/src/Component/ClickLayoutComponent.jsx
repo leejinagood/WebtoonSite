@@ -8,6 +8,7 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
   const [exists, setExists] = useState(null);
   const scrollRef = useRef(null);
   const [isSticky, setIsSticky] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -66,7 +67,11 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
-    setIsSticky(scrollY >= 100);
+    setIsSticky(scrollY >= 10);
+  };
+
+  const handleScreenClick = () => {
+    setIsVisible(!isVisible);
   };
 
   useEffect(() => {
@@ -76,9 +81,9 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
     };
   }, []);
 
-  
-
   return (
+    <>
+      {isVisible && (
     <div className={`${styles.ClickLayout} ${isSticky ? styles.sticky : ""}`}>
       <div className={`${styles.LayoutContent} ${isSticky ? styles.sticky : ""}`}>
         <div className={`${styles.Layout} ${isSticky ? styles.sticky : ""}`}>
@@ -123,7 +128,10 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
         </button>
       </div>
     </div>
+          )}
+          </>
+      
   );
 };
 
-export default ClickLayoutComponent;
+export default React.memo(ClickLayoutComponent);
