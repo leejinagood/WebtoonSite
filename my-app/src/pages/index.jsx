@@ -1,5 +1,5 @@
 import React,{useEffect} from "react";
-import MainPageCss from "../styles/MainPageCss.css";
+import style from "../styles/MainPageCss.module.css";
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
 import NewToon from "../Component/NewToon";
@@ -28,7 +28,7 @@ const MainPage = () => {
 
 
   return (
-    <div className="MainPage">
+    <div className={style.MainPage}>
        <Head>
        <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#317EFB"/>
@@ -36,12 +36,12 @@ const MainPage = () => {
 
       </Head>
       <Header token={token} /> {/* Header 컴포넌트에 토큰 전달 */}
-      <div className="MNewToon">
+      <div className={style.MNewToon}>
         <NewToon />
       </div>
-      <h3 className="Categories">요일별 전체 웹툰</h3>
-      <div className="AllToon">
-        <div className="AllTonnbox">
+      <h3 className={style.Categories}>요일별 전체 웹툰</h3>
+      <div className={style.AllToon}>
+        <div className={style.AllTonnbox}>
           <AllToonInfo />
         </div>
       </div>

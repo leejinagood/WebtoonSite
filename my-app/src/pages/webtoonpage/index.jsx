@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef,useCallback } from "react";
 import { useRouter } from "next/router";
 import Header from "@/src/Header/header";
 import Footer from "@/src/Footer/footer";
-import MainPageCss from "@/src/styles/MainPageCss.css";
+import style from "@/src/styles/MainPageCss.module.css";
 import Comment from "@/src/Component/Comment";
 import ClickLayoutComponent from "@/src/Component/ClickLayoutComponent";
-import WebToonPageCss from "./styles/WebToonPageCss.css";
+import style from "./styles/WebToonPageCss.module.css";
 
 const WebtoonPage = () => {
   const router = useRouter();
@@ -73,13 +73,13 @@ const WebtoonPage = () => {
     setIsVisible((prevIsVisible) => !prevIsVisible);
   }, []);
   return (
-    <div className="WebToonPage">
+    <div className={style.WebToonPage}>
       <Header />
-      <div className="WebToonBox">
+      <div className={style.WebToonBox}>
         {/* 각 이미지를 배열로 순회 */}
         {webtoonImages.map((imageUrl, index) => (
           <div
-            className="WebToonCut"
+            className={style.WebToonCut}
             key={index}
             onClick={() => handleWebToonCutClick(selectedWebtoon)}
           >
