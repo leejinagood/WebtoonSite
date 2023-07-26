@@ -245,7 +245,7 @@ const userAPI = (server, getConn) => {
 
       if (Ktoken) {
         // 카카오 토큰이 있을 경우
-        const response = await axios.get('https://kapi.kakao.com/v1/user/access_token_info', {
+        await axios.get('https://kapi.kakao.com/v1/user/access_token_info', {
           headers: {
             Authorization: `Bearer ${Ktoken}`,
           },
