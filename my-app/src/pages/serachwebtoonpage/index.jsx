@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "@/src/Header/header";
-import Footer from "@/src/Footer/Footer";
+import Footer from "../../Footer/footer";
 import { useRouter } from "next/router";
 import SerchWebToonCss from "./SerchWebToonCss.css";
 import MainPageCss from "@/src/styles/MainPageCss.css";

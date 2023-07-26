@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Link from 'next/link';
-import SignUpCss from "./styles/SignUpCss.css"
+import style from "./styles/SignUpCss.module.css"
 
 const SignUpPage = () => {
   const [id, setId] = useState("");
@@ -51,9 +51,9 @@ const SignUpPage = () => {
   const isNameValid = name.length <= 5;
 
   return (
-    <div className="SignUpPage">
+    <div className={style.SignUpPage}>
       <form onSubmit={handleSubmit}>
-        <div className="SignUpBox">
+        <div className={style.SignUpBox}>
         <Link href="/mainpage">
           <h2>AVATYE</h2>
           </Link>
@@ -79,14 +79,14 @@ const SignUpPage = () => {
               onChange={handleConfirmPasswordChange}
             />
             {!isPasswordMatch && (
-              <p className="error">비밀번호가 일치하지 않습니다.</p>
+              <p className={style.error}>비밀번호가 일치하지 않습니다.</p>
             )}
           </div>
           <div>
             <label htmlFor="name">이름</label>
             <input type="text" id="name" value={name} onChange={handleNameChange} />
             {name.length > 5 && (
-              <p className="error">이름은 5글자 이하여야 합니다.</p>
+              <p className={style.error}>이름은 5글자 이하여야 합니다.</p>
             )}
           </div>
           <div>
@@ -98,10 +98,10 @@ const SignUpPage = () => {
               onChange={handleAgeChange}
             />
           </div>
-          <button className="SignBtn" type="submit">가입하기</button>
+          <button className={style.SignBtn} type="submit">가입하기</button>
         </div>
       </form>
-      <div className={SignUpCss.dn}></div>
+      <div className={style.dn}></div>
     </div>
   );
 };

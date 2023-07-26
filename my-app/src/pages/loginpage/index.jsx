@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import LoginCss from "./styles/LoginCss.css";
+import style from "./styles/LoginCss.module.css";
 import Link from 'next/link';
 import Router from "next/router";
 import {REDIRECT_URL} from "/src/OAuth.js";
@@ -106,40 +106,40 @@ const LoginPage = () => {
 
 
   return (
-    <div className="LoginPage">
-      <div className="LoginBox">
+    <div className={style.LoginPage}>
+      <div className={style.LoginBox}>
         <Link href="/mainpage">
-          <h2 className="LoginLogo">AVATYE</h2>
+          <h2 className={style.LoginLogo}>AVATYE</h2>
         </Link>
         <form onSubmit={handleSubmit}>
           <table>
             <tbody>
               <tr>
-                <td className="INPUT">
+                <td className={style.INPUT}>
                   <input type="text" name="ID" id="ID" value={ID} onChange={handleIDChange} placeholder="아이디를 입력하세요" />
                 </td>
               </tr>
               <tr>
-                <td className="INPUT">
+                <td className={style.INPUT}>
                   <input type="password" name="password" id="password" value={password} onChange={handlePasswordChange} placeholder="비밀번호를 입력하세요" />
                 </td>
               </tr>
             </tbody>
           </table>
-          <button type="submit" className="LoginPageBtn">fh</button>
+          <button type="submit" className={style.LoginPageBtn}>fh</button>
         </form>
         <button >
           <a href={Kakao_Auth_Url}>
             카카오 로그인
             </a>
           </button>
-        <div className="LoginMenu">
+        <div className={style.LoginMenu}>
           <Link href="/password" ><li>비밀번호 찾기</li></Link>
           <Link href="/id"><li>아이디 찾기</li></Link>
           <Link href="/signuppage"><li>회원가입</li></Link>
         </div>
       </div>
-      <div className={LoginCss.dn}></div>
+      <div className={style.dn}></div>
     </div>
   );
 };

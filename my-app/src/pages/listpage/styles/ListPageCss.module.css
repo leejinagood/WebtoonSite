@@ -309,6 +309,8 @@
 
 .ListPage{
     width: 100%;
+    list-style: none;
+
     margin: 0 auto;
 }
 .ListInfo{
@@ -390,9 +392,6 @@
     background-color: rgb(247, 247, 247);
     border: 1px solid rgb(230, 226, 226);
 }
-li{
-    list-style: none;
-}
 /* // 버튼이랑 리스트 겹치는 원인 높이  */
 .ListInfoBox{
     width: 100%;
@@ -462,4 +461,9 @@ li{
 
 .dn{
     display: none;
+}
+
+
+.List li{
+    list-style: none;
 }

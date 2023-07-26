@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Header from "@/src/Header/header";
-import ListPageCss from "./styles/ListPageCss.css";
-import Footer from "@/src/Footer/footer";
-import ListItem from "@/src/Component/ListItem";
+import Header from "../../Header/header";
+import style from "./styles/ListPageCss.module.css";
+import Footer from "../../Footer/footer";
+import ListItem from "../../Component/listitem";
 import Head from "next/head";
 
 const ListPage = () => {
@@ -241,7 +241,7 @@ const handleLike = async () => {
   }
 
   return (
-    <div className="ListPage">
+    <div className={style.ListPage}>
       <Head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#317EFB" />
@@ -250,32 +250,32 @@ const handleLike = async () => {
 
       <Header />
 
-      <div className="ListInfoBox">
+      <div className={style.ListInfoBox}>
         {webtoonInfo && (
-          <div className="ListInfo">
-            <div className="ListImgBox">
+          <div className={style.ListInfo}>
+            <div className={style.ListImgBox}>
               <img
                 src={webtoonInfo.thumbnail}
                 alt={webtoonInfo.webtoon_name}
               />
             </div>
             
-            <div className="ListInfo">
-              <div className="TextBox">
+            <div className={style.ListInfo}>
+              <div className={style.TextBox}>
                 <>
-                  <p id="line" className="tab2">
+                  <p id="line" className={style.tab2}>
                     {webtoonInfo.webtoon_name}
                   </p>
-                  <p id="line" className="GrayP">
+                  <p id={style.line} className={style.GrayP}>
                     글/그림<span>{webtoonInfo.author}</span> | {KrDay} 요웹툰
                     <br />
                     {webtoonInfo.content}
-                    <div className="InfoBtn">
-                      <button id="PointBtn" className="IBtn" onClick={handleLike}>
+                    <div className={style.InfoBtn}>
+                      <button id={style.PointBtn} className={style.IBtn} onClick={handleLike}>
                         좋아요 {webtoonInfo.like}
                       </button>
-                      <button className="IBtn">첫화보기 1화</button>
-                      <button className="SNSBTN">공유하기</button>
+                      <button className={style.IBtn}>첫화보기 1화</button>
+                      <button className={style.SNSBTN}>공유하기</button>
                     </div>
                   </p>
                 </>
@@ -289,11 +289,11 @@ const handleLike = async () => {
   <div>Loading...</div>
 ) : (
   <>
-  <div className="ListBox">
-    <div className="DESC">
+  <div className={style.ListBox}>
+    <div className={style.DESC}>
       <span onClick={handleAscSort}>오름차순 /</span><span onClick={handleDescSort}> 내림차순</span>
     </div>
-    <ul className="List">
+    <ul className={style.List}>
       {webtoonInfo && Array.from({ length: webtoonInfo.count }).map((_, index) => (
         <li key={index}>
           <ListItem
@@ -312,23 +312,23 @@ const handleLike = async () => {
 )}
 
 
-      <div className="Pagination">
+      <div className={style.Pagination}>
         
-        <span className="Arrow">{"<"}</span>
+        <span className={style.Arrow}>{"<"}</span>
         {Array.from({ length: totalPages }).map((_, index) => (
           <button
             key={index + 1}
             onClick={() => handlePageChange(index + 1)}
-            className={currentPage === index + 1 ? "active" : ""}
+            className={currentPage === index + 1 ? `${style.active}` : ""}
           >
             {index + 1}
           </button>
         ))}
-        <span className="arrow">{">"}</span>
+        <span className={style.arrow}>{">"}</span>
       </div>
 
       <Footer />
-      <div className={ListPageCss.dn}></div>
+      <div className={style.dn}></div>
     </div>
   );
 };
