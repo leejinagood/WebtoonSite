@@ -30,7 +30,7 @@ const Comment = ({ webtoonName, episodeNumber }) => {
       .then((data) => {
         console.log(data); // 성공적으로 업로드되었을 때의 처리
         // 업로드가 성공했다는 메시지를 사용자에게 표시할 수 있습니다.
-        console.log(webtoonName + episodeNumber + UserEmail + commentContent);
+        console.log(webtoonName , episodeNumber , UserEmail , commentContent);
         // 새로운 코멘트 컨텐츠를 리스트에 추가
         setComments((prevComments) => [...prevComments, data]); // data를 comments에 추가
         loadComments();
