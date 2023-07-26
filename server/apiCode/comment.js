@@ -88,6 +88,8 @@ const commentAPI = (server, getConn) => {
                 },
             });
 
+            console.log(Response.data);
+
             if (Response.data === '토큰 인증 성공' || Response.data === '카카오 토큰 인증 성공') { //인증 성공일 때 댓글 달 수 있음
                 await conn.query(insertQuery, [EpId, UsId, Content]); //episodeID, userID, content 입력 후 댓글 삽입
                 res.send('댓글이 성공적으로 작성되었습니다.');  //응답
