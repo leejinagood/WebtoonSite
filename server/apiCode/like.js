@@ -16,6 +16,20 @@ const likeAPI = (server, getConn) => {
         return null;
     }
 
+    // 쿠키에서 카카오 토큰 추출하는 함수 (동일한 방식으로 수정)
+    function KakaoCookie(cookies) {
+        if (typeof cookies === 'string') {
+            const cookieA = cookies.split(';');
+            const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('KakaoToken=')); //토큰부분만 빼내기
+            if (tokenCookie) {
+                const token = tokenCookie.split('=')[1];
+                //토큰만 추출하여 return
+                return token.trim();
+            }
+        }
+        return null;
+    }
+
     //좋아요 달기
     server.put('/api/update_like', async (req, res) => {
         const conn = await getConn();
@@ -34,15 +48,16 @@ const likeAPI = (server, getConn) => {
             const [userIDResult] = await conn.query(userIDquery, [UserEmail]);
             const UID = userIDResult[0].map((row) => row.userID);
 
-            const cookies = req.headers.cookie; // 쿠키 가져오기
+            const cookies = req.headers.cookie; //쿠키 가져와
             const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
+            const ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
 
-            const authResponse = await axios.get('http://localhost:4000/api/Token', { //이 경로로 요청을 보내야 됨 (토큰 인증 경로)
-            headers: {
-                Cookie: `token=${token}`, // 토큰을 쿠키 형식으로 전달
+            const Response = await axios.get('http://localhost:4000/api/Token', {
+                headers: {
+                    Cookie: `token=${token}; KakaoToken=${ktoken}; `,// 토큰을 쿠키 형식으로 전달
                 },
             });
-            if (authResponse.data === '토큰 인증 성공') {
+            if (Response.data === '토큰 인증 성공') {
                 //추출한 webtoonID와 userID를 좋아요 수정 쿼리에 삽입
                 const [Result] = await conn.query(putLikeQuery, [UID, WID]);
                 //db에서 수행되어 행이 수정된 갯수 

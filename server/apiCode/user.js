@@ -244,9 +244,6 @@ const userAPI = (server, getConn) => {
       const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
       const Ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
 
-      // console.log(KakaoCookie(cookies))
-      console.log(DelisousCookie(cookies))
-
       if (Ktoken) {//카카오 토큰이 있을 경우 
         const response = await axios.get('https://kapi.kakao.com/v1/user/access_token_info', {
           headers: {
