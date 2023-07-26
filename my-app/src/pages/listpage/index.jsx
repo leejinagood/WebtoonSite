@@ -9,8 +9,10 @@ import Head from "next/head";
 const ListPage = () => {
   const [thumbnailIMG, setThumbnailIMG] = useState([]);
   const router = useRouter();
+  const [prevLike, setPrevLike] = useState(null);
+
   const { EnName } = router.query;
-  const [webtoonInfo, setWebtoonInfo] = useState(null);
+  const [webtoonInfo, setWebtoonInfo] = useState({});
   const [webtoons, setWebtoons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,6 +20,23 @@ const ListPage = () => {
 
   const [ascSort, setAscSort] = useState(false); // 오름차순 여부
   const [descSort, setDescSort] = useState(false); // 내림차순 여부
+
+
+  const [likeCount, setLikeCount] = useState(webtoonInfo?.like || 0);
+
+
+  useEffect(() => {
+    setLikeCount(webtoonInfo?.like || 0);
+  }, [webtoonInfo?.like]);
+
+  // webtoonInfo가 변경될 때마다 실행되는 useEffect
+  useEffect(() => {
+    // 이전 상태의 like 값과 현재 상태의 like 값을 비교하여 변경되었을 경우에만 처리
+    if (prevLike !== webtoonInfo.like) {
+      setLikeCount(webtoonInfo.like || 0); // 좋아요 개수 업데이트
+      setPrevLike(webtoonInfo.like); // 현재 상태의 like 값을 prevLike에 저장
+    }
+  }, [webtoonInfo]);
 
   const getTokenFromLocalStorage = () => {
     if (typeof window !== 'undefined') {
@@ -96,55 +115,86 @@ const ListPage = () => {
     return !!token;
   };
 
-  const handleLike = async () => {
-    // 토큰이 있는 경우에만 userEmail 값을 가져오도록 합니다.
-    const tokenExists = isTokenValid();
-    
-    if (tokenExists) {
-      const userEmail = sessionStorage.getItem("userEmail");
-      console.log(EnName, userEmail + "102line");
-      
-      // 세션에 좋아요를 누른 웹툰 정보를 저장합니다.
-      // const likedWebtoons = JSON.parse(sessionStorage.getItem("likedWebtoons")) || [];
-      
-      // if (likedWebtoons.includes(EnName)) {
-      //   window.alert("이미 좋아요를 누른 웹툰입니다 !");
-      //   return; // 이미 좋아요를 누른 경우, 함수 종료
-      // }
-      
-      try {
-        const response = await fetch('/api/update_like', {
-          method: 'PUT', // PUT 메서드로 변경
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            EnName: EnName,
-            UserEmail: userEmail // userEmail 변수를 사용
-          }),
-        });
-    
-        if (response.ok) {
-          // 좋아요가 성공적으로 추가되면 세션에 기록합니다.
-          // sessionStorage.setItem("likedWebtoons", JSON.stringify(likedWebtoons));
-    
-          setWebtoonInfo((prevInfo) => ({
-            ...prevInfo,
-            like: prevInfo.like + 1 // 좋아요 개수 업데이트
-          }));
-          console.log("Like UP");
-        } else {
-          console.error('좋아요 추가 실패:', response);
-          console.log("Like UP false");
+  // 웹툰 정보를 받아오는 useEffect
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`/api/listinfo?EnName=${encodeURIComponent(EnName)}`, {
+        cache: 'no-store', // 캐시 사용 안 함
+      });
 
-        }
-      } catch (error) {
-        console.error('좋아요 추가 오류:', error);
-      }
-    } else {
-      window.alert("로그인 후 이용 가능합니다 !");
+      const { webtoonData } = await response.json(); // 데이터를 가져와서 변수에 저장
+      setWebtoonInfo(webtoonData[0]);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching API:", error);
+      setLoading(false);
     }
   };
+
+  if (EnName) {
+    fetchData();
+  } else {
+    setWebtoonInfo(null);
+    setLoading(false);
+  }
+}, [EnName]);
+
+// ...
+
+// 좋아요 버튼을 클릭했을 때 처리하는 handleLike 함수
+const handleLike = async () => {
+  // 토큰이 있는 경우에만 userEmail 값을 가져오도록 합니다.
+  const tokenExists = isTokenValid();
+
+  if (tokenExists) {
+    const userEmail = sessionStorage.getItem("userEmail");
+    console.log(EnName, userEmail + "102line");
+
+    // 로컬 스토리지에서 좋아요를 누른 웹툰들의 목록을 가져옵니다.
+    const likedWebtoons = JSON.parse(localStorage.getItem("likedWebtoons")) || [];
+
+    // 이미 누른 웹툰인지 확인합니다.
+    if (likedWebtoons.includes(EnName)) {
+      window.alert("이미 좋아요를 눌렀습니다");
+      return; // 이미 누른 웹툰이라면 함수를 종료합니다.
+    }
+
+    try {
+      // 좋아요 요청을 서버에 보냅니다.
+      const response = await fetch("/api/update_like", {
+        method: "PUT", // PUT 메서드로 변경
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          EnName: EnName,
+          UserEmail: userEmail, // userEmail 변수를 사용
+        }),
+      });
+
+      if (response.ok) {
+        // 좋아요가 성공적으로 추가되면 좋아요 개수를 업데이트합니다.
+        setWebtoonInfo((prevInfo) => ({
+          ...prevInfo,
+          like: prevInfo.like + 1, // 현재 좋아요 개수에 1을 더해 업데이트
+        }));
+
+        // 누른 웹툰을 로컬 스토리지에 기록합니다.
+        localStorage.setItem("likedWebtoons", JSON.stringify([...likedWebtoons, EnName]));
+
+        console.log("Like UP");
+      } else {
+        console.error("좋아요 추가 실패:", response);
+        window.alert("좋아요 추가 실패!");
+      }
+    } catch (error) {
+      console.error("좋아요 추가 오류:", error);
+    }
+  } else {
+    window.alert("로그인 후 이용 가능합니다 !");
+  }
+};
 
 
   if (loading) {
