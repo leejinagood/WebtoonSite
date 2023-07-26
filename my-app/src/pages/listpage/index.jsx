@@ -19,6 +19,14 @@ const ListPage = () => {
   const [ascSort, setAscSort] = useState(false); // 오름차순 여부
   const [descSort, setDescSort] = useState(false); // 내림차순 여부
 
+  const getTokenFromLocalStorage = () => {
+    if (typeof window !== 'undefined') {
+      // 브라우저 환경에서만 localStorage에 접근
+      return sessionStorage.getItem("token");
+    }
+    return null;
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -81,12 +89,28 @@ const ListPage = () => {
 
 
 
-  const handleLike = () => {
-    setWebtoonInfo((prevInfo) => ({
-      ...prevInfo,
-      like: prevInfo.like + 1
-    }));
+  const isTokenValid = () => {
+    const token = getTokenFromLocalStorage();
+    // 토큰이 존재하면 유효한 것으로 간주합니다.
+    return !!token;
   };
+  
+
+  // 좋아요 버튼 클릭 시 호출되는 함수
+  const handleLike = () => {
+    // 로그인 상태인 경우에만 좋아요를 처리하도록 합니다.
+    if (isTokenValid()) {
+      setWebtoonInfo((prevInfo) => ({
+        ...prevInfo,
+        like: prevInfo.like + 1
+      }));
+    } else {
+      // 로그인되지 않은 경우에는 로그인 페이지로 이동하도록 합니다.
+      // 예시: 로그인 페이지 경로를 '/login'으로 가정
+      window.alert("로그인 후 이용 가능합니다 ! ");
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
