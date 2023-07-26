@@ -1,10 +1,10 @@
 import React from "react";
 import Link from 'next/link';
-import FooterCss from "./styles/FooterCss.css"
+import style from "./styles/FooterCss.module.css"
 const footer = () =>{
     return(
-        <div className="footer">
-        <div className="FL">
+        <div className={style.footer}>
+        <div className={style.FL}>
             <Link href="/another-page"><li>이용약관</li></Link>
             <Link href="/another-page"><li>개인정보처리방침</li></Link>
             <Link href="/another-page"><li>청소년보호정책</li></Link>

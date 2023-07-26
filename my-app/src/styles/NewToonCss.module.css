@@ -1,13 +1,13 @@
 @media screen and (max-width:721px) and (min-width:362px) {
-  .MNewToon{
-    width: 720px;
+  .NewToonBOx{
+    width: 720px !important;
   }
   .NewToonPage
   {
     width: 80% !important;
-    margin: 0 auto;
-
-    float: left;
+    position: relative;
+    right: 25%;
+    float: left !important;
   }
   .NewToonInfo{
     height: 310px !important;
@@ -37,6 +37,8 @@
   }
 
   .NewToonInfo {
+    position: relative;
+    right: 25%;
     width: 100% !important;
     height: 200px !important;
     cursor: pointer;
@@ -51,21 +53,22 @@
 
 
 @media screen and (max-width:361px) and (min-width:100px) {
-  .MNewToon{
-    width: 360px;
+
+  .NewToonBOx{
+    width: 100% !important;
   }
   .NewToonPage
   {
-    width: 80% !important;
-    margin: 0 auto;
+    width: 100% !important;
+    position: relative;
+    right: 12.5%;
     height: 170px !important;
-    
-    float: left;
   }
   .NewToonInfo {
     width: 100%  !important;
     height: 169px !important;
     align-items: center;
+    
     float: left !important;
     margin-left: 17% !important;
     justify-content: center;
@@ -82,7 +85,6 @@
 
 
 .NewToonPage {
-  width: 100%;
   background-color: rgba(159, 142, 142,0.4);
   display: flex;
   justify-content: center;

@@ -13,6 +13,7 @@
     .MainPage{
         width: 720px !important;
         margin: 0 auto;
+        overflow: hidden;
     }
     
     .Mid .DayToon .DayToonItem.second-item {

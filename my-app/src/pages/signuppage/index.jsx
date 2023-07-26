@@ -101,6 +101,7 @@ const SignUpPage = () => {
           <button className="SignBtn" type="submit">가입하기</button>
         </div>
       </form>
+      <div className={SignUpCss.dn}></div>
     </div>
   );
 };

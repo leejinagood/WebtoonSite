@@ -459,3 +459,7 @@ li{
 .DESC span{
     cursor: pointer;
 }
+
+.dn{
+    display: none;
+}

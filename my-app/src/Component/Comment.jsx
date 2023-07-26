@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import CommentCss from "./CommetCss.css";
+import styles from "./CommetCss.module.css";
 
 const Comment = ({ webtoonName, episodeNumber }) => {
   const [comments, setComments] = useState([]);
@@ -75,20 +75,20 @@ const Comment = ({ webtoonName, episodeNumber }) => {
 
 
   return (
-    <div className="CommentComponent">
-      <div className="Comment">
-        <div className="CommentList">
+    <div className={styles.CommentComponent}>
+      <div className={styles.Comment}>
+        <div className={styles.CommentList}>
           <ul>
             {comments && comments.length > 0 ? ( // Check if comments is not undefined
               comments.map((comment, index) => (
                 <li key={index}>
-                  <span className="NameDay">
+                  <span className={styles.NameDay}>
                     {comment && comment.User_Name && comment.Comment_Date
                       ? `${comment.User_Name}/${comment.Comment_Date}`
                       : ''}
                   </span>
                   <br />
-                  <span className="Comment_Content">
+                  <span className={styles.Comment_Content}>
                     {comment && comment.Comment_Content}
                   </span>
                 </li>
@@ -98,9 +98,9 @@ const Comment = ({ webtoonName, episodeNumber }) => {
             )}
           </ul>
         </div>
-        <div className="CommentBox">
+        <div className={styles.CommentBox}>
           <textarea ref={commentInputRef} defaultValue=""></textarea>
-          <button className="CommentUpload" type="submit" onClick={submitComment}>
+          <button className={styles.CommentUpload} type="submit" onClick={submitComment}>
             작성
           </button>
         </div>

@@ -53,9 +53,14 @@ function SerchWebToon() {
           ))}
         </ul>
       </div>
+      <div className={MainPageCss.a}></div>
+      <div className={SerchWebToonCss.a}></div>
+
       <Footer />
     </div>
   );
 }
+
+
 
 export default SerchWebToon;

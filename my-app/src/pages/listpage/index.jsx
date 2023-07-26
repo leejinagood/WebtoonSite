@@ -7,13 +7,11 @@ import ListItem from "@/src/Component/ListItem";
 import Head from "next/head";
 
 const ListPage = () => {
-  const [thumbnailIMG, setThumbnailIMG] = useState([]);
   const router = useRouter();
-  const [prevLike, setPrevLike] = useState(null);
 
   const { EnName } = router.query;
   const [webtoonInfo, setWebtoonInfo] = useState({});
-  const [webtoons, setWebtoons] = useState([]);
+  const [webtoons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [ep, setEp] = useState(1);
@@ -22,21 +20,6 @@ const ListPage = () => {
   const [descSort, setDescSort] = useState(false); // 내림차순 여부
 
 
-  const [likeCount, setLikeCount] = useState(webtoonInfo?.like || 0);
-
-
-  useEffect(() => {
-    setLikeCount(webtoonInfo?.like || 0);
-  }, [webtoonInfo?.like]);
-
-  // webtoonInfo가 변경될 때마다 실행되는 useEffect
-  useEffect(() => {
-    // 이전 상태의 like 값과 현재 상태의 like 값을 비교하여 변경되었을 경우에만 처리
-    if (prevLike !== webtoonInfo.like) {
-      setLikeCount(webtoonInfo.like || 0); // 좋아요 개수 업데이트
-      setPrevLike(webtoonInfo.like); // 현재 상태의 like 값을 prevLike에 저장
-    }
-  }, [webtoonInfo]);
 
   const getTokenFromLocalStorage = () => {
     if (typeof window !== 'undefined') {
@@ -345,6 +328,7 @@ const handleLike = async () => {
       </div>
 
       <Footer />
+      <div className={ListPageCss.dn}></div>
     </div>
   );
 };

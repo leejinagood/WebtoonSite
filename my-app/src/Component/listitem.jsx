@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import ListCss from "@/src/pages/listpage/styles/ListPageCss.css";
-const ListItem = ({ EnName,thumbnail,webtoonName, ep, uploadDate, handleClick }) => {
+import styles from "@/src/pages/listpage/styles/ListPageCss.css";
+const ListItem = ({ EnName,thumbnail,webtoonName, ep /*uploadDate*/, handleClick }) => {
 
 
   return (
@@ -20,6 +19,7 @@ const ListItem = ({ EnName,thumbnail,webtoonName, ep, uploadDate, handleClick })
           </p>
         </div>
       </div>
+      <div className={styles.dn}></div>
     </Link>
   );
 };

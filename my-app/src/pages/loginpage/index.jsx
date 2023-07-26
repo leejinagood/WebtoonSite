@@ -3,7 +3,6 @@ import axios from "axios";
 import LoginCss from "./styles/LoginCss.css";
 import Link from 'next/link';
 import Router from "next/router";
-import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
 import {REDIRECT_URL} from "/src/OAuth.js";
 import {Kakao_Auth_Url} from "/src/OAuth.js";
 import {CLIENT_ID} from "/src/OAuth.js";
@@ -140,6 +139,7 @@ const LoginPage = () => {
           <Link href="/signuppage"><li>회원가입</li></Link>
         </div>
       </div>
+      <div className={LoginCss.dn}></div>
     </div>
   );
 };

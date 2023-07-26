@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
-import NewToonCss from "@/src/styles/NewToonCss.css"
+import style from "@/src/styles/NewToonCss.module.css"
 
 const NewToon = () => {
   const [webtoons, setWebtoons] = useState([]);
@@ -45,8 +45,9 @@ const NewToon = () => {
   };
 
   return (
+    <div className={style.NewToonBOx}>
     <div
-      className="NewToonPage"
+      className={style.NewToonPage}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -61,14 +62,15 @@ const NewToon = () => {
                 webtoon.webtoon_en_name
               )}`}
             >
-              <div className={`NewToonInfo ${index === 1 ? "active" : ""}`}>
-                <div className="NewToonItem">
+              <div className={`${style.NewToonInfo} ${index === 1 ? "active" : ""}`}>
+                <div className={style.NewToonItem}>
                   <img src={webtoon.thumbnail} alt={webtoon.webtoon_name} />
                 </div>
               </div>
             </Link>
           ))}
       </Slider>
+    </div>
     </div>
   );
 };

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import axios from 'axios';
-import HederCss from "./styles/Heder.css";
+import style from "./styles/Heder.module.css";
 import { useRouter } from "next/router";
 import { parseCookies } from 'nookies'; // nookies 라이브러리 import
-import jwt from 'jsonwebtoken'; // jwt 라이브러리 import
 
 const Header = () => {
   const [userId, setUserId] = useState(null);
@@ -68,37 +67,37 @@ const Header = () => {
 
 
   return (
-    <div className="HederBox">
-      <div className="header">
-        <div className="TopHeader">
-          <div className="LogoBox">
+    <div className={style.HederBox}>
+      <div className={style.header}>
+        <div className={style.TopHeader}>
+          <div className={style.LogoBox}>
           <link rel="manifest" href="/manifest.json" />
             <Link href="/">
-            <h1 className="Logo"><span className="Color">A</span>VA<span className="Color">T</span>OON</h1>
+            <h1 className={style.Logo}><span className={style.Color}>A</span>VA<span className={style.Color}>T</span>OON</h1>
             </Link>
           </div>
-          <div className="rb">
-            <div className="SerchBar">
+          <div className={style.rb}>
+            <div className={style.SerchBar}>
               <form>
-                <div className="InputBox">
+                <div className={style.InputBox}>
                   <input
                     type="text"
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
                     placeholder="작가/제목으로 검색할 수 있습니다."
                   />
-                  <div className="BTN">
-                    <button type="submit" className="SerchBtn">검색</button>
+                  <div className={style.BTN}>
+                    <button type="submit" className={style.SerchBtn}>검색</button>
                     {token ? (
                       <>
-                        <p onClick={handleLogout} className="LoginBtn">{user}</p>
+                        <p onClick={handleLogout} className={style.LoginBtn}>{user}</p>
                         {/* <button onClick={handleLogout} className="LogoutBtn">
                           로그아웃
                         </button> */}
                       </>
                     ) : (
                       <Link href="/loginpage">
-                        <p className="LoginBtn">login</p>
+                        <p className={style.LoginBtn}>login</p>
                       </Link>
                     )}
                   </div>
@@ -108,31 +107,31 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="HDayBox">
-        <div className="Day">
+      <div className={style.HDayBox}>
+        <div className={style.Day}>
           <Link href={{ pathname: '/', query: { day: 'All' } }}>
-            <li id="AD" className="AllDay">전체요일</li>
+            <li id={style.AD} className={style.AllDay}>전체요일</li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'mon' } }}>
-            <li className="AllDay">월</li>
+            <li className={style.AllDay}>월</li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'tues' } }}>
-            <li className="AllDay">화</li>
+            <li className={style.AllDay}>화</li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'wendes' } }}>
             <li className="AllDay">수</li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'thurs' } }}>
-            <li className="AllDay">목</li>
+            <li className={style.AllDay}>목</li>
           </Link>
           <Link href={{ pathname: 'daypage', query: { day: 'fri' } }}>
-            <li className="AllDay">금</li>
+            <li className={style.AllDay}>금</li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'satur' } }}>
-            <li className="AllDay">토</li>
+            <li className={style.AllDay}>토</li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'sun' } }}>
-            <li className="AllDay">일</li>
+            <li className={style.AllDay}>일</li>
           </Link>
         </div>
       </div>
