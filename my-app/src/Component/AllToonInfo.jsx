@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import style from "../styles/MainPageCss.module.css"
 const AllToonInfo = () => {
   const [webtoons, setWebtoons] = useState([]);
 
@@ -22,20 +23,20 @@ const AllToonInfo = () => {
   // }  ? ? ? ? 
 
 return (
-  <div className="ATBox">
+  <div className={style.ATBox}>
     {webtoons.length > 0 && webtoons.map((webtoon, index) => (
-      <div className="AllToonInfo" key={index}>
+      <div className={style.AllToonInfo} key={index}>
         <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoon_en_name)}`}>
-          <Thumbnail className="ATimg" day={webtoon} />
-          <div className="ATtext">
-          <p className="AToonTitle">{webtoon.webtoon_name}</p>
+          <Thumbnail className={style.ATimg} day={webtoon} />
+          <div className={style.ATtext}>
+          <p className={style.AToonTitle}>{webtoon.webtoon_name}</p>
           </div>
           
         </Link>
       </div>
     ))}
     {webtoons.length % 3 !== 0 && (
-      <div className="AllToonInfo" style={{ visibility: "hidden" }}></div>
+      <div className={style.AllToonInfo} style={{ visibility: "hidden" }}></div>
     )}
   </div>
 );

@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
-/* *{
+/* .mp *{
     font-family: 'Jua', sans-serif;
     text-decoration-style: none;
-    text-decoration: none; 
-    color: inherit; 
+    text-decoration: none;
+    color: inherit;
     width: 360px;
     margin:  0 auto;
 } */
@@ -27,7 +27,7 @@
         margin-right: 1%;
     }
     .AllToonInfo img{
-        width: 50.5%;
+        width: 50.5% !important;
     }
     .AllTonnbox{
 
@@ -55,19 +55,11 @@
     .AllToon table{
         margin: 0 !important;
     }
-    tr {
-        width: 80%;
-      }
-    td{
-        width: 60vw !important; 
-    }
 
 
 
   
-    table{ 
-        margin: 0 !important;
-    }
+
     /* 데이페이지 */
     .DayBox{
         width: 720px !important;
@@ -163,9 +155,9 @@
 /* phone */
 @media screen and (max-width:415px) and (min-width:362px) {
     /* 메인페이지  */
-    *{
+    /* .mp *{
         width: 100% !important;
-    }
+    } */
     .MainPage{
         width: 100% !important;
         margin: 0 auto;
@@ -192,9 +184,7 @@
         width: 40vw !important; /* 이미지를 부모 요소에 꽉 차게 설정 */
         height: 18vw !important; /* 이미지 비율 유지 */
     }
-    table{ 
-        margin: 0 !important;
-    }
+
     /* 데이페이지 */
     .DayBox{
         width: 360px !important;
@@ -255,9 +245,7 @@
 
 
 @media screen and (max-width:361px) and (min-width:10px) {
-    *{
-        width:80%;
-    }
+
     
 
     /* 메인페이지  */
@@ -270,6 +258,9 @@
         width: 80% !important;
         margin: 0 auto;
         
+    }
+    .AllToonInfo{
+        margin-bottom: 25px !important;
     }
 
     
@@ -362,9 +353,10 @@
         width: 80%;
     }
     .AToonTitle{
-        margin-top: 3px;
         margin-bottom: 0px !important;
         width: 100% !important;
+        position: relative;
+        right: 10px;
     }
     .AllToonInfo {
         margin-top: 4px;
@@ -382,6 +374,13 @@
         font-size: 12px !important;
         margin-bottom: 0px !important;
     }
+
+    .DayToonItem img{
+        width: 110px !important;
+        height: 145px !important;
+        object-fit: contain;
+    
+    }
 }
 .Categories{
     font-size: 16px !important;
@@ -398,10 +397,6 @@
     float: left;
     border-collapse:collapse;
 }
-.AllToon table{
-    width: 360px;
-    
-}
 
 
 .AllToon .ToonTitle{
@@ -410,12 +405,16 @@
 .AllToon .AllToonInfo img{
     object-fit: contain;
     text-align: center;
+    width: 100%;
     border-collapse:collapse;
     
 }
 .AllTonnbox{
     width: 100% ;
     float: left !important;
+}
+.AToonTitle{
+    line-height: 5px !important;
 }
 
 .AllToonInfo {
@@ -428,9 +427,7 @@
     justify-content: space-between;
      /* 요소들을 간격을 유지하면서 정렬 */
   }
-tr{
-    float: left;
-}
+
 .DayToon h3{
     font-size: 10px;
 }
@@ -469,10 +466,10 @@ tr{
     margin-left: 0px;
 }
 
-  .Mid .DayToon .DayToonItem.second-item {
+  /* .Mid .DayToon .DayToonItem.second-item {
     margin-left: 0px;
   }
-  
+   */
   
  
   .DayToonItem p{
@@ -546,12 +543,12 @@ tr{
 
 
 
-/* .DayToonItem img{
+.DayToonItem img{
     width: 135px;
     height: 185px;
     object-fit: contain;
 
-} */
+}
 
 
 .ATIMG{
@@ -562,11 +559,11 @@ tr{
 
 .DayToonIMG{
     width: 100%;
-
     object-fit: cover;
 }
 .DayToonItem{
     width: 100%;
+    
 }
 
 .Writer{

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-
+import style from "../styles/MainPageCss.module.css";
 const Rank = () => {
   const [webtoons, setWebtoons] = useState([]);
 
@@ -20,22 +20,22 @@ const Rank = () => {
 
   return (
     <div>
-      <h3 className="HHH">인기 웹툰</h3>
-      <div className="HotToon">
+      <h3 className={style.HHH}>인기 웹툰</h3>
+      <div className={style.HotToon}>
         {webtoons.map((webtoon, index) => (
-          <div className="RBox" key={index}>
+          <div className={style.RBox} key={index}>
             <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoon_en_name)}`}>
-              <div className="Rank">
-                <div className="Rankitem">
-                  <div className="RankImg">
+              <div className={style.Rank}>
+                <div className={style.Rankitem}>
+                  <div className={style.RankImg}>
                     <img src={webtoon.thumbnail} alt={`${index + 1}등`} />
                   </div>
-                  <div className="RankNum">
+                  <div className={style.RankNum}>
                     <h2>{`${index + 1}등`}</h2>
                   </div>
-                  <div className="RankText">
-                    <p className="RankWN">{webtoon.webtoon_name}</p>
-                    <p className="RankAT">{webtoon.author}</p>
+                  <div className={style.RankText}>
+                    <p className={style.RankWN}>{webtoon.webtoon_name}</p>
+                    <p className={style.RankAT}>{webtoon.author}</p>
                   </div>
                   
                 </div>

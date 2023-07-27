@@ -7,6 +7,7 @@ import { parseCookies } from 'nookies';
 import jwt from 'jsonwebtoken';
 import { useRouter } from "next/router";
 import Link from "next/link";
+import style from "../../styles/MainPageCss.module.css"
 const WeekPage = () => {
   const router = useRouter();
   const { day } = router.query;
@@ -55,29 +56,30 @@ const WeekPage = () => {
   
 
   return (
-    <div className="DayBox">
+    <div className={style.DayBox}>
       <Header token={token} />
-      <h3 className="Categories">{week}요일 추천 웹툰</h3>
-      <div className="MNewToon">
+      <h3 className={style.Categories}>{week}요일 추천 웹툰</h3>
+      <div className={style.MNewToon}>
         <NewToon />
       </div>
-      <div className="Mid">
+      <div className={style.Mid}>
         <div>
-          <h3 className="Categories">전체{week}요 웹툰</h3>
+          <h3 className={style.Categories}>전체{week}요 웹툰</h3>
           {dayToonItemCounts.map((count, index) => (
-            <div className="DayToonBox" key={index}>
+            <div className={style.DayToonBox} key={index}>
               {[...Array(count)].map((_, subIndex) => {
                 const webtoon = webtoons[subIndex];
                 return webtoon ? (
                   
-                  <div className={`DayToonItem ${subIndex === 1 ? "second-item" : ""}`} key={subIndex}>
+                  <div className={style.DayToonItem} key={subIndex}>
                   <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoon_en_name)}`}>
 
                     <Thumbnail day={webtoon} />
-                    <p className="ToonTitle">{webtoon.webtoon_name}</p>
-                    <p className="Writer">{webtoon.author}</p>
-                    <p className="Star">⭐️{webtoon.like}</p>
+                    <p className={style.ToonTitle}>{webtoon.webtoon_name}</p>
+                    <p className={style.Writer}>{webtoon.author}</p>
+                    <p className={style.Star}>⭐️{webtoon.like}</p>
                     </Link>
+                    
                   </div>
                 ) : null;
               })}

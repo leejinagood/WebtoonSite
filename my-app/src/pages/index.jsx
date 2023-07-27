@@ -28,6 +28,7 @@ const MainPage = () => {
 
 
   return (
+    <div className={style.mp}>
     <div className={style.MainPage}>
        <Head>
        <link rel="manifest" href="/manifest.json" />
@@ -47,6 +48,7 @@ const MainPage = () => {
       </div>
       <Tag/>
       <Footer />
+     </div>
      </div>
   );
 };
