@@ -70,19 +70,30 @@ const webtoonAPI = (server, getConn) => {
       const [rows] = await conn.query(query, [word]);
       const ID = rows[0].map((row) => row.webtoonID); // ID를 추출
 
-      const webtoonDetails = []; // 배열로 초기화
-      for (const webtoonID of ID) { 
-        const [rows] = await conn.query(webtoonQuery, [webtoonID]);
-        const [row] = rows[0]; // 배열의 첫번째 부분 
-        webtoonDetails.push({
-          webtoon_name: row.webtoonName, // 웹툰 제목과
-          webtoon_en_name: row.webtoonEnName, // 웹툰 영어 제목과
-          thumbnail: row.webtoonThumbnail, // 웹툰 썸네일을 추출
-          webtoon_author: row.webtoonAuthor, // 웹툰 작가 추출
-          categoris : row.CategoryKinds //카테고리들
-        });
+      const key = `webtoonKey:${word}`; //redis의 고유 키값
+      let value = await redisClient.get(key); // redis에서 해당 key로 데이터 조회
+
+
+      if (value) {
+        // 만약 redis에 데이터가 있다면 그대로 반환 
+        res.send(JSON.parse(value)); //문자열을 객체로 변환하여
+      } else {
+        // 만약 redis에 데이터가 없다면 db(mysql)에서 조회
+        const webtoonDetails = []; // 배열로 초기화
+        for (const webtoonID of ID) { 
+          const [rows] = await conn.query(webtoonQuery, [webtoonID]);
+          const [row] = rows[0]; // 배열의 첫번째 부분 
+          webtoonDetails.push({
+            webtoon_name: row.webtoonName, // 웹툰 제목과
+            webtoon_en_name: row.webtoonEnName, // 웹툰 영어 제목과
+            thumbnail: row.webtoonThumbnail, // 웹툰 썸네일을 추출
+            webtoon_author: row.webtoonAuthor, // 웹툰 작가 추출
+            categoris : row.CategoryKinds //카테고리들
+          });
+        }
+        await redisClient.set(key, JSON.stringify(webtoonDetails)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+        res.send(webtoonDetails);
       }
-      res.send(webtoonDetails); //응답으로 보내기
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: '서버 스크립트의 오류' });
