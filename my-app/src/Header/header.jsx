@@ -70,12 +70,14 @@ const Header = () => {
     <div className={style.HederBox}>
       <div className={style.header}>
         <div className={style.TopHeader}>
+        <link rel="manifest" href="/manifest.json" />
+
+        <Link href="/">
           <div className={style.LogoBox}>
-          <link rel="manifest" href="/manifest.json" />
-            <Link href="/">
             <h1 className={style.Logo}><span className={style.Color}>A</span>VA<span className={style.Color}>T</span>OON</h1>
-            </Link>
           </div>
+          </Link>
+
           <div className={style.rb}>
             <div className={style.SerchBar}>
               <form>

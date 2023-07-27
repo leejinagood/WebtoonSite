@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Header from "@/src/Header/header";
 import Footer from "../../Footer/footer";
 import { useRouter } from "next/router";
-import SerchWebToonCss from "./SerchWebToonCss.css";
-import MainPageCss from "@/src/styles/MainPageCss.css";
+import style from "./SerchWebToonCss.module.css";
+// import MainPageCss from "@/src/styles/MainPageCss.css";
 import Link from "next/link";
 
 function SerchWebToon() {
@@ -28,24 +28,24 @@ function SerchWebToon() {
 
 
   return (
-    <div className="SerchWebToon">
+    <div className={style.SerchWebToon}>
       <Header />
-      <div className="SerchPage">
+      <div className={style.SerchPage}>
         <ul>
           {webtoonData.map((webtoon, index) => (
             <li key={index}>
               <Link href={`/listpage?EnName=${webtoon.webtoon_en_name}`}>
-                <div className="ListItem">
-                  <div className="ListImg">
+                <div className={style.ListItem}>
+                  <div className={style.ListImg}>
                     <img src={webtoon.thumbnail}/>
                   </div>
-                  <div className="ListItemContent">
-                    <p className="EpisodeP">
+                  <div className={style.ListItemContent}>
+                    <p className={style.EpisodeP}>
                       {webtoon.webtoon_name}
                       <br />
                     </p>
-                    <span className="tab2">{webtoon.webtoon_author} /</span>
-                      <span className="tab2"> {webtoon.categoris}</span>
+                    <span className={style.tab2} >{webtoon.webtoon_author} /</span>
+                      <span className={style.tab2} > {webtoon.categoris}</span>
                   </div>
                 </div>
               </Link>
@@ -53,8 +53,6 @@ function SerchWebToon() {
           ))}
         </ul>
       </div>
-      <div className={MainPageCss.a}></div>
-      <div className={SerchWebToonCss.a}></div>
 
       <Footer />
     </div>
