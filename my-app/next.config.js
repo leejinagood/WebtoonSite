@@ -1,26 +1,17 @@
-const withPWA = require('next-pwa');
-
-module.exports = withPWA({
-    pwa: {
-      dest: 'public',
-      register: true,
-      skipWaiting: true
-    },
-});
-
-///api/* 경로로 들어오는 모든 요청을 http://localhost:4000/api/* 로 리다이렉션
 module.exports = {
-    async rewrites() {
-      return [
-        {
-          source: '/api/:path*',
-          destination: 'http://192.168.0.98:4000/api/:path*',
-        },
-      ];
-    },generateEtags: false, // 또는
-  };
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://192.168.0.98:4000/api/:path*',
+      },
+    ];
+  },
 
-
-
-
-
+  // 기본적인 PWA 설정
+  pwa: {
+    dest: 'public',
+    register: true,
+    skipWaiting: true,
+  },
+};

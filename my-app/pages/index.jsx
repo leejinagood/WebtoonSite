@@ -14,16 +14,19 @@ const MainPage = () => {
   const router = useRouter();
   const { token } = parseCookies({}); // 쿠키에서 토큰 가져오기
 
-  useEffect(()=>{
-    //서비스워커
-    navigator.serviceWorker.register('./sw.js')
-    .then((registration) => {
-      console.log('Service Worker registered sucess:', registration);
-    })
-    .catch((error) => {
-      console.error('Service Worker registration failed:', error);
-    });
-  },[])
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // 브라우저 환경에서만 실행되도록 조건부 처리
+      navigator.serviceWorker
+        .register('./sw.js')
+        .then((registration) => {
+          console.log('Service Worker registered successfully:', registration);
+        })
+        .catch((error) => {
+          console.error('Service Worker registration failed:', error);
+        });
+    }
+  }, []);
     //
 
 

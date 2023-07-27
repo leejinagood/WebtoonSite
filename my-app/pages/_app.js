@@ -1,21 +1,26 @@
 // // pages/_app.js
 
-// import { useEffect } from 'react';
-// import { useRouter } from 'next/router';
-// import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-// serviceWorkerRegistration.register();
-
-
-// export default MyApp;
-
-import React from 'react';
+import { register } from '../public/serviceWorkerRegistration';
+import React,{useEffect} from 'react';
 import App from 'next/app';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    // 클라이언트 환경에서만 Service Worker를 등록하도록 조건부 처리
+    if (typeof window !== 'undefined') {
+      register();
+    }
+  }, []);
+
   // 공통 레이아웃이나 설정을 처리하는 로직을 추가할 수 있습니다.
   return(
     <>  
+    <Head>
+    <link rel="icon" href="/favicon.ico" />
+
+    </Head>
     <Component {...pageProps} />
     <style jsx global>{`
       *{
