@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Header from "@/src/Header/header";
-import Footer from "@/src/Footer/footer";
-import NewToon from "../../Component/NewToon";
-import Rank from "../../Component/Rank";
+import Header from "../../src/Header/header";
+import Footer from "../../src/Footer/footer";
+import NewToon from "../../src/Component/NewToon";
+import Rank from "../../src/Component/Rank";
 import { parseCookies } from 'nookies';
 import jwt from 'jsonwebtoken';
 import { useRouter } from "next/router";
 import Link from "next/link";
-import style from "../../styles/MainPageCss.module.css"
+import style from "../../src/styles/MainPageCss.module.css"
 const WeekPage = () => {
   const router = useRouter();
   const { day } = router.query;

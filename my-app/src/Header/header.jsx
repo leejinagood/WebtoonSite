@@ -71,7 +71,6 @@ const Header = () => {
       <div className={style.header}>
         <div className={style.TopHeader}>
         <link rel="manifest" href="/manifest.json" />
-
         <Link href="/">
           <div className={style.LogoBox}>
             <h1 className={style.Logo}><span className={style.Color}>A</span>VA<span className={style.Color}>T</span>OON</h1>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Header from "../../Header/header";
+import Header from "../../src/Header/header";
 import style from "./styles/ListPageCss.module.css";
-import Footer from "../../Footer/footer";
-import ListItem from "../../Component/listitem";
+import Footer from "../../src/Footer/footer";
+import ListItem from "../../src/Component/listitem";
 import Head from "next/head";
 
 const ListPage = () => {
