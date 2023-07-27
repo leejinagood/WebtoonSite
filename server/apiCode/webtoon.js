@@ -1,32 +1,13 @@
 //웹툰의 정보를 볼 수 있는 api
 
 const webtoonAPI = (server, getConn) => {
-
-  const redis = require('redis');
-
-  //Redis 클라이언트 초기화
-  const Client = redis.createClient({
-    host:"127.0.0.1",
-    port:"6379",
-    db:"0"
-  });
-
-  // Redis 클라이언트 연결
-  Client.connect((err) => {
-    if (err) {
-      console.error('Redis 연결 오류:', err);
-    } else {
-      console.log('Redis에 연결되었습니다.');
-    }
-  });
   
-
+  const { set, get } = require("./redis");
 
   // 요일별 웹툰, 전체 웹툰 중 신규웹툰, 좋아요 상위 5개 웹툰
   server.get('/api/webtoons', async (req, res) => {
     const conn = await getConn();
     const { pi_vch_condition } = req.query;
-    const cacheKey = 'data_cache_key'; // Redis에서 사용할 고유한 키
 
     // 1개의 sp를 4개로 나눔
     // const query = 'CALL usp_get_Webtoon(?);';
@@ -62,16 +43,7 @@ const webtoonAPI = (server, getConn) => {
         });
       }
       
-      // // Redis 캐시 사용
-      // Client.get(cacheKey, (err, reply) => {
-      //   if (reply) {
-      //     const data = JSON.parse(reply);
-      //     res.send(data);
-      //   } else {
-      //     Client.set(cacheKey, JSON.stringify(webtoonDetails), 'EX', 3600);
-      //     res.send(webtoonDetails);
-      //   }
-      // });
+      res.send(webtoonDetails);
 
     } catch (error) {
       console.error(error);
