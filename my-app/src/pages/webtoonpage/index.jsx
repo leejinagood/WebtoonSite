@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef,useCallback } from "react";
 import { useRouter } from "next/router";
 import Header from "@/src/Header/header";
 import Footer from "@/src/Footer/footer";
-import MainPageCss from "@/src/styles/MainPageCss.module.css";
 import Comment from "@/src/Component/Comment";
 import ClickLayoutComponent from "@/src/Component/ClickLayoutComponent";
 import style from "./styles/WebToonPageCss.module.css";
