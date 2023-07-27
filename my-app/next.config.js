@@ -1,17 +1,10 @@
-module.exports = {
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://192.168.0.98:4000/api/:path*',
-      },
-    ];
-  },
+const withPWA = require('next-pwa');
 
-  // 기본적인 PWA 설정
+module.exports = withPWA({
   pwa: {
     dest: 'public',
     register: true,
     skipWaiting: true,
   },
-};
+  // 여기에 다른 설정들을 추가할 수 있습니다.
+});
