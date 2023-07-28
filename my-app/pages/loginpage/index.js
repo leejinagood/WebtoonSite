@@ -83,6 +83,15 @@ const LoginPage = () => {
       console.error(error);
     }
 
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) {
+        return parts.pop().split(";").shift();
+      }
+      return null;
+    }
     // 쿠키에 저장된 정보를 가져오기
     const cookies = parseCookies();
     const userEmail = cookies.userEmail;
