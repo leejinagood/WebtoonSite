@@ -2,6 +2,8 @@
 
 const webtoonListAPI = (server, getConn) => {
 
+    const redisClient = require('./redis'); // redis.js 모듈을 가져옴
+
     //웹툰 list 상단에 들어갈 정보
     //웹툰 이미지나 제목을 클릭했을 때 보이는 웹툰 정보들
     //webtoonEnName을 파라미터로 받음.
@@ -12,10 +14,18 @@ const webtoonListAPI = (server, getConn) => {
         const webtoonQuery = 'CALL usp_get_webtoonDetail_ID(?);'; // ID를 받아와 웹툰 정보를 출력하는 SP
 
         try {
+            const key = `webtoon_detail : ${EnName}`; //redis의 고유 키값
+            let value = await redisClient.get(key); // redis에서 해당 key로 데이터 조회
+
+            if (value) {
+                // 만약 redis에 데이터가 있다면 그대로 반환 
+                res.send(JSON.parse(value)); //문자열을 객체로 변환하여
+            } else {
             let [rows] = await conn.query(query, [EnName]); // EnName 파라미터로 받아온 후
             const ID = rows[0].map((row) => row.webtoonID); // ID를 추출
 
             const webtoonDetails = []; // 배열로 초기화
+
             for (const webtoonID of ID) { 
                 const [rows] = await conn.query(webtoonQuery, [webtoonID]); //webtoonID를 sp에 넣음
                 const [row] = rows[0]; // 배열의 첫번째 부분 
@@ -30,7 +40,9 @@ const webtoonListAPI = (server, getConn) => {
                 count: row.countEpisode // 총 에피소드 화
                 });
             }
-            res.send(webtoonDetails); // 응답으로 보냄
+            await redisClient.set(key, JSON.stringify(webtoonDetails)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+            res.send(webtoonDetails);
+        }
         } catch (error) {
             console.error(error);
             res.status(500).send({ error: '서버 스크립트의 오류' });
@@ -48,24 +60,33 @@ const webtoonListAPI = (server, getConn) => {
         const webtoonQuery = 'CALL usp_get_WebtoonEpisode(?, ?);'; // ID를 받아와 웹툰 정보를 출력하는 SP
         
         try {
-            let [rows] = await conn.query(query, [EnName]); // EnName 파라미터로 받아온 후
-            const ID = rows[0].map((row) => row.webtoonID); // ID를 추출
+            const key = `webtoon_list : ${EnName}`; //redis의 고유 키값
+            let value = await redisClient.get(key); // redis에서 해당 key로 데이터 조회
         
-            const webtoonDetails = []; // 배열로 초기화
-            for (const webtoonID of ID) {  //webtoonID를 sp에 넣음
-                const [rows] = await conn.query(webtoonQuery, [webtoonID, sort]);
-                for (const row of rows[0]) { // 각 행에 대해 반복하여 웹툰 정보를 추가
-                    webtoonDetails.push({
-                    webtoon_name: row.webtoonName, // 웹툰 제목과
-                    webtoon_en_name: row.webtoonEnName, // 웹툰 영어 제목과
-                    episode_number: row.episodeNumber, //에피소드 이름과
-                    episode_thumbnail: row.episodeThumbnail, //에피소드 각 화마다의 썸네일
-                    update: row.uploadDate, // 업로드 날짜
-                    count: row.countEpisode // 총 에피소드 화
-                    });
+            if (value) {
+                // 만약 redis에 데이터가 있다면 그대로 반환 
+                res.send(JSON.parse(value)); //문자열을 객체로 변환하여
+            } else {
+                let [rows] = await conn.query(query, [EnName]); // EnName 파라미터로 받아온 후
+                const ID = rows[0].map((row) => row.webtoonID); // ID를 추출
+
+                const webtoonDetails = []; // 배열로 초기화
+                for (const webtoonID of ID) {  //webtoonID를 sp에 넣음
+                    const [rows] = await conn.query(webtoonQuery, [webtoonID, sort]);
+                    for (const row of rows[0]) { // 각 행에 대해 반복하여 웹툰 정보를 추가
+                        webtoonDetails.push({
+                        webtoon_name: row.webtoonName, // 웹툰 제목과
+                        webtoon_en_name: row.webtoonEnName, // 웹툰 영어 제목과
+                        episode_number: row.episodeNumber, //에피소드 이름과
+                        episode_thumbnail: row.episodeThumbnail, //에피소드 각 화마다의 썸네일
+                        update: row.uploadDate, // 업로드 날짜
+                        count: row.countEpisode // 총 에피소드 화
+                        });
+                    }
                 }
+                await redisClient.set(key, JSON.stringify(webtoonDetails)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+                res.send(webtoonDetails);
             }
-            res.send(webtoonDetails); // 응답으로 보냄
         } catch (error) {
             console.error(error);
             res.status(500).send({ error: '서버 스크립트의 오류' });
@@ -84,9 +105,17 @@ const webtoonListAPI = (server, getConn) => {
         const ImgAndNext = 'CALL usp_get_webtoonPages(?);'; // episodeID를 받아와 웹툰 정보를 출력하는 SP
 
         try {
+            const key = `webtoon_list : ${values}`; //redis의 고유 키값
+            let value = await redisClient.get(key); // redis에서 해당 key로 데이터 조회
+
+            if (value) {
+                // 만약 redis에 데이터가 있다면 그대로 반환 
+                res.send(JSON.parse(value)); //문자열을 객체로 변환하여
+            } else {
+
             let [rows] = await conn.query(query, values); // EnName 파라미터로 받아온 후
             const ID = rows[0].map((row) => row.episodeID); // episodeID를 추출
-            
+        
             const webtoonContent = []; // 배열로 초기화
             for (const episodeID of ID) {  //episodeID를 sp에 넣음
                 const [rows] = await conn.query(ImgAndNext, [episodeID]);
@@ -97,7 +126,9 @@ const webtoonListAPI = (server, getConn) => {
                 nextEpisode: row.next  //다음화 있는지 없는지
                 });
             }
+            await redisClient.set(key, JSON.stringify(webtoonContent)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
             res.send(webtoonContent);
+            }
         } catch (error) {
             console.error(error);
             res.status(500).send({ error: '서버 스크립트의 오류' });

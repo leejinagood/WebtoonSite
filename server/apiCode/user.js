@@ -13,7 +13,24 @@ const userAPI = (server, getConn) => {
     const { email, pass, name, age } = req.body;
     const saltRounds = 10; // 솔트 생성에 사용되는 라운드 수
 
+    const valiEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const valiPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+
     try {
+      // 유효성 검사
+      if (!valiEmail.test(email)) {
+        res.status(400).json('이메일을 입력하세요');
+        return;
+      }
+      if (!valiPass.test(pass)) {
+          res.status(400).json('6자리 이상 입력하세요.');
+          return;
+      }
+      if (!name) {
+          res.status(400).json('이름을 입력해주세요');
+          return;
+      }
+
       // 트랜잭션 시작
       await conn.beginTransaction(); 
 
