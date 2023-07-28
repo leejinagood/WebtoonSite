@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import axios from "axios";
 import style from "./styles/LoginCss.module.css";
 import Link from 'next/link';
@@ -6,6 +6,7 @@ import Router from "next/router";
 import {REDIRECT_URL} from "/src/OAuth.js";
 import {Kakao_Auth_Url} from "/src/OAuth.js";
 import {CLIENT_ID} from "/src/OAuth.js";
+import { parseCookies } from "nookies"; // nookies 라이브러리 import
 
 
 const LoginPage = () => {
@@ -15,7 +16,6 @@ const LoginPage = () => {
   const [userEmail, setUserEmail] = useState(""); // User_Name 값을 저장하는 상태
   console.log(REDIRECT_URL);
   console.log(Kakao_Auth_Url);
-  console.log(Kakao_Auth_Url.userName);
   
 
   const handleIDChange = (e) => {
@@ -60,9 +60,8 @@ const LoginPage = () => {
         // 사용자 이름 저장
         setUserName(response.data.userName);
         setUserEmail(response.data.userEmail);
-        sessionStorage.setItem("userName", tokenPayload.userName);
-        sessionStorage.setItem("userEmail", tokenPayload.userEmail);
-
+        sessionStorage.setItem("userName", response.data.userName);
+        sessionStorage.setItem("userEmail", response.data.userEmail);
         // 페이지 이동
         Router.push("/");
       } else {
@@ -75,34 +74,40 @@ const LoginPage = () => {
     }
   };
 
-
   const kakaohandleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=code`);
-      console.log(response.data); // 응답 내용 확인
-  
-      // 응답에서 토큰과 사용자 정보 추출
-      const { token, userName, userEmail } = response.data;
-      console.log("토큰:", token);
-      console.log("사용자 이름:", userName);
-      console.log("사용자 이메일:", userEmail);
-  
-      // 토큰 저장
-      sessionStorage.setItem("token", token);
-      // 사용자 이름 저장
-      setUserName(userName);
-      setUserEmail(userEmail);
-      sessionStorage.setItem("userName", userName);
-      sessionStorage.setItem("userEmail", userEmail);
-      console.log(userName);
-      // 페이지 이동
-      Router.push("/");
+      // 카카오 인가 URL로 리다이렉트
+      window.location.href = Kakao_Auth_Url;
     } catch (error) {
       console.error(error);
     }
+
+    // 쿠키에 저장된 정보를 가져오기
+    const cookies = parseCookies();
+    const userEmail = cookies.userEmail;
+    const userName = cookies.userName;
+    const token = cookies.token;
+
+    // 쿠키에 정보가 있을 경우 상태에 저장
+    if (userEmail && userName && token) {
+      setUserEmail(userEmail);
+      setUserName(userName);
+      sessionStorage.setItem("userEmail", userEmail);
+      sessionStorage.setItem("userName", userName);
+      sessionStorage.setItem("token", token);
+    }
   };
-  
+
+
+  // function getCookie(name) {
+  //   const value = `; ${document.cookie}`;
+  //   const parts = value.split(`; ${name}=`);
+  //   if (parts.length === 2) {
+  //     return parts.pop().split(";").shift();
+  //   }
+  //   return null;
+  // }
 
 
   return (
@@ -128,10 +133,10 @@ const LoginPage = () => {
           </table>
           <button type="submit" className={style.LoginPageBtn}>fh</button>
         </form>
-        <button >
-          <a href={Kakao_Auth_Url}>
+        <button onClick={kakaohandleSubmit}>
+          
             카카오 로그인
-            </a>
+          
           </button>
         <div className={style.LoginMenu}>
           <Link href="/password" ><li>비밀번호 찾기</li></Link>
@@ -139,7 +144,11 @@ const LoginPage = () => {
           <Link href="/signuppage"><li>회원가입</li></Link>
         </div>
       </div>
-      <div className={style.dn}></div>
+      <Link href={Kakao_Auth_Url}>
+        <button>
+          sss
+        </button>
+      </Link>
     </div>
   );
 };
