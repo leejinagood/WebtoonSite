@@ -143,7 +143,7 @@ const userAPI = (server, getConn) => {
           grant_type: 'authorization_code', //인가코드 받기 위한
           client_id: Id, // 클라이언트 아이디 
           client_secret: Secret, // 클라이언트 시크릿 키 
-          redirect_uri: 'http://192.168.0.98:4000/api/Kakao',
+          redirect_uri: 'http://localhost:4000/api/Kakao',
           code, //인가코드도 함께 보내야 됨
         },
         { headers: header } //헤더정보 추가
