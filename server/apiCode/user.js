@@ -163,11 +163,11 @@ const userAPI = (server, getConn) => {
       const email = userResponse.data.kakao_account.email;
 
       // 응답코드였음
-      // const cookieData = {
-      //   userName: nickname, // 이름
-      //   userEmail: email, // 이메일
-      //   token: Token // 토큰
-      // };
+      const cookieData = {
+        userName: nickname, // 이름
+        userEmail: email, // 이메일
+        token: Token // 토큰
+      };
     
       //한글과 기호가 포함되어 있기 때문에 쿠키로 보내기전 인코딩 해야 돰
       const enNickname = encodeURIComponent(nickname);
@@ -208,7 +208,7 @@ const userAPI = (server, getConn) => {
       }
 
       //응답으로 닉네임과 이메일과 토큰 전송
-      // res.json(cookieData);
+      // res.send(cookieData);
 
       //리다이렉트 코드
       //리다리엑트는 기본적으로 쿠키를 함께 보냄! 같은 도메인이면 저장됨. 이를 쿠키의 동작 방식으로 도메인 기반 쿠키 라고 함
