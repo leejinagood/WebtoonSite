@@ -4,7 +4,7 @@ module.exports = {
       {
         source: '/api/:path*',
         destination: 'http://192.168.0.98:4000/api/:path*',
-      },
+      }
     ];
   },
 

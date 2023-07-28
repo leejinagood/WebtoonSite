@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 @media screen and (max-width:721px) and (min-width:362px){
     .ListPage{
         width: 720px !important;
@@ -309,6 +310,8 @@
 
 .ListPage{
     width: 100%;
+    font-family: 'Jua', sans-serif;
+
     list-style: none;
 
     margin: 0 auto;
