@@ -70,6 +70,46 @@ const commentAPI = (server, getConn) => {
             conn.release();
         }
     });
+
+
+    //댓글 삭제 
+    server.del('/api/comment_delete', async(req, res) => {
+        const conn = await getConn();
+        const { WebEnName, Ep, UserEmail, CommentId } = req.query; // 영어 이름과 유저 이메일을 받아옴
+        const values = [WebEnName, Ep];
+        const user_email = [UserEmail];
+        const comID = [CommentId];
+        const delQuery = 'call usp_del_comment(?, ?, ?);'; //댓글 삭제
+        const epIDQuery = 'CALL usp_get_EpiosdeID(?, ?);'; //episodeID
+        const userIDQuery = 'CALL usp_get_userID(?);'; //UserID
+
+        try {
+            const [epID] = await conn.query(epIDQuery, values); // Name, Ep 파라미터로 받아온 후
+            const EpId = epID[0].map((row) => row.episodeID); // episodeID를 추출
+    
+            const [usID] = await conn.query(userIDQuery, user_email); // UserEmail 파라미터로 받아온 후
+            const UsId = usID[0].map((row) => row.userID); // userID를 추출
+
+            const Response = await axios.get('http://localhost:4000/api/Token', { //토큰 인증 호출
+                headers: { //헤더에
+                    // Cookie: `token=${token}; KakaoToken=${ktoken}; `
+                    Cookie: req.headers.cookie, // 현재 쿠키를 그대로 전달
+                },
+            });
+
+            if (Response.data === '토큰 인증 성공' || Response.data === '카카오 토큰 인증 성공') { //인증 성공일 때 댓글 삭제 가능
+                await conn.query(delQuery, [EpId, UsId, comID]); //episodeID, userID, comID 입력 후 댓글 삭제
+                res.send('댓글이 삭제되었습니다.');  //응답
+            } else { //토큰 인증 실패했을 때 
+                res.status(401).send('로그인 하세요');
+            }
+        } catch (error) {
+            // console.error(error);
+            res.status(500).json('입력 실패');
+        } finally {
+            conn.release();
+        }
+    })
     
 }
 module.exports = commentAPI;
