@@ -5,6 +5,7 @@ import style from "./styles/ListPageCss.module.css";
 import Footer from "../../src/Footer/footer";
 import ListItem from "../../src/Component/listitem";
 import Head from "next/head";
+import Link from "next/link";
 
 const ListPage = () => {
   const router = useRouter();
@@ -274,7 +275,7 @@ const handleLike = async () => {
                       <button id={style.PointBtn} className={style.IBtn} onClick={handleLike}>
                         좋아요 {webtoonInfo.like}
                       </button>
-                      <button className={style.IBtn}>첫화보기 1화</button>
+                      <Link href={`/webtoonpage?EnName=${EnName}&ep=1`}><button className={style.IBtn}>첫화보기 1화</button></Link>
                       <button className={style.SNSBTN}>공유하기</button>
                     </div>
                   </p>

@@ -270,12 +270,15 @@ const userAPI = (server, getConn) => {
             Authorization: `Bearer ${Ktoken}`,
           },
         });
+        
         // 토큰 인증이 성공하면 응답
         res.send('카카오 토큰 인증 성공');
       } else if (token) { // 일반 토큰이 있을 때 
         try {
           // verify가 만료됐는지 확인하는 함수
+          
           jwt.verify(token, 'your-secret-key');
+
           // 토큰이 유효한 경우
           res.send('토큰 인증 성공');
         } catch (error) {
