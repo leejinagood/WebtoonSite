@@ -66,6 +66,22 @@ const Header = () => {
 
 
 
+
+  useEffect(() => {
+    // 쿠키에 저장된 정보를 가져오기
+    const cookies = parseCookies();
+    const userEmail = cookies.userEmail;
+    const userName = cookies.userName;
+    const token = cookies.token;
+
+    // 쿠키에 정보가 있을 경우 상태에 저장
+    if (userEmail && userName && token) {
+      sessionStorage.setItem("userEmail", userEmail);
+      sessionStorage.setItem("userName", userName);
+      sessionStorage.setItem("token", token);
+    }
+  }, []);
+
   return (
     <div className={style.HederBox}>
       <div className={style.header}>
