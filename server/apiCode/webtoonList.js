@@ -105,7 +105,7 @@ const webtoonListAPI = (server, getConn) => {
         const ImgAndNext = 'CALL usp_get_webtoonPages(?);'; // episodeID를 받아와 웹툰 정보를 출력하는 SP
 
         try {
-            const key = `webtoon_list : ${values}`; //redis의 고유 키값
+            const key = `webtoon_page : ${values}`; //redis의 고유 키값
             let value = await redisClient.get(key); // redis에서 해당 key로 데이터 조회
 
             if (value) {
