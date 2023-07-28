@@ -11,7 +11,11 @@ const likeAPI = (server, getConn) => {
         const { EnName, UserEmail } = req.body; //영어이름과 유저 이메일을 받아옴
         const webtoonIDquery = 'CALL usp_get_webtoonID_EnName(?);'; //webtoonID 추출 sp
         const userIDquery = 'CALL usp_get_userID(?);'; //UserUD 추출 sp
+
+        const Query ='select likes from LikeTable where webtoonID = ? and userID = ?;' //좋아요 했는지 안 했는지
+
         const LikeQuery = 'CALL usp_put_likes(?, ?);'; //userID와 webtoonID를 받아 좋아요를 수정하는 sp (추가)
+        const LikeCancelQuery = 'CALL usp_put_likesCancel(?, ?);'; // 좋아요 취소를 위한 쿼리 추가 (삭제)
 
         try {
             //웹툰의 영어이름을 받고 webtoonID 추출
@@ -29,13 +33,28 @@ const likeAPI = (server, getConn) => {
                 },
             });
             if (Response.data === '토큰 인증 성공' || Response.data === '카카오 토큰 인증 성공') { //인증 성공일 때 
-                //추출한 webtoonID와 userID를 좋아요 수정 쿼리에 삽입
-                const [Result] = await conn.query(LikeQuery, [UID, WID]);
-                //db에서 수행되어 행이 수정된 갯수 
-                if (Result.affectedRows > 0) { //1개 이상이면 좋아요 수정 성공
-                res.send("좋아요 추가"); 
-                } else {
-                res.status(500).json('좋아요를 이미 누르셨습니다'); 
+                const date = await conn.query(Query, [WID, UID]);
+                const [resultArray] = date; // 배열을 추출
+                const [resultObject] = resultArray; // 객체를 추출
+                const likes = resultObject.likes; // 좋아요 추출
+
+                if(likes === 0){ //좋아요를 안 눌렀을 경우
+                    //추출한 webtoonID와 userID를 좋아요 수정 쿼리에 삽입
+                    let [Result] = await conn.query(LikeQuery, [UID, WID]);
+                    //db에서 수행되어 행이 수정된 갯수 
+                    if (Result.affectedRows > 0) { //1개 이상이면 좋아요 수정 성공
+                        res.send("좋아요 추가"); 
+                        } else {
+                        res.status(500).json('좋아요 오류'); 
+                    }
+                }else if(likes === 1){ //좋아요를 눌렀을 경우
+                    [Result] = await conn.query(LikeCancelQuery, [UID, WID]);
+                    //db에서 수행되어 행이 수정된 갯수 
+                    if (Result.affectedRows > 0) { //1개 이상이면 좋아요 삭제 성공
+                        res.send("좋아요 삭제"); 
+                        } else {
+                        res.status(500).json('좋아요 오류'); 
+                    }
                 }
             } else {
                 res.status(401).send('로그인 하세요');
