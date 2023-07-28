@@ -9,7 +9,9 @@
 } */
 @media screen and (max-width:721px) and (min-width:362px) {
     /* 메인 */
-    
+    #ll{
+        width: 66% !important;
+    }
     .MainPage{
         width: 720px !important;
         margin: 0 auto;
@@ -258,6 +260,9 @@
         width: 80% !important;
         margin: 0 auto;
         
+    }
+    #ll{
+        width: 66% !important;
     }
     .AllToonInfo{
         margin-bottom: 25px !important;
@@ -578,5 +583,5 @@
 
 
 #ll{
-    width: 60% !important;
+    width: 61%;
 }
