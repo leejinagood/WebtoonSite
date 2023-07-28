@@ -26,7 +26,7 @@ const webtoonAPI = (server, getConn) => {
 
       const ID = rows[0].map((row) => row.webtoonID); // ID를 추출
 
-      const key = `webtoonKey:${pi_vch_condition}`; //redis의 고유 키값
+      const key = `webtoon${pi_vch_condition}`; //redis의 고유 키값
       let value = await redisClient.get(key); // redis에서 해당 key로 데이터 조회
 
       if (value) {
@@ -70,7 +70,7 @@ const webtoonAPI = (server, getConn) => {
       const [rows] = await conn.query(query, [word]);
       const ID = rows[0].map((row) => row.webtoonID); // ID를 추출
 
-      const key = `webtoonKey:${word}`; //redis의 고유 키값
+      const key = `webtoon_search:${word}`; //redis의 고유 키값
       let value = await redisClient.get(key); // redis에서 해당 key로 데이터 조회
 
 
