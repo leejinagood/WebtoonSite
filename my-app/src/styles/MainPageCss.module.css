@@ -248,7 +248,14 @@
 
 @media screen and (max-width:361px) and (min-width:10px) {
 
-    
+    .ATMT{
+        font-size: 6px !important;
+        margin-top: 3px;
+        width: 100%;
+        
+        position: relative !important;right: 10px;
+        
+    }
 
     /* 메인페이지  */
 
@@ -265,7 +272,7 @@
         width: 66% !important;
     }
     .AllToonInfo{
-        margin-bottom: 25px !important;
+        margin-bottom: 40px !important;
     }
 
     
@@ -584,4 +591,8 @@
 
 #ll{
     width: 61%;
+}
+.ATMT{
+    font-size: 9px;
+    color:gray;
 }
