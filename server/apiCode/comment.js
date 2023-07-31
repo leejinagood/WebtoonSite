@@ -22,7 +22,7 @@ const commentAPI = (server, getConn) => {
             }));
             res.send(comment); //댓글 내용을 응답으로
         } catch (error) {
-            // console.error(error);
+            //console.error(error);
             res.status(500).send({ error: '서버 스크립트의 오류' });
         } finally {
             conn.release(); // 연결 해제
@@ -64,7 +64,7 @@ const commentAPI = (server, getConn) => {
                 res.status(401).send('로그인 하세요');
             }
         } catch (error) {
-            // console.error(error);
+            console.error(error);
             res.status(500).json('입력 실패');
         } finally {
             conn.release();

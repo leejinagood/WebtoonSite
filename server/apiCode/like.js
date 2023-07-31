@@ -43,7 +43,7 @@ const likeAPI = (server, getConn) => {
                     let [Result] = await conn.query(LikeQuery, [UID, WID]);
                     //db에서 수행되어 행이 수정된 갯수 
                     if (Result.affectedRows > 0) { //1개 이상이면 좋아요 수정 성공
-                        res.send("좋아요 추가"); 
+                        res.send("1"); 
                         } else {
                         res.status(500).json('좋아요 오류'); 
                     }
@@ -51,7 +51,7 @@ const likeAPI = (server, getConn) => {
                     [Result] = await conn.query(LikeCancelQuery, [UID, WID]);
                     //db에서 수행되어 행이 수정된 갯수 
                     if (Result.affectedRows > 0) { //1개 이상이면 좋아요 삭제 성공
-                        res.send("좋아요 삭제"); 
+                        res.send("0"); 
                         } else {
                         res.status(500).json('좋아요 오류'); 
                     }

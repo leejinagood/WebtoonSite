@@ -17,19 +17,19 @@ const userAPI = (server, getConn) => {
     const valiPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
 
     try {
-      // 유효성 검사
-      if (!valiEmail.test(email)) {
-        res.status(400).json('이메일을 입력하세요');
-        return;
-      }
-      if (!valiPass.test(pass)) {
-          res.status(400).json('6자리 이상 입력하세요.');
-          return;
-      }
-      if (!name) {
-          res.status(400).json('이름을 입력해주세요');
-          return;
-      }
+      // // 유효성 검사
+      // if (!valiEmail.test(email)) {
+      //   res.status(400).json('이메일을 입력하세요');
+      //   return;
+      // }
+      // if (!valiPass.test(pass)) {
+      //     res.status(400).json('6자리 이상 입력하세요.');
+      //     return;
+      // }
+      // if (!name) {
+      //     res.status(400).json('이름을 입력해주세요');
+      //     return;
+      // }
 
       // 트랜잭션 시작
       await conn.beginTransaction(); 
@@ -67,60 +67,70 @@ const userAPI = (server, getConn) => {
 
   // 로그인 메서드
   server.get('/api/LoginPage', async (req, res) => {
-    const conn = await getConn();
-    const { ID, password } = req.query;
 
-    try {
-      // 아이디가 있는지 확인
-      const selectQuery = 'SELECT * FROM UserTable WHERE userEmail = ?;';
-      //아이디에 맞는 row를 selectUserResult 배열 변수에 저장
-      const [selectUserResult] = await conn.query(selectQuery, [ID]);
-      // 회원 정보가 없는 경우 
-      if (selectUserResult.length === 0) {
-        res.send('아이디가 없습니다');
-        return;
-      }
+    // const emailCookie = req.cookies.userEmail;
+    // const nameCookie = req.cookies.userName;
+    // const tokenCookie = req.cookies.token;
 
-      const { userPassword } = selectUserResult[0];
-      //입력한 비밀번호와 db에 저장된 비밀번호 일치하는지 
-      const isMatch = await bcrypt.compare(password, userPassword);
+    // //쿠키에 값이 없을 때만 로그인 가능
+    // if (!emailCookie || !nameCookie || !tokenCookie) {
+      const conn = await getConn();
+      const { ID, password } = req.query;
+      try {
+        // 아이디가 있는지 확인
+        const selectQuery = 'SELECT * FROM UserTable WHERE userEmail = ?;';
+        //아이디에 맞는 row를 selectUserResult 배열 변수에 저장
+        const [selectUserResult] = await conn.query(selectQuery, [ID]);
+        // 회원 정보가 없는 경우 
+        if (selectUserResult.length === 0) {
+          res.send('아이디가 없습니다');
+          return;
+        }
 
-      if (isMatch) {
-        // 비밀번호 일치
-        let token = "";
-        //jwt 회원 정보를 받은 후 토큰을 생성
-        token = jwt.sign(
-          { UserId: selectUserResult[0].userID, UserEmail: selectUserResult[0].userEmail },
-          'your-secret-key', // 비밀키
-          { expiresIn: '10m' } // 토큰 만료 시간 10분 설정
-        );
-        
-        // 쿠키로 헤더에 데이터를 담아 응답 보내기
-        res.setHeader('Set-Cookie', [
-          `userName=${selectUserResult[0].userName}`,
-          `userEmail=${selectUserResult[0].userEmail}`,
-          `token=${token}`
-        ]);
+        const { userPassword } = selectUserResult[0];
+        //입력한 비밀번호와 db에 저장된 비밀번호 일치하는지 
+        const isMatch = await bcrypt.compare(password, userPassword);
 
-        // 유저 닉네임과 유저 이메일, 토큰을 응답으로
-        res.send({
-          userName: selectUserResult[0].userName,
-          userEmail: selectUserResult[0].userEmail,
-          token: token
-        });
+        if (isMatch) {
+          // 비밀번호 일치
+          let token = "";
+          //jwt 회원 정보를 받은 후 토큰을 생성
+          token = jwt.sign(
+            { UserId: selectUserResult[0].userID, UserEmail: selectUserResult[0].userEmail },
+            'your-secret-key', // 비밀키
+            { expiresIn: '10m' } // 토큰 만료 시간 10분 설정
+          );
+          
+          // 쿠키로 헤더에 데이터를 담아 응답 보내기
+          res.setHeader('Set-Cookie', [
+            `userName=${selectUserResult[0].userName}`,
+            `userEmail=${selectUserResult[0].userEmail}`,
+            `token=${token}`
+          ]);
 
-        //디버깅용 콘솔 출력
-        // console.log(selectUserResult[0].userName,selectUserResult[0].userEmail, token);
-      } else {
-        // 비밀번호 불일치 응답을 "" 로
-        res.send();
-      }
-    } catch (error) {
-      console.error(error);
-      res.status(500).json('로그인 실패');
-    } finally {
-      conn.release();
-    } 
+          // 유저 닉네임과 유저 이메일, 토큰을 응답으로
+          res.send({
+            userName: selectUserResult[0].userName,
+            userEmail: selectUserResult[0].userEmail,
+            token: token
+          });
+
+          //디버깅용 콘솔 출력
+          // console.log(selectUserResult[0].userName,selectUserResult[0].userEmail, token);
+        } else {
+          // 비밀번호 불일치 응답을 "" 로
+          res.send();
+        }
+      } catch (error) {
+        console.error(error);
+        res.status(500).json('로그인 실패');
+      } finally {
+        conn.release();
+      } 
+    // } else {
+    //   // 쿠키에 이미 값이 있을 때
+    //   res.send('이미 로그인되어 있습니다');
+    // }
   });
 
 
@@ -131,6 +141,13 @@ const userAPI = (server, getConn) => {
 
   //카카오 로그인 
   server.get('/api/Kakao', async (req, res) => {
+    // const emailCookie = req.cookies.userEmail;
+    // const nameCookie = req.cookies.userName;
+    // const tokenCookie = req.cookies.token;
+
+    // //쿠키에 값이 없을 때만 로그인 가능
+    // if (!emailCookie || !nameCookie || !tokenCookie) {
+
     const { code } = req.query; // 클라이언트에서 받은 카카오 인증 코드
     
     const conn = await getConn();
@@ -221,7 +238,11 @@ const userAPI = (server, getConn) => {
     } catch (error) {
       // console.error(error);
       res.status(500).json('카카오 로그인 실패');
-    }
+    }    
+    // } else {
+    //   // 쿠키에 이미 값이 있을 때
+    //   res.send('이미 로그인되어 있습니다');
+    // }
   });
   
 
