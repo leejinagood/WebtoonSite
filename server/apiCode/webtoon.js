@@ -13,14 +13,15 @@ const webtoonAPI = (server, getConn) => {
     const webtoonQuery = 'CALL usp_get_webtoonDetail_ID(?);'; // ID를 받아와 웹툰 정보를 출력하는 SP
 
     try {
-      const key = `webtoon : ${pi_vch_condition}`; // Redis의 고유 키값
-      let value = await redisClient.get(key); // Redis에서 해당 key로 데이터 조회
+      const key = `webtoon : ${pi_vch_condition}`; // redis 고유 키값
+      let value = await redisClient.get(key); // 해당 키값으로 데이터 조회
 
       if (value) {
         // 만약 redis에 데이터가 있다면 그대로 반환 
-        res.send(JSON.parse(value)); // 문자열을 객체로 변환하여
-      } else {
+        res.send(JSON.parse(value)); // 문자열로 파싱
+      } else { // 만약 redis에 데이터가 없다면 db에서 조회
         let rows;
+        //서버에서 나눌지, db에서 나눌지
         if (pi_vch_condition === 'All') {
           [rows] = await conn.query('CALL usp_get_AllWebtoons();'); // All일 때 웹툰 전체
         } else if (pi_vch_condition === 'rank') {
@@ -30,9 +31,8 @@ const webtoonAPI = (server, getConn) => {
         } else {
           [rows] = await conn.query('CALL usp_get_WebtoonsByDay(?);', [pi_vch_condition]); // 요일받는 파라미터
         }
-  
         const ID = rows[0].map((row) => row.webtoonID); // ID를 추출
-        // 만약 redis에 데이터가 없다면 db에서 조회
+
         const webtoonDetails = [];
         for (const webtoonID of ID) { // 요일별 웹툰과 신규 웹툰 전부 ID를 받음.
           const [rows] = await conn.query(webtoonQuery, [webtoonID]);
@@ -43,7 +43,6 @@ const webtoonAPI = (server, getConn) => {
             thumbnail: row.webtoonThumbnail, // 웹툰 썸네일을 추출
             author: row.webtoonAuthor, // 웹툰 작가 추출
             week: row.webtoonWeek, // 무슨 요일에 연재하는지
-            like: row.LikesCount // 좋아요 갯수
           });
         }
         await redisClient.set(key, JSON.stringify(webtoonDetails)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
@@ -70,7 +69,7 @@ const webtoonAPI = (server, getConn) => {
 
       if (value) {
         // 만약 redis에 데이터가 있다면 그대로 반환 
-        res.send(JSON.parse(value)); //문자열을 객체로 변환하여
+        res.send(JSON.parse(value)); //문자열로 파싱
       } else {
         const [rows] = await conn.query(query, [word]);
         const ID = rows[0].map((row) => row.webtoonID); // ID를 추출

@@ -52,12 +52,12 @@ const webtoonListAPI = (server, getConn) => {
     });
 
 
-    //웹툰 에피소드 리스트에 사용될 부분 (오름차순 내림차순 포함)
+    //웹툰 에피소드 리스트에 사용될 부분 
     server.get('/api/webtoonlist', async (req, res) => {
         const conn = await getConn();
         const { EnName, sort } = req.query; // 영어이름과 sort 파라미터를 받아옴
         const query = 'CALL usp_get_webtoonID_EnName(?);'; //웹툰의 영어이름을 받고 webtoonID 추출
-        const webtoonQuery = 'CALL usp_get_WebtoonEpisode(?, ?);'; // ID를 받아와 웹툰 정보를 출력하는 SP
+        const webtoonQuery = 'CALL usp_get_WebtoonEpisode(?, ?);'; // ID와 ASC, DESC를 받아와 웹툰 정보와 순서를 출력하는 SP
         
         try {
             const key = `webtoon_list : ${EnName}`; //redis의 고유 키값
@@ -77,7 +77,7 @@ const webtoonListAPI = (server, getConn) => {
                         webtoonDetails.push({
                         webtoon_name: row.webtoonName, // 웹툰 제목과
                         webtoon_en_name: row.webtoonEnName, // 웹툰 영어 제목과
-                        episode_number: row.episodeNumber, //에피소드 이름과
+                        episode_number: row.episodeNumber, //에피소드 번호와
                         episode_thumbnail: row.episodeThumbnail, //에피소드 각 화마다의 썸네일
                         update: row.uploadDate, // 업로드 날짜
                         count: row.countEpisode // 총 에피소드 화

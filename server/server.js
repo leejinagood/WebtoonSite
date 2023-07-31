@@ -61,11 +61,11 @@ userAPI(server, getConn);
 const webtoonListAPI = require('./apiCode/webtoonList');
 webtoonListAPI(server, getConn);
 
-// 웹툰 목록 api 
+// 웹툰 등록 api 
 const webtoonAddApi = require('./apiCode/webtoonAdd');
 webtoonAddApi(server, getConn);
 
 //http://localhost:4000/ 접속
 server.listen(port, () => {
-  console.log("페이지 구동 시작"); // 로그 기록
+  console.log("---------------------------구동 시작---------------------------"); // 로그 기록
 });
