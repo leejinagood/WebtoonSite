@@ -30,6 +30,7 @@ return (
           <Thumbnail className={style.ATimg} day={webtoon} />
           <div className={style.ATtext}>
           <p className={style.AToonTitle}>{webtoon.webtoon_name}</p>
+          <p className={style.ATMT}> {webtoon.author} / ⭐️{webtoon.like}</p>
           </div>
           
         </Link>
