@@ -67,5 +67,5 @@ webtoonAddApi(server, getConn);
 
 //http://localhost:4000/ 접속
 server.listen(port, () => {
-  console.log("페이지 구동 시작"); // 로그 기록
+  console.log("---------------------------구동 시작---------------------------"); // 로그 기록
 });

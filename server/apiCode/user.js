@@ -7,7 +7,6 @@ const userAPI = (server, getConn) => {
   const axios = require('axios'); 
 
   // 회원가입 메서드
-  // 이메일, 비번, 닉네임 등 유효성 검사하는 로직 구현해야 됨.
   server.post('/api/SignUpPage', async (req, res) => {
     const conn = await getConn();
     const { email, pass, name, age } = req.body;
