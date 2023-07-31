@@ -1,13 +1,13 @@
 import React from "react";
 import Link from "next/link";
-import TagCss from "./styles/TagCss.css";
+import style from "./styles/TagCss.module.css";
 
 const Tag =()=>{
 
     return(
-        <div className="tag">
-        <h3 className="Categories" id="tagtop">웹툰 바로가기</h3>
-            <div className="tagItem">
+        <div className={style.tag}>
+        <h3 className={style.Categories} id={style.tagtop}>웹툰 바로가기</h3>
+            <div className={style.tagItem}>
                 <Link href="/serachwebtoonpage?word=로멘스"><li>#로멘스</li></Link>
                 <Link href="/serachwebtoonpage?word=액션"><li>#액션</li></Link>
                 <Link href="/serachwebtoonpage?word=무협"><li>#무협</li></Link>
