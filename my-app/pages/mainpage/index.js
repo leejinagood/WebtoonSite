@@ -1,11 +1,11 @@
 import React,{useEffect} from "react";
-import style from "../src/styles/MainPageCss.module.css";
-import Header from ".././src/Header/header";
-import Footer from ".././src/Footer/footer";
-import NewToon from ".././src/Component/NewToon";
-import Tag from ".././src/Component/Tag/Tag";
+import style from "../../src/styles/MainPageCss.module.css";
+import Header from "../../src/Header/header";
+import Footer from "../../src/Footer/footer";
+import NewToon from "../../src/Component/NewToon";
+import Tag from "../../src/Component/Tag/Tag";
 import Head from 'next/head';
-import AllToonInfo from ".././src/Component/AllToonInfo";
+import AllToonInfo from "../../src/Component/AllToonInfo";
 import { useRouter } from "next/router";
 import { parseCookies } from 'nookies'; // nookies 라이브러리 import
 

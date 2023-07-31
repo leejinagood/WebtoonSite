@@ -13,7 +13,18 @@ module.exports = {
   // 기본적인  PWA 설정   //나중에 true 로 바꿔야함
   pwa: { 
     dest: 'public',
-    register: false,
+    register: true,
     skipWaiting: true,
   },
+
+  // 기본 경로를 /mainpage로 설정
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/',
+  //       destination: '/mainpage',
+  //       permanent: true,
+  //     },
+  //   ];
+  // },
 };

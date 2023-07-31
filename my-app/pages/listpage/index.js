@@ -211,6 +211,8 @@ const handleLike = async () => {
           ...prevInfo,
           like: prevInfo.like + 1, // 현재 좋아요 개수에 1을 더해 업데이트
         }));
+        window.alert("like up");
+
 
         // 누른 웹툰을 로컬 스토리지에 기록합니다.
         // localStorage.setItem("likedWebtoons", JSON.stringify([...likedWebtoons, EnName]));
@@ -221,6 +223,8 @@ const handleLike = async () => {
           ...prevInfo,
           like: prevInfo.like - 1, // 현재 좋아요 개수에 1을 더해 업데이트
         }));
+        window.alert("like cancel");
+
 
         // 누른 웹툰을 로컬 스토리지에 기록합니다.
         // localStorage.setItem("likedWebtoons", JSON.stringify([...likedWebtoons, EnName]));
