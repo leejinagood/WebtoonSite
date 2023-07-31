@@ -71,6 +71,13 @@ const likeAPI = (server, getConn) => {
                               console.log(reply);
                             }
                         });
+                        redisClient.del(`webtoon : rank`, (err, reply) => {
+                            if (err) {
+                              console.error(err);
+                            } else {
+                              console.log(reply);
+                            }
+                        });
 
                         // // 좋아요를 한 번 누를 때마다 redis의 likes 값을 +1 증가시킴
                         // redisClient.INCRBY(`webtoon_detail : ${EnName}`, "likes", 1 ,(err, reply) => {
@@ -114,6 +121,14 @@ const likeAPI = (server, getConn) => {
                               console.log(reply);
                             }
                         });
+                        redisClient.del(`webtoon : rank`, (err, reply) => {
+                            if (err) {
+                              console.error(err);
+                            } else {
+                              console.log(reply);
+                            }
+                        });
+
                     } else {
                         res.status(500).json('좋아요 오류'); 
                     }
