@@ -6,7 +6,6 @@ import Router from "next/router";
 import {REDIRECT_URL} from "/src/OAuth.js";
 import {Kakao_Auth_Url} from "/src/OAuth.js";
 import {CLIENT_ID} from "/src/OAuth.js";
-import { parseCookies } from "nookies"; // nookies 라이브러리 import
 
 
 const LoginPage = () => {
@@ -82,41 +81,34 @@ const LoginPage = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+  
 
 
-    function getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) {
-        return parts.pop().split(";").shift();
-      }
-      return null;
-    }
+  useEffect(() => {
     // 쿠키에 저장된 정보를 가져오기
-    const cookies = parseCookies();
-    const userEmail = cookies.userEmail;
-    const userName = cookies.userName;
-    const token = cookies.token;
-
-    // 쿠키에 정보가 있을 경우 상태에 저장
+    const userEmail = getCookie("userEmail");
+    const userName = getCookie("userName");
+    const token = getCookie("token");
+  
     if (userEmail && userName && token) {
+      // 쿠키에 저장된 정보가 있을 경우, 해당 정보를 상태에 저장
       setUserEmail(userEmail);
       setUserName(userName);
       sessionStorage.setItem("userEmail", userEmail);
       sessionStorage.setItem("userName", userName);
       sessionStorage.setItem("token", token);
     }
-  };
+  }, []);
 
-
-  // function getCookie(name) {
-  //   const value = `; ${document.cookie}`;
-  //   const parts = value.split(`; ${name}=`);
-  //   if (parts.length === 2) {
-  //     return parts.pop().split(";").shift();
-  //   }
-  //   return null;
-  // }
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop().split(";").shift();
+    }
+    return null;
+  }
 
 
   return (
