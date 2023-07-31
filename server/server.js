@@ -61,7 +61,7 @@ userAPI(server, getConn);
 const webtoonListAPI = require('./apiCode/webtoonList');
 webtoonListAPI(server, getConn);
 
-// 웹툰 목록 api 
+// 웹툰 등록 api 
 const webtoonAddApi = require('./apiCode/webtoonAdd');
 webtoonAddApi(server, getConn);
 

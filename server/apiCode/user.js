@@ -199,7 +199,7 @@ const userAPI = (server, getConn) => {
       ];
 
       // 쿠키에 저장
-      res.header('Set-Cookie', cookieValue);
+      res.setHeader('Set-Cookie', cookieValue.join(';'));
 
       //email과 동일한 행이 존재하는지
       const selectQuery = "select userEmail from UserTable where userEmail = ?;";
@@ -320,14 +320,29 @@ const userAPI = (server, getConn) => {
 
   // 로그아웃 메서드
   server.post('/api/logout', async (req, res) => {
-    res.setHeader('Set-Cookie', [ //걍 쿠키에 저장된 모든 값을 없앰
-    // 쿠키 만료일을 과거로 설정해서 값을 제거함
-      `KakaoToken=; expires=Thu, 01 Jan 2023 00:00:00 UTC; path=/api;`,
-      `userName=; expires=Thu, 01 Jan 2023 00:00:00 UTC; path=/api;`,
-      `userEmail=; expires=Thu, 01 Jan 2023 00:00:00 UTC; path=/api;`,
-      `token=; expires=Thu, 01 Jan 2023 00:00:00 UTC; path=/api;`,
-    ]);
-    res.send('로그아웃 되었습니다.');
+    const cookies = req.headers.cookie;
+    const Ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
+    try {
+      if(Ktoken){
+      // 카카오 로그아웃 api 호출
+      await axios.post('https://kapi.kakao.com/v1/user/logout', null, {
+        headers: {
+          Authorization: `Bearer ${Ktoken}`
+        }
+      });
+    }
+      // 쿠키 삭제
+      res.setHeader('Set-Cookie', [
+        `KakaoToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api;`,
+        `userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api;`,
+        `userEmail=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api;`,
+        `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api;`
+      ]);
+      res.send('로그아웃 성공');
+    } catch (error) {
+      console.error('카카오 로그아웃 실패:', error.message);
+      res.status(500).json('로그아웃 실패');
+    }
   });
   
 }
