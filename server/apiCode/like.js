@@ -11,7 +11,7 @@ const likeAPI = (server, getConn) => {
         const conn = await getConn();
 
         const { EnName, UserEmail } = req.body; //영어이름과 유저 이메일을 받아옴
-        const values = [EnName, UserEmail];
+        const values = [EnName, UserEmail]; //redis에 키 값 설정하기 위해..
         const webtoonIDquery = 'CALL usp_get_webtoonID_EnName(?);'; //webtoonID 추출 sp
         const userIDquery = 'CALL usp_get_userID(?);'; //UserUD 추출 sp
 
