@@ -1,0 +1,40 @@
+.SignUpPage{
+  width: 360px;
+  margin: 0 auto;
+  margin-top: 7%;
+  height: 600px;
+  text-align: center;
+}
+.MB{
+  margin-bottom: 30px;
+}
+.SignBtn{
+  float: left;
+  height: 35px;
+  width: 70%;
+  margin: 0 auto;
+  margin-left: 15%;
+  margin-top: 20px;
+}
+.SignUpBox{
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 20%;
+  border: 1px solid #000;
+  height: 500px;
+}
+
+.SignUpBox label{
+  text-align: left;
+  float: left;
+  width: 30%;
+  margin-left: 6%;
+}
+.SignUpBox input{
+  width: 50%;
+  float: left;
+  height: 30px;
+}
+.SignUpPage h2{
+  margin-top: 20%;
+}
