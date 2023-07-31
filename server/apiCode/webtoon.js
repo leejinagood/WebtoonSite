@@ -43,6 +43,7 @@ const webtoonAPI = (server, getConn) => {
             thumbnail: row.webtoonThumbnail, // 웹툰 썸네일을 추출
             author: row.webtoonAuthor, // 웹툰 작가 추출
             week: row.webtoonWeek, // 무슨 요일에 연재하는지
+            like: row.LikesCount // 좋아요 갯수
           });
         }
         await redisClient.set(key, JSON.stringify(webtoonDetails)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
