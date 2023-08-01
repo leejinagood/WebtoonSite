@@ -26,6 +26,7 @@ const webtoonAPI = (server, getConn) => {
 
         if (pi_vch_condition === 'All') { // All일 때 웹툰 전체
           res.send(row);
+          console.log(row);
         } else if (pi_vch_condition === 'rank') { // rank일 때 웹툰 좋아요 상위 top5
           res.send(row);
         } else if(row.week === pi_vch_condition) { // 요일받는 파라미터

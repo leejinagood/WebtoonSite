@@ -26,10 +26,10 @@ return (
   <div className={style.ATBox}>
     {webtoons.length > 0 && webtoons.map((webtoon, index) => (
       <div className={style.AllToonInfo} key={index}>
-        <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoon_en_name)}`}>
+        <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}`}>
           <Thumbnail className={style.ATimg} day={webtoon} />
           <div className={style.ATtext}>
-          <p className={style.AToonTitle}>{webtoon.webtoon_name}</p>
+          <p className={style.AToonTitle}>{webtoon.webtoonName}</p>
           <p className={style.ATMT}> {webtoon.author} </p>
           </div>
           
