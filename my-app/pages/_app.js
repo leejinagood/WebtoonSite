@@ -27,10 +27,19 @@ function MyApp({ Component, pageProps }) {
         font-family: 'Jua', sans-serif;
         text-decoration-style: none;
         text-decoration: none;        color: inherit;
-        width: 360px;
         margin:  0 auto;
     }
     @media screen and (max-width:361px) and (min-width:10px) {
+      *{
+          width:80%;
+      }
+    }
+    @media screen and (max-width:421px) and (min-width:362px) {
+      *{
+          width:80%;
+      }
+    }
+    @media screen and (max-width:721px) and (min-width:422px) {
       *{
           width:80%;
       }
