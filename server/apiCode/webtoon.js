@@ -13,6 +13,7 @@ const webtoonAPI = (server, getConn) => {
     const webtoonQuery = 'CALL usp_get_webtoonDetail_ID(?);'; // ID를 받아와 웹툰 정보를 출력하는 SP
 
     try {
+      //키를 좋아요 수정하면 삭제 후 반영할 수 있도록 ID로 나눠야 하나?
       const key = `webtoon : ${pi_vch_condition}`; // redis 고유 키값
       let value = await redisClient.get(key); // 해당 키값으로 데이터 조회
 
