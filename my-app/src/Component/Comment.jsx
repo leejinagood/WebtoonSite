@@ -1,3 +1,8 @@
+// CommetCss.module.css
+// 해당 파일은 스타일 시트로 Comment 컴포넌트에서 사용되는 스타일이 정의된 파일입니다.
+// 필요한 스타일 시트를 작성하셔서 사용하시면 됩니다.
+
+// Comment.js
 import React, { useEffect, useState, useRef } from "react";
 import styles from "./CommetCss.module.css";
 
@@ -5,15 +10,13 @@ const Comment = ({ webtoonName, episodeNumber }) => {
   const [comments, setComments] = useState([]);
   const [UserEmail, setUserEmail] = useState("");
 
+  const commentInputRef = useRef(null);
 
-
-  const commentInputRef = useRef(null); // useRef 훅을 사용하여 참조
   console.log("comnent EnName:" + webtoonName + "Ep" + episodeNumber);
 
   const submitComment = () => {
-    const commentContent = commentInputRef.current.value; // 참조한 요소의 value 가져옴
-    console.log(commentContent);
-    // 서버로 데이터 전송
+    const commentContent = commentInputRef.current.value;
+
     fetch('/api/comment_insert', {
       method: 'POST',
       headers: {
@@ -23,25 +26,19 @@ const Comment = ({ webtoonName, episodeNumber }) => {
         WebEnName: webtoonName,
         Ep: episodeNumber,
         UserEmail: UserEmail,
-        content: commentContent, // 댓글 내용으로 수정
+        content: commentContent,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // 성공적으로 업로드되었을 때의 처리
-        // 업로드가 성공했다는 메시지를 사용자에게 표시할 수 있습니다.
-        console.log(webtoonName , episodeNumber , UserEmail , commentContent);
-        // 새로운 코멘트 컨텐츠를 리스트에 추가
-        setComments((prevComments) => [...prevComments, data]); // data를 comments에 추가
+        console.log(data);
+        setComments((prevComments) => [...prevComments, data]);
         loadComments();
-
       })
       .catch((error) => {
         console.error("Error uploading comment:", error);
       });
   };
-
-
 
   const loadComments = () => {
     fetch(`/api/commentlist?EnName=${webtoonName}&ep=${episodeNumber}`)
@@ -55,31 +52,20 @@ const Comment = ({ webtoonName, episodeNumber }) => {
       });
   };
 
-
   useEffect(() => {
+    if (webtoonName && episodeNumber) {
 
     setUserEmail(sessionStorage.getItem("userName"));
-
-    fetch(`/api/commentlist?EnName=${webtoonName}&ep=${episodeNumber}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const  comment  = data.comment;
-
-        // API 응답으로 받아온 코멘트 목록을 comments 상태에 업데이트
-        setComments(comment);
-      })
-      .catch((error) => {
-        console.error("Error fetching API:", error);
-      });
+    loadComments();
+    }
   }, [webtoonName, episodeNumber]);
-
 
   return (
     <div className={styles.CommentComponent}>
       <div className={styles.Comment}>
         <div className={styles.CommentList}>
           <ul>
-            {comments && comments.length > 0 ? ( // Check if comments is not undefined
+            {comments && comments.length > 0 ? (
               comments.map((comment, index) => (
                 <li key={index}>
                   <span className={styles.NameDay}>
@@ -107,7 +93,6 @@ const Comment = ({ webtoonName, episodeNumber }) => {
       </div>
     </div>
   );
-
 };
 
 export default Comment;

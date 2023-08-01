@@ -3,6 +3,9 @@
     .ListPage{
         width: 720px !important;
     }
+    .TextBox{
+        height: 70px !important;
+    }
     .Pagination{
         position: relative;
         right: 50px;
@@ -23,8 +26,9 @@
         width: 65% !important;
     }
     .InfoBtn{
-        margin: 0 auto !important;
         width: 100% !important;
+        height: 120px !important;
+
         margin-top: 3% !important;
     }
 
@@ -196,7 +200,9 @@
         right: 33px !important;
     }
     .InfoBtn{
-        width: 80% !important;
+        width: 94.5% !important;
+        float: left;
+        margin: 0 !important;
     }
     #PointBtn{
         width: 100% !important;
@@ -220,11 +226,7 @@
         width: 43% !important;
         margin-left: 5px;
     }
-    .InfoBtn{
-        margin: 0 auto !important;
-        width: 100% !important;
-        margin-top: 6% !important;
-    }
+
 
 
 
@@ -239,7 +241,7 @@
         width: 84.4% !important;
     }
     .TextBox{
-        height: 100px;
+        height: 80px !important;
         float: left;
         width: 94.5% !important;
         margin: 0 auto;
@@ -358,7 +360,7 @@
     width: 20%;
 }
 .TextBox{
-    height: 150px;
+    height: 100px;
     font-size: 1vw;
     width: 100%;
     float: left;
@@ -369,9 +371,7 @@
 
 .InfoBtn{
     width: 100%;
-    float: left;
-    margin-top: 4%;
-
+    margin-top: 110px;
 }
 
 .IBtn{

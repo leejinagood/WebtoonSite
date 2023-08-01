@@ -17,43 +17,46 @@ const WebtoonPage = () => {
   const [count, setCount] = useState(1);
   const [webtoonImages, setWebtoonImages] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`/api/webtoon?EnName=${EnName}&ep=${ep}`);
-        const data = await response.json();
-        const [webtoonData] = data; // 첫 번째 웹툰 데이터를 가져옴
-        setSelectedWebtoon(webtoonData);
-        setWebtoons(data);
-        setCount(webtoonData?.count || 0); // count 값 설정
-      } catch (error) {
-        console.error("API 호출 오류:", error);
-      }
-    };
-  
-    const fetchImg = async (count) => {
-      const images = [];
-      // webtoonImages 설정
-      for (let i = 1; i <= count; i++) {
-        const response = await fetch(
-          `/WebtoonImg/${EnName}/${ep}/${EnName}_${ep}_${i}.png`
-        );
-        
-        const blob = await response.blob();
-        const imageUrl = URL.createObjectURL(blob);
-        images.push(imageUrl);
-      }
-      setWebtoonImages(images);
-    };
-  
-    if (EnName && ep) {
-      fetchData().then(() => {
-        // API 호출이 완료된 후에 fetchImg 실행
-        fetchImg(count);
-      });
+// 웹툰 데이터를 가져오는 useEffect
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`/api/webtoon?EnName=${EnName}&ep=${ep}`);
+      const data = await response.json();
+      const [webtoonData] = data; // 첫 번째 웹툰 데이터를 가져옴
+      setSelectedWebtoon(webtoonData);
+      setWebtoons(data);
+      setCount(webtoonData?.count || 0); // count 값 설정
+    } catch (error) {
+      console.error("API 호출 오류:", error);
     }
-  }, [EnName, ep, count]);
+  };
 
+  if (EnName && ep) {
+    fetchData();
+  }
+}, [EnName, ep]);
+
+// 웹툰 이미지를 가져오는 useEffect
+useEffect(() => {
+  const fetchImg = async (count) => {
+    const images = [];
+    // webtoonImages 설정
+    for (let i = 1; i <= count; i++) {
+      const response = await fetch(
+        `/WebtoonImg/${EnName}/${ep}/${EnName}_${ep}_${i}.png`
+      );
+      const blob = await response.blob();
+      const imageUrl = URL.createObjectURL(blob);
+      images.push(imageUrl);
+    }
+    setWebtoonImages(images);
+  };
+
+  if (EnName && ep && count) {
+    fetchImg(count);
+  }
+}, [EnName, ep, count]);
 
   const handleWebToonCutClick = (webtoon) => {
     setSelectedWebtoon(webtoon);
@@ -68,6 +71,16 @@ const WebtoonPage = () => {
     }, 2500);
   };
 
+
+    // 클릭레이아웃의 exists 값을 계산하는 함수
+    const calculateExists = () => {
+      if (count === null || count === undefined) return 0; // count가 없는 경우
+      const episodeNum = parseInt(ep, 10);
+      return episodeNum < count ? 1 : 0;
+    };
+  
+    // 클릭레이아웃의 exists 값 계산
+    const exists = calculateExists();
   const handleScreenClick = useCallback(() => {
     setIsVisible((prevIsVisible) => !prevIsVisible);
   }, []);
@@ -91,6 +104,7 @@ const WebtoonPage = () => {
           webtoonName={EnName}
           episodeNumber={ep}
           maxEp={count}
+          exists={exists}
         />
       )}
       <Comment webtoonName={EnName} episodeNumber={ep} />

@@ -17,9 +17,6 @@
         margin-bottom: -6px !important;
 
     }
-    .WebToonCut img {
-        margin-left: 20% !important;
-    }
 
 }
 /* teset */
@@ -50,9 +47,6 @@
         float: left;
     }
 
-    .WebToonCut img{
-        margin-left: 24% !important;
-    }
 
 }
 .WebToonPage{
@@ -67,11 +61,12 @@
 .WebToonCut{
     width: 100%;
     margin: 0 auto;
+    float: left !important;
+
     margin-bottom: -5px;
 }
 .WebToonCut img{
+    width: 100%;
     object-fit: contain;
-    margin: 0;
-    padding: 0;
 }
 

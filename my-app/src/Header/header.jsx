@@ -10,6 +10,11 @@ const Header = () => {
   const [webtoonData, setWebtoonData] = useState([]);
   const router = useRouter();
   let token;
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    // 클라이언트 사이드에서 실행되도록 설정
+    setIsClient(true);
+  }, []);
 
   if (typeof window !== 'undefined') {
     // 브라우저 환경에서만 sessionStorage에 접근
@@ -43,15 +48,23 @@ const Header = () => {
     router.push("/");
   };
 
+  // const response = await axios.get("/api/Token",
+  // {
+  //   headers: {
+  //     Cookie: cookies // 클라이언트에서 전달된 쿠키를 그대로 요청 헤더에 포함
+  //   }});
+  
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const response = await axios.get("/api/Token");
+
+        const response = await axios.get("/api/Token")
         if (response.status === 200) {
           setUserId(response.data.userId);
           console.log("유저네임:",sessionStorage.getItem("userName") );
-          console.log("토큰:", sessionStorage.getItem("token"));
+        
           setUser(sessionStorage.getItem("userName"));
+          console.log("토큰:", sessionStorage.getItem("token"));
         } else {
           setUserId(null);
           console.log("토큰:", sessionStorage.getItem("token"));
@@ -61,7 +74,10 @@ const Header = () => {
       }
     };
 
-    checkLoginStatus();
+    // 클라이언트 사이드에서만 실행
+    if (typeof window !== "undefined") {
+      checkLoginStatus();
+    }
   }, []);
 
 
@@ -103,21 +119,22 @@ const Header = () => {
                     onKeyPress={handleKeyPress}
                     placeholder="작가/제목으로 검색할 수 있습니다."
                   />
-                  <div className={style.BTN}>
+              <div className={style.BTN}>
+                {isClient && ( // 클라이언트 사이드에서만 렌더링
+                  <>
                     <button type="submit" className={style.SerchBtn}>검색</button>
                     {token ? (
                       <>
                         <p onClick={handleLogout} className={style.LoginBtn}>{user}</p>
-                        {/* <button onClick={handleLogout} className="LogoutBtn">
-                          로그아웃
-                        </button> */}
                       </>
                     ) : (
                       <Link href="/loginpage">
                         <p className={style.LoginBtn}>login</p>
                       </Link>
                     )}
-                  </div>
+                  </>
+                )}
+              </div>
                 </div>
               </form>
             </div>

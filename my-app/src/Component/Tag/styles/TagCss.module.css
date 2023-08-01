@@ -1,15 +1,9 @@
-
 .tag{
     float: left;
-    width: 360px;
-    margin: 0 auto;
-}
-.tagItem{
     width: 100%;
-    float: left;
 }
 .tag .tagItem li{
-    width: 16%;
+    width: 20%;
     float: left;
     height: 0.3vw;
     line-height: 0.5vw;
@@ -18,7 +12,7 @@
     margin-bottom: 0.5vw;
     list-style: none;
     text-align: center;
-    font-size: 0.1vw;
+    font-size: 12px;
     background-color: rgb(230, 226, 226);
     padding: 10px;
     border-radius: 10px;
@@ -26,21 +20,22 @@
 
 
 .tag h3{
-    font-size: 1vw;
-    width: 90%;
+    font-size: 16px;
+    width: 100%;
     height: 2vw;
     margin-bottom: 15px;
 }
 
 @media screen and (max-width:721px) and (min-width:363px){
     .tag{
-        width: 80%;
+        width: 80% !important;
+        float: left !important;
     }
     .tagItem{
         width: 100%;
     }
     .tagItem li{
-        width: 17% !important;
+        width: 18.5% !important;
         margin-bottom: 15px !important;
         margin-left: 17ㅈpx !important;
     }
@@ -49,25 +44,32 @@
 
 @media screen and (max-width:362px) and (min-width:30px){
     .tag{
-        width: 80%;
+        width: 100% !important;
     }
 
-    .tagItem li{
-        margin-right: 2px !important;
-        margin-bottom: 15px !important;
+    .tagItem{
+        float: left;
     }
-    .tah h3{
-    }
+   
     .tag .tagItem li{
-        width: 15%;
-
+        margin-right: 2px !important;
+        margin-bottom: 7px !important;
+        width: 14% !important;
+        font-size: 10px !important;
     }
     #tagtop{
-        margin-top: 15px !important;
-        margin-bottom: 15px !important;
+        float: left !important;
+        margin-top: 0px !important;
+        margin-bottom: 30px !important;
     }
 }
-
+.tag{
+    width: 100%;
+}
 #tagtop{
-    margin-top: 30px;
+    margin-top: 0px;
+}
+.tag h3{
+    font-size: 16px;
+    float: left;
 }

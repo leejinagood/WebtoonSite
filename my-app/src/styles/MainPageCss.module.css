@@ -29,7 +29,7 @@
         margin-right: 1%;
     }
     .AllToonInfo img{
-        width: 50.5% !important;
+        width: 100% !important;
     }
     .AllTonnbox{
 
@@ -182,10 +182,7 @@
         display: flex;
         flex-wrap: wrap; /* 요소들을 여러 줄로 감싸기 */
     }
-    .AllToonInfo img{
-        width: 40vw !important; /* 이미지를 부모 요소에 꽉 차게 설정 */
-        height: 18vw !important; /* 이미지 비율 유지 */
-    }
+
 
     /* 데이페이지 */
     .DayBox{
@@ -294,7 +291,9 @@
         width: 80% !important;
         
     }
-
+    .AllToonInfo img{
+        width: 100% !important;
+    }   
     .DayToonItem{
         width: 100% !important;
     }
@@ -402,6 +401,9 @@
     margin-bottom: 10px;
 }
 
+.MainPage{
+    width: 80%;
+}
 
 .AllToon{
     width: 100%;
@@ -430,9 +432,11 @@
 }
 
 .AllToonInfo {
-    width: calc(33.33% - 25px); /* 각 요소의 너비를 33.33%로 설정 (여백 10px 제외) */
+    width: 13%;
+    /* width: calc(33.33% - 25px); 각 요소의 너비를 33.33%로 설정 (여백 10px 제외) */
     margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
   }
+
 .ATBox {
     display: flex;
     flex-wrap: wrap; /* 넘치는 요소를 여러 줄로 감싸기 */
@@ -463,17 +467,21 @@
     /* width: calc(50% - 15px); 전체 너비에서 Rank 영역의 너비와 여백을 뺀 값으로 설정 */
     float: left;
 }
-
-
+.DayBox{
+    width: 80%;
+}
 .DayToonBox{
     flex-wrap: wrap;
-    width: calc(45% - 10px); /* 전체 너비에서 Rank 영역의 너비와 여백을 뺀 값으로 설정 */
+    width: calc(45% - 10px); 
+    /* 전체 너비에서 Rank 영역의 너비와 여백을 뺀 값으로 설정 */
     float: left;
 } 
+
 
 .Mid .DayToon .DayToonItem {
     width: 150px;
     height: 200px;
+    background-color: red;
     margin-bottom: 50px;
     margin-left: 0px;
 }
@@ -483,8 +491,15 @@
   }
    */
   
+   .DayToonItem{
+    width: 150px;
+    height: 200px;
+    margin-bottom: 50px;
+    margin-left: 0px;
+   }
  
   .DayToonItem p{
+    width: 100%;
     float: left;font-size: 10px;
   }
   .RBox{
@@ -555,12 +570,6 @@
 
 
 
-.DayToonItem img{
-    width: 135px;
-    height: 185px;
-    object-fit: contain;
-
-}
 
 
 .ATIMG{
@@ -569,12 +578,15 @@
     object-fit: cover;
 }
 
-.DayToonIMG{
+
+.DayToonItem img{
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
+
 }
 .DayToonItem{
-    width: 100%;
+    width: 45%;float: left;
+    margin-right: 20px;
     
 }
 
