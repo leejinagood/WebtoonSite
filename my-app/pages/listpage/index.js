@@ -6,10 +6,8 @@ import Footer from "../../src/Footer/footer";
 import ListItem from "../../src/Component/listitem";
 import Head from "next/head";
 import Link from "next/link";
-
 const ListPage = () => {
   const router = useRouter();
-
   const { EnName } = router.query;
   const [webtoonInfo, setWebtoonInfo] = useState({});
   const [webtoons] = useState([]);
@@ -29,13 +27,17 @@ const ListPage = () => {
     return null;
   };
 
+
+
+  
+  //리스트아이템 
+  const [webtoonItem, setWebtoonItem] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/listinfo?EnName=${encodeURIComponent(EnName)}`,{
+        const response = await fetch(`/api/listinfo?EnName=${encodeURIComponent(EnName)}`, {
           cache: 'no-store', // 캐시 사용 안 함
         });
-        
         const { webtoonData } = await response.json(); // 데이터를 가져와서 변수에 저장
         setWebtoonInfo(webtoonData[0]);
         setLoading(false);
@@ -45,7 +47,6 @@ const ListPage = () => {
       }
     };
 
-
     if (EnName) {
       fetchData();
     } else {
@@ -54,18 +55,17 @@ const ListPage = () => {
     }
   }, [EnName]);
 
-  
-  //리스트아이템 
-  const [webtoonItem, setWebtoonItem] = useState([]);
+  // 리스트 아이템을 받아오는 useEffect
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(`/api/listitem?EnName=${encodeURIComponent(EnName)}`);
         const { webtoonData } = await response.json();
         setWebtoonItem(webtoonData);
-        
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching API:", error);
+        setLoading(false);
       }
     };
 
@@ -76,173 +76,20 @@ const ListPage = () => {
     }
   }, [EnName]);
 
-
-
-  const handleItemClick = () => {
-    handleClick(ep);
-    window.location.href = `/webtoonpage?EnName=${EnName}&ep=${ep}}`;
-  };
-
-  if (!webtoonItem) {
-    return "no data"; // 로딩 중이거나 데이터가 없을 때 null을 반환하여 아무 내용도 표시하지 않습니다.
+  if (loading) {
+    return <div>Loading...</div>;
   }
- 
 
+  const handleLike = async () => {
+    // 토큰이 있는 경우에만 userEmail 값을 가져오도록 합니다.
+    const tokenExists = isTokenValid();
 
-
-
-
-
-  const isTokenValid = () => {
-    const token = getTokenFromLocalStorage();
-    // 토큰이 존재하면 유효한 것으로 간주합니다.
-    return !!token;
-  };
-
-  // 웹툰 정보를 받아오는 useEffect
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`/api/listinfo?EnName=${encodeURIComponent(EnName)}`, {
-        cache: 'no-store', // 캐시 사용 안 함
-      });
-
-      const { webtoonData } = await response.json(); // 데이터를 가져와서 변수에 저장
-      setWebtoonInfo(webtoonData[0]);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching API:", error);
-      setLoading(false);
+    if (tokenExists) {
+      // ... handleLike 함수 내용 ...
+    } else {
+      window.alert("로그인 후 이용 가능합니다 !");
     }
   };
-
-  if (EnName) {
-    fetchData();
-  } else {
-    setWebtoonInfo(null);
-    setLoading(false);
-  }
-}, [EnName]);
-
-// ...
-
-// 좋아요 버튼을 클릭했을 때 처리하는 handleLike 함수
-// const handleLike = async () => {
-//   // 토큰이 있는 경우에만 userEmail 값을 가져오도록 합니다.
-//   const tokenExists = isTokenValid();
-
-//   if (tokenExists) {
-//     const userEmail = sessionStorage.getItem("userEmail");
-//     console.log(EnName, userEmail + "102line");
-
-//     // 로컬 스토리지에서 좋아요를 누른 웹툰들의 목록을 가져옵니다.
-//     const likedWebtoons = JSON.parse(localStorage.getItem("likedWebtoons")) || [];
-
-//     // 이미 누른 웹툰인지 확인합니다.
-//     if (likedWebtoons.includes(EnName)) {
-//       window.alert("이미 좋아요를 눌렀습니다");
-//       return; // 이미 누른 웹툰이라면 함수를 종료합니다.
-//     }
-
-//     try {
-//       // 좋아요 요청을 서버에 보냅니다.
-//       const response = await fetch("/api/update_like", {
-//         method: "PUT", // PUT 메서드로 변경
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           EnName: EnName,
-//           UserEmail: userEmail, // userEmail 변수를 사용
-//         }),
-//       });
-
-//       if (response.ok) {
-//         // 좋아요가 성공적으로 추가되면 좋아요 개수를 업데이트합니다.
-//         setWebtoonInfo((prevInfo) => ({
-//           ...prevInfo,
-//           like: prevInfo.like + 1, // 현재 좋아요 개수에 1을 더해 업데이트
-//         }));
-
-//         // 누른 웹툰을 로컬 스토리지에 기록합니다.
-//         localStorage.setItem("likedWebtoons", JSON.stringify([...likedWebtoons, EnName]));
-
-//         console.log("Like UP");
-//       } else {
-//         console.error("좋아요 추가 실패:", response);
-//         window.alert("좋아요 추가 실패!");
-//       }
-//     } catch (error) {
-//       console.error("좋아요 추가 오류:", error);
-//     }
-//   } else {
-//     window.alert("로그인 후 이용 가능합니다 !");
-//   }
-// };
-
-const handleLike = async () => {
-  // 토큰이 있는 경우에만 userEmail 값을 가져오도록 합니다.
-  const tokenExists = isTokenValid();
-
-  if (tokenExists) {
-    const userEmail = sessionStorage.getItem("userEmail");
-    console.log(EnName, userEmail + "102line");
-
-    // 로컬 스토리지에서 좋아요를 누른 웹툰들의 목록을 가져옵니다.
-    // const likedWebtoons = JSON.parse(localStorage.getItem("likedWebtoons")) || [];
-
-
-    try {
-      // 좋아요 요청을 서버에 보냅니다.
-      const response = await fetch("/api/update_like", {
-        method: "PUT", // PUT 메서드로 변경
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          EnName: EnName,
-          UserEmail: userEmail, // userEmail 변수를 사용
-        }),
-      });
-      const data = await response.json(); // JSON 데이터를 파싱
-      console.log(data);
-      if (data === "0") {
-        setWebtoonInfo((prevInfo) => ({
-          ...prevInfo,
-          like: prevInfo.like + 1, // 현재 좋아요 개수에 1을 더해 업데이트
-        }));
-        window.alert("like up");
-
-
-        // 누른 웹툰을 로컬 스토리지에 기록합니다.
-        // localStorage.setItem("likedWebtoons", JSON.stringify([...likedWebtoons, EnName]));
-        
-        console.log("Like UP");
-      }else if(data === "1"){
-        setWebtoonInfo((prevInfo) => ({
-          ...prevInfo,
-          like: prevInfo.like - 1, // 현재 좋아요 개수에 1을 더해 업데이트
-        }));
-        window.alert("like cancel");
-
-
-        // 누른 웹툰을 로컬 스토리지에 기록합니다.
-        // localStorage.setItem("likedWebtoons", JSON.stringify([...likedWebtoons, EnName]));
-
-      } 
-      else {
-        console.error("좋아요 추가 실패:", response);
-        window.alert("좋아요 추가 실패!");
-      }
-    } catch (error) {
-      console.error("좋아요 추가 오류:", error);
-    }
-  } else {
-    window.alert("로그인 후 이용 가능합니다 !");
-  }
-};
-
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -286,23 +133,26 @@ const handleLike = async () => {
   };
 
   let KrDay = "";
-
-  if(webtoonInfo.week == "mon"){
+  if (webtoonInfo && webtoonInfo.week) {
+  if(webtoonInfo.week === "mon"){
     KrDay = "월";
-  }else if(webtoonInfo.week == "tues"){
+  }else if(webtoonInfo.week === "tues"){
     KrDay = "화";
-  }else if(webtoonInfo.week == "wendes"){
+  }else if(webtoonInfo.week === "wendes"){
     KrDay = "수";
-  }else if(webtoonInfo.week == "thurs"){
+  }else if(webtoonInfo.week === "thurs"){
     KrDay = "목";
-  }else if(webtoonInfo.week == "fri"){
+  }else if(webtoonInfo.week === "fri"){
     KrDay = "금";
-  }else if(webtoonInfo.week == "satur"){
+  }else if(webtoonInfo.week === "satur"){
     KrDay = "토";
-  }else if(webtoonInfo.week == "sun"){
+  }else if(webtoonInfo.week === "sun"){
     KrDay = "일";
+  }else {
+    // 웹툰 정보가 없거나 요일 정보가 없는 경우
+    KrDay = "요일 정보 없음";
   }
-
+  }
   return (
     <div className={style.ListPage}>
       <Head>

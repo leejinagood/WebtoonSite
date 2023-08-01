@@ -3,7 +3,6 @@ import Header from "@/src/Header/header";
 import Footer from "@/src/Footer/footer";
 import { useRouter } from "next/router";
 import style from "./SerchWebToonCss.module.css";
-// import MainPageCss from "@/src/styles/MainPageCss.css";
 import Link from "next/link";
 
 function SerchWebToon() {
@@ -21,11 +20,13 @@ function SerchWebToon() {
         console.error("Error fetching API:", error);
       }
     };
-    fetchData();
-  }, [word]);
+    if (word) {
+      fetchData();
+    }
+  }, [word]); // 검색어인 word를 의존성 배열에 추가
+
   console.log(word);
   console.log(webtoonData);
-
 
   return (
     <div className={style.SerchWebToon}>
@@ -37,15 +38,15 @@ function SerchWebToon() {
               <Link href={`/listpage?EnName=${webtoon.webtoon_en_name}`}>
                 <div className={style.ListItem}>
                   <div className={style.ListImg}>
-                    <img src={webtoon.thumbnail}/>
+                    <img src={webtoon.thumbnail} />
                   </div>
                   <div className={style.ListItemContent}>
                     <p className={style.EpisodeP}>
                       {webtoon.webtoon_name}
                       <br />
                     </p>
-                    <span className={style.tab2} >{webtoon.webtoon_author} /</span>
-                      <span className={style.tab2} > {webtoon.categoris}</span>
+                    <span className={style.tab2}>{webtoon.webtoon_author} /</span>
+                    <span className={style.tab2}> {webtoon.categoris}</span>
                   </div>
                 </div>
               </Link>
@@ -58,7 +59,5 @@ function SerchWebToon() {
     </div>
   );
 }
-
-
 
 export default SerchWebToon;

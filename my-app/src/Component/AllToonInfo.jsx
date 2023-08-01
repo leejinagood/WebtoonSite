@@ -5,6 +5,8 @@ const AllToonInfo = () => {
   const [webtoons, setWebtoons] = useState([]);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+
     fetch("/api/daytoon?day=All")
       .then((response) => response.json())
       .then((data) => {
@@ -13,6 +15,7 @@ const AllToonInfo = () => {
       .catch((error) => {
         console.error("Error fetching API:", error);
       });
+      }
   }, []);
   console.log(webtoons);
   // const AllDayToon = async () => {

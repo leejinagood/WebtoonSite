@@ -1,4 +1,3 @@
-//User_Table에서 사용할 수 있는 api
 
 const userAPI = (server, getConn) => {
 
