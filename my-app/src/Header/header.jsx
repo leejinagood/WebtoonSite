@@ -48,12 +48,17 @@ const Header = () => {
     router.push("/");
   };
 
-
+  // const response = await axios.get("/api/Token",
+  // {
+  //   headers: {
+  //     Cookie: cookies // 클라이언트에서 전달된 쿠키를 그대로 요청 헤더에 포함
+  //   }});
   
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const response = await axios.get("/api/Token");
+
+        const response = await axios.get("/api/Token")
         if (response.status === 200) {
           setUserId(response.data.userId);
           console.log("유저네임:",sessionStorage.getItem("userName") );

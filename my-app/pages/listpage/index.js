@@ -183,6 +183,12 @@ const ListPage = () => {
                     글/그림<span>{webtoonInfo.author}</span> | {KrDay} 요웹툰
                     <br />
                     {webtoonInfo.content}
+                    </p>
+
+                </>
+                
+              </div>
+
                     <div className={style.InfoBtn}>
                       <button id={style.PointBtn} className={style.IBtn} onClick={handleLike}>
                         좋아요 {webtoonInfo.like}
@@ -190,9 +196,6 @@ const ListPage = () => {
                       <Link href={`/webtoonpage?EnName=${EnName}&ep=1`}><button className={style.IBtn}>첫화보기 1화</button></Link>
                       <button className={style.SNSBTN}>공유하기</button>
                     </div>
-                  </p>
-                </>
-              </div>
             </div>
           </div>
         )}

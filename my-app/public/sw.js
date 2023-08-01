@@ -2,7 +2,7 @@ var title = 'Simple Title';
 var options = {
   body: 'Simple piece of body text.\nSecond line of body text :)'
 };
-registration.showNotification(title, options);
+// registration.showNotification(title, options);
 
 
 
