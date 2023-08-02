@@ -29,90 +29,55 @@ const likeAPI = (server, getConn) => {
                 const [date] = await conn.query(Query, values);
                 const [resultArray] = date;
                 const [resultObject] = resultArray;
-                const { likes, webtoonWeek, totalLikes } = resultObject;
+                const { likes, webtoonWeek, webtoonID } = resultObject;
 
                 const Week = resultObject.webtoonWeek; 
-                const total = resultObject.totalLikes; 
+                const ID = resultObject.webtoonID; 
 
-                if(likes === 0){ //좋아요를 안 눌렀을 경우
+                if(likes === 0){ 
                     //추출한 webtoonID와 userID를 좋아요 수정 쿼리에 삽입
                     let [Result] = await conn.query(LikeQuery, values);
                     //db에서 수행되어 행이 수정된 갯수 
                     if (Result.affectedRows > 0) { //1개 이상이면 좋아요 수정 성공
                         res.send("0"); 
 
-                        // 좋아요 수정이 완료되면 redis에서 해당 키를 삭제
-                        redisClient.del(`webtoon_detail : ${EnName}`, (err, reply) => {
-                            if (err) {
-                                console.error(err);
-                            } else {
-                                console.log(reply);
-                            }
-                        });
-                        redisClient.del(`webtoon : ${Week.webtoonWeek}`, (err, reply) => {
-                            if (err) {
-                                console.error(err);
-                            } else {
-                                console.log(reply);
-                            }
-                        });
-                        redisClient.del(`webtoon : rank`, (err, reply) => {
-                            if (err) {
-                                console.error(err);
-                            } else {
-                                console.log(reply);
-                            }
-                        });
+                        const key = `likes:${ID}`; // redis 고유 키 값
+                        let value = await redisClient.get(key); // 해당 키값으로 데이터 조회
 
-                        // // // 좋아요를 한 번 누를 때마다 redis의 likes 값을 +1 증가시킴
-                        // // redisClient.INCRBY(`webtoon_detail : ${EnName}`, "likes", 1 ,(err, reply) => {
-                        // //    if (err) {
-                        // //        console.error(err);
-                        // //    } else {
-                        // //        console.log(reply);
-                        // //    }
-                        // // });
-
-                        // // // redis 키에 따른 값 수정
-                        // // redisClient.hset(`webtoon_detail:${EnName}`, "likes", Count, (err, reply) => {
-                        // //    if (err) {
-                        // //        console.error(err);
-                        // //    } else {
-                        // //        console.log(reply);
-                        // //    }
-                        // // });
-
+                        if (value !== null) { // null 대신에 0이어도 동작하게 수정
+                            redisClient.INCRBY(key, 1 ,(err, reply) => {
+                                if (err) {
+                                    console.error(err);
+                                } else {
+                                    console.log(reply);
+                                }
+                             });
+                        } else {
+                            console.log("d");
+                        }
                     } else {
                         res.status(500).json('좋아요 오류'); 
                     }
-                }else if(likes === 1){ //좋아요를 눌렀을 경우
+                }else if(likes === 1){ 
                     let [Result] = await conn.query(LikeCancelQuery, values);
                     //db에서 수행되어 행이 수정된 갯수 
                     if (Result.affectedRows > 0) { //1개 이상이면 좋아요 삭제 성공
                         res.send("1"); 
 
-                        // 좋아요 수정이 완료되면 redis에서 해당 키를 삭제
-                        redisClient.del(`webtoon_detail : ${EnName}`, (err, reply) => {
-                            if (err) {
-                                console.error(err);
-                            } else {
-                                console.log(reply);
-                            }
-                        });
-                        redisClient.del(`webtoon : ${Week.webtoonWeek}`, (err, reply) => {
-                            if (err) {
-                                console.error(err);
-                            } else {
-                                console.log(reply);
-                            }
-                        });
-                        redisClient.del(`webtoon : rank`, (err, reply) => {
-                            if (err) {
-                                console.error(err);
-                            } else {
-                                console.log(reply);
-                            }
-                        });
+                        const key = `likes:${ID}`; // redis 고유 키 값
+                        let value = await redisClient.get(key); // 해당 키값으로 데이터 조회
+
+                        if (value !== null) { // null 대신에 0이어도 동작하게 수정
+                             redisClient.DECRBY(key, 1 ,(err, reply) => { // key에서 공백 제거
+                                if (err) {
+                                    console.error(err);
+                                } else {
+                                    console.log(reply);
+                                }
+                            });
+                        }else{
+                            console.log("d");
+                        }
 
                     } else {
                         res.status(500).json('좋아요 오류'); 

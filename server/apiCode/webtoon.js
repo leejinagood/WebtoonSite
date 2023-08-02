@@ -23,7 +23,16 @@ const webtoonAPI = (server, getConn) => {
                 const row = rows[0];
 
                 if (pi_vch_condition === 'All') { 
-                    res.send(row); 
+                  
+                    for (const item of row) {
+                      console.log(item.totalLikes);
+                      
+                      const key = `likes:${item.webtoonID}`;
+                      const totalLikesValue = item.totalLikes.toString(); 
+                      await redisClient.set(key, totalLikesValue); 
+                    }
+                    
+                    res.send(row);
                     await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
 
                 } else if (pi_vch_condition === 'rank') { 
@@ -36,7 +45,6 @@ const webtoonAPI = (server, getConn) => {
                     const result = row.filter((item) => item.webtoonWeek === pi_vch_condition);
                     res.send(result);
                     await redisClient.set(key, JSON.stringify(result)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
-
                 }
 
             }
