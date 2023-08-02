@@ -115,7 +115,7 @@ const LoginPage = () => {
     <div className={style.LoginPage}>
       <div className={style.LoginBox}>
         <Link href="/mainpage">
-          <h2 className={style.LoginLogo}>AVATYE</h2>
+          <h2 className={style.LoginLogo}><span className={style.red}>A</span >VA<span className={style.red}>T</span>YE</h2>
         </Link>
         <form onSubmit={handleSubmit}>
           <table>
@@ -132,9 +132,9 @@ const LoginPage = () => {
               </tr>
             </tbody>
           </table>
-          <button type="submit" className={style.LoginPageBtn}>fh</button>
+          <button type="submit" className={style.LoginPageBtn}>로그인</button>
         </form>
-        <button onClick={kakaohandleSubmit}>
+        <button className={style.KLoginPageBtn} onClick={kakaohandleSubmit}>
           
             카카오 로그인
           
@@ -145,11 +145,7 @@ const LoginPage = () => {
           <Link href="/signuppage"><li>회원가입</li></Link>
         </div>
       </div>
-      <Link href={Kakao_Auth_Url}>
-        <button>
-          sss
-        </button>
-      </Link>
+
     </div>
   );
 };

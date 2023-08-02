@@ -2,46 +2,51 @@
 
 @media screen and (max-width:721px) and (min-width:362px) 
 {
+
     .SerchWebToon{
-        width: 720px !important;
+        overflow: hidden;
+        width: 720px !important
     }
-    .SerchPage{
-        width: 80%;
+    .EpisodeP{
         float: left;
     }
+    .tab2{
+        float: left;
+    }
+    .SerchPage ul li{
+        width:calc(28%) !important; 
+        position: relative;
+        right: 30px;
+    }
 
+
+    .SerchWebToon img{
+        object-fit: contain;
+    }
     
 }
 
 @media screen and (max-width:361px) and (min-width:10px) 
  {
     .SerchWebToon{
-        width: 360px !important;
-    }  
-    .SerchWebToon img{
-        width: 100px !important;
-        height: 150px !important; 
-        object-fit: contain;
-    }
-    .SerchPage{
-        width: 80% !important;
-        float: left !important;
+        overflow: hidden;
+        width: 720px !important
     }
     .EpisodeP{
         float: left;
-        font-size: 13px !important;
-        width: 100%;
-        position: relative;
-        bottom: 10px;
     }
     .tab2{
-        font-size: 10px !important;
-        position: relative;
-        bottom: 15px;
+        float: left;
     }
-    .ListItem{
+    .SerchPage ul li{
+        width:calc(28%) !important; 
         position: relative;
-        right: 10px;
+        right: 30px;
+    }
+
+
+    .SerchWebToon img{
+        object-fit: contain;
     }
 
 }
@@ -50,7 +55,7 @@
 .SerchWebToon{
     text-decoration-style: none;
     text-decoration: none;        color: inherit;
-    width: 360px;
+    width: 80% ;
     margin:  0 auto;
 }
 
@@ -80,9 +85,6 @@
 .SerchPage ul li{
     list-style: none;
     float: left;
-    width:calc(50% - 0px);
+    width:calc(15.5%);
     float: left;
-}
-.ListItem{
-    width: 100%;
 }

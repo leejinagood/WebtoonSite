@@ -38,6 +38,8 @@ const Header = () => {
   const handleLogout = () => {
     // 세션 스토리지에서 토큰 삭제
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userEmail");
+
     sessionStorage.removeItem("userName");
 
     console.log("토큰 유저네임 삭제");

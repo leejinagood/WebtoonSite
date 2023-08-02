@@ -4,9 +4,7 @@
         width: 720px !important;
     }
 
-    .TextBox{
-        height: 70px !important;
-    }
+
     .Pagination{
         position: relative;
         right: 50px;
@@ -16,7 +14,9 @@
     }
     .DESC{
         font-size: 9px;
-        margin-top: 80px !important;
+        width: 150px !important;
+
+        margin-bottom: 0px !important;
     }
     #PointBtn{
         width: 100% !important;
@@ -29,23 +29,33 @@
         width: 100% !important;
         height: 120px !important;
 
-        margin-top: 3% !important;
+        margin-top:103px !important;
     }
 
 
-    .tab2{
-        line-height: 10vw !important;
-    }
-    #line{
-        line-height: 10px;
-    }
+
+
     .ListInfoBox{
-        height: 300px !important;
+        height: 200px !important;
         width: 80% !important;
     }
     .ListImgBox{
-        width: 100%;
+        width: 25% !important;
         height: 190px !important;
+    }
+    .ListInfot{
+        width: 70% !important;
+    }
+    .TextBox{
+        width: 100% !important;
+    }
+    .tab2{
+        width: 100%;
+        height: 30px !important;
+    }
+    .ConTent{
+        margin-bottom: 0px !important;
+        margin-top: 0px !important;
     }
     .ListImgBox img{
         height: 100% !important;
@@ -55,21 +65,16 @@
     }
     .SNSBTN{
         width: 32% !important;
-        margin-left:3%;
+        margin-left:3% !important;
+
+
     }
     /* 썸네일 밑에 제목 글자 간격 조정 */
 
 
-    .tab2{
-        position: relative;
-        bottom:4vw !important;
-    }
-    .GrayP{
-        position: relative;
-        bottom: 10vw !important;
-    }
+
     .ListBox{
-        margin-top: 3%;
+        margin-top: 10px;
         width: 80% !important;
     }
     .List{
@@ -94,10 +99,8 @@
     }
     .DESC{
         font-size: 9px;
-        position: relative !important;
-        bottom: 0px !important;
-        top: 35px !important;
-        right: 105px;
+
+        width: 100px !important;
         
     }
 
@@ -209,54 +212,58 @@
         right: 33px !important;
     }
     .InfoBtn{
-        width: 94.5% !important;
+        width: 100% !important;
         float: left;
-        margin: 0 !important;
+        margin-top: 17px !important;
     }
     #PointBtn{
-        width: 100% !important;
+        width: 33% !important;
+        margin-right: 3px;
     }
     .IBtn{
         margin-top: 5px;
-        width:55% !important;
+        width:41.8% !important;
         font-size: 10px !important;
     }
     .DESC{
         font-size: 5px !important;
         margin-top: 8px !important;
+        width: 77px !important;
         
     }
-    
+    .short{
+        display: none;
+        margin: 0;
+    }
     .SNSBTN{
         font-size: 10px;
-        width: 43% !important;
-        margin-left: 5px;
+        width: 19.8% !important;
+        margin-left: 5px !important;
     }
 
+    
 
 
 
-    .tab2{
-        line-height: 10vw !important;
-    }
-    #line{
-        line-height: 10px;
-    }
+
     .ListInfoBox{
-        height: 310px !important;
-        width: 84.4% !important;
+        height: 140px !important;
+        width: 80% !important;
     }
     .TextBox{
         height: 80px !important;
         float: left;
-        width: 94.5% !important;
+        width: 100% !important;
         margin: 0 auto;
         
     }
+    .ListInfot{
+        width: 55% !important;
+        height: 140px !important;
+    }
     .ListImgBox {
-        display: flex;
         align-items: center;
-        width: 100%;
+        width: 40% !important;
         height: 140px !important;
       }
     .ListImgBox img{
@@ -266,13 +273,10 @@
     /* 썸네일 밑에 제목 글자 간격 조정 */
 
 
-    .tab2{
-        position: relative;
-        bottom:4vw !important;
-    }
+
     .GrayP{
-        position: relative;
-        bottom: 20vw !important;
+        font-size: 10px !important;
+        font-weight: normal;
     }
     .List{
         margin-top: 0px !important;
@@ -328,31 +332,47 @@
     float: left;
     margin: 0 auto;
     margin-top: 20px;
-    
 }
 .ListImgBox{
     position: relative;
     bottom: 1.6vw;
+    float: left;
+    width: 20%;
+}
+
+.ListInfoBox{
+    width: 100%;
+    float: left;
+    height: 290px;
 }
 .ListImgBox img{
     float: left;
-    background-color: rgba(159, 142, 142,0.4);
     width: 100%;
     height: 300px;
+    margin-top: 1px;
     object-fit: contain;
-    margin-right: 15px;
 }
 
 .ListInfo p{
     float: left;
     width: 100%;
-    height: 100px;
+}
+.ConTent{
+    float: left !important;
+}
+.ListInfot{
+    float: left;
+    width: 79%;
+    height: 263px;
+    margin-left: 10px;
+}
+.tab2{
+    font-size: 20px;
 }
 .GrayP{
     color:gray;
     float: left;
-    position: relative;
-    bottom:5.5vw
+    margin-bottom: 5px;
 }
 .ListInfo h3{
     position: relative;
@@ -375,36 +395,33 @@
 
 .InfoBtn{
     width: 100%;
-    margin-top: 110px;
+    margin-top: 187px;
 }
 
 .IBtn{
     width: 60%;
-    
     height: 35px;
     border-radius: 5px;
     border: 1px solid rgb(230, 226, 226);
     background-color: rgb(247, 247, 247);
 }
 #PointBtn{
-    width: 100%;
+    margin-bottom: 5px;
+    width: 98%;
     border: 1px solid rgb(208, 249, 208);
     background-color: rgb(210, 246, 210);
 }
 .SNSBTN{
     border-radius: 5px;
-    width: 40%;
+    width: 36.9%;
+    margin-left: 10px;
     height: 35px;
 
     background-color: rgb(247, 247, 247);
     border: 1px solid rgb(230, 226, 226);
 }
 /* // 버튼이랑 리스트 겹치는 원인 높이  */
-.ListInfoBox{
-    width: 100%;
-    float: left;
-    height: 500px;
-}
+
 
 .ListBox{
     width: 100%; 
@@ -466,8 +483,9 @@
 .DESC{
     font-size: 12px;
     float: left;
-    margin-top: 30px;
-    margin-bottom: 5px;
+    width: 9%;
+    border-bottom: 1px solid rgb(230, 226, 226);
+    margin-bottom: 10px;
 }
 .DESC span{
     cursor: pointer;

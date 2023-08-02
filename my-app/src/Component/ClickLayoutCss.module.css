@@ -1,16 +1,28 @@
 @media screen and (max-width:721px) and (min-width:362px) {
   .ClickLayout{
-    width: 64% !important;
+    width: 64.3% !important;
+  }
+  .RigthLayout{
+    margin-top: 8px;
+    width: 55%;
+
+  }
+  .LeftLayout{
+    float: left;
+    width: 45%;
+    margin-top: 8px;
   }
   .Litem{
+    float: left;
+    width: 100% !important;
     position: relative;
-    right: 100px;
-    margin-left: 0px !important;
+    right: 80px;
   }
   .Ritem{
-    float: left;
-    width: 20%;
-    margin-left: 120px !important;
+    position: relative;
+    left: 130px;
+    float: right;
+    width: 100% !important;
   }
 
 }
@@ -26,36 +38,34 @@
   .Litem{
     width: 100% !important;
     position: relative;
-    right: 35px;
+    right: 45px;
   }
   .Ritem{
     position: relative;
-    right: 75px;
+    left: 62px;
     width: 40vw !important;
   }
 }
-
-  .Layout{
-    width: 360px;
+  .ClickLayout{
+    width: 80%;
   }
+
   .LayoutContent {
     width: 100% !important;
     margin: 0 auto;
     background-color: black;
     height: 35px;
-    opacity: 1;
-    transition: opacity 0.5s ease; /* 투명도 변경 애니메이션 설정 */
   }
   .ClickLayout {
     color:white;
     position: fixed;
-    margin-top: 20px;
+    margin-top: 29px;
     font-size: 15px;
   }
   .LeftLayout{
     float: left;
-    margin-top: 2.5%;
-    width: 50%;
+    width: 45%;
+    margin-top: 8px;
   }
   .Litem{
     float: left;
@@ -63,14 +73,12 @@
     margin-left: 10px;
   }
   .Ritem{
-    float: left;
-    width: 20%;
-    margin-left: 12px;
+    float: right;
+    width: 25%;
   }
   .RigthLayout{
-
-    margin-top: 2.5%;
-    width: 40%;
+    margin-top: 8px;
+    width: 55%;
     float: right;
   }
 

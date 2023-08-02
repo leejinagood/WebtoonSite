@@ -26,7 +26,7 @@ useEffect(() => {
       const [webtoonData] = data; // 첫 번째 웹툰 데이터를 가져옴
       setSelectedWebtoon(webtoonData);
       setWebtoons(data);
-      setCount(webtoonData?.count || 0); // count 값 설정
+      setCount(webtoonData?.episodeImgCount || 0); // count 값 설정
     } catch (error) {
       console.error("API 호출 오류:", error);
     }
