@@ -2,7 +2,6 @@ import Link from "next/link";
 import styles from "../../pages/listpage/styles/ListPageCss.module.css";
 const ListItem = ({ EnName,thumbnail,webtoonName, ep /*uploadDate*/, handleClick }) => {
 
-
   return (
     <Link href={`/webtoonpage?EnName=${EnName}&ep=${encodeURIComponent(ep)}`}>
       <div className={styles.ListItem} onClick={handleClick}>
@@ -19,7 +18,6 @@ const ListItem = ({ EnName,thumbnail,webtoonName, ep /*uploadDate*/, handleClick
           </p>
         </div>
       </div>
-      <div className={styles.dn}></div>
     </Link>
   );
 };

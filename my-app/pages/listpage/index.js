@@ -28,10 +28,15 @@ const ListPage = () => {
   };
 
 
-
+  const isTokenValid = () => {
+    // 토큰 유효성을 검사하는 로직을 구현해야 함
+    const token = getTokenFromLocalStorage();
+    // 예시: 토큰이 있으면 유효하다고 가정
+    return !!token;
+  };
+  
   
   //리스트아이템 
-  const [webtoonItem, setWebtoonItem] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,8 +44,9 @@ const ListPage = () => {
           cache: 'no-store', // 캐시 사용 안 함
         });
         const { webtoonData } = await response.json(); // 데이터를 가져와서 변수에 저장
-        setWebtoonInfo(webtoonData[0]);
+        setWebtoonInfo(webtoonData[0][0]);
         setLoading(false);
+
       } catch (error) {
         console.error("Error fetching API:", error);
         setLoading(false);
@@ -54,6 +60,7 @@ const ListPage = () => {
       setLoading(false);
     }
   }, [EnName]);
+  const [webtoonItem, setWebtoonItem] = useState([]);
 
   // 리스트 아이템을 받아오는 useEffect
   useEffect(() => {
@@ -62,6 +69,9 @@ const ListPage = () => {
         const response = await fetch(`/api/listitem?EnName=${encodeURIComponent(EnName)}`);
         const { webtoonData } = await response.json();
         setWebtoonItem(webtoonData);
+        console.log(webtoonData[0]);
+        console.log(webtoonItem);
+
         setLoading(false);
       } catch (error) {
         console.error("Error fetching API:", error);
@@ -82,14 +92,53 @@ const ListPage = () => {
 
   const handleLike = async () => {
     // 토큰이 있는 경우에만 userEmail 값을 가져오도록 합니다.
-    const tokenExists = isTokenValid();
+        const tokenExists = isTokenValid();
 
-    if (tokenExists) {
-      // ... handleLike 함수 내용 ...
-    } else {
-      window.alert("로그인 후 이용 가능합니다 !");
-    }
-  };
+    const userEmail = sessionStorage.getItem("userEmail");
+    console.log(userEmail,EnName);
+
+      try {
+        // 좋아요 요청을 서버에 보냅니다.
+        const response = await fetch("/api/update_like", {
+          method: "PUT", // PUT 메서드로 변경
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            EnName: EnName,
+            UserEmail: userEmail, // userEmail 변수를 사용
+          }),
+        });
+        const data = await response.json(); // JSON 데이터를 받아옵니다.
+        const likeCheck = data; // 좋아요 체크 결과를 변수에 저장합니다.
+        console.log(likeCheck);
+      
+        if (likeCheck === "0") {
+          // 좋아요가 성공적으로 추가되면 좋아요 개수를 업데이트합니다.
+          setWebtoonInfo((prevInfo) => ({
+            ...prevInfo,
+            LikesCount: webtoonInfo.LikesCount + 1, // 현재 좋아요 개수에 1을 더해 업데이트
+          }));
+          console.log("Like UP");
+          window.alert("좋아요 추가");
+        } 
+        else if (likeCheck === "1") {
+          // 좋아요가 성공적으로 추가되면 좋아요 개수를 업데이트합니다.
+          setWebtoonInfo((prevInfo) => ({
+            ...prevInfo,
+            LikesCount: webtoonInfo.LikesCount - 1, // 현재 좋아요 개수에 1을 더해 업데이트
+          }));
+          window.alert("좋아요 취소");
+
+        }
+          else {
+          console.error("좋아요 추가 실패:", response);
+          window.alert("로그인 후 이용 가능합니다 ");
+        }
+      } catch (error) {
+        console.error("좋아요 추가 오류:", error);
+      }
+  }
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -168,21 +217,23 @@ const ListPage = () => {
           <div className={style.ListInfo}>
             <div className={style.ListImgBox}>
               <img
-                src={webtoonInfo.thumbnail}
-                alt={webtoonInfo.webtoon_name}
+                src={webtoonInfo.webtoonThumbnail}
+                alt={webtoonInfo.webtoonName}
               />
             </div>
             
-            <div className={style.ListInfo}>
+            <div className={style.ListInfot}>
               <div className={style.TextBox}>
                 <>
                   <p id="line" className={style.tab2}>
-                    {webtoonInfo.webtoon_name}
+                    {webtoonInfo.webtoonName}
                   </p>
                   <p id={style.line} className={style.GrayP}>
-                    글/그림<span>{webtoonInfo.author}</span> | {KrDay} 요웹툰
-                    <br />
-                    {webtoonInfo.content}
+                  글/그림<span>{webtoonInfo.webtoonAuthor}</span> | {KrDay} 요웹툰
+
+                    </p>
+                    <p className={style.ConTent}>
+                    {webtoonInfo.webtoonContent}
                     </p>
 
                 </>
@@ -191,10 +242,10 @@ const ListPage = () => {
 
                     <div className={style.InfoBtn}>
                       <button id={style.PointBtn} className={style.IBtn} onClick={handleLike}>
-                        좋아요 {webtoonInfo.like}
+                        좋아요 {webtoonInfo.LikesCount}
                       </button>
                       <Link href={`/webtoonpage?EnName=${EnName}&ep=1`}><button className={style.IBtn}>첫화보기 1화</button></Link>
-                      <button className={style.SNSBTN}>공유하기</button>
+                      <button className={style.SNSBTN}>공유<a className={style.short}>하기</a></button>
                     </div>
             </div>
           </div>
@@ -211,16 +262,17 @@ const ListPage = () => {
   <div className={style.ListBox}>
 
     <ul className={style.List}>
-      {webtoonInfo && Array.from({ length: webtoonInfo.count }).map((_, index) => (
+      {webtoonInfo && Array.from({ length: webtoonInfo.episodeCount }).map((_, index) => (
         <li key={index}>
           <ListItem
             EnName={EnName}
-            thumbnail = {webtoonItem[index]?.episode_thumbnail}
-            webtoonName={webtoonItem[index]?.webtoon_name}
-            ep={webtoonItem[index]?.episode_number}
-            uploadDate={webtoonItem[index]?.update}
+            thumbnail = {webtoonItem[index]?.episodeThumbnail}
+            webtoonName={webtoonItem[index]?.webtoonName}
+            ep={webtoonItem[index]?.episodeNumber}
+            uploadDate={webtoonItem[index]?.uploadDate}
             handleClick={handleEpChange}
           />
+            
         </li>
       ))}
     </ul>

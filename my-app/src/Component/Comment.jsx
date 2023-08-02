@@ -69,18 +69,18 @@ const Comment = ({ webtoonName, episodeNumber }) => {
               comments.map((comment, index) => (
                 <li key={index}>
                   <span className={styles.NameDay}>
-                    {comment && comment.User_Name && comment.Comment_Date
-                      ? `${comment.User_Name}/${comment.Comment_Date}`
+                    {comment && comment.userName && comment.commentDate
+                      ? `${comment.userName}/${comment.commentDate}`
                       : ''}
                   </span>
                   <br />
-                  <span className={styles.Comment_Content}>
-                    {comment && comment.Comment_Content}
+                  <span className={styles.commentContent}>
+                    {comment && comment.commentContent}
                   </span>
                 </li>
               ))
             ) : (
-              <li>No comments yet.</li>
+              <li>댓글이 없습니다.</li>
             )}
           </ul>
         </div>

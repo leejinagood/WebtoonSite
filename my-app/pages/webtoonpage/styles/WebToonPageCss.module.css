@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
 @media screen and (max-width:721px) and (min-width:362px) {
 
     .WebToonPage{
@@ -13,7 +15,7 @@
     }
     .WebToonCut img{
         margin-left: 0% !important;
-        width: 100%;
+        width: 100% !important;
         object-fit: contain;
     }
     
@@ -36,9 +38,15 @@
         width: 80% !important;
     }
     .WebToonCut{
-        width:80% !important;
+        width:100% !important;
         float: left;
     }
+    .WebToonCut img{
+        margin-left: 0% !important;
+        width: 100% !important;
+        object-fit: contain;
+    }
+    
 }
 /* test */
 @media screen and (max-width:361px) and (min-width:10px) {
@@ -56,12 +64,14 @@
 
     .WebToonCut img{
         margin-left: 0% !important;
-        width: 100%;
+        width: 100% !important;
         object-fit: contain;
     }
 
 }
 .WebToonPage{
+    font-family: 'Jua', sans-serif;
+
     width: 80%;
     margin: 0 auto;
 }
@@ -78,8 +88,8 @@
     margin-bottom: -5px;
 }
 .WebToonCut img{
-    margin-left: 35%;
-    width: 100%;
+    margin-left: 49%;
+    width: 70%;
     object-fit: contain;
 }
 
