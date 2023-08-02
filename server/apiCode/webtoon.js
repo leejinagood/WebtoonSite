@@ -10,8 +10,7 @@ const webtoonAPI = (server, getConn) => {
     const { pi_vch_condition } = req.query;
 
     try {
-      //키를 좋아요 수정하면 삭제 후 반영할 수 있도록 ID로 나눠야 하나?
-      const key = `webtoon : ${pi_vch_condition}`; // redis 고유 키값
+      const key = `webtoon : ${pi_vch_condition}`; // redis 고유 키 값
       let value = await redisClient.get(key); // 해당 키값으로 데이터 조회
 
       if (value) {
@@ -24,14 +23,47 @@ const webtoonAPI = (server, getConn) => {
 
         const row = rows[0];
 
-        if (pi_vch_condition === 'All') { // All일 때 웹툰 전체
-          res.send(row);
-          console.log(row);
-        } else if (pi_vch_condition === 'rank') { // rank일 때 웹툰 좋아요 상위 top5
-          res.send(row);
-        } else if(row.week === pi_vch_condition) { // 요일받는 파라미터
-          res.send(row);
+      if (pi_vch_condition === 'All') { 
+        res.send(row); // 모든 웹툰 정보
+      } else {
+        const [likes] = await conn.query('call usp_get_totalLike()'); // 좋아요 가져오기
+        const like = likes[0]; 
+      
+        if (pi_vch_condition === 'rank') { 
+          const top5Webtoons = row
+            .filter((webtoon) => like.some((l) => l.webtoonID === webtoon.webtoonID)) // 좋아요 결과에 해당하는 ID를 가진 웹툰
+            .sort((a, b) => {
+              const likeA = like.find((l) => l.webtoonID === a.webtoonID).totalLikes; // 각 웹툰의 좋아요 수를 가져옵니다.
+              const likeB = like.find((l) => l.webtoonID === b.webtoonID).totalLikes;
+              return likeB - likeA; // 좋아요 수를 기준으로 내림차순으로 정렬합니다.
+            })
+            .slice(0, 5); // 상위 5개 웹툰만
+      
+          res.send(top5Webtoons); // 응답으로
+        } else {
+          const result = [];
+
+          for (let i = 0; i < row.length; i++) { 
+            if (row[i].webtoonWeek === pi_vch_condition) { // 요일에 해당하는 
+              const webtoonID = row[i].webtoonID;
+              const likesInfo = like.find((l) => l.webtoonID === webtoonID); // 좋아요 갖고오기
+              if (likesInfo) {
+                // totalLikes 필드 추가
+                const webtoonWithLikes = {
+                  ...row[i],
+                  totalLikes: likesInfo.totalLikes,
+                };
+                result.push(webtoonWithLikes); // 수정된 웹툰 정보를 다시 result로
+              } else {
+                // 웹툰의 좋아요 정보가 없는 경우
+                result.push(row[i]);
+              }
+            }
+          }
+
+          res.send(result); 
         }
+      }        
         //await redisClient.set(key, JSON.stringify(webtoonDetails)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
         //res.send(webtoonDetails);
       }
