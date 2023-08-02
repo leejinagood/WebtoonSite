@@ -68,7 +68,7 @@ const webtoonListAPI = (server, getConn) => {
         const conn = await getConn();
         const { EnName, ep } = req.query; //영어이름, 몇 화?
         const values = [EnName, ep]
-        const ImgAndNext = 'CALL usp_get_webtoonPages(?, ?);'; // 웹툰 정보를 출력하는 SP
+        const ImgAndNext = 'CALL usp_get_webtoonPages(?, ?);'; // episodeID를 받아와 웹툰 정보를 출력하는 SP
 
         try {
             const key = `webtoon_page : ${values}`; //redis의 고유 키값

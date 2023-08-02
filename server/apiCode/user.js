@@ -113,8 +113,6 @@ const userAPI = (server, getConn) => {
             token: token
           });
 
-          //디버깅용 콘솔 출력
-          // console.log(selectUserResult[0].userName,selectUserResult[0].userEmail, token);
         } else {
           // 비밀번호 불일치 응답을 "" 로
           res.send();
@@ -177,27 +175,25 @@ const userAPI = (server, getConn) => {
       const nickname = userResponse.data.kakao_account.profile.nickname;
       const email = userResponse.data.kakao_account.email;
 
-      // 응답코드였음
-      // const cookieData = {
-      //   userName: nickname, // 이름
-      //   userEmail: email, // 이메일
-      //   token: Token // 토큰
-      // };
-    
       //한글과 기호가 포함되어 있기 때문에 쿠키로 보내기전 인코딩 해야 돰
       const enNickname = encodeURIComponent(nickname);
       const enEmail = encodeURIComponent(email);
       const enToken = encodeURIComponent(Token);
 
-      // 쿠키에 저장하도록 배열로 
-      const cookieValue = [
-        `KakaoToken=${enToken}`,
-        `userName=${enNickname}`,
-        `userEmail=${enEmail}`
-      ];
+      let token = "";
+      //jwt 회원 정보를 받은 후 토큰을 생성
+      token = jwt.sign(
+        { UserEmail: enEmail },
+        'your-secret-key', // 비밀키
+        { expiresIn: '10m' } // 토큰 만료 시간 10분 설정
+      );
 
-      // 쿠키에 저장
-      res.setHeader('Set-Cookie', cookieValue.join(';'));
+
+      res.setHeader('Set-Cookie', [
+        `userName=${enNickname}`,
+        `userEmail=${enEmail}`,
+        `token=${token}`
+      ]);
 
       //email과 동일한 행이 존재하는지
       const selectQuery = "select userEmail from UserTable where userEmail = ?;";
@@ -221,9 +217,6 @@ const userAPI = (server, getConn) => {
         const likeQuery = 'CALL usp_basic_like(?)';
         await conn.query(likeQuery, [userID]);
       }
-
-      //응답으로 닉네임과 이메일과 토큰 전송
-      // res.json(cookieData);
 
       //리다이렉트 코드
       //리다리엑트는 기본적으로 쿠키를 함께 보냄! 같은 도메인이면 저장됨. 이를 쿠키의 동작 방식으로 도메인 기반 쿠키 라고 함
@@ -258,19 +251,19 @@ const userAPI = (server, getConn) => {
     return null;
   }
 
-  // 쿠키에서 카카오 토큰 추출하는 함수 (동일한 방식으로 수정)
-  function KakaoCookie(cookies) { //cookies라는 매개변수를
-    if (typeof cookies === 'string') { //문자열인지 확인
-        const cookieA = cookies.split(';'); //; 으로 나눔
-        const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('KakaoToken=')); //토큰부분만 빼내기
-        if (tokenCookie) {
-            const token = tokenCookie.split('=')[1];
-            //토큰만 추출
-            return token.trim();
-        }
-    }
-    return null;
-  }
+  // // 쿠키에서 카카오 토큰 추출하는 함수 (동일한 방식으로 수정)
+  // function KakaoCookie(cookies) { //cookies라는 매개변수를
+  //   if (typeof cookies === 'string') { //문자열인지 확인
+  //       const cookieA = cookies.split(';'); //; 으로 나눔
+  //       const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('KakaoToken=')); //토큰부분만 빼내기
+  //       if (tokenCookie) {
+  //           const token = tokenCookie.split('=')[1];
+  //           //토큰만 추출
+  //           return token.trim();
+  //       }
+  //   }
+  //   return null;
+  // }
 
 
   // 토큰 검증 api
@@ -280,19 +273,8 @@ const userAPI = (server, getConn) => {
     if (cookies) {
       // 쿠키가 존재하는 경우 처리
       const token = DelisousCookie(cookies); // 쿠키에서 토큰 추출
-      const Ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
 
-      if (Ktoken) {
-        // 카카오 토큰이 있을 경우
-        await axios.get('https://kapi.kakao.com/v1/user/access_token_info', {
-          headers: {
-            Authorization: `Bearer ${Ktoken}`,
-          },
-        });
-        
-        // 토큰 인증이 성공하면 응답
-        res.send('카카오 토큰 인증 성공');
-      } else if (token) { // 일반 토큰이 있을 때 
+      if (token) { // 일반 토큰이 있을 때 
         try {
           // verify가 만료됐는지 확인하는 함수
           
@@ -318,17 +300,7 @@ const userAPI = (server, getConn) => {
 
   // 로그아웃 메서드
   server.post('/api/logout', async (req, res) => {
-    const cookies = req.headers.cookie;
-    const Ktoken = KakaoCookie(cookies); // 쿠키에서 카카오 토큰 추출
     try {
-      if(Ktoken){
-      // 카카오 로그아웃 api 호출
-      await axios.post('https://kapi.kakao.com/v1/user/logout', null, {
-        headers: {
-          Authorization: `Bearer ${Ktoken}`
-        }
-      });
-    }
       // 쿠키 삭제
       res.setHeader('Set-Cookie', [
         `KakaoToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api;`,

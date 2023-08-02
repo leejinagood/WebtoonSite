@@ -33,7 +33,11 @@ const webtoonAPI = (server, getConn) => {
                     res.send(row); // 응답으로 모든 웹툰 정보를 보냄
                     await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
 
-                } else { // 요일별 웹툰
+                } else if(pi_vch_condition === 'rank'){
+                    res.send(row); // 응답으로 모든 웹툰 정보를 보냄
+                    await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+                }
+                else { // 요일별 웹툰
                     const result = row.filter((item) => item.webtoonWeek === pi_vch_condition); //요일이 같은 것만 출력
                     res.send(result);
                     await redisClient.set(key, JSON.stringify(result)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
@@ -57,17 +61,17 @@ const webtoonAPI = (server, getConn) => {
             const key = `webtoon_search : ${word}`; //redis의 고유 키값
             let value = await redisClient.get(key); // redis에서 해당 key로 데이터 조회
 
-            if (value) {
+          if (value) {
             // 만약 redis에 데이터가 있다면 그대로 반환 
             res.send(JSON.parse(value)); //문자열로 파싱
-        } else {
+          } else {
             const [rows] = await conn.query(query, [word]); //검색 결과를 row에 넣고 응답을 보냄
             const row = rows[0];
             res.send(row);
 
             await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
             res.send(row);
-        }
+          }
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: '서버 스크립트의 오류' });

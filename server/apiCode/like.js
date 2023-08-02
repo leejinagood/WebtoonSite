@@ -84,7 +84,7 @@ const likeAPI = (server, getConn) => {
                                 result = '..'; 
                             }
                             const change = 1;
-                            res.send({change, ID, value: newValue }); //응답
+                            res.send({change, ID, value: result }); //응답
                         }else{
                             console.log("d");
                         }
