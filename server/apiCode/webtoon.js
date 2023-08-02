@@ -2,7 +2,7 @@
 
 const webtoonAPI = (server, getConn) => {
 
-    const redisClient = require('./redis'); // redis.js 모듈을 가져옴
+    const redisClient = require('./redis'); // redis.js 모듈
 
     // 요일별 웹툰, 전체 웹툰 중 신규웹툰, 좋아요 상위 5개 웹툰
     server.get('/api/webtoons', async (req, res) => {
@@ -19,22 +19,22 @@ const webtoonAPI = (server, getConn) => {
 
             } else{ // 만약 redis에 데이터가 없다면 db에서 조회
 
-                const [rows] = await conn.query('CALL usp_get_Webtoons();');
-                const row = rows[0];
+                const [rows] = await conn.query('CALL usp_get_Webtoons();'); //모든 웹툰 정보 가져옴
+                const row = rows[0]; // row에 저장
 
-                if (pi_vch_condition === 'All') { 
+                if (pi_vch_condition === 'All') {  // 파라미터 값이 All일 때
                   
-                    for (const item of row) {
+                    for (const item of row) { // row의 갯수만큼 좋아요의 갯수를 담은 redis key와 value 생성
                       const key = `likes:${item.webtoonID}`;
                       const totalLikesValue = item.totalLikes.toString(); 
-                      await redisClient.set(key, totalLikesValue); 
+                      await redisClient.set(key, totalLikesValue);  //저장
                     }
                     
-                    res.send(row);
+                    res.send(row); // 응답으로 모든 웹툰 정보를 보냄
                     await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
 
-                } else {
-                    const result = row.filter((item) => item.webtoonWeek === pi_vch_condition);
+                } else { // 요일별 웹툰
+                    const result = row.filter((item) => item.webtoonWeek === pi_vch_condition); //요일이 같은 것만 출력
                     res.send(result);
                     await redisClient.set(key, JSON.stringify(result)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
                 }
@@ -52,7 +52,7 @@ const webtoonAPI = (server, getConn) => {
     server.get('/api/search', async (req, res) => {
         const conn = await getConn();
         const { word } = req.query;
-        const query = 'CALL usp_get_search(?);'; //검색한 웹툰의 Id를 출력
+        const query = 'CALL usp_get_search(?);'; //검색한 웹툰의 정보를 출력
         try { 
             const key = `webtoon_search : ${word}`; //redis의 고유 키값
             let value = await redisClient.get(key); // redis에서 해당 key로 데이터 조회
@@ -61,11 +61,11 @@ const webtoonAPI = (server, getConn) => {
             // 만약 redis에 데이터가 있다면 그대로 반환 
             res.send(JSON.parse(value)); //문자열로 파싱
         } else {
-            const [rows] = await conn.query(query, [word]);
+            const [rows] = await conn.query(query, [word]); //검색 결과를 row에 넣고 응답을 보냄
             const row = rows[0];
             res.send(row);
 
-            await redisClient.set(key, JSON.stringify(webtoonDetails)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+            await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
             res.send(row);
         }
         } catch (error) {

@@ -10,7 +10,7 @@ const webtoonListAPI = (server, getConn) => {
     server.get('/api/webtoondetail', async (req, res) => {
         const conn = await getConn();
         const { EnName } = req.query; //영어이름
-        const webtoonQuery = 'CALL usp_get_webtoonDetail_ID(?);'; // ID를 받아와 웹툰 정보를 출력하는 SP
+        const webtoonQuery = 'CALL usp_get_webtoonDetail_ID(?);'; // 파라미터 값에 해당하는 웹툰 정보를 출력하는 SP
 
         try {
             const key = `webtoon_detail : ${EnName}`; //redis의 고유 키값
@@ -23,8 +23,8 @@ const webtoonListAPI = (server, getConn) => {
                 let [rows] = await conn.query(webtoonQuery, [EnName]); // EnName 파라미터로 받아온 후
                 const row = rows[0];
 
-                await redisClient.set(key, JSON.stringify(rows)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
-                res.send(rows);
+                await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+                res.send(row);
             }
         } catch (error) {
             console.error(error);
@@ -50,7 +50,7 @@ const webtoonListAPI = (server, getConn) => {
                 res.send(JSON.parse(value)); //문자열을 객체로 변환하여
             } else {
                 let [rows] = await conn.query(webtoonQuery, [EnName]); // EnName 파라미터로 받아온 후
-                const row = rows[0];
+                const row = rows[0]; //결과를 저장 후 응답으로 보냄
                 await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
                 res.send(row);
             }
@@ -68,7 +68,7 @@ const webtoonListAPI = (server, getConn) => {
         const conn = await getConn();
         const { EnName, ep } = req.query; //영어이름, 몇 화?
         const values = [EnName, ep]
-        const ImgAndNext = 'CALL usp_get_webtoonPages(?, ?);'; // episodeID를 받아와 웹툰 정보를 출력하는 SP
+        const ImgAndNext = 'CALL usp_get_webtoonPages(?, ?);'; // 웹툰 정보를 출력하는 SP
 
         try {
             const key = `webtoon_page : ${values}`; //redis의 고유 키값

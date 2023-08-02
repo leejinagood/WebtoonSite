@@ -25,7 +25,7 @@ const commentAPI = (server, getConn) => {
     //댓글 입력 메서드 
     server.post('/api/comment_insert', async (req, res) => {
         const conn = await getConn();
-        const {Ep, WebEnName, UserEmail, content } = req.body; // 영어 이름과 유저 이메일을 받아옴
+        const {Ep, WebEnName, UserEmail, content } = req.body; 
         const values = [Ep, WebEnName, UserEmail, content ];
         const insertQuery = 'CALL usp_post_comment(?, ?, ?, ?)'; //댓글 입력
 
@@ -38,7 +38,7 @@ const commentAPI = (server, getConn) => {
             });
 
             if (Response.data === '토큰 인증 성공' || Response.data === '카카오 토큰 인증 성공') { //인증 성공일 때 댓글 달 수 있음
-                await conn.query(insertQuery, values); //episodeID, userID, content 입력 후 댓글 삽입
+                await conn.query(insertQuery, values); //댓글 삽입
 
                 res.send('댓글이 성공적으로 작성되었습니다.');  //응답
             } else { //토큰 인증 실패했을 때 
