@@ -23,7 +23,7 @@ const webtoonListAPI = (server, getConn) => {
                 let [rows] = await conn.query(webtoonQuery, [EnName]); // EnName 파라미터로 받아온 후
                 const row = rows[0];
 
-                //await redisClient.set(key, JSON.stringify(webtoonDetails)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+                await redisClient.set(key, JSON.stringify(rows)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
                 res.send(rows);
             }
         } catch (error) {
@@ -51,7 +51,7 @@ const webtoonListAPI = (server, getConn) => {
             } else {
                 let [rows] = await conn.query(webtoonQuery, [EnName]); // EnName 파라미터로 받아온 후
                 const row = rows[0];
-                //await redisClient.set(key, JSON.stringify(webtoonDetails)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+                await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
                 res.send(row);
             }
         } catch (error) {
@@ -79,8 +79,8 @@ const webtoonListAPI = (server, getConn) => {
                 res.send(JSON.parse(value)); //문자열을 객체로 변환하여
             } else {
                 let [rows] = await conn.query(ImgAndNext, values); // EnName과 ep 파라미터를 배열로 전달
-                let row = rows[0];
-                //await redisClient.set(key, JSON.stringify(webtoonContent)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+                const row = rows[0];
+                await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
                 res.send(row);
             }
         } catch (error) {

@@ -39,7 +39,7 @@ const likeAPI = (server, getConn) => {
                     let [Result] = await conn.query(LikeQuery, values);
                     //db에서 수행되어 행이 수정된 갯수 
                     if (Result.affectedRows > 0) { //1개 이상이면 좋아요 수정 성공
-                        res.send("0"); 
+                        //res.send("0"); 
 
                         const key = `likes:${ID}`; // redis 고유 키 값
                         let value = await redisClient.get(key); // 해당 키값으로 데이터 조회
@@ -52,6 +52,12 @@ const likeAPI = (server, getConn) => {
                                     console.log(reply);
                                 }
                              });
+                            let newValue = await redisClient.get(key);
+                            if (newValue === null) {
+                                newValue = '..'; 
+                            }
+                            const change = 0;
+                            res.send({ change , ID, value: newValue });
                         } else {
                             console.log("d");
                         }
@@ -62,19 +68,25 @@ const likeAPI = (server, getConn) => {
                     let [Result] = await conn.query(LikeCancelQuery, values);
                     //db에서 수행되어 행이 수정된 갯수 
                     if (Result.affectedRows > 0) { //1개 이상이면 좋아요 삭제 성공
-                        res.send("1"); 
+                        //res.send("1"); 
 
                         const key = `likes:${ID}`; // redis 고유 키 값
                         let value = await redisClient.get(key); // 해당 키값으로 데이터 조회
 
                         if (value !== null) { // null 대신에 0이어도 동작하게 수정
-                             redisClient.DECRBY(key, 1 ,(err, reply) => { // key에서 공백 제거
+                            redisClient.DECRBY(key, 1 ,(err, reply) => { // key에서 공백 제거
                                 if (err) {
                                     console.error(err);
                                 } else {
                                     console.log(reply);
                                 }
                             });
+                            let newValue = await redisClient.get(key);
+                            if (newValue === null) {
+                                newValue = '..'; 
+                            }
+                            const change = 1;
+                            res.send({change, ID, value: newValue });
                         }else{
                             console.log("d");
                         }
