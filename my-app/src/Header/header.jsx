@@ -143,7 +143,7 @@ const Header = () => {
       </div>
       <div className={style.HDayBox}>
         <div className={style.Day}>
-          <Link href={{ pathname: '/mainpage', query: { day: 'All' } }}>
+          <Link href={{ pathname: '/', query: { day: 'All' } }}>
             <li id={style.AD} className={style.AllDay}>전체요일</li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'mon' } }}>
