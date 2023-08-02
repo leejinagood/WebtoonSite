@@ -44,35 +44,49 @@ const NewToon = () => {
     setIsDragging(false);
   };
 
+  const getRecentWebtoons = () => {
+    const sortedWebtoons = webtoons.sort((a, b) => {
+      return new Date(b.webtoonDate) - new Date(a.webtoonDate);
+    });
+    return sortedWebtoons.slice(0, 3); // 최근 3개의 웹툰만 반환
+  };
+
+
   return (
     <div className={style.NewToonBOx}>
-    <div
-      className={style.NewToonPage}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      ref={sliderRef}
-    >
-      <Slider>
-        {Array.isArray(webtoons) &&
-          webtoons.map((webtoon, index) => (
-            <Link
-              key={index}
-              href={`/listpage?EnName=${encodeURIComponent(
-                webtoon.webtoonEnName
-              )}`}
-            >
-              <div className={`${style.NewToonInfo} ${index === 1 ? "active" : ""}`}>
-                <div className={style.NewToonItem}>
-                  <img src={webtoon.webtoonThumbnail} alt={webtoon.webtoonName} />
+      <div
+        className={style.NewToonPage}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        ref={sliderRef}
+      >
+        <Slider>
+          {Array.isArray(webtoons) &&
+            getRecentWebtoons().map((webtoon, index) => (
+              <Link
+                key={index}
+                href={`/listpage?EnName=${encodeURIComponent(
+                  webtoon.webtoonEnName
+                )}`}
+              >
+                <div
+                  className={`${style.NewToonInfo} ${
+                    index === 1 ? "active" : ""
+                  }`}
+                >
+                  <div className={style.NewToonItem}>
+                    <img
+                      src={webtoon.webtoonThumbnail}
+                      alt={webtoon.webtoonName}
+                    />
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
-      </Slider>
-    </div>
+              </Link>
+            ))}
+        </Slider>
+      </div>
     </div>
   );
 };
-
 export default NewToon;

@@ -55,7 +55,9 @@
     }
     .SNSBTN{
         width: 32% !important;
-        margin-left:3%;
+        margin-left:3% !important;
+
+
     }
     /* 썸네일 밑에 제목 글자 간격 조정 */
 
@@ -230,7 +232,7 @@
     .SNSBTN{
         font-size: 10px;
         width: 43% !important;
-        margin-left: 5px;
+        margin-left: 5px !important;
     }
 
 
@@ -339,6 +341,7 @@
     background-color: rgba(159, 142, 142,0.4);
     width: 100%;
     height: 300px;
+    margin-top: 1px;
     object-fit: contain;
     margin-right: 15px;
 }
@@ -387,13 +390,15 @@
     background-color: rgb(247, 247, 247);
 }
 #PointBtn{
+    margin-bottom: 5px;
     width: 100%;
     border: 1px solid rgb(208, 249, 208);
     background-color: rgb(210, 246, 210);
 }
 .SNSBTN{
     border-radius: 5px;
-    width: 40%;
+    width: 39%;
+    margin-left: 10px;
     height: 35px;
 
     background-color: rgb(247, 247, 247);
