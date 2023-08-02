@@ -22,14 +22,13 @@ const commentAPI = (server, getConn) => {
 
     const axios = require('axios'); 
 
-
     //댓글 입력 메서드 
     server.post('/api/comment_insert', async (req, res) => {
         const conn = await getConn();
         const {Ep, WebEnName, UserEmail, content } = req.body; // 영어 이름과 유저 이메일을 받아옴
         const values = [Ep, WebEnName, UserEmail, content ];
         const insertQuery = 'CALL usp_post_comment(?, ?, ?, ?)'; //댓글 입력
-    
+
         try {
             const Response = await axios.get('http://localhost:4000/api/Token', { //토큰 인증 호출
                 headers: { //헤더에

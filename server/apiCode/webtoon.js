@@ -24,17 +24,21 @@ const webtoonAPI = (server, getConn) => {
 
                 if (pi_vch_condition === 'All') { 
                     res.send(row); 
+                    await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+
                 } else if (pi_vch_condition === 'rank') { 
                     row.sort((a, b) => b.totalLikes - a.totalLikes);
                     const result = row.slice(0, 5);
-                    res.send(result);
+                    res.send(result);                    
+                    await redisClient.set(key, JSON.stringify(result)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+
                 } else {
                     const result = row.filter((item) => item.webtoonWeek === pi_vch_condition);
                     res.send(result);
+                    await redisClient.set(key, JSON.stringify(result)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+
                 }
 
-                //await redisClient.set(key, JSON.stringify(webtoonDetails)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
-                //res.send(webtoonDetails);
             }
         } catch (error) {
             console.error(error);
