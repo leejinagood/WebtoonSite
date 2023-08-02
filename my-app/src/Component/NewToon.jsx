@@ -15,7 +15,7 @@ const NewToon = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/newtoon?day=new`);
+        const response = await fetch(`/api/newtoon?day=All`);
         const data = await response.json();
         setWebtoons(data);
       } catch (error) {
@@ -59,12 +59,12 @@ const NewToon = () => {
             <Link
               key={index}
               href={`/listpage?EnName=${encodeURIComponent(
-                webtoon.webtoon_en_name
+                webtoon.webtoonEnName
               )}`}
             >
               <div className={`${style.NewToonInfo} ${index === 1 ? "active" : ""}`}>
                 <div className={style.NewToonItem}>
-                  <img src={webtoon.thumbnail} alt={webtoon.webtoon_name} />
+                  <img src={webtoon.webtoonThumbnail} alt={webtoon.webtoonName} />
                 </div>
               </div>
             </Link>

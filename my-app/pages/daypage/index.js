@@ -70,16 +70,13 @@ const WeekPage = () => {
               {[...Array(count)].map((_, subIndex) => {
                 const webtoon = webtoons[subIndex];
                 return webtoon ? (
-                  
                   <div className={style.DayToonItem} key={subIndex}>
-                  <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoon_en_name)}`}>
-                    
+                  <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}`}>
                     {/* <Thumbnail day={webtoon} /> */}
-                    <img className="DayToonIMG" src={webtoon.thumbnail} alt="" />
-                    <p className={style.ToonTitle}>{webtoon.webtoon_name}</p>
-                    <p className={style.Writer}>{webtoon.author}</p>
-                    <p className={style.Star}>⭐️{webtoon.like}</p>
-                    </Link>
+                    <img src={webtoon.webtoonThumbnail} alt="" />
+                    <p className={style.ToonTitle}>{webtoon.webtoonName}</p>
+                    <p className={style.Writer}>{webtoon.webtoonAuthor}</p>
+                  </Link>
                     
                   </div>
                 ) : null;

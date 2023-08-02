@@ -23,24 +23,24 @@ const AllToonInfo = () => {
   //   const data = await res.json()
     
   //   return data
+
+  
   // }  ? ? ? ? 
 
 return (
   <div className={style.ATBox}>
     {webtoons.length > 0 && webtoons.map((webtoon, index) => (
       <div className={style.AllToonInfo} key={index}>
-        <div className={style.AtTem}>
 
         <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}`}>
 
-          <Thumbnail className={style.ATimg} day={webtoon} />
+          <img className={style.ATimg} src={webtoon.webtoonThumbnail} />
           <div className={style.ATtext}>
           <p className={style.AToonTitle}>{webtoon.webtoonName}</p>
-          <p className={style.ATMT}> {webtoon.author} </p>
+          <p className={style.ATMT}> {webtoon.webtoonAuthor} </p>
           </div>
           
         </Link>
-        </div>
       </div>
     ))}
     {webtoons.length % 3 !== 0 && (

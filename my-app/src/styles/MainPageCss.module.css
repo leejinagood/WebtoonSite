@@ -9,6 +9,20 @@
 } */
 @media screen and (max-width:721px) and (min-width:362px) {
     /* 메인 */
+    .RankNum{
+        width: 12% !important;
+        float: left;
+        font-size: 10px;
+        margin-left: 2%;
+        line-height: 100px;
+        margin-top: 20px;
+    }
+    .RankText{
+        float: left;
+        width: 50% !important;
+        font-size: 13px;
+        margin-top: 25px;
+    }
     #ll{
         width: 66% !important;
     }
@@ -31,8 +45,8 @@
     .AllToonInfo img{
         width: 100% !important;
     }
-    .AllTonnbox{
 
+    .AllTonnbox{
         width: 100% !important;
     }
     .ToonTitle{
@@ -67,7 +81,6 @@
         width: 720px !important;
     }
     .Mid {
-        
         display: flex !important; /* 요소들을 가로 방향으로 배치하기 위해 flexbox를 사용합니다 */
         justify-content: space-between ; /* 요소들을 양쪽으로 붙이도록 설정합니다 */
         align-items: flex-start; /* 요소들을 위쪽으로 정렬합니다 */
@@ -76,9 +89,9 @@
     
     .DayToonItem{
         flex-wrap: wrap;
-        width: 47% !important;
-        float: left;
-        margin-right: 10px;
+        width: 80% !important;
+        height: 300px  !important;
+        background-color: rebeccapurple;
     }
     .DayToonIMG{
         
@@ -112,10 +125,9 @@
       }
     .RBox{
         float: left !important;
-        margin-left: 6.5% !important;
+        width: 100% !important;
     }
     .Rank{
-        margin-left: 40%;
         float: left !important;
     }
     .Rank .RankImg{
@@ -123,7 +135,7 @@
 
     }
     .HHH{
-        margin-top: 10%;
+        margin-top: 40px !important;
         float: left !important;
         bottom: 30px !important;
         margin-left: 6.5% !important;
@@ -131,16 +143,14 @@
 
     .Rankitem{
         margin-top: 10px !important;
-        float: right;
-        width:23vw;
+        float: left;
+        width: 100%;
     }
     .RankText{
         font-size: 1px;
-        margin-top: 12px;
-        width: 6vw !important;
+        margin-top: 25px !important;
+        width: 31% !important;
         float: right;
-        margin-top: 0px !important;
-        margin-left: 3vw !important;
     }
 
 
@@ -203,13 +213,11 @@
         display: block;
     }
     .Rank{
-        width:12vw !important;
         float: left !important;
     }
 
     .RBox{
         float: left;
-        width: 40% !important;
     }
     .Rankitem{
         margin-top: 10px !important;
@@ -217,10 +225,12 @@
         width:30vw;
     }
     .RankText{
+        float: left !important;
         font-size: 1px;
-        width: 11vw !important;
         line-height: 8vw;
         margin-left: 3vw !important;
+    }
+    .RankNum{
     }
     .Mid{
         float: left;
@@ -332,7 +342,9 @@
 
 .RankText {
     width: 60px !important;
+    margin-top: 5px !important;
   font-size: 10px !important;
+  width: 30%;
 }
 .RankText .RankWN {
     margin-top: 15px !important;
@@ -341,16 +353,15 @@
     float: left !important;
 }
 .RankNum {
-
-  width: 23% !important;
   font-size: 10px;
+  margin-top: 30px !important;
+  width: 20% !important;
   float: left !important;
-  height: 60px; /* 순위 영역의 고정 높이를 설정합니다 */
-  line-height: 60px !important; /* 순위를 수직 가운데로 정렬합니다 */
+  line-height: 0px !important; /* 순위를 수직 가운데로 정렬합니다 */
 }
     .HHH{
         width: 60% !important;
-        margin-top: 24% !important;
+        margin-top: 40px !important;
         float: left !important;
     }
 
@@ -382,8 +393,7 @@
         margin-bottom: 6px;
     }
     .Categories{
-        font-size: 12px !important;
-        margin-bottom: 0px !important;
+        font-size: 11px !important;
     }
 
     .DayToonItem img{
@@ -397,7 +407,7 @@
     font-size: 16px !important;
     width: 90%;
     float: left;
-    margin-top: 5px;
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
@@ -509,9 +519,11 @@
     width:51%;
   }
   .Rank {
-
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 10px;
     float: left;
-    width: 50%; /* 부모 요소의 가로 너비에 맞게 설정합니다 */
+    width: 100%; /* 부모 요소의 가로 너비에 맞게 설정합니다 */
     height: auto; /* 내용에 맞게 높이를 설정합니다 */
     margin-bottom: 10px;
   }
@@ -524,7 +536,7 @@
 .HHH{
     position: relative;
     bottom: 30px;
-    font-size: 15px;
+    font-size: 16px;
     margin-bottom: 1px;
     width: 50%;
     float: right;
@@ -544,18 +556,18 @@
     border-radius: 10px;
 }
 .RankNum{
-    width: 3%;
+    width: 5%;
     float: left;
-    height: 60px;
     font-size: 10px;
     margin-left: 2%;
-    line-height: 90px;
+    line-height: 100px;
+    margin-top: 20px;
 }
 .RankText{
     float: left;
-    width: 20%;    
-    font-size: 10px;
+    font-size: 13px;
     margin-left: 3%;
+    margin-top: 25px;
 }
 .RankText .RankAT{
 }

@@ -1,5 +1,5 @@
 @media screen and (max-width:721px) and (min-width:362px) {
-  .NewToonBOx{
+  /* .NewToonBOx{
     width: 720px !important;
   }
   .NewToonPage
@@ -20,7 +20,32 @@
     left: 29%;
     object-fit: contain !important;
   }
-  
+   */
+   .NewToonBOx{
+    width: 100% !important;
+  }
+  .NewToonPage
+  {
+    width: 100% !important;
+    position: relative;
+    right: 12.5%;
+    height: 275px !important;
+  }
+  .NewToonInfo {
+    width: 100%  !important;
+    height: 269px !important;
+    align-items: center;
+    
+    float: left !important;
+    margin-left: 17% !important;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+
+  .NewToonInfo img {
+    width: 100% !important;
+  }
 
 
 }
@@ -113,7 +138,8 @@
 
 .NewToonItem img {
   object-fit: contain ;
-  width: 50%;
+  height: 300px;
+
 }
 
 

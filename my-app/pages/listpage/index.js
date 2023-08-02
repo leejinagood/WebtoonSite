@@ -205,10 +205,11 @@ const ListPage = () => {
   <div>Loading...</div>
 ) : (
   <>
-  <div className={style.ListBox}>
-    <div className={style.DESC}>
+      <div className={style.DESC}>
       <span onClick={handleAscSort}>오름차순 /</span><span onClick={handleDescSort}> 내림차순</span>
     </div>
+  <div className={style.ListBox}>
+
     <ul className={style.List}>
       {webtoonInfo && Array.from({ length: webtoonInfo.count }).map((_, index) => (
         <li key={index}>

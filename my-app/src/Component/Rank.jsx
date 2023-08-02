@@ -28,14 +28,14 @@ const Rank = () => {
               <div className={style.Rank}>
                 <div className={style.Rankitem}>
                   <div className={style.RankImg}>
-                    <img src={webtoon.thumbnail} alt={`${index + 1}등`} />
+                    <img src={webtoon.webtoonThumbnail} alt={`${index + 1}등`} />
                   </div>
                   <div className={style.RankNum}>
                     <h2>{`${index + 1}등`}</h2>
                   </div>
                   <div className={style.RankText}>
-                    <p className={style.RankWN}>{webtoon.webtoon_name}</p>
-                    <p className={style.RankAT}>{webtoon.author}</p>
+                    <p className={style.RankWN}>{webtoon.webtoonName}</p>
+                    <p className={style.RankAT}>{webtoon.webtoonAuthor}</p>
                   </div>
                   
                 </div>

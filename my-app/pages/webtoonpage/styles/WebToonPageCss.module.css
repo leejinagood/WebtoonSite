@@ -11,6 +11,13 @@
 
         
     }
+    .WebToonCut img{
+        margin-left: 0% !important;
+        width: 100%;
+        object-fit: contain;
+    }
+    
+    
     .WebToonCut{
         width:100% !important;
         float: left;
@@ -43,14 +50,19 @@
         width: 80% !important;
     }
     .WebToonCut{
-        width:80% !important;
+        width:100% !important;
         float: left;
     }
 
+    .WebToonCut img{
+        margin-left: 0% !important;
+        width: 100%;
+        object-fit: contain;
+    }
 
 }
 .WebToonPage{
-    width: 360px;
+    width: 80%;
     margin: 0 auto;
 }
 .WebToonBox{
@@ -59,13 +71,14 @@
 }
 
 .WebToonCut{
-    width: 100%;
+    width: 60%;
     margin: 0 auto;
     float: left !important;
 
     margin-bottom: -5px;
 }
 .WebToonCut img{
+    margin-left: 35%;
     width: 100%;
     object-fit: contain;
 }

@@ -3,6 +3,7 @@
     .ListPage{
         width: 720px !important;
     }
+
     .TextBox{
         height: 70px !important;
     }
@@ -10,13 +11,12 @@
         position: relative;
         right: 50px;
     }
+    .ListInfo{
+        margin-top: 10px !important;
+    }
     .DESC{
         font-size: 9px;
-        position: relative !important;
-        bottom: 0px !important;
-        top: 32px !important;
-        right: 105px;
-        
+        margin-top: 80px !important;
     }
     #PointBtn{
         width: 100% !important;
@@ -50,6 +50,9 @@
     .ListImgBox img{
         height: 100% !important;
     }
+    .ListImg img{
+        width: 30% !important;
+    }
     .SNSBTN{
         width: 32% !important;
         margin-left:3%;
@@ -74,7 +77,6 @@
         left:20px;
         width: 90% !important;
 
-        margin-top: 7%;
     }
     .ListItem{
         position: relative;
@@ -185,6 +187,10 @@
         width: 30% !important;
         float: left !important;
     }
+    .ListInfo{
+        margin-top: 0px !important;
+
+    }
 }
 
 /* test */
@@ -194,7 +200,10 @@
         overflow: hidden;
         width: 360px !important;
     }
- 
+    .ListInfo{
+        margin-top: 5px !important;
+
+    }
     .Pagination{
         position: relative;
         right: 33px !important;
@@ -214,10 +223,7 @@
     }
     .DESC{
         font-size: 5px !important;
-        position: relative !important;
-        bottom: 0px !important;
-        top: 10px !important;
-        right: 35px;
+        margin-top: 8px !important;
         
     }
     
@@ -269,7 +275,7 @@
         bottom: 20vw !important;
     }
     .List{
-        margin-top: 3% !important;
+        margin-top: 0px !important;
         width: 80% !important;
         float: left !important;
     }
@@ -311,19 +317,17 @@
 
 
 .ListPage{
-    width: 100%;
+    width: 80%;
     font-family: 'Jua', sans-serif;
-
     list-style: none;
-
     margin: 0 auto;
 }
 .ListInfo{
     height: 100px;
-    float: left;
     width: 100%;
+    float: left;
     margin: 0 auto;
-
+    margin-top: 20px;
     
 }
 .ListImgBox{
@@ -429,9 +433,15 @@
     height: 65px;
     border-bottom: 1px solid rgb(230, 226, 226);
 }
-.ListItem .ListImg img{
+/* .ListItem .ListImg img{
     width:30%;
     height: 100%;
+    object-fit: contain;
+    float: left;
+} */
+.ListItem .ListImg img{
+    width:10%;
+    height: 50%;
     object-fit: contain;
     float: left;
 }
@@ -455,8 +465,9 @@
 
 .DESC{
     font-size: 12px;
-    position: relative !important;
-    bottom: 12px !important;
+    float: left;
+    margin-top: 30px;
+    margin-bottom: 5px;
 }
 .DESC span{
     cursor: pointer;

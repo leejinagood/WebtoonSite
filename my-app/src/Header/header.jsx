@@ -119,7 +119,7 @@ const Header = () => {
                     onKeyPress={handleKeyPress}
                     placeholder="작가/제목으로 검색할 수 있습니다."
                   />
-              <div className={style.BTN}>
+                    <div className={style.BTN}>
                 {isClient && ( // 클라이언트 사이드에서만 렌더링
                   <>
                     <button type="submit" className={style.SerchBtn}>검색</button>
@@ -143,8 +143,8 @@ const Header = () => {
       </div>
       <div className={style.HDayBox}>
         <div className={style.Day}>
-          <Link href={{ pathname: '/mainpage', query: { day: 'All' } }}>
-            <li id={style.AD} className={style.AllDay}>전체요일</li>
+          <Link href={{ pathname: '/', query: { day: 'All' } }}>
+            <li id={style.AD} className={style.AllDay}>전체<span className={style.vis}>요일</span></li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'mon' } }}>
             <li className={style.AllDay}>월</li>
