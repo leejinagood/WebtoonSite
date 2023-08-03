@@ -8,7 +8,7 @@ import Head from "next/head";
 import Link from "next/link";
 const ListPage = () => {
   const router = useRouter();
-  const { EnName } = router.query;
+  const { EnName,id } = router.query;
   const [webtoonInfo, setWebtoonInfo] = useState({});
   const [webtoons] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -88,6 +88,30 @@ const ListPage = () => {
     }
   }, [EnName]);
 
+  const [like , setLike] =useState();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/likecount?id=${id}`);
+        const data = await response.json(); // JSON 데이터를 받아옵니다.
+        setLike(data.likecount);
+        console.log(like);
+        console.log(data);
+
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching API:", error);
+        setLoading(false);
+      }
+    };
+
+    if (EnName) {
+      fetchData();
+    } else {
+      setWebtoonItem(null);
+    }
+  }, [EnName]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -119,21 +143,16 @@ const ListPage = () => {
 
         if (likeCheck === 0) {
           // 좋아요가 성공적으로 추가되면 좋아요 개수를 업데이트합니다.
-          setWebtoonInfo((prevInfo) => ({
-            ...prevInfo,
-            LikesCount: webtoonInfo.LikesCount + 1, // 현재 좋아요 개수에 1을 더해 업데이트
-          }));
+
+          setLike((prevLike) => prevLike + 1); // 화면에 보여지는 라이크 값을 1 증가시킵니다.
           console.log("Like UP");
           window.alert("좋아요 추가");
         } 
         else if (likeCheck === 1) {
           // 좋아요가 성공적으로 추가되면 좋아요 개수를 업데이트합니다.
-          setWebtoonInfo((prevInfo) => ({
-            ...prevInfo,
-            LikesCount: webtoonInfo.LikesCount - 1, // 현재 좋아요 개수에 1을 더해 업데이트
-          }));
-          window.alert("좋아요 취소");
 
+          setLike((prevLike) => prevLike - 1); // 화면에 보여지는 라이크 값을 1 감소시킵니다.
+          window.alert("좋아요 취소");
         }
           else {
           console.error("좋아요 추가 실패:", response);
@@ -248,7 +267,7 @@ const ListPage = () => {
 
                     <div className={style.InfoBtn}>
                       <button id={style.PointBtn} className={style.IBtn} onClick={handleLike}>
-                        좋아요 {webtoonInfo.LikesCount}
+                        좋아요 {like}
                       </button>
                       <Link href={`/webtoonpage?EnName=${EnName}&ep=1`}><button className={style.IBtn}>첫화보기 1화</button></Link>
                       <button className={style.SNSBTN}>공유<a className={style.short}>하기</a></button>

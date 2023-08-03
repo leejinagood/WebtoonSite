@@ -32,7 +32,7 @@ return (
     {webtoons.length > 0 && webtoons.map((webtoon, index) => (
       <div className={style.AllToonInfo} key={index}>
 
-        <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}`}>
+        <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}&id=${webtoon.webtoonID}`}>
 
           <img className={style.ATimg} src={webtoon.webtoonThumbnail} />
           <div className={style.ATtext}>
