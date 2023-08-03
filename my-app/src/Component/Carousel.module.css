@@ -1,0 +1,71 @@
+@media screen and (max-width:721px) and (min-width:362px) {
+    .slider{
+        width: 0 0 calc(100% / 3) !important;
+
+    }
+    .slide{
+        width: 100%  !important;
+        position: relative;
+        height: 100px !important;
+        right: 100px !important;
+
+    }
+    .slide img {
+        float: left;
+        width: 171px !important; 
+        margin-left: 35px !important;
+        height: 200px !important;
+        object-fit: contain;
+      }
+}
+@media screen and (max-width:361px) and (min-width:100px) {
+    .slider {
+      }
+      .slide {
+        width: 100% !important;
+        flex: initial !important;
+        display: initial;
+        animation: slide 5s infinite;
+        margin-left: 15px !important;
+      }
+
+    
+      .slide img {
+        width: 100px !important;
+        margin-top: 15px !important;
+        margin-left: 0 !important;
+        object-fit: contain;
+      }
+
+}
+
+.carousel {
+    width: 100%;
+    overflow: hidden;
+
+  }
+  
+  .slider {
+    display: flex;
+  }
+  
+  .slide {
+    flex: 0 0 calc(100% / 3);
+    width: 100%;
+    margin-top: 25px;
+  }
+  
+  .slide img {
+    border: 1px solid #000;
+    width:320px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow:1px 1px;
+    margin-left: 80px;
+    object-fit: contain;
+    
+  }
+  
+  /* 추가적인 스타일링을 원하신다면 이곳에 추가하세요 */
+  

@@ -111,11 +111,13 @@ const ListPage = () => {
             UserEmail: userEmail, // userEmail 변수를 사용
           }),
         });
+        
         const data = await response.json(); // JSON 데이터를 받아옵니다.
-        const likeCheck = data; // 좋아요 체크 결과를 변수에 저장합니다.
+        const likeCheck = data.change; // 좋아요 체크 결과를 변수에 저장합니다.
         console.log(likeCheck);
-      
-        if (likeCheck === "0") {
+        console.log(data);
+
+        if (likeCheck === 0) {
           // 좋아요가 성공적으로 추가되면 좋아요 개수를 업데이트합니다.
           setWebtoonInfo((prevInfo) => ({
             ...prevInfo,
@@ -124,7 +126,7 @@ const ListPage = () => {
           console.log("Like UP");
           window.alert("좋아요 추가");
         } 
-        else if (likeCheck === "1") {
+        else if (likeCheck === 1) {
           // 좋아요가 성공적으로 추가되면 좋아요 개수를 업데이트합니다.
           setWebtoonInfo((prevInfo) => ({
             ...prevInfo,

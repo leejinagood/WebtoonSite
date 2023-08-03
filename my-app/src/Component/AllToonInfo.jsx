@@ -37,7 +37,7 @@ return (
           <img className={style.ATimg} src={webtoon.webtoonThumbnail} />
           <div className={style.ATtext}>
           <p className={style.AToonTitle}>{webtoon.webtoonName}</p>
-          <p className={style.ATMT}> {webtoon.webtoonAuthor} </p>
+          <p className={style.aTMT}> {webtoon.webtoonAuthor} </p>
           </div>
           
         </Link>
