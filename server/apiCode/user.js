@@ -167,6 +167,7 @@ const userAPI = (server, getConn) => {
                 { expiresIn: '1m' } // 토큰 만료 시간 10분 설정
             );
 
+            // 쿠키에 저장하여 보내기
             res.setHeader('Set-Cookie', [
                 `userName=${enNickname}`,
                 `userEmail=${enEmail}`,
@@ -190,13 +191,17 @@ const userAPI = (server, getConn) => {
                 await conn.query(likeQuery, [email]);
             }
         
-
             //리다리엑트는 기본적으로 쿠키를 함께 보냄! 같은 도메인이면 저장됨. 이를 쿠키의 동작 방식으로 도메인 기반 쿠키 라고 함
             res.writeHead(302, { //상태는 302
                 'Location': 'http://localhost:3000', //주소
                 'Content-Type': 'text/plain'
             });
             res.end('Redirecting to http://localhost:3000');
+            // res.send({
+            //     userName: nickname,
+            //     userEmail: email,
+            //     token: token
+            // });
 
         } catch (error) {
             // console.error(error);
@@ -251,16 +256,13 @@ const userAPI = (server, getConn) => {
                     res.send('토큰 인증 성공');
 
                 } catch (error) {
-                    // 토큰이 유효하지 않은 경우
                     res.status(401).send('토큰 인증 실패');
                 }
             } 
             else {
-                // 토큰이 없는 경우 처리
                 res.status(401).send('쿠키에 토큰이 없음');
             }
         } else {
-            // 쿠키가 없는 경우 처리
             res.status(401).send('쿠키 없음');
         }
     });

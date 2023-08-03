@@ -18,7 +18,7 @@ const commentAPI = (server, getConn) => {
             //console.error(error);
             res.status(500).send({ error: '서버 스크립트의 오류' });
         } finally {
-            conn.release(); // 연결 해제
+            conn.release(); 
         }
     })
 
@@ -43,7 +43,7 @@ const commentAPI = (server, getConn) => {
                 await conn.query(insertQuery, values); //댓글 삽입
 
                 res.send('댓글이 성공적으로 작성되었습니다.');  //응답
-                
+
             } else { //토큰 인증 실패했을 때 
                 res.status(401).send('로그인 하세요');
             }
