@@ -29,7 +29,7 @@ const likeAPI = (server, getConn) => {
                 const [date] = await conn.query(Query, values); //좋아요 햇는지 안 했는지
                 const [resultArray] = date;
                 const [resultObject] = resultArray;
-                const { likes, webtoonWeek, webtoonID } = resultObject;
+                const { likes} = resultObject;
 
                 const Week = resultObject.webtoonWeek; //무슨 요일에 연재하는지
                 const ID = resultObject.webtoonID;  //웹툰 ID 추출
@@ -58,8 +58,16 @@ const likeAPI = (server, getConn) => {
                                 result = ''; 
                             }
 
+                            // 좋아요 수정이 완료되면 redis에서 해당 키를 삭제
+                            redisClient.del(`webtoon_detail : ${EnName}`, (err, reply) => {
+                                if (err) {
+                                    console.error(err);
+                                } else {
+                                    console.log(reply);
+                                }
+                            });
                             const change = 0; //클라이언트에 좋아요를 했다는 표시
-                            res.send({ change , ID, value: result });
+                            res.send({ change});
 
                         } else {
                             console.log("");
@@ -91,8 +99,16 @@ const likeAPI = (server, getConn) => {
                                 result = ''; 
                             }
 
+                            // 좋아요 수정이 완료되면 redis에서 해당 키를 삭제
+                            redisClient.del(`webtoon_detail : ${EnName}`, (err, reply) => {
+                                if (err) {
+                                    console.error(err);
+                                } else {
+                                    console.log(reply);
+                                }
+                            });
                             const change = 1;
-                            res.send({change, ID, value: result }); //응답
+                            res.send({change}); //응답
                         }else{
                             console.log("");
                         }

@@ -223,20 +223,6 @@ const userAPI = (server, getConn) => {
         return null;
     }
 
-    // // 쿠키에서 카카오 토큰 추출하는 함수 (동일한 방식으로 수정)
-    // function KakaoCookie(cookies) { //cookies라는 매개변수를
-    //   if (typeof cookies === 'string') { //문자열인지 확인
-    //       const cookieA = cookies.split(';'); //; 으로 나눔
-    //       const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('KakaoToken=')); //토큰부분만 빼내기
-    //       if (tokenCookie) {
-    //           const token = tokenCookie.split('=')[1];
-    //           //토큰만 추출
-    //           return token.trim();
-    //       }
-    //   }
-    //   return null;
-    // }
-
 
     // 토큰 검증 api
     server.get('/api/Token', async (req, res) => {
