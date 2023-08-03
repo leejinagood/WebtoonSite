@@ -22,7 +22,7 @@ const webtoonAPI = (server, getConn) => {
                 const [rows] = await conn.query('CALL usp_get_Webtoons();'); //모든 웹툰 정보 가져옴
                 const row = rows[0]; // row에 저장
 
-                if (pi_vch_condition === 'All') {  // 파라미터 값이 All일 때
+                if (pi_vch_condition === 'All') {  
                   
                     for (const item of row) { // row의 갯수만큼 좋아요의 갯수를 담은 redis key와 value 생성
                       const key = `likes:${item.webtoonID}`;
@@ -31,12 +31,16 @@ const webtoonAPI = (server, getConn) => {
                     }
                     
                     res.send(row); // 응답으로 모든 웹툰 정보를 보냄
-                    await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+                    await redisClient.set(key, JSON.stringify(row)); 
+
+                    }else if(pi_vch_condition === 'rank'){
+                        res.send(row); // 응답으로 모든 웹툰 정보를 보냄
+                        await redisClient.set(key, JSON.stringify(row), 'EX', 10); // 조회한 데이터를 json 형태로 변환하여 redis에 저장
 
                     }else { // 요일별 웹툰
-                    const result = row.filter((item) => item.webtoonWeek === pi_vch_condition); //요일이 같은 것만 출력
-                    res.send(result);
-                    await redisClient.set(key, JSON.stringify(result)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+                        const result = row.filter((item) => item.webtoonWeek === pi_vch_condition); //요일이 같은 것만 출력
+                        res.send(result);
+                        await redisClient.set(key, JSON.stringify(result)); 
                 }
             }
         } catch (error) {
@@ -65,7 +69,7 @@ const webtoonAPI = (server, getConn) => {
             const row = rows[0];
 
             res.send(row);
-            await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
+            await redisClient.set(key, JSON.stringify(row)); 
           }
         } catch (error) {
             console.error(error);
