@@ -3,6 +3,10 @@ import style from "../src/styles/MainPageCss.module.css";
 import Header from "../src/Header/header";
 import Footer from "../src/Footer/footer";
 import NewToon from "../src/Component/NewToon";
+import Slick from "../src/Component/Slick";
+
+import Test from "./test";
+
 import Tag from "../src/Component/Tag/Tag";
 import Head from 'next/head';
 import AllToonInfo from "../src/Component/AllToonInfo";
@@ -13,7 +17,6 @@ const MainPage = () => {
 
   const router = useRouter();
   const { token } = parseCookies({}); // 쿠키에서 토큰 가져오기
-
   useEffect(() => {
     if (typeof window !== 'undefined') {
       // 브라우저 환경에서만 실행되도록 조건부 처리
@@ -41,7 +44,7 @@ const MainPage = () => {
       </Head>
       <Header token={token} /> {/* Header 컴포넌트에 토큰 전달 */}
       <div className={style.MNewToon}>
-        <NewToon />
+        <Slick />
       </div>
       <h3 className={style.Categories}>요일별 전체 웹툰</h3>
       <div className={style.AllToon}>

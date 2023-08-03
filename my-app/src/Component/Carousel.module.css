@@ -1,0 +1,80 @@
+@media screen and (max-width:721px) and (min-width:362px) {
+    .slider{
+        width: 0 0 calc(100% / 3) !important;
+
+    }
+    .slide{
+        width: 100%  !important;
+        position: relative;
+        right: 100px !important;
+
+    }
+    .slide img {
+        width: 171px !important; 
+        margin-left: 35px !important;
+        height: 300px !important;
+        object-fit: contain;
+      }
+}
+@media screen and (max-width:361px) and (min-width:100px) {
+    .slider {
+        width: calc(100% / 1) !important;
+        position: relative;
+        right: 100px !important;
+      }
+      .slide {
+        width: 100% !important;
+        flex: initial !important;
+        background-color: gainsboro;
+        display: initial;
+        animation: slide 5s infinite;
+
+      }
+
+    
+      .slide img {
+        width: 360px !important;
+        margin-left: 0 !important;
+        height: 300px !important;
+        object-fit: contain;
+      }
+      @keyframes slide {
+        0%, 100% {
+          transform: translateX(0);
+        }
+        16.666%, 33.333% {
+          transform: translateX(-100%);
+        }
+        50%, 66.666% {
+          transform: translateX(-200%);
+        }
+        83.333%, 99.999% {
+          transform: translateX(-300%);
+        }
+      }
+}
+
+.carousel {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .slider {
+    display: flex;
+  }
+  
+  .slide {
+    flex: 0 0 calc(100% / 3);
+    width: 100%;
+    background-color: gainsboro;
+  }
+  
+  .slide img {
+    width:420px;
+    margin-left: 80px;
+    height: 300px !important;
+    object-fit: contain;
+  }
+  
+  /* 추가적인 스타일링을 원하신다면 이곳에 추가하세요 */
+  

@@ -24,29 +24,24 @@
    .NewToonBOx{
     width: 100% !important;
   }
-  .SBox{
-    width: 100%;
-  }
   .NewToonPage
   {
     width: 100% !important;
     position: relative;
     right: 12.5%;
-    height: 205px !important;
+    height: 275px !important;
   }
   .NewToonInfo {
-    width: 150px !important;
-    height: 200px !important;
+    width: 100%  !important;
+    height: 250px !important;
+    
+    margin-left: 17% !important;
     cursor: pointer;
-    margin-left: 100px !important;
-    background-color: red;
   }
 
 
   .NewToonInfo img {
     width: 100% !important;
-
-
   }
 
 
@@ -68,7 +63,7 @@
 
   .NewToonInfo {
     position: relative;
-    right: 30%;
+    right: 35%;
     width: 100% !important;
     height: 200px !important;
     cursor: pointer;
@@ -85,12 +80,9 @@
 
   .NewToonBOx{
     width: 100% !important;
-    background-color: rebeccapurple ;
   }
   .NewToonPage
   {
-    background-color: rebeccapurple ;
-
     width: 100% !important;
     position: relative;
     right: 12.5%;
@@ -99,9 +91,10 @@
   .NewToonInfo {
     width: 100%  !important;
     height: 169px !important;
+    align-items: center;
     
     float: left !important;
-    margin-left: 20% !important;
+    margin-left: 17% !important;
     justify-content: center;
     cursor: pointer;
   }
@@ -118,12 +111,14 @@
 
 
 .NewToonPage {
-  /* background-color: rgba(159, 142, 142,0.4); */
-  background-color: rgba(0, 0, 0, 0.1);
-  width: 100%;
+  background-color: rgba(159, 142, 142,0.4);
   float: left;
   height: 500px;
   /* justify-content: center; */
+}
+.slider {
+  display: flex;
+  justify-content: center;
 }
 
 .NewToonInfo.active {
@@ -139,19 +134,11 @@
   margin-left: 17% !important;
   justify-content: center;
   cursor: pointer; */
-  height: 450px;
-  width: 380px;
-  margin-top: 20px;
-
-
 }
 
 
 
-.NewToonInfo img {
-  object-fit: contain;
-  width: 100%;
-
+.NewToonItem img {
 }
 
 

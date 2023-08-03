@@ -9,6 +9,10 @@
 } */
 @media screen and (max-width:721px) and (min-width:362px) {
     /* 메인 */
+    .MNewToon{
+        width: 80% !important;
+    }
+
     .RankNum{
         width: 12% !important;
         float: left;
@@ -368,6 +372,9 @@
 }
 
 @media screen and (max-width:362px) and (min-width:30px){
+    .MNewToon{
+        width: 80% !important;
+    }
     .ATBox{
         width: 100%;
     }
@@ -620,4 +627,8 @@
 .ATMT{
     font-size: 9px;
     color:gray;
+}
+.MNewToon{
+    float: left;
+    width: 100%
 }
