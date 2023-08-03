@@ -77,14 +77,14 @@ const likeAPI = (server, getConn) => {
                                 result = ''; 
                             }
 
-                            // 좋아요 수정이 완료되면 redis에서 해당 키를 삭제
-                            redisClient.del(`webtoon_detail : ${EnName}`, (err, reply) => {
-                                if (err) {
-                                    console.error(err);
-                                } else {
-                                    console.log(reply);
-                                }
-                            });
+                            // // 좋아요 수정이 완료되면 redis에서 해당 키를 삭제
+                            // redisClient.del(`webtoon_detail : ${EnName}`, (err, reply) => {
+                            //     if (err) {
+                            //         console.error(err);
+                            //     } else {
+                            //         console.log(reply);
+                            //     }
+                            // });
 
                             const change = 0; //클라이언트에 좋아요를 했다는 표시
                             res.send({ change});
@@ -119,14 +119,14 @@ const likeAPI = (server, getConn) => {
                                 result = ''; 
                             }
 
-                            // 좋아요 수정이 완료되면 redis에서 해당 키를 삭제
-                            redisClient.del(`webtoon_detail : ${EnName}`, (err, reply) => {
-                                if (err) {
-                                    console.error(err);
-                                } else {
-                                    console.log(reply);
-                                }
-                            });
+                            // // 좋아요 수정이 완료되면 redis에서 해당 키를 삭제
+                            // redisClient.del(`webtoon_detail : ${EnName}`, (err, reply) => {
+                            //     if (err) {
+                            //         console.error(err);
+                            //     } else {
+                            //         console.log(reply);
+                            //     }
+                            // });
                             const change = 1;
                             res.send({change}); //응답
                         }else{
