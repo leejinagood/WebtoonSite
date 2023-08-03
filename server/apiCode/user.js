@@ -40,16 +40,9 @@ const userAPI = (server, getConn) => {
       //쿼리에 비밀번호 암호화된 내용으로 삽입
       await conn.query(query, value);
 
-      //삽입된 회원의 정보를 이메일을 통해 조회하여 가져옴
-      const selectUserId = 'SELECT userID FROM UserTable WHERE userEmail = ?;';
-      const [selectResult] = await conn.query(selectUserId, [email]);
-      //userID 를 추출
-      const userId = selectResult[0]?.userID;
 
-      if (userId) { //userId가 있으면 모든 Webtoon_Id에 대한 likes 를 초기화하는 프로시저 호출
-        const callProc = 'CALL usp_basic_like(?);';
-        await conn.query(callProc, [userId]);
-      }
+      const callProc = 'CALL usp_basic_like(?);';
+      await conn.query(callProc, [email]);
 
       await conn.commit(); // 트랜잭션 커밋
       res.send('입력 성공');
@@ -65,13 +58,6 @@ const userAPI = (server, getConn) => {
 
   // 로그인 메서드
   server.get('/api/LoginPage', async (req, res) => {
-
-    // const emailCookie = req.cookies.userEmail;
-    // const nameCookie = req.cookies.userName;
-    // const tokenCookie = req.cookies.token;
-
-    // //쿠키에 값이 없을 때만 로그인 가능
-    // if (!emailCookie || !nameCookie || !tokenCookie) {
       const conn = await getConn();
       const { ID, password } = req.query;
       try {
@@ -123,10 +109,6 @@ const userAPI = (server, getConn) => {
       } finally {
         conn.release();
       } 
-    // } else {
-    //   // 쿠키에 이미 값이 있을 때
-    //   res.send('이미 로그인되어 있습니다');
-    // }
   });
 
 
@@ -137,12 +119,6 @@ const userAPI = (server, getConn) => {
 
   //카카오 로그인 
   server.get('/api/Kakao', async (req, res) => {
-    // const emailCookie = req.cookies.userEmail;
-    // const nameCookie = req.cookies.userName;
-    // const tokenCookie = req.cookies.token;
-
-    // //쿠키에 값이 없을 때만 로그인 가능
-    // if (!emailCookie || !nameCookie || !tokenCookie) {
 
     const { code } = req.query; // 클라이언트에서 받은 카카오 인증 코드
     
@@ -178,17 +154,15 @@ const userAPI = (server, getConn) => {
       //한글과 기호가 포함되어 있기 때문에 쿠키로 보내기전 인코딩 해야 돰
       const enNickname = encodeURIComponent(nickname);
       const enEmail = encodeURIComponent(email);
-      const enToken = encodeURIComponent(Token);
 
       let token = "";
       //jwt 회원 정보를 받은 후 토큰을 생성
       token = jwt.sign(
         { UserEmail: enEmail },
         'your-secret-key', // 비밀키
-        { expiresIn: '10m' } // 토큰 만료 시간 10분 설정
+        { expiresIn: '1m' } // 토큰 만료 시간 10분 설정
       );
-
-
+      
       res.setHeader('Set-Cookie', [
         `userName=${enNickname}`,
         `userEmail=${enEmail}`,
@@ -205,17 +179,9 @@ const userAPI = (server, getConn) => {
         const values = [email, nickname];
         await conn.query(insertQuery, values);
         
-        // user 이메일을
-        const userEmail = [email];
-        // 아래 sp에 넣어서 나온 ID 값을 
-        const selectIdQuery = "CALL usp_get_userID(?);";
-        const [ID] = await conn.query(selectIdQuery, userEmail);
-  
-        // 배열의 첫 번째 요소만 추출
-        const userID = ID[0][0].userID;
         // 회원가입시 모든 웹툰에 대한 좋아요를 초기화
         const likeQuery = 'CALL usp_basic_like(?)';
-        await conn.query(likeQuery, [userID]);
+        await conn.query(likeQuery, [email]);
       }
 
       //리다이렉트 코드
@@ -229,11 +195,7 @@ const userAPI = (server, getConn) => {
     } catch (error) {
       // console.error(error);
       res.status(500).json('카카오 로그인 실패');
-    }    
-    // } else {
-    //   // 쿠키에 이미 값이 있을 때
-    //   res.send('이미 로그인되어 있습니다');
-    // }
+    }   
   });
   
 
