@@ -44,8 +44,10 @@ const ListPage = () => {
           cache: 'no-store', // 캐시 사용 안 함
         });
         const { webtoonData } = await response.json(); // 데이터를 가져와서 변수에 저장
-        setWebtoonInfo(webtoonData[0][0]);
+        setWebtoonInfo(webtoonData[0]);
         setLoading(false);
+        console.log(webtoonData);
+        console.log(webtoonInfo);
 
       } catch (error) {
         console.error("Error fetching API:", error);
@@ -202,6 +204,8 @@ const ListPage = () => {
     KrDay = "요일 정보 없음";
   }
   }
+
+
   return (
     <div className={style.ListPage}>
       <Head>
@@ -256,7 +260,7 @@ const ListPage = () => {
   <div>Loading...</div>
 ) : (
   <>
-      <div className={style.DESC}>
+  <div className={style.DESC}>
       <span onClick={handleAscSort}>오름차순 /</span><span onClick={handleDescSort}> 내림차순</span>
     </div>
   <div className={style.ListBox}>
