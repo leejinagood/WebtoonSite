@@ -25,6 +25,7 @@ const likeAPI = (server, getConn) => {
             });
 
             if (Response.data === '토큰 인증 성공' || Response.data === '카카오 토큰 인증 성공') { //인증 성공일 때 
+
                 const [date] = await conn.query(Query, values); //좋아요 햇는지 안 했는지
                 const [resultArray] = date;
                 const [resultObject] = resultArray;
@@ -35,6 +36,7 @@ const likeAPI = (server, getConn) => {
 
                 if(likes === 0){  //좋아요를 안 했을 때
                     let [Result] = await conn.query(LikeQuery, values); //좋아요 추가
+
                     //db에서 수행되어 행이 수정된 갯수 
                     if (Result.affectedRows > 0) { //1개 이상이면 좋아요 수정 성공
                         //res.send("0"); 
@@ -42,7 +44,7 @@ const likeAPI = (server, getConn) => {
                         const key = `likes:${ID}`; // redis 고유 키 값
                         let value = await redisClient.get(key); // 해당 키값으로 데이터 조회
 
-                        if (value !== null) { // null 대신에 0이어도 동작하게 수정
+                        if (value !== null) { 
                             redisClient.INCRBY(key, 1 ,(err, reply) => { //1 추가
                                 if (err) {
                                     console.error(err);
@@ -50,20 +52,24 @@ const likeAPI = (server, getConn) => {
                                     console.log(reply);
                                 }
                              });
+
                             let result = await redisClient.get(key); //value값 가져옴
                             if (result === null) {
-                                result = '..'; 
+                                result = ''; 
                             }
+
                             const change = 0; //클라이언트에 좋아요를 했다는 표시
                             res.send({ change , ID, value: result });
+
                         } else {
-                            console.log("d");
+                            console.log("");
                         }
                     } else {
                         res.status(500).json('좋아요 오류'); 
                     }
                 }else if(likes === 1){ //좋아요를 했을 때 
                     let [Result] = await conn.query(LikeCancelQuery, values);
+
                     //db에서 수행되어 행이 수정된 갯수 
                     if (Result.affectedRows > 0) { //1개 이상이면 좋아요 삭제 성공
                         //res.send("1"); 
@@ -71,7 +77,7 @@ const likeAPI = (server, getConn) => {
                         const key = `likes:${ID}`; // redis 고유 키 값
                         let value = await redisClient.get(key); // 해당 키값으로 데이터 조회
 
-                        if (value !== null) { // null 대신에 0이어도 동작하게 수정
+                        if (value !== null) { 
                             redisClient.DECRBY(key, 1 ,(err, reply) => { //1 빼기
                                 if (err) {
                                     console.error(err);
@@ -79,14 +85,16 @@ const likeAPI = (server, getConn) => {
                                     console.log(reply);
                                 }
                             });
+
                             let result = await redisClient.get(key); //키값에 해당하는 value 가져오기
                             if (result === null) {
-                                result = '..'; 
+                                result = ''; 
                             }
+
                             const change = 1;
                             res.send({change, ID, value: result }); //응답
                         }else{
-                            console.log("d");
+                            console.log("");
                         }
 
                     } else {

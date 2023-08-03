@@ -67,10 +67,9 @@ const webtoonAPI = (server, getConn) => {
           } else {
             const [rows] = await conn.query(query, [word]); //검색 결과를 row에 넣고 응답을 보냄
             const row = rows[0];
+            
             res.send(row);
-
             await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
-            res.send(row);
           }
         } catch (error) {
             console.error(error);

@@ -26,8 +26,8 @@ const port = 4000;
 // CORS 정책 설정
 const corsMiddleware = require('restify-cors-middleware');
 const cors = corsMiddleware({
-  origins: ['http://localhost:3000'][' https://imgur.com/ '], // 클라이언트 도메인 주소
-  allowHeaders: ['Authorization'],
+    origins: ['http://localhost:3000'][' https://imgur.com/ '], // 클라이언트 도메인 주소
+    allowHeaders: ['Authorization'],
 });
 server.pre(cors.preflight);
 server.use(cors.actual);
@@ -36,8 +36,8 @@ server.use(cors.actual);
 const { getConn } = require('./database');
 
 async function someFunction() {
-  const connection = await getConn();
-  connection.release(); // 사용 후 연결 반환
+    const connection = await getConn();
+    connection.release(); // 사용 후 연결 반환
 }
 someFunction();
 
@@ -67,5 +67,5 @@ webtoonAddApi(server, getConn);
 
 //http://localhost:4000/ 접속
 server.listen(port, () => {
-  console.log("---------------------------구동 시작---------------------------"); // 로그 기록
+    console.log("---------------------------구동 시작---------------------------"); // 로그 기록
 });

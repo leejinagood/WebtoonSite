@@ -8,10 +8,12 @@ const commentAPI = (server, getConn) => {
         const { EnName, ep } = req.query; //영어이름과 에피소드 몇 화인지 받아옴
         const values = [ EnName, ep ]
         const viewCommentQuery = 'call usp_get_comment(?, ?);'; //댓글 조회
+
         try {
             const [rows] = await conn.query(viewCommentQuery, values); 
             const row = rows[0];
             res.send(row); //댓글 내용을 응답으로
+
         } catch (error) {
             //console.error(error);
             res.status(500).send({ error: '서버 스크립트의 오류' });
@@ -41,6 +43,7 @@ const commentAPI = (server, getConn) => {
                 await conn.query(insertQuery, values); //댓글 삽입
 
                 res.send('댓글이 성공적으로 작성되었습니다.');  //응답
+                
             } else { //토큰 인증 실패했을 때 
                 res.status(401).send('로그인 하세요');
             }
