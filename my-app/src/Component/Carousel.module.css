@@ -6,57 +6,43 @@
     .slide{
         width: 100%  !important;
         position: relative;
+        height: 100px !important;
         right: 100px !important;
 
     }
     .slide img {
+        float: left;
         width: 171px !important; 
         margin-left: 35px !important;
-        height: 300px !important;
+        height: 200px !important;
         object-fit: contain;
       }
 }
 @media screen and (max-width:361px) and (min-width:100px) {
     .slider {
-        width: calc(100% / 1) !important;
-        position: relative;
-        right: 100px !important;
       }
       .slide {
         width: 100% !important;
         flex: initial !important;
-        background-color: gainsboro;
         display: initial;
         animation: slide 5s infinite;
-
+        margin-left: 15px !important;
       }
 
     
       .slide img {
-        width: 360px !important;
+        width: 100px !important;
+        margin-top: 15px !important;
         margin-left: 0 !important;
-        height: 300px !important;
         object-fit: contain;
       }
-      @keyframes slide {
-        0%, 100% {
-          transform: translateX(0);
-        }
-        16.666%, 33.333% {
-          transform: translateX(-100%);
-        }
-        50%, 66.666% {
-          transform: translateX(-200%);
-        }
-        83.333%, 99.999% {
-          transform: translateX(-300%);
-        }
-      }
+
 }
 
 .carousel {
     width: 100%;
     overflow: hidden;
+
   }
   
   .slider {
@@ -66,14 +52,19 @@
   .slide {
     flex: 0 0 calc(100% / 3);
     width: 100%;
-    background-color: gainsboro;
+    margin-top: 25px;
   }
   
   .slide img {
-    width:420px;
+    border: 1px solid #000;
+    width:320px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow:1px 1px;
     margin-left: 80px;
-    height: 300px !important;
     object-fit: contain;
+    
   }
   
   /* 추가적인 스타일링을 원하신다면 이곳에 추가하세요 */

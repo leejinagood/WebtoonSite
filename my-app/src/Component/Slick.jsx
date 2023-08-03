@@ -35,7 +35,10 @@ const Carousel = () => {
     timerRef.current = setInterval(() => {
       setCurrentIndex((prevIndex) => {
         // 슬라이드 이동 시마다 translateX 값 초기화
-        const newIndex = (prevIndex + 1) % imageUrls.length;
+        const newIndex = (prevIndex + 1) % (imageUrls.length * 2);
+        if (newIndex === 0) {
+          return 0;
+        }
         return newIndex;
       });
     }, 2000);
@@ -44,8 +47,6 @@ const Carousel = () => {
       clearInterval(timerRef.current);
     };
   }, [imageUrls.length]);
-  
- 
 
 // ... (이전 코드 생략)
 
@@ -54,11 +55,11 @@ return (
       <div
         className={styles.slider}
         style={{
-          transform: `translateX(-${(160 / imageUrls.length) * currentIndex}%)`,
+          transform: `translateX(-${(100 / imageUrls.length) * currentIndex}%)`,
           transition: "transform 0.5s ease",
         }}
       >
-        {Array.from({ length: 200 }).map((_, slideIndex) =>
+        {Array.from({ length: 10 }).map((_, slideIndex) =>
           imageUrls.map((imageUrl, index) => (
             <Link href={`/listpage?EnName=${webtoons[index].webtoonEnName}`} key={index + slideIndex * imageUrls.length}>
               <div className={styles.slide}>

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../src/Header/header";
 import Footer from "../../src/Footer/footer";
-import NewToon from "../../src/Component/NewToon";
+// import NewToon from "../../src/Component/NewToon";
 import Rank from "../../src/Component/Rank";
 import { parseCookies } from 'nookies';
 import jwt from 'jsonwebtoken';
+import Slick from "../../src/Component/Slick";
+
 import { useRouter } from "next/router";
 import Link from "next/link";
 import style from "../../src/styles/MainPageCss.module.css"
@@ -19,7 +21,6 @@ const WeekPage = () => {
   const [week , setWeek] = useState([]);
 
 
-
   useEffect(() => {
     fetch(`/api/daytoon?day=${day}`)
       .then((response) => response.json())
@@ -30,7 +31,7 @@ const WeekPage = () => {
       .catch((error) => {
         console.error("Error fetching API:", error);
       });
-
+      console.log(document.cookie);
       if(day=="mon"){
         setWeek("월")
       }else if(day=="tues"){
@@ -47,7 +48,11 @@ const WeekPage = () => {
         setWeek("일")
       }
     
+
+      
   }, [day]);
+
+  // console.log(document.cookie);
 
   const Thumbnail = ({ day }) => {
     return <img className="DayToonIMG" src={day.thumbnail} alt="" />;
@@ -60,7 +65,7 @@ const WeekPage = () => {
       <Header token={token} />
       <h3 className={style.Categories}>{week}요일 추천 웹툰</h3>
       <div className={style.MNewToon}>
-        <NewToon />
+        <Slick />
       </div>
       <div className={style.Mid}>
         <div>

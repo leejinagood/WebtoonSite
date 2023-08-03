@@ -12,20 +12,21 @@
     .MNewToon{
         width: 80% !important;
     }
-
+    .DayToonItem p{
+        line-height: 0px !important;
+    }
     .RankNum{
-        width: 12% !important;
+        width: 18% !important;
         float: left;
         font-size: 10px;
         margin-left: 2%;
-        line-height: 100px;
-        margin-top: 20px;
+        margin-top: 15px !important;
     }
     .RankText{
         float: left;
-        width: 50% !important;
+        width: 30% !important;
         font-size: 13px;
-        margin-top: 25px;
+        margin-top: 15px !important;
     }
     #ll{
         width: 66% !important;
@@ -46,6 +47,7 @@
         flex-wrap: wrap; /* 요소들을 여러 줄로 감싸기 */
         margin-right: 1%;
     }
+
     .AllToonInfo img{
         width: 100% !important;
     }
@@ -57,9 +59,17 @@
         line-height: 0px !important; 
         margin-bottom: 15px !important;
     }
+    .ATtext{
+        float: left;
+    }
+    .aTMT{
+        float: left;
+        margin-top: 0px !important;
+    }
     .AToonTitle{
-        font-size: 15px !important;
+        font-size: 17px !important;
         margin-top: 2px;
+        margin-left: 0px !important;
         margin-bottom: 7px !important;
     }
     .ATBox {
@@ -95,7 +105,6 @@
         flex-wrap: wrap;
         width: 80% !important;
         height: 300px  !important;
-        background-color: rebeccapurple;
     }
     .DayToonIMG{
         
@@ -133,10 +142,15 @@
     }
     .Rank{
         float: left !important;
+        width: 100% !important;
     }
     .Rank .RankImg{
-        width: 50%;
-
+        width:40% !important;
+        padding: 0px !important;
+    }
+    .RankImg img{
+        width: 100% !important;
+        margin-bottom: 7px !important;
     }
     .HHH{
         margin-top: 40px !important;
@@ -152,7 +166,6 @@
     }
     .RankText{
         font-size: 1px;
-        margin-top: 25px !important;
         width: 31% !important;
         float: right;
     }
@@ -259,15 +272,18 @@
 
 @media screen and (max-width:361px) and (min-width:10px) {
 
-    .ATMT{
+    .aTMT{
         font-size: 6px !important;
-        margin-top: 3px;
+        margin-top: 1px !important;
         width: 100%;
         
         position: relative !important;right: 10px;
         
     }
-
+    .AToonTitle{
+        font-size: 10px !important;
+        margin-top: 0px !important;
+    }
     /* 메인페이지  */
 
     .MainPage{
@@ -309,7 +325,10 @@
         width: 100% !important;
     }   
     .DayToonItem{
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
         width: 100% !important;
+        height: 170px !important;
     }
 
     .DayToonItem p{
@@ -329,7 +348,7 @@
     }
     .Rank {
         
-        width: 100% !important;
+        width: 95% !important;
         float: left !important;
         
 }
@@ -381,6 +400,9 @@
     .AllToon{
         width: 80%;
     }
+    .DayToonItem p{
+        line-height: 0px !important;
+    }
     .AToonTitle{
         margin-bottom: 0px !important;
         width: 100% !important;
@@ -411,7 +433,7 @@
     }
 }
 .Categories{
-    font-size: 16px !important;
+    font-size: 23px !important;
     width: 90%;
     float: left;
     margin-top: 10px;
@@ -462,9 +484,6 @@
      /* 요소들을 간격을 유지하면서 정렬 */
   }
 
-.DayToon h3{
-    font-size: 10px;
-}
 
 .AllToon tr{
     float: left;
@@ -518,7 +537,9 @@
  
   .DayToonItem p{
     width: 100%;
-    float: left;font-size: 10px;
+    float: left;font-size: 20px;
+    line-height: 20px;
+
   }
   .RBox{
     position: relative;
@@ -531,7 +552,7 @@
     padding: 5px;
     border-radius: 10px;
     float: left;
-    width: 100%; /* 부모 요소의 가로 너비에 맞게 설정합니다 */
+    width: 98%; /* 부모 요소의 가로 너비에 맞게 설정합니다 */
     height: auto; /* 내용에 맞게 높이를 설정합니다 */
     margin-bottom: 10px;
   }
@@ -544,7 +565,7 @@
 .HHH{
     position: relative;
     bottom: 30px;
-    font-size: 16px;
+    font-size: 23px;
     margin-bottom: 1px;
     width: 50%;
     float: right;
@@ -564,18 +585,19 @@
     border-radius: 10px;
 }
 .RankNum{
-    width: 5%;
+    width: 10%;
     float: left;
-    font-size: 10px;
+    font-size: 15px;
     margin-left: 2%;
     line-height: 100px;
-    margin-top: 20px;
+    margin-top: 50px;
 }
 .RankText{
     float: left;
-    font-size: 13px;
+    font-size: 15px;
+    width: 30%;
     margin-left: 3%;
-    margin-top: 25px;
+    margin-top: 50px;
 }
 .RankText .RankAT{
 }
@@ -616,19 +638,23 @@
 
 
 .AToonTitle{
-    font-size: 10px;
-    line-height: 0px;
+    font-size: 19px;
+    margin-top: 5px;
 }
 
 
 #ll{
     width: 61%;
 }
-.ATMT{
-    font-size: 9px;
+.aTMT{
+    font-size: 12px;
+    margin-top: 5px;
     color:gray;
 }
 .MNewToon{
     float: left;
     width: 100%
+}
+.Writer{
+    color:gray;
 }
