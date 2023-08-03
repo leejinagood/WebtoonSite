@@ -174,7 +174,6 @@ const userAPI = (server, getConn) => {
                 `token=${token}`
             ]);
 
-
             //회원가입 로직
             //email과 동일한 행이 존재하는지
             const selectQuery = "select userEmail from UserTable where userEmail = ?;";
