@@ -33,16 +33,10 @@ const webtoonAPI = (server, getConn) => {
                     res.send(row); // 응답으로 모든 웹툰 정보를 보냄
                     await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
 
-                } else if(pi_vch_condition === 'rank'){
-                    res.send(row); // 응답으로 모든 웹툰 정보를 보냄
-                    await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
-                      
-                }
-                else { // 요일별 웹툰
+                    }else { // 요일별 웹툰
                     const result = row.filter((item) => item.webtoonWeek === pi_vch_condition); //요일이 같은 것만 출력
                     res.send(result);
                     await redisClient.set(key, JSON.stringify(result)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
-                    
                 }
             }
         } catch (error) {

@@ -9,7 +9,7 @@ const likeAPI = (server, getConn) => {
     server.get('/api/show_like', async (req, res) => {
         const { id } = req.query;
     
-        try {
+        try { //id를 받아온 후 redis의 값으로 좋아요 보여주기
             const key = `likes:${id}`;
             const value = await redisClient.get(key);
             if (value !== null) {
