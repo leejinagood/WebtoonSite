@@ -26,6 +26,15 @@ const NewToon = () => {
     fetchData();
   }, []);
 
+    const settings = {
+      slidesToShow: 3, // 보여질슬라이드수(생략가능)
+      infinite: true,
+      variableWidth: false,
+      autoplay: true, 
+      autoplaySpeed: 2000,
+      infinite:true,
+    };
+
   const handleMouseDown = (e) => {
     setIsDragging(true);
     setStartX(e.clientX - sliderRef.current.offsetLeft);
@@ -48,7 +57,7 @@ const NewToon = () => {
     const sortedWebtoons = webtoons.sort((a, b) => {
       return new Date(b.webtoonDate) - new Date(a.webtoonDate);
     });
-    return sortedWebtoons.slice(0, 3); // 최근 3개의 웹툰만 반환
+    return sortedWebtoons.slice(0, 5); // 최근 3개의 웹툰만 반환
   };
 
 
@@ -61,7 +70,9 @@ const NewToon = () => {
         onMouseUp={handleMouseUp}
         ref={sliderRef}
       >
-        <Slider>
+        <div className={style.SBox}>
+        <Slider {...settings}>
+
           {Array.isArray(webtoons) &&
             getRecentWebtoons().map((webtoon, index) => (
               <Link
@@ -75,17 +86,17 @@ const NewToon = () => {
                     index === 1 ? "active" : ""
                   }`}
                 >
-                  <div className={style.NewToonItem}>
                     <img
                       src={webtoon.webtoonThumbnail}
                       alt={webtoon.webtoonName}
                     />
-                  </div>
                 </div>
               </Link>
             ))}
         </Slider>
+        </div>
       </div>
+      
     </div>
   );
 };

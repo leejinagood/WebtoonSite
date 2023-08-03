@@ -114,7 +114,7 @@ const LoginPage = () => {
   return (
     <div className={style.LoginPage}>
       <div className={style.LoginBox}>
-        <Link href="/mainpage">
+        <Link href="/">
           <h2 className={style.LoginLogo}><span className={style.red}>A</span >VA<span className={style.red}>T</span>YE</h2>
         </Link>
         <form onSubmit={handleSubmit}>
@@ -133,12 +133,13 @@ const LoginPage = () => {
             </tbody>
           </table>
           <button type="submit" className={style.LoginPageBtn}>로그인</button>
+          <button className={style.KLoginPageBtn} onClick={kakaohandleSubmit}>
+          
+          카카오로 시작하기
+        
+        </button>
         </form>
-        <button className={style.KLoginPageBtn} onClick={kakaohandleSubmit}>
-          
-            카카오 로그인
-          
-          </button>
+
         <div className={style.LoginMenu}>
           <Link href="/password" ><li>비밀번호 찾기</li></Link>
           <Link href="/id"><li>아이디 찾기</li></Link>

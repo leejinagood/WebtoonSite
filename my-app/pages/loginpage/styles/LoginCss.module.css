@@ -1,42 +1,100 @@
 @media screen and (max-width:721px) and (min-width:362px) {
   .LoginMenu{
     margin: 0 auto;
-    margin-right: 0px !important;
+
 
   }
+
+  .LoginPageBtn{
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 10px;
+    height: 50px;
+    border: none;
+  }
+  .KLoginPageBtn{
+    width: 80% !important;
+
+    height: 50px;
+    border: none;
+  }
+
+  .LoginPage{
+    width: 720px !important;
+    margin: 0 auto !important;
+
+  }
+  .LoginMenu{
+    margin-left: 200px !important;
+  }
+  .LoginMenu li{
+    float: left;
+    margin-right: 0px !important;
+    font-size: 10px;
+    margin-top: 15px; 
+    width: 15% !important;
+}
 
   .LoginBox {
+    margin-left: 0px !important;
+    width: 80% !important;
+    margin-top: 22% !important;
+    padding: 0px !important;
 
-    margin-top: 25% !important;
   }
-
-
+  .LoginBox table {
+    width: 100% !important;
+  }
+  .LoginBox table td {
+    border: 1px solid #000;
+  }
+  
   .LoginBox table input {
-    
+  
     width: 100% !important;
+    height: 50px;
+    border: 0px solid #000;
   }
-  .LoginBox  table {
-    width: 100% !important;
-    border-radius: 10%;
-    margin-left: 10% !important;
-  }
+
+
 }
 
 @media screen and (max-width:361px) and (min-width:10px) {
   .LoginMenu{
     margin: 0 auto;
-    margin-right: 0px !important;
+
+  }
+  .LoginPage{
+    width: 360px !important;
+    margin: 0 auto !important;
 
   }
   .LoginBox table input {
     
     width: 100% !important;
   }
+  .LoginBox{
+    width: 80% !important;
+    margin-left: 0px !important;
+  }
   .LoginBox  table {
     width: 100% !important;
     border-radius: 10%;
-    margin-left: 10% !important;
   }
+  .KLoginPageBtn{
+    width: 80% !important;
+  }
+  .LoginMenu{
+    margin-left: 55px !important;
+  }
+  .LoginMenu li{
+    float: left;
+    margin-right: 0px !important;
+    font-size: 10px;
+    margin-top: 15px !important; 
+    margin-bottom: 5px !important;
+    width: 25% !important;
+}
 }
 
 
@@ -56,26 +114,30 @@
   
   .LoginBox {
     display: flex;
+    padding: 20px;
     flex-direction: column; /* 세로 정렬을 위한 열 방향 설정 */
     align-items: center; /* 가운데 정렬 */
-    width:60%;
+    width:40%;
     height: 390px;
-    margin: 0 auto;
     border: 1px solid black;
     border-radius: 30px;
-    margin-top: 15%;
+    margin-top: 12%;
   }
   .LoginPageBtn{
     width: 100%;
     margin: 0 auto;
     margin-top: 10px;
     height: 50px;
+    border: none;
   }
   .KLoginPageBtn{
-    width: 86%;
+    width: 100% !important;
     margin: 0 auto;
     margin-top: 10px;
+    background-color: rgb(250,231,72);
+    color:rgb(26,26,28);
     height: 50px;
+    border: none;
   }
 
   
@@ -94,13 +156,14 @@
   }
 .LoginMenu{
     margin: 0 auto;
+    margin-left: 35%;
 
 }
 .LoginMenu li{
     list-style: none;
     float: left;
-    margin-right: 20px;
     font-size: 10px;
+    width: 10%;
     margin-top: 15px; 
     
 }

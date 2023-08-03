@@ -22,6 +22,8 @@
 
     .SerchWebToon img{
         object-fit: contain;
+        width: 150px !important;
+        height: 200px !important;
     }
     
 }
@@ -47,12 +49,15 @@
 
     .SerchWebToon img{
         object-fit: contain;
+        width: 150px !important;
+        height: 200px !important;
     }
 
 }
 
 
 .SerchWebToon{
+    max-width: 1920px;
     text-decoration-style: none;
     text-decoration: none;        color: inherit;
     width: 80% ;
@@ -60,8 +65,8 @@
 }
 
 .SerchWebToon img{
-    width: 150px;
-    height: 200px;
+    width: 200px;
+    height: 250px;
     object-fit: contain;
 }
 
