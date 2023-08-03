@@ -26,6 +26,7 @@ const webtoonListAPI = (server, getConn) => {
 
                 await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
                 res.send(row);
+
             }
         } catch (error) {
             console.error(error);
@@ -84,7 +85,7 @@ const webtoonListAPI = (server, getConn) => {
             } else {
                 let [rows] = await conn.query(ImgAndNext, values); // EnName과 ep 파라미터를 배열로 전달
                 const row = rows[0];
-                
+
                 await redisClient.set(key, JSON.stringify(row)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
                 res.send(row);
             }

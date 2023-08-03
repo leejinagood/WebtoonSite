@@ -5,6 +5,25 @@ const likeAPI = (server, getConn) => {
     const redisClient = require('./redis'); // redis.js 모듈을 가져옴
     const axios = require('axios'); 
 
+    // 좋아요 보여주기
+    server.get('/api/show_like', async (req, res) => {
+        const { id } = req.query;
+    
+        try {
+            const key = `likes:${id}`;
+            const value = await redisClient.get(key);
+            if (value !== null) {
+                res.send(value);
+            } else {
+                res.send( "" );
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).json('Internal server error');
+        }
+    });
+    
+
     //좋아요 추가 및 취소
     server.put('/api/update_like', async (req, res) => {
         const conn = await getConn();
@@ -66,6 +85,7 @@ const likeAPI = (server, getConn) => {
                                     console.log(reply);
                                 }
                             });
+
                             const change = 0; //클라이언트에 좋아요를 했다는 표시
                             res.send({ change});
 
