@@ -163,8 +163,8 @@ const userAPI = (server, getConn) => {
             //jwt 토큰을 생성
             token = jwt.sign(
                 { UserEmail: enEmail },
-                'your-secret-key', // 비밀키
-                { expiresIn: '1m' } // 토큰 만료 시간 10분 설정
+                'your-secret-key', // 비밀 키
+                { expiresIn: '10m' } // 토큰 만료 시간 10분 설정
             );
 
             // 쿠키에 저장하여 보내기
@@ -196,6 +196,7 @@ const userAPI = (server, getConn) => {
                 'Content-Type': 'text/plain'
             });
             res.end('Redirecting to http://localhost:3000');
+            
             // res.send({
             //     userName: nickname,
             //     userEmail: email,

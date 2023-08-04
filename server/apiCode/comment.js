@@ -34,7 +34,6 @@ const commentAPI = (server, getConn) => {
         try {
             const Response = await axios.get('http://localhost:4000/api/Token', { //토큰 인증 호출
                 headers: { //헤더에
-                    // Cookie: `token=${token}; KakaoToken=${ktoken}; `
                     Cookie: req.headers.cookie, // 현재 쿠키를 그대로 전달
                 },
             });

@@ -38,7 +38,6 @@ const likeAPI = (server, getConn) => {
         try {
             const Response = await axios.get('http://localhost:4000/api/Token', { //토큰 인증 호출
                 headers: { //헤더에
-                    // Cookie: `token=${token}; KakaoToken=${ktoken}; `
                     Cookie: req.headers.cookie, // 현재 쿠키를 그대로 전달
                 },
             });
@@ -47,20 +46,14 @@ const likeAPI = (server, getConn) => {
 
                 const [date] = await conn.query(Query, values); //좋아요 햇는지 안 했는지
                 const [resultArray] = date;
-                const [resultObject] = resultArray;
-                const { likes} = resultObject;
 
-                const Week = resultObject.webtoonWeek; //무슨 요일에 연재하는지
-                const ID = resultObject.webtoonID;  //웹툰 ID 추출
-
-                if(likes === 0){  //좋아요를 안 했을 때
+                if(resultArray[0].likes === 0){  //좋아요를 안 했을 때
                     let [Result] = await conn.query(LikeQuery, values); //좋아요 추가
 
                     //db에서 수행되어 행이 수정된 갯수 
                     if (Result.affectedRows > 0) { //1개 이상이면 좋아요 수정 성공
-                        //res.send("0"); 
 
-                        const key = `likes:${ID}`; // redis 고유 키 값
+                        const key = `likes:${resultArray[0].webtoonID}`; // redis 고유 키 값
                         let value = await redisClient.get(key); // 해당 키값으로 데이터 조회
 
                         if (value !== null) { 
@@ -76,16 +69,7 @@ const likeAPI = (server, getConn) => {
                             if (result === null) {
                                 result = ''; 
                             }
-
-                            // // 좋아요 수정이 완료되면 redis에서 해당 키를 삭제
-                            // redisClient.del(`webtoon_detail : ${EnName}`, (err, reply) => {
-                            //     if (err) {
-                            //         console.error(err);
-                            //     } else {
-                            //         console.log(reply);
-                            //     }
-                            // });
-
+                            
                             const change = 0; //클라이언트에 좋아요를 했다는 표시
                             res.send({ change});
 
@@ -95,14 +79,14 @@ const likeAPI = (server, getConn) => {
                     } else {
                         res.status(500).json('좋아요 오류'); 
                     }
-                }else if(likes === 1){ //좋아요를 했을 때 
+                }else if(resultArray[0].likes === 1){ //좋아요를 했을 때 
                     let [Result] = await conn.query(LikeCancelQuery, values);
 
                     //db에서 수행되어 행이 수정된 갯수 
                     if (Result.affectedRows > 0) { //1개 이상이면 좋아요 삭제 성공
                         //res.send("1"); 
 
-                        const key = `likes:${ID}`; // redis 고유 키 값
+                        const key = `likes:${resultArray[0].webtoonID}`; // redis 고유 키 값
                         let value = await redisClient.get(key); // 해당 키값으로 데이터 조회
 
                         if (value !== null) { 
@@ -119,14 +103,6 @@ const likeAPI = (server, getConn) => {
                                 result = ''; 
                             }
 
-                            // // 좋아요 수정이 완료되면 redis에서 해당 키를 삭제
-                            // redisClient.del(`webtoon_detail : ${EnName}`, (err, reply) => {
-                            //     if (err) {
-                            //         console.error(err);
-                            //     } else {
-                            //         console.log(reply);
-                            //     }
-                            // });
                             const change = 1;
                             res.send({change}); //응답
                         }else{
