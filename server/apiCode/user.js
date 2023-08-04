@@ -160,7 +160,7 @@ const userAPI = (server, getConn) => {
             const enEmail = encodeURIComponent(email);
 
             let token = "";
-            //jwt 회원 정보를 받은 후 토큰을 생성
+            //jwt 토큰을 생성
             token = jwt.sign(
                 { UserEmail: enEmail },
                 'your-secret-key', // 비밀키
@@ -191,16 +191,16 @@ const userAPI = (server, getConn) => {
             }
         
             //리다리엑트는 기본적으로 쿠키를 함께 보냄! 같은 도메인이면 저장됨. 이를 쿠키의 동작 방식으로 도메인 기반 쿠키 라고 함
-            // res.writeHead(302, { //상태는 302
-            //     'Location': 'http://localhost:3000', //주소
-            //     'Content-Type': 'text/plain'
-            // });
-            // res.end('Redirecting to http://localhost:3000');
-            res.send({
-                userName: nickname,
-                userEmail: email,
-                token: token
+            res.writeHead(302, { //상태는 302
+                'Location': 'http://localhost:3000', //주소
+                'Content-Type': 'text/plain'
             });
+            res.end('Redirecting to http://localhost:3000');
+            // res.send({
+            //     userName: nickname,
+            //     userEmail: email,
+            //     token: token
+            // });
 
         } catch (error) {
             // console.error(error);
