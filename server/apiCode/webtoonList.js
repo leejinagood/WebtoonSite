@@ -41,7 +41,7 @@ const webtoonListAPI = (server, getConn) => {
     server.get('/api/webtoonlist', async (req, res) => {
         const conn = await getConn();
         const { EnName } = req.query; // 영어이름과 sort 파라미터를 받아옴
-        const webtoonQuery = 'CALL usp_get_WebtoonEpisode(?);'; // ID와 ASC, DESC를 받아와 웹툰 정보와 순서를 출력하는 SP
+        const webtoonQuery = 'CALL usp_get_WebtoonEpisode(?);'; //웹툰 정보를 출력하는 SP
 
         try {
             const key = `webtoon_list : ${EnName}`; //redis의 고유 키값
