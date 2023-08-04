@@ -289,6 +289,7 @@ const ListPage = () => {
       {!webtoonItem ? (
   <div>Loading...</div>
 ) : (
+  
   <>
   <div className={style.DESC}>
       <span onClick={handleDescSort}>오름차순 /</span><span onClick={handleAscSort}> 내림차순</span>

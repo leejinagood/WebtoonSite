@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
 @media screen and (max-width:721px) and (min-width:362px) {
   .LoginMenu{
     margin: 0 auto;
@@ -99,6 +101,8 @@
 
 
 .LoginPage {
+  font-family: 'Jua', sans-serif;
+
     width: 80%;
     margin: 0 auto;
     text-align: center;

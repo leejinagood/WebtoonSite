@@ -50,37 +50,37 @@ const Header = () => {
     router.push("/");
   };
 
-  // const response = await axios.get("/api/Token",
-  // {
-  //   headers: {
-  //     Cookie: cookies // 클라이언트에서 전달된 쿠키를 그대로 요청 헤더에 포함
-  //   }});
   
   useEffect(() => {
     const checkLoginStatus = async () => {
-      try {
-
-        const response = await axios.get("/api/Token")
-        if (response.status === 200) {
-          setUserId(response.data.userId);
-          console.log("유저네임:",sessionStorage.getItem("userName") );
-        
-          setUser(sessionStorage.getItem("userName"));
-          console.log("토큰:", sessionStorage.getItem("token"));
+      // 클라이언트 사이드에서만 실행
+      if (typeof window !== "undefined") {
+        // sessionStorage에 토큰이 있는지 확인
+        const token = sessionStorage.getItem("token");
+        if (token) {
+          try {
+            const response = await axios.get("/api/Token");
+            if (response.status === 200) {
+              setUserId(response.data.userId);
+              console.log("유저네임:", sessionStorage.getItem("userName"));
+              setUser(sessionStorage.getItem("userName"));
+              console.log("토큰:", sessionStorage.getItem("token"));
+            } else {
+              setUserId(null);
+              console.log("토큰:", sessionStorage.getItem("token"));
+            }
+          } catch (error) {
+            console.error("API 호출 에러:", error);
+          }
         } else {
-          setUserId(null);
-          console.log("토큰:", sessionStorage.getItem("token"));
+          console.log("토큰 없음");
         }
-      } catch (error) {
-        console.error("API 호출 에러:", error);
       }
     };
-
-    // 클라이언트 사이드에서만 실행
-    if (typeof window !== "undefined") {
-      checkLoginStatus();
-    }
+  
+    checkLoginStatus();
   }, []);
+  
 
 
 

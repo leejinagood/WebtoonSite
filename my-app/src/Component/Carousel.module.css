@@ -6,7 +6,7 @@
     .slide{
         width: 100%  !important;
         position: relative;
-        height: 100px !important;
+        height: 240px !important;
         right: 100px !important;
 
     }
@@ -22,9 +22,8 @@
     .slider {
       }
       .slide {
+        height: 185px !important;
         width: 100% !important;
-        flex: initial !important;
-        display: initial;
         animation: slide 5s infinite;
         margin-left: 15px !important;
       }
@@ -34,7 +33,6 @@
         width: 100px !important;
         margin-top: 15px !important;
         margin-left: 0 !important;
-        object-fit: contain;
       }
 
 }
@@ -50,14 +48,17 @@
   }
   
   .slide {
+    background-color: rgba(246, 224, 227, 0.8);
+    height: 280px;
     flex: 0 0 calc(100% / 3);
     width: 100%;
-    margin-top: 25px;
+    margin-top: 5px;
   }
   
   .slide img {
     border: 1px solid #000;
-    width:320px;
+    width:190px;
+    margin-top: 5px;
     padding: 10px;
     background-color: white;
     border-radius: 10px;
