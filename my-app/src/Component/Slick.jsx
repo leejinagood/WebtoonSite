@@ -49,9 +49,28 @@ const Carousel = () => {
   }, [imageUrls.length]);
 
 // ... (이전 코드 생략)
+const handleMouseEnter = () => {
+  clearInterval(timerRef.current);
+};
+
+const handleMouseLeave = () => {
+  timerRef.current = setInterval(() => {
+    setCurrentIndex((prevIndex) => {
+      const newIndex = (prevIndex + 1) % (imageUrls.length * 2);
+      if (newIndex === 0) {
+        return 0;
+      }
+      return newIndex;
+    });
+  }, 2000);
+};
+
+
 
 return (
-    <div className={styles.carousel}>
+    <div className={styles.carousel}
+    onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}>
       <div
         className={styles.slider}
         style={{
