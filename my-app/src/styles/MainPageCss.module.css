@@ -9,6 +9,9 @@
 } */
 @media screen and (max-width:721px) and (min-width:362px) {
     /* 메인 */
+    .rankContent{
+        display: none;
+    }
     .dayimgBox{
         overflow: hidden;
     }
@@ -296,6 +299,9 @@
 
 
 @media screen and (max-width:361px) and (min-width:10px) {
+    .rankContent{
+        display: none;
+    }
     .ATtext{
         display: block !important;
     }
@@ -754,10 +760,10 @@
   }
   .leftWn{
     float: left;
-    width: 35%;
+    width: 37%;
   }
   .rightAr{
-    width: 58%;
+    width: 56%;
     margin-right: 10px;
     text-align: right;
     float: right;
@@ -766,4 +772,11 @@
   .ATtext
   {
     display: none;
+  }
+
+  .rankContent{
+    width: 53%;
+    padding: 2px;
+    margin-top: 83px;
+    float: left;
   }

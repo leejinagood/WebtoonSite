@@ -43,6 +43,9 @@ const Rank = () => {
                     <p className={style.RankWN}>{webtoon.webtoonName}</p>
                     <p className={style.RankAT}>{webtoon.webtoonAuthor}</p>
                   </div>
+                  <div>
+                    <p className={style.rankContent}>{webtoon.webtoonContent}</p>
+                  </div>
                   
                 </div>
               </div>
