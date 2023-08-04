@@ -10,8 +10,9 @@
         float: left !important;
     }
     .CommentList{
-        right: 0% !important;
+        left: 2% !important;
         width: 100% !important;
+        
         float: left !important;
     }
     .CommentComponent li{
@@ -67,8 +68,8 @@
 }
 .CommentList{
     position: relative;
-    right: 4%;
-    width: 100% !important;
+    right:3%;
+    width: 98% !important;
 }
 .CommentBox{
     width: 

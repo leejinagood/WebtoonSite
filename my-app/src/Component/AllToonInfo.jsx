@@ -33,8 +33,10 @@ return (
       <div className={style.AllToonInfo} key={index}>
 
         <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}&id=${webtoon.webtoonID}`}>
-
+          <div className={style.imgBox}>
           <img className={style.ATimg} src={webtoon.webtoonThumbnail} />
+          <p className={style.hoverP}><span className={style.leftWn}>{webtoon.webtoonName}</span><span className={style.rightAr}>{webtoon.webtoonAuthor}</span></p>
+          </div>
           <div className={style.ATtext}>
           <p className={style.AToonTitle}>{webtoon.webtoonName}</p>
           <p className={style.aTMT}> {webtoon.webtoonAuthor} </p>

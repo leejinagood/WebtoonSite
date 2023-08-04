@@ -82,9 +82,8 @@ const LoginPage = () => {
       console.error(error);
     }
   };
+
   
-
-
   useEffect(() => {
     // 쿠키에 저장된 정보를 가져오기
     const userEmail = getCookie("userEmail");

@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import style from "../styles/MainPageCss.module.css";
+
 const Rank = () => {
   const [webtoons, setWebtoons] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/rank?day=rank");
+        const response = await fetch("/api/rank?day=All");
         const data = await response.json();
-        setWebtoons(data);
+
+        // totalLikes 기준으로 정렬하여 상위 5개만 가져오기
+        const sortedData = data.sort((a, b) => b.totalLikes - a.totalLikes);
+        const top5Webtoons = sortedData.slice(0, 5);
+
+        setWebtoons(top5Webtoons);
       } catch (error) {
         console.error("API를 불러오는 도중 오류가 발생했습니다:", error);
       }
@@ -24,7 +30,7 @@ const Rank = () => {
       <div className={style.HotToon}>
         {webtoons.map((webtoon, index) => (
           <div className={style.RBox} key={index}>
-            <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoon_en_name)}`}>
+            <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}&id=${webtoon.webtoonID}`}>
               <div className={style.Rank}>
                 <div className={style.Rankitem}>
                   <div className={style.RankImg}>

@@ -70,8 +70,10 @@ const ListPage = () => {
       try {
         const response = await fetch(`/api/listitem?EnName=${encodeURIComponent(EnName)}`);
         const { webtoonData } = await response.json();
-        setWebtoonItem(webtoonData);
+        setWebtoonItem(webtoonData.reverse());
+
         console.log(webtoonData[0]);
+        
         console.log(webtoonItem);
 
         setLoading(false);
@@ -185,12 +187,17 @@ const ListPage = () => {
 
 
 
+ 
+
+  // 내림차순 정렬 버튼을 클릭했을 때
   const handleAscSort = () => {
     if (!ascSort) {
       setAscSort(true);
       setDescSort(false);
       // webtoonItem을 오름차순으로 정렬
-      setWebtoonItem((prevItems) => prevItems.slice().sort((a, b) => a.episode_number - b.episode_number));
+      setWebtoonItem((prevItems) =>
+        prevItems.slice().sort((a, b) => a.episodeNumber - b.episodeNumber)
+      );
     }
   };
 
@@ -200,7 +207,9 @@ const ListPage = () => {
       setDescSort(true);
       setAscSort(false);
       // webtoonItem을 내림차순으로 정렬
-      setWebtoonItem((prevItems) => prevItems.slice().sort((a, b) => b.episode_number - a.episode_number));
+      setWebtoonItem((prevItems) =>
+        prevItems.slice().sort((a, b) => b.episodeNumber - a.episodeNumber)
+      );
     }
   };
 
@@ -280,9 +289,10 @@ const ListPage = () => {
       {!webtoonItem ? (
   <div>Loading...</div>
 ) : (
+  
   <>
   <div className={style.DESC}>
-      <span onClick={handleAscSort}>오름차순 /</span><span onClick={handleDescSort}> 내림차순</span>
+      <span onClick={handleDescSort}>오름차순 /</span><span onClick={handleAscSort}> 내림차순</span>
     </div>
   <div className={style.ListBox}>
 

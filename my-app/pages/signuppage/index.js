@@ -54,28 +54,28 @@ const SignUpPage = () => {
     <div className={style.SignUpPage}>
       <form onSubmit={handleSubmit}>
         <div className={style.SignUpBox}>
-        <Link href="/mainpage">
-          <h2>AVATYE</h2>
+        <Link href="/">
+          <h2><span className={style.red}>A</span>VA<span className={style.red}>T</span>YE</h2>
           </Link>
           <div>
-            <label htmlFor="id">아이디</label>
-            <input type="text" id="id" value={id} onChange={handleIdChange} />
+            <input type="text" id="id" value={id} placeholder="아이디" onChange={handleIdChange} />
           </div>
           <div>
-            <label htmlFor="password">비밀번호</label>
             <input
               type="password"
               id="password"
               value={password}
+              placeholder="비밀번호"
               onChange={handlePasswordChange}
             />
           </div>
           <div>
-            <label htmlFor="confirmPassword">비밀번호 확인</label>
             <input
               type="password"
               id="confirmPassword"
               value={confirmPassword}
+              placeholder="비밀번호 확인"
+
               onChange={handleConfirmPasswordChange}
             />
             {!isPasswordMatch && (
@@ -83,19 +83,19 @@ const SignUpPage = () => {
             )}
           </div>
           <div>
-            <label htmlFor="name">이름</label>
-            <input type="text" id="name" value={name} onChange={handleNameChange} />
+            <input type="text" id="name" value={name} onChange={handleNameChange}
+            placeholder="이름" />
             {name.length > 5 && (
               <p className={style.error}>이름은 5글자 이하여야 합니다.</p>
             )}
           </div>
           <div>
-            <label htmlFor="age">나이</label>
             <input
               type="text"
               id="age"
               value={age}
               onChange={handleAgeChange}
+              placeholder="나이"
             />
           </div>
           <button className={style.SignBtn} type="submit">가입하기</button>
