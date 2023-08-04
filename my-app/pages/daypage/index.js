@@ -80,6 +80,8 @@ const WeekPage = () => {
                     {/* <Thumbnail day={webtoon} /> */}
                     <div className={style.dayimgBox}>
                     <img src={webtoon.webtoonThumbnail} alt="" />
+                    <p id={style.DhoverP} className={style.hoverP}><span className={style.leftWn}>{webtoon.webtoonName}</span><span className={style.rightAr}>{webtoon.webtoonAuthor}</span></p>
+
                     </div>
                     <p className={style.ToonTitle}>{webtoon.webtoonName}</p>
                     <p className={style.Writer}>{webtoon.webtoonAuthor}</p>

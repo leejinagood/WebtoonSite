@@ -35,7 +35,7 @@ return (
         <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}&id=${webtoon.webtoonID}`}>
           <div className={style.imgBox}>
           <img className={style.ATimg} src={webtoon.webtoonThumbnail} />
-          <p className={style.hoverP}><span className={style.leftWn}>{webtoon.webtoonName}</span><span className={style.rightAr}>{webtoon.webtoonAuthor}</span></p>
+          <p className={style.hoverP}><span className={style.leftWn}>{webtoon.webtoonName}</span><span className={style.rightAr}>👍 {webtoon.totalLikes} / {webtoon.webtoonAuthor}</span></p>
           </div>
           <div className={style.ATtext}>
           <p className={style.AToonTitle}>{webtoon.webtoonName}</p>

@@ -10,7 +10,27 @@
 @media screen and (max-width:721px) and (min-width:362px) {
     /* 메인 */
     .dayimgBox{
+        overflow: hidden;
     }
+    .dayimgBox img{
+        width: 100% !important;
+    }
+
+    #DhoverP{
+        bottom:2px !important;
+        
+    }
+    .leftWn{
+        float: left;
+        width: 40% !important;
+      }
+      .rightAr{
+        width: 52% !important;
+        margin-right: 10px;
+        text-align: right;
+        float: right;
+      }
+
     .MNewToon{
         width: 80% !important;
     }
@@ -49,9 +69,17 @@
     }
 
     .AllToonInfo img{
+        object-fit: contain !important;
         width: 100% !important;
     }
-
+    .hoverP{
+        width: 100% !important;
+        font-size: 12px;
+        bottom: 6px !important;
+    }
+    .imgBox{
+        height: 100% !important;
+    }
 
     .AllTonnbox{
         width: 100% !important;
@@ -107,7 +135,6 @@
         height: 300px  !important;
     }
     .DayToonIMG{
-        
         object-fit: cover;
     }
     
@@ -269,9 +296,16 @@
 
 
 @media screen and (max-width:361px) and (min-width:10px) {
+    .ATtext{
+        display: block !important;
+    }
+    .hoverP{
+        display: none;
+    }
     .Writer{
         line-height: 0px !important;
         margin-top: 10px;
+        display: block !important;
     }
     .imgBox{
         height: 121px !important;
@@ -324,6 +358,9 @@
     .DayToonBox{
         width: 80% !important;
         
+    }
+    .ToonTitle{
+        display: block !important;
     }
     .AllToonInfo img{
         width: 100% !important;
@@ -380,7 +417,7 @@
     float: left !important;
 }
 .RankNum {
-  font-size: 10px;
+  font-size: 10px !important;
   margin-top: 30px !important;
   width: 20% !important;
   float: left !important;
@@ -617,6 +654,7 @@
 .ToonTitle{
     float: left;
     line-height: 2px;
+    display: none;
 }
 
 
@@ -639,6 +677,7 @@
 }
 .dayimgBox{
     overflow: hidden;
+    position: relative;
     float: left;
     width: 100%;
 }
@@ -653,6 +692,7 @@
 
 .Writer{
     line-height:18px;
+    display: none;
 }
 
 
@@ -698,10 +738,14 @@
 
     width: 100%;
 }
+#DhoverP{
+    bottom:3.5px;
+
+}
 .hoverP {
     position: absolute; /* .hoverP 요소를 절대적 위치로 설정 */
-    top: 0;
     left: 0;
+    bottom:0px;
     color: white;
     background-color: rgba(0, 0, 0, 0.7); /* 배경에 반투명한 검정색 추가 */
     padding: 5px; /* 텍스트 주위에 여백 추가 */
@@ -717,4 +761,9 @@
     margin-right: 10px;
     text-align: right;
     float: right;
+  }
+
+  .ATtext
+  {
+    display: none;
   }

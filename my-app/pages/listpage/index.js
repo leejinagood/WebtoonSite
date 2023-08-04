@@ -214,20 +214,20 @@ const ListPage = () => {
   };
 
   let KrDay = "";
-  if (webtoonInfo && webtoonInfo.week) {
-  if(webtoonInfo.week === "mon"){
+  if (webtoonInfo && webtoonInfo.webtoonWeek) {
+  if(webtoonInfo.webtoonWeek === "mon"){
     KrDay = "월";
-  }else if(webtoonInfo.week === "tues"){
+  }else if(webtoonInfo.webtoonWeek === "tues"){
     KrDay = "화";
-  }else if(webtoonInfo.week === "wendes"){
+  }else if(webtoonInfo.webtoonWeek === "wendes"){
     KrDay = "수";
-  }else if(webtoonInfo.week === "thurs"){
+  }else if(webtoonInfo.webtoonWeek === "thurs"){
     KrDay = "목";
-  }else if(webtoonInfo.week === "fri"){
+  }else if(webtoonInfo.webtoonWeek === "fri"){
     KrDay = "금";
-  }else if(webtoonInfo.week === "satur"){
+  }else if(webtoonInfo.webtoonWeek === "satur"){
     KrDay = "토";
-  }else if(webtoonInfo.week === "sun"){
+  }else if(webtoonInfo.webtoonWeek === "sun"){
     KrDay = "일";
   }else {
     // 웹툰 정보가 없거나 요일 정보가 없는 경우
@@ -263,7 +263,7 @@ const ListPage = () => {
                     {webtoonInfo.webtoonName}
                   </p>
                   <p id={style.line} className={style.GrayP}>
-                  글/그림<span>{webtoonInfo.webtoonAuthor}</span> | {KrDay} 요웹툰
+                  글/그림<span>{webtoonInfo.webtoonAuthor}</span> | {KrDay}요웹툰
 
                     </p>
                     <p className={style.ConTent}>
