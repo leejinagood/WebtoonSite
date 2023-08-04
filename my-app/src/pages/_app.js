@@ -1,7 +1,7 @@
 // // pages/_app.js
 
 
-import { register } from '../public/serviceWorkerRegistration';
+import { register } from '../../public/serviceWorkerRegistration';
 import React,{useEffect} from 'react';
 import App from 'next/app';
 import Head from 'next/head';

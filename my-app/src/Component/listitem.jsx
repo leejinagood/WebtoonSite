@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "../../pages/listpage/styles/ListPageCss.module.css";
+import styles from "../pages/listpage/styles/ListPageCss.module.css";
 const ListItem = ({ EnName,thumbnail,webtoonName, ep /*uploadDate*/, handleClick }) => {
 
   return (

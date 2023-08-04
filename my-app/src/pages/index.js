@@ -1,15 +1,13 @@
 import React,{useEffect} from "react";
-import style from "../src/styles/MainPageCss.module.css";
-import Header from "../src/Header/header";
-import Footer from "../src/Footer/footer";
-import NewToon from "../src/Component/NewToon";
-import Slick from "../src/Component/Slick";
+import style from "../styles/MainPageCss.module.css";
+import Header from "../Header/header";
+import Footer from "../Footer/footer";
+import Slick from "../Component/Slick";
 
-import Test from "./test";
 
-import Tag from "../src/Component/Tag/Tag";
+import Tag from "../Component/Tag/Tag";
 import Head from 'next/head';
-import AllToonInfo from "../src/Component/AllToonInfo";
+import AllToonInfo from "../Component/AllToonInfo";
 import { useRouter } from "next/router";
 import { parseCookies } from 'nookies'; // nookies 라이브러리 import
 const MainPage = () => {

@@ -14,13 +14,17 @@
     }
     .dayimgBox{
         overflow: hidden;
+        height: 270px !important;
     }
     .dayimgBox img{
         width: 100% !important;
+        height: 100% !important;
     }
 
     #DhoverP{
-        bottom:2px !important;
+        bottom:0px !important;
+        left:0px !important;
+        width:100%;
         
     }
     .leftWn{
@@ -135,7 +139,6 @@
     
     .DayToonItem{
         width: 72% !important;
-        height: 300px  !important;
     }
     .DayToonIMG{
         object-fit: cover;
@@ -227,6 +230,9 @@
     .AllToon table{
         margin: 0 !important;
     }
+    .dayimgBox{
+        height: 150px !important;
+    }
 
 /* test */
     
@@ -309,12 +315,19 @@
         display: none;
     }
     .Writer{
-        line-height: 0px !important;
-        margin-top: 10px;
+        position: relative;
+        right: 10px;
+        
+        font-size: 100px !important;
         display: block !important;
     }
     .imgBox{
         height: 121px !important;
+    }
+    .dayimgBox{
+        float: left !important;
+        height: 100% !important;
+        width: 100% !important;
     }
     .aTMT{
         font-size: 6px !important;
@@ -323,6 +336,9 @@
         
         position: relative !important;right: 10px;
         
+    }
+    .DtextBox p{
+
     }
     .AToonTitle{
         font-size: 10px !important;
@@ -363,19 +379,25 @@
     }
     .DayToonBox{
         width: 80% !important;
-        
     }
     .ToonTitle{
-        display: block !important;
+        float: left !important;
+        margin-left: 0 !important;
+        margin: 0 !important;
+        margin-top:5px !important;
+        line-height: 0px !important; 
+        float: left;
+        position: relative;
+        right: 10px;
+        display: inline !important;
     }
     .AllToonInfo img{
         width: 100% !important;
     }   
     .DayToonItem{
-        margin-top: 0px !important;
-        margin-bottom: 0px !important;
         width: 100% !important;
-        height: 170px !important;
+        height: 100%; 
+        margin: 0 !important;       
     }
 
     .DayToonItem p{
@@ -449,7 +471,6 @@
         width: 80%;
     }
     .DayToonItem p{
-        line-height: 0px !important;
     }
     .AToonTitle{
         margin-bottom: 0px !important;
@@ -474,8 +495,6 @@
     }
 
     .DayToonItem img{
-        width: 110px !important;
-        height: 145px !important;
         object-fit: contain;
     
     }
@@ -559,18 +578,19 @@
 }
 .DayBox{
     width: 80%;
+    max-width: 1920px;
+    
 }
 .DayToonBox{
-    flex-wrap: wrap;
     width: calc(45% - 10px); 
     /* 전체 너비에서 Rank 영역의 너비와 여백을 뺀 값으로 설정 */
+    display: block;
     float: left;
 } 
 
 
 .Mid .DayToon .DayToonItem {
-    width: 150px;
-    height: 200px;
+    width: 10px;
     margin-bottom: 50px;
     margin-left: 0px;
 }
@@ -581,10 +601,11 @@
    */
   
    .DayToonItem{
-    width: 150px;
-    height: 200px;
+    position: relative;
+    width: 140px;
     margin-bottom: 50px;
     margin-left: 0px;
+
    }
  
   .DayToonItem p{
@@ -676,15 +697,18 @@
 
 .DayToonItem img{
     width: 100%;
+    height: 100%;
     object-fit: contain;
 }
 .DayToonItem img:hover{
     transform: scale(1.1);
+
 }
 .dayimgBox{
     overflow: hidden;
     position: relative;
     float: left;
+    height: 390px;
     width: 100%;
 }
 
@@ -745,7 +769,9 @@
     width: 100%;
 }
 #DhoverP{
-    bottom:3.5px;
+    bottom:0;
+    left:2px;
+    width: 95.5%;
 
 }
 .hoverP {
