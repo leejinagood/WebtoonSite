@@ -1,6 +1,8 @@
-module.exports = {
-  pageExtensions: ['jsx', 'js'], // 이 옵션을 추가하여 JS 파일도 페이지로 인식하도록 설정
+const path = require('path');
 
+module.exports = {
+  pageExtensions: ['jsx', 'js'],
+  
   async rewrites() {
     return [
       {
@@ -9,22 +11,20 @@ module.exports = {
       }
     ];
   },
-
+  
   // 기본적인  PWA 설정   //나중에 true 로 바꿔야함
   pwa: { 
     dest: 'public',
     register: true,
     skipWaiting: true,
   },
-
-  // 기본 경로를 /mainpage로 설정
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/',
-  //       destination: '/mainpage',
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.alias['~'] = __dirname; // 기존 경로 설정
+      config.resolve.alias['~'] = path.resolve(__dirname, 'src'); // src 폴더로 변경된 경로 설정
+    }
+    
+    
+    return config;
+  }
 };

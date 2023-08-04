@@ -109,9 +109,10 @@
   }
   
   .LoginLogo {
-    padding-top: 25px;
+    font-size:35px;
+
+    padding-top: 10px;
     padding-bottom: 15px;
-    
     text-align: center;
     margin: 0 auto;
   }
@@ -174,6 +175,9 @@
 
 
 
+
 .red{
-  color:red;
+  color:rgb(171,230,157);
+
+
 }

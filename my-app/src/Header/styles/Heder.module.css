@@ -78,7 +78,6 @@
     }
     .InputBox{
         margin-left: 45px;
-        background-color: gainsboro;
     }
     .SerchBar{
         margin-top: 25px !important;
@@ -161,7 +160,8 @@
 }
 #AD{
     width: 10% !important;
-    font-size: 14px;
+    font-size: 17px;
+    margin-left: 5px;
 }
 .SerchBar{
     float: right;
@@ -190,7 +190,8 @@
 }
 
 .HDayBox{
-    background-color: ghostwhite;
+    /* background-color: ghostwhite; */
+    background-color: rgb(171,230,157);
     /* margin-bottom: 20px; */
     width: 100%;
     border-bottom: 1px solid black;
@@ -204,15 +205,18 @@
     margin: 0 auto;
 }
 .Day li{
+    
     line-height: 32px;
-    font-size: 14px;
+    font-size: 18px;
     float: left;
     list-style: none;
     width: 5% !important;
-     
+    color:white;
+
     margin-right: 0.5vw;
 }
 .AllDay{
+
     width: 15% !important;
 }
 
@@ -222,5 +226,7 @@
 }
 
 .Color{
-    color:red;
+    color:rgb(171,230,157);
+
+
 }

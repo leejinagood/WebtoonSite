@@ -70,8 +70,11 @@
   margin-bottom: 1%;
   font-size: 30px;
 }
+
 .red{
-  color:red;
+  color:rgb(171,230,157);
+
+
 }
 .error{
   margin-top: 2px;
