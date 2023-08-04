@@ -16,6 +16,7 @@ function SerchWebToon() {
         const response = await fetch(`/api/searchtoon?word=${word}`);
         const data = await response.json();
         setWebtoonData(data);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching API:", error);
       }
@@ -35,7 +36,7 @@ function SerchWebToon() {
         <ul>
           {webtoonData.map((webtoon, index) => (
             <li key={index}>
-              <Link href={`/listpage?EnName=${webtoon.webtoonEnName}`}>
+              <Link href={`/listpage?EnName=${webtoon.webtoonEnName}&id=${webtoon.webtoonID}`}>
                 <div className={style.ListItem}>
                   <div className={style.ListImg}>
                     <img src={webtoon.webtoonThumbnail} />

@@ -24,7 +24,7 @@ const Rank = () => {
       <div className={style.HotToon}>
         {webtoons.map((webtoon, index) => (
           <div className={style.RBox} key={index}>
-            <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoon_en_name)}`}>
+            <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}&id=${webtoon.webtoonID}`}>
               <div className={style.Rank}>
                 <div className={style.Rankitem}>
                   <div className={style.RankImg}>

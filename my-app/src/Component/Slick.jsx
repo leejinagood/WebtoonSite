@@ -61,7 +61,7 @@ return (
       >
         {Array.from({ length: 10 }).map((_, slideIndex) =>
           imageUrls.map((imageUrl, index) => (
-            <Link href={`/listpage?EnName=${webtoons[index].webtoonEnName}`} key={index + slideIndex * imageUrls.length}>
+            <Link href={`/listpage?EnName=${webtoons[index].webtoonEnName}&id=${webtoons[index].webtoonID}`} key={index + slideIndex * imageUrls.length}>
               <div className={styles.slide}>
                 <img src={imageUrl} alt={`Image ${index + 1}`} />
               </div>
