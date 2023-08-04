@@ -9,12 +9,12 @@
 } */
 @media screen and (max-width:721px) and (min-width:362px) {
     /* 메인 */
+    .dayimgBox{
+    }
     .MNewToon{
         width: 80% !important;
     }
-    .DayToonItem p{
-        line-height: 0px !important;
-    }
+
     .RankNum{
         width: 17.5% !important;
         float: left;
@@ -51,6 +51,7 @@
     .AllToonInfo img{
         width: 100% !important;
     }
+
 
     .AllTonnbox{
         width: 100% !important;
@@ -102,8 +103,7 @@
       }
     
     .DayToonItem{
-        flex-wrap: wrap;
-        width: 80% !important;
+        width: 72% !important;
         height: 300px  !important;
     }
     .DayToonIMG{
@@ -273,6 +273,9 @@
         line-height: 0px !important;
         margin-top: 10px;
     }
+    .imgBox{
+        height: 121px !important;
+    }
     .aTMT{
         font-size: 6px !important;
         margin-top: 1px !important;
@@ -300,7 +303,7 @@
         width: 66% !important;
     }
     .AllToonInfo{
-        margin-bottom: 40px !important;
+        margin-bottom: 0px !important;
     }
 
     
@@ -449,6 +452,7 @@
 }
 
 .AllToon{
+
     width: 100%;
     margin: 0 auto;
     float: left;
@@ -475,6 +479,9 @@
 }
 
 .AllToonInfo {
+
+    overflow: hidden;
+    height: 100% !important;
     width: 13%;
     /* width: calc(33.33% - 25px); 각 요소의 너비를 33.33%로 설정 (여백 10px 제외) */
     margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
@@ -626,9 +633,19 @@
 .DayToonItem img{
     width: 100%;
     object-fit: contain;
-
 }
+.DayToonItem img:hover{
+    transform: scale(1.1);
+}
+.dayimgBox{
+    overflow: hidden;
+    float: left;
+    width: 100%;
+}
+
 .DayToonItem{
+    overflow: hidden;
+    height: 100%;
     width: 45%;float: left;
     margin-right: 20px;
     
@@ -664,3 +681,40 @@
 {
     color:gray;
 }
+.ATimg{
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s ease; /* 애니메이션 효과를 위한 transition 추가 */
+}
+.AllToonInfo .ATimg:hover{
+    transform: scale(1.1);
+}
+.imgBox{
+    overflow: hidden;
+    float: left;
+    height: 261px;
+    margin-bottom: 10px;
+    position: relative; /* .imgBox 요소를 상대적 위치로 설정 */
+
+    width: 100%;
+}
+.hoverP {
+    position: absolute; /* .hoverP 요소를 절대적 위치로 설정 */
+    top: 0;
+    left: 0;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7); /* 배경에 반투명한 검정색 추가 */
+    padding: 5px; /* 텍스트 주위에 여백 추가 */
+    margin: 0; /* 기본 margin 제거 */
+    z-index: 1; /* .hoverP 요소를 이미지 위로 올리기 위해 z-index 사용 */
+  }
+  .leftWn{
+    float: left;
+    width: 35%;
+  }
+  .rightAr{
+    width: 58%;
+    margin-right: 10px;
+    text-align: right;
+    float: right;
+  }

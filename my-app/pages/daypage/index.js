@@ -78,7 +78,9 @@ const WeekPage = () => {
                   <div className={style.DayToonItem} key={subIndex}>
                   <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}`}>
                     {/* <Thumbnail day={webtoon} /> */}
+                    <div className={style.dayimgBox}>
                     <img src={webtoon.webtoonThumbnail} alt="" />
+                    </div>
                     <p className={style.ToonTitle}>{webtoon.webtoonName}</p>
                     <p className={style.Writer}>{webtoon.webtoonAuthor}</p>
                   </Link>

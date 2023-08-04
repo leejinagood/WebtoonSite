@@ -63,7 +63,10 @@ return (
           imageUrls.map((imageUrl, index) => (
             <Link href={`/listpage?EnName=${webtoons[index].webtoonEnName}&id=${webtoons[index].webtoonID}`} key={index + slideIndex * imageUrls.length}>
               <div className={styles.slide}>
+                <div className={styles.imgBox}>
                 <img src={imageUrl} alt={`Image ${index + 1}`} />
+                <p className={styles.hoverP}><span className={styles.leftWn}>{webtoons[index].webtoonName}</span><span className={styles.rightAr}>{webtoons[index].webtoonAuthor}</span></p>
+                </div>
               </div>
             </Link>
           ))
