@@ -22,13 +22,19 @@ const webtoonAPI = (server, getConn) => {
                 const [rows] = await conn.query('CALL usp_get_Webtoons();'); //모든 웹툰 정보 가져옴
                 const row = rows[0]; // row에 저장
 
-                if (pi_vch_condition === 'All') {  
-                  
+                const key2 = `likes:${row.webtoonID}`;
+                let value2 = await redisClient.get(key2);
+                if(value2){
+                    res.send(JSON.parse(value2)); // 문자열로 파싱
+                }else{
                     for (const item of row) { // row의 갯수만큼 좋아요의 갯수를 담은 redis key와 value 생성
-                      const key = `likes:${item.webtoonID}`;
-                      const totalLikesValue = item.totalLikes.toString(); 
-                      await redisClient.set(key, totalLikesValue);  //저장
-                    }
+                        const key2 = `likes:${item.webtoonID}`;
+                        const totalLikesValue = item.totalLikes.toString(); 
+                        await redisClient.set(key2, totalLikesValue);  //저장
+                      }
+                }
+
+                if (pi_vch_condition === 'All') {  
                     
                     res.send(row); // 응답으로 모든 웹툰 정보를 보냄
                     await redisClient.set(key, JSON.stringify(row)); 
