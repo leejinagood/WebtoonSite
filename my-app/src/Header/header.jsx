@@ -35,6 +35,16 @@ const Header = () => {
     }
   };
 
+  const [currentDay, setCurrentDay] = useState(new Date().getDay()); // 현재 요일 가져오기
+
+  const getDayStyle = (dayIndex) => {
+    if (dayIndex === currentDay) {
+      return style.CurrentDay; // 현재 요일에만 적용될 스타일 클래스
+    }
+    return style.AllDay; // 다른 요일에 적용될 스타일 클래스
+  };
+
+
   const handleLogout = () => {
     // 세션 스토리지에서 토큰 삭제
     sessionStorage.removeItem("token");
@@ -146,28 +156,38 @@ const Header = () => {
       <div className={style.HDayBox}>
         <div className={style.Day}>
           <Link href={{ pathname: '/', query: { day: 'All' } }}>
-            <li id={style.AD} className={style.AllDay}>전체<span className={style.vis}>요일</span></li>
+            <li id={style.AD}>전체<span className={style.vis}>요일</span></li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'mon' } }}>
-            <li className={style.AllDay}>월</li>
+          {currentDay === 1 && <p className={style.TodayText}>today !</p>}
+            <li className={getDayStyle(1)}>월</li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'tues' } }}>
-            <li className={style.AllDay}>화</li>
+          {currentDay === 2 && <p className={style.TodayText}>today !</p>}
+            <li className={getDayStyle(2)}>화</li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'wendes' } }}>
-            <li className="AllDay">수</li>
+          {currentDay === 3 && <p className={style.TodayText}>today !</p>}
+            <li className={getDayStyle(3)}>수</li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'thurs' } }}>
-            <li className={style.AllDay}>목</li>
+          {currentDay === 4 && <p className={style.TodayText}>today !</p>}
+
+            <li className={getDayStyle(4)}>목</li>
           </Link>
           <Link href={{ pathname: 'daypage', query: { day: 'fri' } }}>
-            <li className={style.AllDay}>금</li>
+          {currentDay === 5 && <p className={style.TodayText}>today !</p>}
+
+            <li className={getDayStyle(5)}>금</li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'satur' } }}>
-            <li className={style.AllDay}>토</li>
+          {currentDay === 6 && <p className={style.TodayText}>today !</p>}
+
+            <li className={getDayStyle(6)}>토</li>
           </Link>
           <Link href={{ pathname: '/daypage', query: { day: 'sun' } }}>
-            <li className={style.AllDay}>일</li>
+          {currentDay === 0 && <p className={style.TodayText}>today !</p>}
+            <li className={getDayStyle(0)}>일</li>
           </Link>
         </div>
       </div>

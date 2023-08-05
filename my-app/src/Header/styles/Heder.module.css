@@ -5,6 +5,9 @@
     .InputBox{
         margin-left: 70px;
     }
+    .TodayText{
+        right: 12px !important;
+    }
 
     .SerchBar{
         width: 100% !important;
@@ -77,6 +80,9 @@
     .LogoBox .Logo{
         font-size: 15px !important;
     }
+    .TodayText{
+        display: none;
+    }
     .InputBox{
         margin-left: 45px;
     }
@@ -135,7 +141,7 @@
 .header{
     display: block;
     height: 60px;
-    border-bottom: 1px solid gray;
+    /* border-bottom: 1px solid gray; */
 }
 .TopHeader{
     float: left;
@@ -196,7 +202,7 @@
     background-color: rgb(171,230,157);
     /* margin-bottom: 20px; */
     width: 100%;
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
     height: 30px;
     float: left;
     display: block;
@@ -231,4 +237,30 @@
     color:rgb(171,230,157);
 
 
+}
+
+.CurrentDay {
+    cursor: pointer;
+    position: relative;
+  }
+
+  .TodayText{
+    position: relative;
+    bottom: 18px;
+    right: 15px;
+    height: 0;
+
+    animation: scaleani 2s ease infinite; 
+  }
+
+@keyframes scaleani {
+    0% {
+        transform: scale(1) translateY(0);
+    }
+    50% {
+        transform: scale(1) translateY(-7px); /* 위로 10px 이동 */
+    }
+    100% {
+        transform: scale(1) translateY(0);
+    }
 }
