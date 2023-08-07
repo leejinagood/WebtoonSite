@@ -13,10 +13,12 @@ const mainRank = () => {
 
         // totalLikes 기준으로 정렬하여 상위 5개만 가져오기
         const sortedData = data.sort((a, b) => b.totalLikes - a.totalLikes);
-        const top5Webtoons = sortedData.slice(0, 3);
+        const top5Webtoons = sortedData.slice(0, 6);
 
         setWebtoons(top5Webtoons);
-        console.log(webtoons[1].webtoonThumbnail);
+        console.log(webtoons);
+        console.log(webtoons.webtoonThumbnail);
+
 
       } catch (error) {
         console.error("API를 불러오는 도중 오류가 발생했습니다:", error);
@@ -44,9 +46,13 @@ const mainRank = () => {
           ? "WebtoonImg/daughter_mom_looks_just_like/ddonk.jpeg"
           :webtoon.webtoonThumbnail === "https://i.imgur.com/FQDv300.jpg"
           ? "WebtoonImg/questsupremacy/so1.jpg"
+          :webtoon.webtoonThumbnail === 
+          "https://i.imgur.com/Hwq8Zhg.jpg"
+          ? "WebtoonImg/honeymoondiary/jagga.jpeg"
           : webtoon.webtoonThumbnail
       
       } alt={`${index + 1}등`} 
+      
       className={style.webtoonImage}/>
                   </div>
                   <div className={style.RankText}>
