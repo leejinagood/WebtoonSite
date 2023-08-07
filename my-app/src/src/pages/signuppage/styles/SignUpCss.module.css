@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+@media screen and (max-width:721px) and (min-width:362px) {
+  .SignUpBox{
+    width: 100% !important;
+    margin-top: 50% !important;
+  }
+  .SignBtn{
+
+    width: 70% !important;
+    margin-left: 15% !important;
+    margin-top: 20% !important;
+  }
+}
+@media screen and (max-width:361px) and (min-width:100px) {
+  .SignUpBox{
+    padding: 10px;
+    width: 100% !important;
+    height: 450px !important;
+    margin-top: 50% !important;
+  }
+  .SignBtn{
+
+    width: 70% !important;
+    margin-left: 15% !important;
+    margin-top: 20% !important;
+  }
+}
+.SignUpPage{
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Jua', sans-serif;
+
+  margin: 0 auto;
+  text-align: center;
+}
+
+.SignBtn{
+  border-radius: 10px;
+  float: left;
+  height: 60px;
+  border: 1px solid #000;
+  width: 90%;
+  margin-left: 4.5%;
+  margin-top: 10%;
+}
+.SignUpBox{
+  width: 30%;
+  margin-top: 10%;
+  border: 1px solid #000;
+  border-radius: 40px;
+  height: 500px;
+  border-collapse: collapse;
+
+}
+
+
+.SignUpBox input{
+  width: 90%;
+  border-collapse: collapse;
+
+  margin-left: 4.5%;
+  float: left;
+  height: 50px;
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+.SignUpPage h2{
+  margin-top: 2%;
+  margin-bottom: 1%;
+  font-size: 30px;
+}
+
+.red{
+  color:rgb(171,230,157);
+
+
+}
+.error{
+  margin-top: 2px;
+  margin-bottom: 2px;
+  float: left;
+}

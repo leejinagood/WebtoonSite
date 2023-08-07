@@ -43,7 +43,6 @@
         float: left;
     }
     #AD{
-        width: 14% !important;
         margin-right: 30px !important;
     }
     .HDayBox li{
@@ -114,13 +113,12 @@
     }
     #AD{
         margin-right: 15px;
-        width: 15% !important;
     }
     .vis{
         display: none;
     }
     .HDayBox li{
-        margin-right: 13px !important;
+        margin-right: 15px !important;
     }
 
 .Day{
@@ -161,7 +159,7 @@
     height: 100%;
 }
 #AD{
-    width: 10% ;
+    width: 10% !important;
     font-size: 17px;
     margin-left: 5px;
 }
