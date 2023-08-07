@@ -48,7 +48,12 @@ const mainRank = () => {
           ? "WebtoonImg/questsupremacy/so1.jpg"
           :webtoon.webtoonThumbnail === 
           "https://i.imgur.com/Hwq8Zhg.jpg"
+          
           ? "WebtoonImg/honeymoondiary/jagga.jpeg"
+          :webtoon.webtoonThumbnail === 
+          "https://i.imgur.com/GkxfvA6.jpg"
+          
+          ? "WebtoonImg/questsupremacy/q.jpeg"
           : webtoon.webtoonThumbnail
       
       } alt={`${index + 1}등`} 
