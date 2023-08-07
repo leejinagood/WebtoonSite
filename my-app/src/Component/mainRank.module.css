@@ -1,0 +1,54 @@
+.mrbox{
+    width: 100%;
+    float: left;
+}
+.HHH{
+    font-size: 22px;
+    float: left;
+    margin-bottom: 20px;
+}
+.RBox{
+    position: relative;
+    width: calc(30%);
+    /* border: 1px solid rgb(171,230,157); */
+    margin-left: 23px;
+    /* border: 1px solid black; */
+    float: left;
+    margin-right: 25px;
+    margin-bottom: 20px;
+}
+.RankText{
+    /* float: left; */
+    /* width: 40%; */
+    margin-top: 12px;
+}
+
+.RankImg{
+    width: 100%;
+    float: left;
+    background-color: rgb(171,230,157);
+    height: 50%;
+    object-fit: contain;
+    padding: 10px;
+}
+.rc p{
+    font-size: 15px;
+    margin-top: 20px;
+    height: 60px;
+    border-bottom: 1px solid rgb(171,230,157);
+    /* float: left; */
+    width: 105%;
+    /* width: 40%; */
+}
+.one{
+    position: absolute;
+    bottom: 320px;
+    right:380px;
+    transform: rotate(-30deg);
+
+    width: 20%;
+}
+
+.RankAT{
+    color:gray;
+}
