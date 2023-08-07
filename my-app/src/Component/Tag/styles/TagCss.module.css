@@ -40,7 +40,7 @@
     .tagItem li{
         height: 15px !important;
         line-height: 15px !important;
-        width: 18.5% !important;
+        width: 17% !important;
         font-size: 13px !important;
         margin-bottom: 15px !important;
     }
@@ -89,3 +89,6 @@
     margin-bottom: 5px;
 }
 
+.tagItem li:hover{
+    background-color: rgb(171,230,157);
+}

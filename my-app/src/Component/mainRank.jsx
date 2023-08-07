@@ -16,7 +16,7 @@ const mainRank = () => {
         const top5Webtoons = sortedData.slice(0, 3);
 
         setWebtoons(top5Webtoons);
-        console.log(webtoons[2].webtoonThumbnail);
+        console.log(webtoons[1].webtoonThumbnail);
 
       } catch (error) {
         console.error("API를 불러오는 도중 오류가 발생했습니다:", error);
@@ -25,7 +25,6 @@ const mainRank = () => {
 
     fetchData();
   }, []);
-
   return (
     <div className={style.mrbox}>
       <h3 className={style.HHH}>인기 웹툰</h3>
@@ -36,7 +35,6 @@ const mainRank = () => {
               <div className={style.Rank}>
                 <div className={style.Rankitem}>
                   <div className={style.RankImg}>
-                  {index === 0 && <img className={style.one} src="icons/rank.png" alt="1등 이미지" />}
                     <img       src={
         webtoon.webtoonThumbnail === "https://i.imgur.com/ogEdd6I.png"
           ? "WebtoonImg/maruisdog/maruisdog2.jpeg"
@@ -44,9 +42,12 @@ const mainRank = () => {
           ? "WebtoonImg/lookism/lookism2.jpeg":
           webtoon.webtoonThumbnail === "https://i.imgur.com/KGqTqqC.jpg"
           ? "WebtoonImg/daughter_mom_looks_just_like/ddonk.jpeg"
+          :webtoon.webtoonThumbnail === "https://i.imgur.com/FQDv300.jpg"
+          ? "WebtoonImg/questsupremacy/so1.jpg"
           : webtoon.webtoonThumbnail
       
-      } alt={`${index + 1}등`} />
+      } alt={`${index + 1}등`} 
+      className={style.webtoonImage}/>
                   </div>
                   <div className={style.RankText}>
                     <p className={style.RankWN}>{webtoon.webtoonName}</p>
