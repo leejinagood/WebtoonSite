@@ -83,6 +83,11 @@
     object-fit: contain;
     
   }
+  .slide img:hover{
+    background-color: rgb(171,230,157);
+    box-shadow:0px 0px;
+    padding-right: 11px;
+  }
   
   /* 추가적인 스타일링을 원하신다면 이곳에 추가하세요 */
   
