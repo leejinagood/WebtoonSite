@@ -25,6 +25,23 @@ const LoginPage = () => {
     setPassword(e.target.value);
   };
 
+
+  useEffect(() => {
+    const getCookies = () => {
+      const cookieString = document.cookie;
+      const cookies = {};
+  
+      cookieString.split(';').forEach(cookie => {
+        const [key, value] = cookie.trim().split('=');
+        cookies[key] = decodeURIComponent(value);
+      });
+  
+      return cookies;
+    };
+  }, []);
+  
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -133,9 +150,7 @@ const LoginPage = () => {
           </table>
           <button type="submit" className={style.LoginPageBtn}>로그인</button>
           <button className={style.KLoginPageBtn} onClick={kakaohandleSubmit}>
-          
           카카오로 시작하기
-        
         </button>
         </form>
 

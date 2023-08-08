@@ -14,7 +14,9 @@ import { parseCookies } from 'nookies'; // nookies 라이브러리 import
 const MainPage = () => {
 
   const router = useRouter();
-  const { token } = parseCookies({}); // 쿠키에서 토큰 가져오기
+  const { token, userName, userEmail } = parseCookies(); // 쿠키에서 필요한 값 가져오기
+
+
   // useEffect(() => {
 
   //   if (typeof window !== 'undefined') {
@@ -31,22 +33,11 @@ const MainPage = () => {
   //   }
   // }, []);
   
-  // useEffect(() => {
-  //   const getCookies = () => {
-  //     const cookieString = document.cookie;
-  //     const cookies = {};
-  
-  //     cookieString.split(';').forEach(cookie => {
-  //       const [key, value] = cookie.trim().split('=');
-  //       cookies[key] = decodeURIComponent(value);
-  //     });
-  
-  //     return cookies;
-  //   };
-  
-  //   const cookies = getCookies();
-  //   console.log("쿠키 : ", cookies.userEmail);
-  // }, []);
+  useEffect(() => {
+    console.log("쿠키 - token: ", token);
+    console.log("쿠키 - userName: ", userName);
+    console.log("쿠키 - userEmail: ", userEmail);
+  }, [token, userName, userEmail]);
 
   
 
