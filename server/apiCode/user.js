@@ -40,10 +40,6 @@ const userAPI = (server, getConn) => {
             //쿼리에 비밀번호 암호화된 내용으로 삽입
             await conn.query(query, value);
 
-            //좋아요 초기화
-            const callProc = 'CALL usp_basic_like(?);';
-            await conn.query(callProc, [email]);
-
             await conn.commit(); // 트랜잭션 커밋
             res.send('입력 성공');
         } catch (error) {
@@ -93,9 +89,9 @@ const userAPI = (server, getConn) => {
 
                 // 쿠키로 헤더에 데이터를 담아 응답 보내기
                 res.setHeader('Set-Cookie', [
-                    `userName=${enNickname}; Path=/api`,
-                    `userEmail=${enEmail}; Path=/api`,
-                    `token=${token}; Path=/api`
+                    `userName=${enNickname}; Path=/`,
+                    `userEmail=${enEmail}; Path=/`,
+                    `token=${token}; Path=/`
                   ], {
                     sameSite: 'lax',
                     domain: 'localhost',
@@ -159,10 +155,12 @@ const userAPI = (server, getConn) => {
             });
 
             // userResponse에서 정보 추출
+            const sub = userResponse.data.id;
             const nickname = userResponse.data.kakao_account.profile.nickname;
             const email = userResponse.data.kakao_account.email;
 
             //한글과 기호가 포함되어 있기 때문에 쿠키로 보내기전 인코딩 해야 됨
+            const enSub = encodeURIComponent(sub);
             const enNickname = encodeURIComponent(nickname);
             const enEmail = encodeURIComponent(email);
 
@@ -178,7 +176,8 @@ const userAPI = (server, getConn) => {
             res.setHeader('Set-Cookie', [
                 `userName=${enNickname}; Path=/`,
                 `userEmail=${enEmail}; Path=/`,
-                `token=${token}; Path=/`
+                `token=${token}; Path=/`,
+                `sub=${enSub}; Path=/`
               ], {
                 sameSite: 'lax',
                 domain: 'localhost',
@@ -193,13 +192,9 @@ const userAPI = (server, getConn) => {
 
             // 사용자 정보가 없으면 회원가입 및 좋아요 초기화
             if (Result.length === 0) {
-                const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName) VALUES (?, "", ?);';
-                const values = [email, nickname];
+                const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, socialNumber) VALUES (?, "", ?, ?);';
+                const values = [email, nickname, sub];
                 await conn.query(insertQuery, values);
-
-                // 회원가입시 모든 웹툰에 대한 좋아요를 초기화
-                const likeQuery = 'CALL usp_basic_like(?)';
-                await conn.query(likeQuery, [email]);
             }
         
             //리다리엑트는 기본적으로 쿠키를 함께 보냄! 같은 도메인이면 저장됨. 이를 쿠키의 동작 방식으로 도메인 기반 쿠키 라고 함
@@ -209,13 +204,6 @@ const userAPI = (server, getConn) => {
             });
             res.end('Redirecting to http://localhost:3000');
 
-            // // 응답 데이터 전송
-            // res.send({
-            // userName: nickname,
-            // userEmail: email,
-            // token: token
-            // }, 200);
- 
         } catch (error) {
             // console.error(error);
             res.status(500).json('카카오 로그인 실패');
@@ -272,9 +260,9 @@ const userAPI = (server, getConn) => {
         try {
             // 쿠키 삭제
             res.setHeader('Set-Cookie', [
-                `userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api;`,
-                `userEmail=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api;`,
-                `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api;`
+                `userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`,
+                `userEmail=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`,
+                `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
             ]);
 
             res.send('로그아웃 성공');
