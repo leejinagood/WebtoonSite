@@ -88,17 +88,20 @@ const userAPI = (server, getConn) => {
                     { expiresIn: '10m' } // 토큰 만료 시간 10분 설정
                 );
 
+                const enNickname = encodeURIComponent(selectUserResult[0].userName);
+                const enEmail = encodeURIComponent(selectUserResult[0].userEmail);
+
                 // 쿠키로 헤더에 데이터를 담아 응답 보내기
                 res.setHeader('Set-Cookie', [
-                    `userName=${selectUserResult[0].userName}`,
-                    `userEmail=${selectUserResult[0].userEmail}`,
+                    `userName=${enNickname}`,
+                    `userEmail=${enEmail}`,
                     `token=${token}`
                 ]);
 
                 // 유저 닉네임과 유저 이메일, 토큰을 응답으로
                 res.send({
-                    userName: selectUserResult[0].userName,
-                    userEmail: selectUserResult[0].userEmail,
+                    userName: enNickname,
+                    userEmail: enEmail,
                     token: token
                 });
 
