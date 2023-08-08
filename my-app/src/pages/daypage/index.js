@@ -7,12 +7,12 @@ import { parseCookies } from 'nookies';
 import jwt from 'jsonwebtoken';
 import Slick from "../../Component/Slick";
 import Cookies from 'js-cookie';
-import {handler} from "../api/daytoon";
 import axios from "axios"; // axios 임포트
-
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import style from "../../styles/MainPageCss.module.css"
+import Tag from "@/src/Component/Tag/Tag";
 const WeekPage = () => {
   const router = useRouter();
   const { day } = router.query;
@@ -94,7 +94,14 @@ const WeekPage = () => {
               {[...Array(count)].map((_, subIndex) => {
                 const webtoon = webtoons[subIndex];
                 return webtoon ? (
+                  
                   <div className={style.DayToonItem} key={subIndex}>
+                           <Head>
+       <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#FF0000"/>
+        <title>AVATOON</title>
+
+      </Head>
                   <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}`}>
                     {/* <Thumbnail day={webtoon} /> */}
                     <div className={style.dayimgBox}>
@@ -117,6 +124,7 @@ const WeekPage = () => {
         </div>
         <Rank />
       </div>
+      <Tag></Tag>
       <Footer />
     </div>
   );

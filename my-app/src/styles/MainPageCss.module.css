@@ -660,8 +660,12 @@
     float: right;
     width:51%;
   }
+  .Rank:hover{
+    background-color: rgb(171,230,157);
+
+  }
   .Rank {
-    border: 2px solid rgb(171,230,157);;
+    border: 2px solid rgb(171,230,157);
     padding: 5px;
     background-color: white;
     border-radius: 10px;
@@ -757,8 +761,8 @@
 
 .DayToonItem{
     overflow: hidden;
-    height: 100%;
-    width: 45%;float: left;
+    height: auto;
+    width: auto;float: left;
     margin-right: 20px;
     
 }
@@ -814,7 +818,8 @@
 #DhoverP{
     bottom:0;
     left:2px;
-    width: 95.5%;
+    /* width: 95.5%; */
+    width: 100%;
 
 }
 .hoverP {
@@ -829,10 +834,10 @@
   }
   .leftWn{
     float: left;
-    width: 37%;
+    width: auto;
   }
   .rightAr{
-    width: 56%;
+    width: auto;
     margin-right: 10px;
     text-align: right;
     float: right;

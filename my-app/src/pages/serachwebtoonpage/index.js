@@ -26,6 +26,8 @@ function SerchWebToon() {
     }
   }, [word]); // 검색어인 word를 의존성 배열에 추가
 
+
+
   console.log(word);
   console.log(webtoonData);
 
@@ -47,7 +49,7 @@ function SerchWebToon() {
                       <br />
                     </p>
                     <span className={style.tab2}>{webtoon.webtoonAuthor} /                     <span> {webtoon.categoryKind}</span></span>
-
+                    <p className={style.content}>{webtoon.content}</p>
                   </div>
                 </div>
               </Link>
