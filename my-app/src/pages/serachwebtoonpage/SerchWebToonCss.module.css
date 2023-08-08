@@ -67,15 +67,27 @@
 .SerchWebToon img{
     width: 200px;
     height: 250px;
+    float: left;
     object-fit: contain;
 }
 
 .EpisodeP{
     font-size: 15px;
+    float: left;
+    font-size: 20px;
+    width: 50%;
 }
 .tab2{
-    font-size: 10px;
+    font-size: 13px;
     color: gray;
+    float: left;
+    width: 70%;
+}
+.content{
+    width: 70%;
+    background-color: red;
+    height: auto;
+    float: left;
 }
 
 .SerchPage{
@@ -91,6 +103,5 @@
     margin-top: 20px;
     list-style: none;
     float: left;
-    width:calc(15.5%);
     float: left;
 }

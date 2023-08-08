@@ -87,6 +87,7 @@
     .List{
         position: relative;
         left:20px;
+        height: 500px !important;
         width: 90% !important;
 
     }
@@ -296,6 +297,7 @@
         margin-top: 0px !important;
         width: 80% !important;
         float: left !important;
+        height: 300px !important;
     }
     .ListItem{
         position: relative;
@@ -416,7 +418,7 @@
 }
 .List{
     max-width: 1920px;
-
+    height: 1000px;
     padding: 0;
 }
 
