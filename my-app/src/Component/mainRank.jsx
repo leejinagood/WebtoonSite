@@ -36,7 +36,7 @@ const mainRank = () => {
             <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}&id=${webtoon.webtoonID}`}>
               <div className={style.Rank}>
                 <div className={style.Rankitem}>
-                  <div className={style.RankImg}>
+                  <div className={`${style.RankImg} ${index === 0 ? style.FirstImgBox : ""}`}>
                     <img       src={
         webtoon.webtoonThumbnail === "https://i.imgur.com/ogEdd6I.png"
           ? "WebtoonImg/maruisdog/maruisdog2.jpeg"
@@ -60,7 +60,8 @@ const mainRank = () => {
       
       className={style.webtoonImage}/>
                   </div>
-                  <div className={style.RankText}>
+                  <div className={`${style.rankNum} ${index === 0 ? style.FirstRank : ""}`}>{index+1}</div>
+                  <div className={`${style.RankText} ${index === 0 ? style.FirstRank : ""}`}>
                     <p className={style.RankWN}>{webtoon.webtoonName}</p>
                     <p className={style.RankAT}>{webtoon.webtoonAuthor}</p>
                   </div>

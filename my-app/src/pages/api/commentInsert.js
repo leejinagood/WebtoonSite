@@ -1,24 +1,45 @@
-// 서버 측 API (api/webtoondetail.js)
+// api.js
 
-import axios from "axios";
+export const insertComment = async (webtoonName, episodeNumber, userEmail, commentContent) => {
+  try {
+    const response = await fetch('http://192.168.0.98:4000/api/comment_insert', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        WebEnName: webtoonName,
+        Ep: episodeNumber,
+        UserEmail: userEmail,
+        content: commentContent,
+      }),
+    });
 
-export default async function handler(req, res) {
-  const { query } = req;
-  const { EnName ,ep } = query;
-
-  if (EnName) {
-    try {
-      const response = await axios.get(`http://192.168.0.98:4000/api/comment?EnName=${EnName}&ep=${ep}`);
-
-      const comment = response.data;
-      res.status(200).json({ comment });
-
-    } catch (error) {
-      console.error("Error fetching API:", error);
-      res.status(500).json({ error: "Error fetching API" });
+    if (!response.ok) {
+      throw new Error('Failed to insert comment');
     }
-  } else {
-    res.status(400).json({ error: "Missing parameters" + EnName });
 
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error uploading comment:', error);
+    throw error;
   }
-}
+};
+
+export const loadCommentList = async (webtoonName, episodeNumber) => {
+  try {
+    const response = await fetch(`http://192.168.0.98:4000/api/comment?EnName=${webtoonName}&ep=${episodeNumber}`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch comment list');
+    }
+
+    const data = await response.json();
+    return data; // data 자체가 배열이므로, commentList에 바로 설정
+  } catch (error) {
+    console.error('Error fetching API:', error);
+    throw error;
+  }
+};
+

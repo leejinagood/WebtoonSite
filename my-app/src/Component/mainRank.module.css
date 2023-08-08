@@ -37,6 +37,10 @@
         margin-left: 0px !important;
         margin-right: 0px !important;
     }
+    .rankNum{
+        position: relative;
+        left:50px;
+    }
 }
 
 @media screen and (max-width:361px) and (min-width:10px){
@@ -52,7 +56,9 @@
     .rc p{
         float: left !important; 
         position: relative;
-        right: 13px;
+        right: 20px;
+        width: 120% !important;
+        margin-top:0px !important;
         font-size: 11px !important;
     }
     .HotToon{
@@ -73,6 +79,7 @@
     .RankText{
         position: relative;
         right: 13px;
+        font-size: 13px !important;
     }
     .Rankitem{
         width: 100% !important;
@@ -94,28 +101,29 @@
     float: left;
 }
 
+.HotToon {
+    display: flex;
+    flex-wrap: wrap; /* 줄바꿈 설정 */
+    justify-content: space-between; /* 요소들을 가로로 고르게 배치 */
+  }
+
 .HHH{
     font-size: 22px;
     float: left;
     margin-bottom: 20px;
 }
 .RBox{
-    position: relative;
+
     width: calc(30%);
     /* border: 1px solid rgb(171,230,157); */
     margin-left: 23px;
     /* border: 1px solid black; */
-    float: left;
+    display: block;
+    
     margin-right: 25px;
     margin-bottom: 20px;
 }
-.RankText{
-    float: left;
-    /* float: left; */
-    /* width: 40%; */
-    margin-top: 12px;
-    margin-bottom: 10px;
-}
+
 .RankImg img{ 
     box-shadow: 2px 2px 2px 2px;
 }
@@ -159,3 +167,42 @@
     display: none;
   }
   
+  .RankText{
+    float: left;
+    /* float: left; */
+    /* width: 40%; */
+    margin-top: 12px;
+    width: 60%;
+    margin-bottom: 10px;
+}
+  .rankNum{
+    float: left;
+    margin-top: 12px;
+
+    width: 7%;
+    font-size: 32px;
+  }
+  .rankNum{
+  }
+
+  .FirstRank{
+    animation: scaleAnimation 3s infinite; /* 3초 동안 애니메이션 반복 */
+}
+
+
+@keyframes scaleAnimation {
+    0% {
+      transform: scale(1); /* 초기 크기 */
+    }
+    50% {
+      transform: scale(1.1); /* 중간 크기 (커진 상태) */
+        color:rgb(104, 125, 99);
+    }
+    100% {
+      transform: scale(1); /* 다시 초기 크기로 돌아옴 */
+    }
+  }
+
+  .FirstImgBox{
+    background-color: rgb(196, 246, 179);
+  }
