@@ -184,7 +184,7 @@ const userAPI = (server, getConn) => {
                 domain: 'localhost',
                 httpOnly: false
               });
-              
+
 
             //회원가입 로직
             //email과 동일한 행이 존재하는지
@@ -208,7 +208,14 @@ const userAPI = (server, getConn) => {
                 'Content-Type': 'text/plain'
             });
             res.end('Redirecting to http://localhost:3000');
-            
+
+            // // 응답 데이터 전송
+            // res.send({
+            // userName: nickname,
+            // userEmail: email,
+            // token: token
+            // }, 200);
+ 
         } catch (error) {
             // console.error(error);
             res.status(500).json('카카오 로그인 실패');
