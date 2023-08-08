@@ -35,6 +35,8 @@ const MainPage = () => {
   
   useEffect(() => {
     console.log("쿠키 - token: ", token);
+    console.log("document ", document.cookie);
+
     console.log("쿠키 - userName: ", userName);
     console.log("쿠키 - userEmail: ", userEmail);
   }, [token, userName, userEmail]);
