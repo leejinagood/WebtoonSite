@@ -176,9 +176,9 @@ const userAPI = (server, getConn) => {
 
             // 쿠키에 저장하여 보내기
             res.setHeader('Set-Cookie', [
-                `userName=${enNickname}; Path=/api`,
-                `userEmail=${enEmail}; Path=/api`,
-                `token=${token}; Path=/api`
+                `userName=${enNickname}; Path=/`,
+                `userEmail=${enEmail}; Path=/`,
+                `token=${token}; Path=/`
               ], {
                 sameSite: 'lax',
                 domain: 'localhost',

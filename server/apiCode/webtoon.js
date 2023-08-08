@@ -31,7 +31,7 @@ const webtoonAPI = (server, getConn) => {
                         const key2 = `likes:${item.webtoonID}`;
                         const totalLikesValue = item.totalLikes.toString(); 
                         await redisClient.set(key2, totalLikesValue);  //저장
-                      }
+                    }
                 }
 
                 if (pi_vch_condition === 'All') {  
@@ -40,10 +40,10 @@ const webtoonAPI = (server, getConn) => {
                     await redisClient.set(key, JSON.stringify(row)); 
                     await redisClient.expire(key, 3600); //webtoon : All 키 1시간마다 삭제
 
-                    }else { // 요일별 웹툰
-                        const result = row.filter((item) => item.webtoonWeek === pi_vch_condition); //요일이 같은 것만 출력
-                        res.send(result);
-                        await redisClient.set(key, JSON.stringify(result));  // 저장
+                }else { // 요일별 웹툰
+                    const result = row.filter((item) => item.webtoonWeek === pi_vch_condition); //요일이 같은 것만 출력
+                    res.send(result);
+                    await redisClient.set(key, JSON.stringify(result));  // 저장
                 }
             }
         } catch (error) {

@@ -27,6 +27,7 @@ const LoginPage = () => {
 
 
   useEffect(() => {
+    console.log(document.cookie);
     const getCookies = () => {
       const cookieString = document.cookie;
       const cookies = {};
