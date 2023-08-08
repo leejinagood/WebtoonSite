@@ -33,17 +33,17 @@ function MyApp({ Component, pageProps }) {
 
     @media screen and (max-width:361px) and (min-width:10px) {
       *{
-          width:80%;
+          width:100%;
       }
     }
     @media screen and (max-width:421px) and (min-width:362px) {
       *{
-          width:80%;
+          width:100%;
       }
     }
     @media screen and (max-width:721px) and (min-width:422px) {
       *{
-          width:80%;
+          width:100%;
       }
     }
     

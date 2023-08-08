@@ -741,6 +741,7 @@
 }
 
 
+
 .DayToonItem img{
     width: 100%;
     height: 100%;
@@ -809,9 +810,10 @@
 .imgBox{
     overflow: hidden;
     float: left;
-    height: 261px;
+    height: 257px;
+    background-color: gray;
     margin-bottom: 10px;
-    position: relative; /* .imgBox 요소를 상대적 위치로 설정 */
+    position: relative;
 
     width: 100%;
 }
@@ -826,6 +828,7 @@
     position: absolute; /* .hoverP 요소를 절대적 위치로 설정 */
     left: 0;
     bottom:0px;
+    width: 100%;
     color: white;
     background-color: rgba(0, 0, 0, 0.7); /* 배경에 반투명한 검정색 추가 */
     padding: 5px; /* 텍스트 주위에 여백 추가 */
