@@ -194,6 +194,8 @@
     width:25%;
     float: left;
     font-size: 1px;
+    background-color:rgb(171,230,157);
+    border: 1px solid black;
 
 }
 
@@ -263,4 +265,9 @@
     100% {
         transform: scale(1) translateY(0);
     }
+}
+
+
+#go{
+    color:white !important;
 }

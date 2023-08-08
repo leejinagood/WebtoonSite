@@ -37,7 +37,7 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
       .then((response) => response.json())
       .then((data) => {
         const [webtoonData] = data;
-        setExists(webtoonData.nextEpisode);
+        setExists(webtoonData.next);
       })
       .catch((error) => {
         console.error("Error fetching API:", error);

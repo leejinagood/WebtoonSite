@@ -109,17 +109,21 @@ const Header = () => {
       sessionStorage.setItem("token", token);
     }
   }, []);
+  function gogo(){
+    window.location.href="https://comic.naver.com/webtoon";
+  }
 
   return (
     <div className={style.HederBox}>
       <div className={style.header}>
         <div className={style.TopHeader}>
         <link rel="manifest" href="/manifest.json" />
-        <Link href="/">
           <div className={style.LogoBox}>
+        <Link href="/">
             <h1 className={style.Logo}><span className={style.Color}>A</span>VA<span className={style.Color}>T</span>OON</h1>
+            </Link>
+            <span className={style.Color} id={style.go} onClick={gogo}>Go</span>
           </div>
-          </Link>
 
           <div className={style.rb}>
             <div className={style.SerchBar}>
