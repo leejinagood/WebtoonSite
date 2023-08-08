@@ -1,0 +1,116 @@
+@media screen and (max-width:721px) and (min-width:362px) {
+  .ClickLayout{
+    width: 64.3% !important;
+  }
+  .RigthLayout{
+    margin-top: 8px;
+    width: 55%;
+
+  }
+  .LeftLayout{
+    float: left;
+    width: 45%;
+    margin-top: 8px;
+  }
+  .Litem{
+    float: left;
+    width: 100% !important;
+    position: relative;
+    right: 80px;
+  }
+  .Ritem{
+    position: relative;
+    left: 130px;
+    float: right;
+    width: 100% !important;
+  }
+
+}
+
+@media screen and (max-width:361px) and (min-width:10px){
+  .ClickLayout{
+    width: 64% !important;
+  }
+  .Layout{
+     font-size: 12px;
+     line-height: 18px;
+  }
+  .Litem{
+    width: 100% !important;
+    position: relative;
+    right: 45px;
+  }
+  .Ritem{
+    position: relative;
+    left: 62px;
+    width: 40vw !important;
+  }
+}
+  .ClickLayout{
+    width: 80%;
+  }
+
+  .LayoutContent {
+    width: 100% !important;
+    margin: 0 auto;
+    background-color: black;
+    height: 35px;
+  }
+  .ClickLayout {
+    color:white;
+    position: fixed;
+    margin-top: 29px;
+    font-size: 15px;
+  }
+  .LeftLayout{
+    float: left;
+    width: 45%;
+    margin-top: 8px;
+  }
+  .Litem{
+    float: left;
+    width: 20%;
+    margin-left: 10px;
+  }
+  .Ritem{
+    float: right;
+    width: 25%;
+  }
+  .RigthLayout{
+    margin-top: 8px;
+    width: 55%;
+    float: right;
+  }
+
+.ScrollDown{
+    width: 50px;
+}
+.ScrollTop{
+
+  width: 50px;
+}
+
+/* 
+.ClickLayout .sticky{
+  position: absolute !important;
+  bottom: 160px !important;
+  background-color: black !important;
+  color:red;  
+} */
+
+/* .LayoutContent .sticky{
+  position: absolute !important;
+  top: 77px !important;
+  height: 40px !important;
+} */
+
+
+
+.sticky{
+  top: 0 !important;
+  margin-top: 0;
+}
+
+.ScrollBTN{
+  float: left;
+}

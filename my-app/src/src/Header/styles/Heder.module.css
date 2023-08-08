@@ -1,0 +1,232 @@
+@media screen and (max-width:721px) and (min-width:362px) {
+    .LogoBox .Logo{
+        font-size: 23px !important;
+    }
+    .InputBox{
+        margin-left: 70px;
+    }
+
+    .SerchBar{
+        width: 100% !important;
+        float: right !important;
+        margin-top: 23px !important;
+    }
+    .SerchBtn{
+    }
+    .HederBox{
+        width: 80% !important;
+        margin-left:0%;
+    }
+    .LoginBtn{
+        width: 18% !important;
+
+        margin-top: 2px !important;
+    }
+    .SerchBar input{
+        width: 50% !important;
+    }
+    .header{
+        width: 100% !important;
+    }
+    .TopHeader{
+        float: left !important;
+    }
+
+
+
+
+
+    .HDayBox{
+        font-size: 12px !important;
+        width: 100% !important;
+        background-color: ghostwhite;
+        float: left;
+    }
+    #AD{
+        margin-right: 30px !important;
+    }
+    .HDayBox li{
+        margin-right: 17px !important;
+        width: 10% !important;
+    }
+
+.Day{
+    float: left !important;
+    margin: 0 auto;
+}
+
+
+
+}
+/* test */
+
+  
+  
+  
+/* teset */
+@media screen and (max-width:361px) and (min-width:10px) {
+    .HederBox{
+        width: 80% !important;
+        margin-left:0%;
+    }
+    .LogoBox{
+        width: 30% !important;
+        height: 100%;
+    }
+    .LogoBox .Logo{
+        font-size: 15px !important;
+    }
+    .InputBox{
+        margin-left: 45px;
+    }
+    .SerchBar{
+        margin-top: 25px !important;
+        width: 100% !important;
+    }
+    .header{
+        width: 100% !important;
+    }
+    .SerchBar input{
+        width: 40% !important;
+        height: 13px !important;
+    }
+
+    .SerchBtn{
+        font-size: 10px !important;
+        width: 32% !important;
+        height: 18.8px !important;
+    }
+    .rb{
+        width:70% !important;
+    }
+
+    .LoginBtn{
+        line-height: 18px !important;
+    }
+
+
+    .HDayBox{
+        font-size: 10px;
+        background-color: ghostwhite;
+
+        display: block !important;
+    }
+    #AD{
+        margin-right: 15px;
+    }
+    .vis{
+        display: none;
+    }
+    .HDayBox li{
+        margin-right: 15px !important;
+    }
+
+.Day{
+    float: left !important;
+}
+
+
+
+
+}
+
+.header{
+    display: block;
+    height: 60px;
+    border-bottom: 1px solid gray;
+}
+.TopHeader{
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+.header .LogoBox{
+    float: left;
+    width: 50%;    
+}
+.header .Logo{
+    font-size: 27px;
+    float: left;
+    width: 10%;
+}
+.LogoBox h1{
+    float: left;
+    line-height:70px;
+}
+.rb{
+    width: 50%;
+    float: left;
+    height: 100%;
+}
+#AD{
+    width: 10% !important;
+    font-size: 17px;
+    margin-left: 5px;
+}
+.SerchBar{
+    float: right;
+    width: 70%;
+    margin-top: 17px;
+
+}
+.SerchBar input{
+
+    width: 50%;
+    height: 20px;
+    float: left;
+    font-size: 1px;
+}
+.LoginBtn{
+    width: 20%;
+    float: right;
+}
+
+.SerchBtn{
+    height: 25px;
+    width:25%;
+    float: left;
+    font-size: 1px;
+
+}
+
+.HDayBox{
+    /* background-color: ghostwhite; */
+    background-color: rgb(171,230,157);
+    /* margin-bottom: 20px; */
+    width: 100%;
+    border-bottom: 1px solid black;
+    height: 30px;
+    float: left;
+    display: block;
+}
+
+.Day{
+
+    margin: 0 auto;
+}
+.Day li{
+    
+    line-height: 32px;
+    font-size: 18px;
+    float: left;
+    list-style: none;
+    width: 5% !important;
+    color:white;
+
+    margin-right: 0.5vw;
+}
+.AllDay{
+
+    width: 15% !important;
+}
+
+.AllDay{
+    position: relative;    
+    z-index: 99;
+}
+
+.Color{
+    color:rgb(171,230,157);
+
+
+}

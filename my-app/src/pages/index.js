@@ -3,7 +3,7 @@ import style from "../styles/MainPageCss.module.css";
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
 import Slick from "../Component/Slick";
-
+import MainRank from "../Component/mainRank";
 
 import Tag from "../Component/Tag/Tag";
 import Head from 'next/head';
@@ -50,6 +50,9 @@ const MainPage = () => {
         <div className={style.AllTonnbox}>
           <AllToonInfo />
         </div>
+      </div>
+      <div className={style.mr}>
+        <MainRank/>
       </div>
       <Tag/>
       <Footer />

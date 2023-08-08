@@ -83,6 +83,11 @@
     object-fit: contain;
     
   }
+  .slide img:hover{
+    background-color: rgb(171,230,157);
+    box-shadow:0px 0px;
+    padding-right: 11px;
+  }
   
   /* 추가적인 스타일링을 원하신다면 이곳에 추가하세요 */
   
@@ -98,7 +103,7 @@
     border-radius: 5px 5px 0 0;
     /* background-color: rgba(0, 0, 0 ,0.7); */
     border: 1px solid #000;
-    background-color: pink;
+    background-color: rgb(171,230,157);
     border-bottom: 0px solid #000;
     padding: 5px; /* 텍스트 주위에 여백 추가 */
     margin: 0; /* 기본 margin 제거 */

@@ -1,0 +1,161 @@
+@media screen and (max-width:721px) and (min-width:362px){
+    .mrbox{
+        width: 100% !important;
+        position: relative;
+        overflow: hidden;
+        right:70px;
+    }
+    .rc p{
+        float: left !important; 
+        position: relative;
+        right: 13px;
+    }
+    .HotToon{
+        width: 100% !important;
+    }
+    .RBox{
+        float: left !important;
+        width: 100% !important;
+    }
+
+    .RankImg img{
+        margin-left: 40px;
+    }
+    .Rank{
+        width: 100% !important;
+        background-color: blue;
+    }
+    .Rankitem{
+        width: 100% !important;
+        background-color: red;
+    }
+    .RankImg{
+        width: 100% !important;
+    }
+    .RBox{
+        width: 100% !important;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+}
+
+@media screen and (max-width:361px) and (min-width:10px){
+    .HHH{
+        margin-top: 12px;
+    }
+    .mrbox{
+        width: 100% !important;
+        position: relative;
+        overflow: hidden;
+        right:40px;
+    }
+    .rc p{
+        float: left !important; 
+        position: relative;
+        right: 13px;
+        font-size: 11px !important;
+    }
+    .HotToon{
+        width: 100% !important;
+    }
+    .RBox{
+        float: left !important;
+        width: 100% !important;
+    }
+
+    .RankImg img{
+        margin-left: 20px;
+    }
+    .Rank{
+        width: 100% !important;
+        background-color: blue;
+    }
+    .RankText{
+        position: relative;
+        right: 13px;
+    }
+    .Rankitem{
+        width: 100% !important;
+        background-color: red;
+    }
+    .RankImg{
+        width: 100% !important;
+    }
+    .RBox{
+        width: 100% !important;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+
+}
+.mrbox{
+    width: 100%;
+    max-width: 1920px;
+    float: left;
+}
+
+.HHH{
+    font-size: 22px;
+    float: left;
+    margin-bottom: 20px;
+}
+.RBox{
+    position: relative;
+    width: calc(30%);
+    /* border: 1px solid rgb(171,230,157); */
+    margin-left: 23px;
+    /* border: 1px solid black; */
+    float: left;
+    margin-right: 25px;
+    margin-bottom: 20px;
+}
+.RankText{
+    float: left;
+    /* float: left; */
+    /* width: 40%; */
+    margin-top: 12px;
+    margin-bottom: 10px;
+}
+.RankImg img{ 
+    box-shadow: 2px 2px 2px 2px;
+}
+.RankImg{
+    width: 100%;
+    float: left;
+    
+    background-color: rgb(171,230,157);
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+}
+.rc p{
+    float: left;
+    font-size: 15px;
+    margin-top: 20px;
+    height: 60px;
+    border-bottom: 1px solid rgb(171,230,157);
+    /* float: left; */
+    width: 105%;
+    /* width: 40%; */
+}
+
+
+.RankAT{
+    color:gray;
+}
+
+
+
+/* mainRank.module.css 파일 */
+
+.webtoonImage {
+    transition: transform 0.3s; /* 애니메이션 효과를 위한 속성 추가 */
+  }
+  
+  .webtoonImage:hover {
+    transform: scale(1.1); /* 이미지를 확대하는 애니메이션 */
+  }
+  .webtoonImage:hover +  .one {
+    display: none;
+  }
+  

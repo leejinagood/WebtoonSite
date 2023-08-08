@@ -3,8 +3,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "./ClickLayoutCss.module.css";
 
-const ClickLayoutComponent = ({ webtoonName, episodeNumber,exists }) => {
+const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
   const router = useRouter();
+  const [exists, setExists] = useState(null);
   const scrollRef = useRef(null);
   const [isSticky, setIsSticky] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -31,6 +32,17 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber,exists }) => {
     scrollToBottom();
   };
 
+  useEffect(() => {
+    fetch(`/api/webtoon?EnName=${webtoonName}&ep=${episodeNumber}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const [webtoonData] = data;
+        setExists(webtoonData.nextEpisode);
+      })
+      .catch((error) => {
+        console.error("Error fetching API:", error);
+      });
+  }, [webtoonName, episodeNumber]);
 
   const handleNextEpisode = () => {
     if (exists === 0) {
@@ -53,16 +65,17 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber,exists }) => {
     }
   };
 
-  const handleScroll = () => {
-    const scrollY = window.scrollY;
-    setIsSticky(scrollY >= 10);
-  };
+
 
   const handleScreenClick = () => {
     setIsVisible(!isVisible);
   };
 
   useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsSticky(scrollY >= 70);
+    };
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);

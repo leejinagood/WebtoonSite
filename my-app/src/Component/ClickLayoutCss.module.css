@@ -38,11 +38,11 @@
   .Litem{
     width: 100% !important;
     position: relative;
-    right: 45px;
+    right: 35px;
   }
   .Ritem{
     position: relative;
-    left: 62px;
+    right: 75px;
     width: 40vw !important;
   }
 }

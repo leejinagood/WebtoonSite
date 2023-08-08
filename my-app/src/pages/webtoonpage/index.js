@@ -58,18 +58,24 @@ useEffect(() => {
   }
 }, [EnName, ep, count]);
 
-  const handleWebToonCutClick = (webtoon) => {
-    setSelectedWebtoon(webtoon);
-    setIsVisible(true);
+const handleWebToonCutClick = (webtoon) => {
+  setSelectedWebtoon(webtoon);
 
-    // 현재 스크롤 위치를 저장
-    scrollYRef.current = window.scrollY;
-  
-    setTimeout(() => {
-      setIsVisible(false);
-      // 저장한 스크롤 위치로 스크롤 이동
-    }, 2500);
-  };
+  // 현재 스크롤 위치를 저장
+  scrollYRef.current = window.scrollY;
+
+  // 스크롤을 1만큼 이동시키기
+  window.scrollBy({
+    top: 1,
+    behavior: "auto", // 또는 "smooth"로 변경
+  });  setIsVisible(true);
+
+
+  setTimeout(() => {
+    setIsVisible(false);
+    // 저장한 스크롤 위치로 스크롤 이동
+  }, 2500);
+};
 
 
     // 클릭레이아웃의 exists 값을 계산하는 함수
@@ -85,8 +91,18 @@ useEffect(() => {
     setIsVisible((prevIsVisible) => !prevIsVisible);
   }, []);
   return (
+    
     <div className={style.WebToonPage}>
+      
       <Header />
+      {selectedWebtoon && isVisible && (
+      <ClickLayoutComponent
+          webtoonName={EnName}
+          episodeNumber={ep}
+          maxEp={count}
+          exists={exists}
+        />
+      )}
       <div className={style.WebToonBox}>
         {/* 각 이미지를 배열로 순회 */}
         {webtoonImages.map((imageUrl, index) => (
@@ -99,14 +115,15 @@ useEffect(() => {
           </div>
         ))}
       </div>
-      {selectedWebtoon && isVisible && (
+
+      {/* {selectedWebtoon && isVisible && (
         <ClickLayoutComponent
           webtoonName={EnName}
           episodeNumber={ep}
           maxEp={count}
           exists={exists}
         />
-      )}
+      )} */}
       <Comment webtoonName={EnName} episodeNumber={ep} />
       <Footer />
     </div>

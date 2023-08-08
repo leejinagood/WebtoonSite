@@ -12,9 +12,11 @@
     margin-left: 1.5%;
     margin-bottom: 10px;
     list-style: none;
+    color:black;
+    border: 2px solid rgb(171,230,157);
     text-align: center;
     font-size: 16px;
-    background-color: rgb(230, 226, 226);
+    /* background-color: rgb(171,230,157); */
     padding: 10px;
     border-radius: 14px;
 }
@@ -38,7 +40,7 @@
     .tagItem li{
         height: 15px !important;
         line-height: 15px !important;
-        width: 18.5% !important;
+        width: 17% !important;
         font-size: 13px !important;
         margin-bottom: 15px !important;
     }
@@ -87,3 +89,6 @@
     margin-bottom: 5px;
 }
 
+.tagItem li:hover{
+    background-color: rgb(171,230,157);
+}

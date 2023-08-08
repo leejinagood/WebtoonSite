@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+@media screen and (max-width:721px) and (min-width:362px) {
+
+    .WebToonPage{
+        width: 720px !important;
+        margin: 0 auto;
+        
+    }
+    .WebToonBox{
+        width: 80% !important;
+        margin: 0 auto;
+
+        
+    }
+    .WebToonCut img{
+        margin-left: 0% !important;
+        width: 100% !important;
+        object-fit: contain;
+    }
+    
+    
+    .WebToonCut{
+        width:100% !important;
+        float: left;
+        margin-bottom: -6px !important;
+
+    }
+
+}
+/* teset */
+@media screen and (max-width:414px) and (min-width:362px) {
+    .WebToonPage{
+        width: 360px !important;
+        margin: 0 auto;
+    }
+    .WebToonBox{
+        width: 80% !important;
+    }
+    .WebToonCut{
+        width:100% !important;
+        float: left;
+    }
+    .WebToonCut img{
+        margin-left: 0% !important;
+        width: 100% !important;
+        object-fit: contain;
+    }
+    
+}
+/* test */
+@media screen and (max-width:361px) and (min-width:10px) {
+    .WebToonPage{
+        width: 360px !important;
+        margin: 0 auto;
+    }
+    .WebToonBox{
+        width: 80% !important;
+    }
+    .WebToonCut{
+        width:100% !important;
+        float: left;
+    }
+
+    .WebToonCut img{
+        margin-left: 0% !important;
+        width: 100% !important;
+        object-fit: contain;
+    }
+
+}
+.WebToonPage{
+    font-family: 'Jua', sans-serif;
+
+    width: 80%;
+    margin: 0 auto;
+}
+.WebToonBox{
+    width: 100%;
+    float: left;
+}
+
+.WebToonCut{
+    width: 60%;
+    margin: 0 auto;
+    float: left !important;
+
+    margin-bottom: -5px;
+}
+.WebToonCut img{
+    margin-left: 49%;
+    width: 70%;
+    object-fit: contain;
+}
+

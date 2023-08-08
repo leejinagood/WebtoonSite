@@ -621,10 +621,12 @@
     width:51%;
   }
   .Rank {
-    border: 1px solid black;
+    border: 2px solid rgb(171,230,157);;
     padding: 5px;
+    background-color: white;
     border-radius: 10px;
     float: left;
+    color:black;
     width: 98%; /* 부모 요소의 가로 너비에 맞게 설정합니다 */
     height: auto; /* 내용에 맞게 높이를 설정합니다 */
     margin-bottom: 10px;
@@ -702,6 +704,7 @@
 }
 .DayToonItem img:hover{
     transform: scale(1.1);
+
 
 }
 .dayimgBox{
