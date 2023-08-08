@@ -10,27 +10,45 @@ import Head from 'next/head';
 import AllToonInfo from "../Component/AllToonInfo";
 import { useRouter } from "next/router";
 import { parseCookies } from 'nookies'; // nookies 라이브러리 import
+
 const MainPage = () => {
 
   const router = useRouter();
   const { token } = parseCookies({}); // 쿠키에서 토큰 가져오기
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (typeof window !== 'undefined') {
-      // 브라우저 환경에서만 실행되도록 조건부 처리
+  //   if (typeof window !== 'undefined') {
+  //     // 브라우저 환경에서만 실행되도록 조건부 처리
 
-      navigator.serviceWorker
-        .register('./sw.js')
-        .then((registration) => {
-          console.log('Service Worker registered successfully:', registration);
-        })
-        .catch((error) => {
-          console.error('Service Worker registration failed:', error);
-        });
-    }
-  }, []);
-    //
+  //     navigator.serviceWorker
+  //       .register('./sw.js')
+  //       .then((registration) => {
+  //         console.log('Service Worker registered successfully:', registration);
+  //       })
+  //       .catch((error) => {
+  //         console.error('Service Worker registration failed:', error);
+  //       });
+  //   }
+  // }, []);
+  
+  // useEffect(() => {
+  //   const getCookies = () => {
+  //     const cookieString = document.cookie;
+  //     const cookies = {};
+  
+  //     cookieString.split(';').forEach(cookie => {
+  //       const [key, value] = cookie.trim().split('=');
+  //       cookies[key] = decodeURIComponent(value);
+  //     });
+  
+  //     return cookies;
+  //   };
+  
+  //   const cookies = getCookies();
+  //   console.log("쿠키 : ", cookies.userEmail);
+  // }, []);
 
+  
 
   return (
     <div className={style.mp}>
