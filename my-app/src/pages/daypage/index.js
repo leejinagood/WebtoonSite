@@ -7,6 +7,8 @@ import { parseCookies } from 'nookies';
 import jwt from 'jsonwebtoken';
 import Slick from "../../Component/Slick";
 import Cookies from 'js-cookie';
+import {handler} from "../api/daytoon";
+import axios from "axios"; // axios 임포트
 
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -24,34 +26,49 @@ const WeekPage = () => {
 
   useEffect(() => {
     console.log(document.cookie);
-    fetch(`/api/daytoon?day=${day}`)
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/daytoon?day=${day}`);
+        const data = response.data;
+
         setWebtoons(data);
         setDayToonItemCounts([3, 0, 0]); // 예시로 하드코딩된 배열을 대체할 데이터를 받아서 설정하세요.
-      })
-      .catch((error) => {
+        
+        // 요일에 따라 setWeek 설정
+        switch (day) {
+          case "mon":
+            setWeek("월");
+            break;
+          case "tues":
+            setWeek("화");
+            break;
+          case "wendes":
+            setWeek("수");
+            break;
+          case "thurs":
+            setWeek("목");
+            break;
+          case "fri":
+            setWeek("금");
+            break;
+          case "satur":
+            setWeek("토");
+            break;
+          case "sun":
+            setWeek("일");
+            break;
+          default:
+            setWeek("");
+        }
+      } catch (error) {
         console.error("Error fetching API:", error);
-      });
-      console.log(document.cookie);
-      if(day=="mon"){
-        setWeek("월")
-      }else if(day=="tues"){
-        setWeek("화")
-      }else if(day=="wendes"){
-        setWeek("수")
-      }else if(day=="thurs"){
-        setWeek("목")
-      }else if(day=="fri"){
-        setWeek("금")
-      }else if(day=="satur"){
-        setWeek("토")
-      }else if(day=="sun"){
-        setWeek("일")
       }
+    };
+
     
 
-      
+    fetchData();
+
   }, [day]);
 
   // console.log(document.cookie);

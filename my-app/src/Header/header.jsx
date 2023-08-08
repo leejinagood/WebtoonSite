@@ -127,7 +127,7 @@ const Header = () => {
                     <button type="submit" className={style.SerchBtn}>검색</button>
                     {token ? (
                       <>
-                        <p onClick={handleLogout} className={style.LoginBtn}>{user}</p>
+                        <p onClick={handleLogout} className={style.LoginBtn}>{decodeURIComponent(user)}</p>
                       </>
                     ) : (
                       <Link href="/loginpage">

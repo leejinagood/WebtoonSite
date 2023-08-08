@@ -1,10 +1,10 @@
 // CommetCss.module.css
 // 해당 파일은 스타일 시트로 Comment 컴포넌트에서 사용되는 스타일이 정의된 파일입니다.
 // 필요한 스타일 시트를 작성하셔서 사용하시면 됩니다.
-
 // Comment.js
 import React, { useEffect, useState, useRef } from "react";
 import styles from "./CommetCss.module.css";
+import { insertComment, loadCommentList } from "../pages/api/commentInsert";
 
 const Comment = ({ webtoonName, episodeNumber }) => {
   const [comments, setComments] = useState([]);
@@ -40,22 +40,49 @@ const Comment = ({ webtoonName, episodeNumber }) => {
       });
   };
 
-  const loadComments = () => {
-    fetch(`/api/commentlist?EnName=${webtoonName}&ep=${episodeNumber}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const comment = data.comment;
-        setComments(comment);
-      })
-      .catch((error) => {
-        console.error("Error fetching API:", error);
-      });
+  // const submitComment = async () => {
+  //   const commentContent = commentInputRef.current.value;
+  //   console.log(webtoonName, episodeNumber, UserEmail, commentContent);
+  //   try {
+  //     const data = await insertComment(webtoonName, episodeNumber, UserEmail, commentContent);
+  //     console.log(webtoonName, episodeNumber, UserEmail, commentContent);
+
+  //     setComments((prevComments) => [...prevComments, data]);
+  //     console.log(data);
+
+  //     loadComments();
+  //     console.log
+  //   } catch (error) {
+  //     console.error("Error uploading comment:", error);
+  //   }
+  // };
+  const loadComments = async () => {
+    try {
+      const commentList = await loadCommentList(webtoonName, episodeNumber);
+      setComments(commentList);
+      console.log(commentList);
+    } catch (error) {
+      console.error("Error fetching API:", error);
+    }
   };
+  
+
+  // const loadComments = () => {
+  //   fetch(`/api/commentlist?EnName=${webtoonName}&ep=${episodeNumber}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       const comment = data.comment;
+  //       setComments(comment);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching API:", error);
+  //     });
+  // };
 
   useEffect(() => {
     if (webtoonName && episodeNumber) {
 
-    setUserEmail(sessionStorage.getItem("userName"));
+    setUserEmail(sessionStorage.getItem("userEmail"));
     loadComments();
     }
   }, [webtoonName, episodeNumber]);
