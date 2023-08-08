@@ -26,7 +26,7 @@ const port = 4000;
 // CORS 정책 설정
 const corsMiddleware = require('restify-cors-middleware');
 const cors = corsMiddleware({
-    origins: ['http://localhost:3000'][' https://imgur.com/ '], // 클라이언트 도메인 주소
+    origins: ['http://localhost:3000', 'https://imgur.com', 'https://kauth.kakao.com'], // 클라이언트 도메인 주소
     allowHeaders: ['Authorization'],
 });
 server.pre(cors.preflight);

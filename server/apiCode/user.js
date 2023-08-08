@@ -93,10 +93,14 @@ const userAPI = (server, getConn) => {
 
                 // 쿠키로 헤더에 데이터를 담아 응답 보내기
                 res.setHeader('Set-Cookie', [
-                    `userName=${enNickname}`,
-                    `userEmail=${enEmail}`,
-                    `token=${token}`
-                ]);
+                    `userName=${enNickname}; Path=/api`,
+                    `userEmail=${enEmail}; Path=/api`,
+                    `token=${token}; Path=/api`
+                  ], {
+                    sameSite: 'lax',
+                    domain: 'localhost',
+                    httpOnly: false
+                  });
 
                 // 유저 닉네임과 유저 이메일, 토큰을 응답으로
                 res.send({
@@ -172,10 +176,15 @@ const userAPI = (server, getConn) => {
 
             // 쿠키에 저장하여 보내기
             res.setHeader('Set-Cookie', [
-                `userName=${enNickname}`,
-                `userEmail=${enEmail}`,
-                `token=${token}`
-            ]);
+                `userName=${enNickname}; Path=/api`,
+                `userEmail=${enEmail}; Path=/api`,
+                `token=${token}; Path=/api`
+              ], {
+                sameSite: 'lax',
+                domain: 'localhost',
+                httpOnly: false
+              });
+
 
             //회원가입 로직
             //email과 동일한 행이 존재하는지
@@ -199,13 +208,14 @@ const userAPI = (server, getConn) => {
                 'Content-Type': 'text/plain'
             });
             res.end('Redirecting to http://localhost:3000');
-            
-            // res.send({
-            //     userName: nickname,
-            //     userEmail: email,
-            //     token: token
-            // });
 
+            // // 응답 데이터 전송
+            // res.send({
+            // userName: nickname,
+            // userEmail: email,
+            // token: token
+            // }, 200);
+ 
         } catch (error) {
             // console.error(error);
             res.status(500).json('카카오 로그인 실패');

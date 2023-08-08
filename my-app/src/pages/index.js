@@ -10,27 +10,36 @@ import Head from 'next/head';
 import AllToonInfo from "../Component/AllToonInfo";
 import { useRouter } from "next/router";
 import { parseCookies } from 'nookies'; // nookies 라이브러리 import
+
 const MainPage = () => {
 
   const router = useRouter();
-  const { token } = parseCookies({}); // 쿠키에서 토큰 가져오기
+  const { token, userName, userEmail } = parseCookies(); // 쿠키에서 필요한 값 가져오기
+
+
+  // useEffect(() => {
+
+  //   if (typeof window !== 'undefined') {
+  //     // 브라우저 환경에서만 실행되도록 조건부 처리
+
+  //     navigator.serviceWorker
+  //       .register('./sw.js')
+  //       .then((registration) => {
+  //         console.log('Service Worker registered successfully:', registration);
+  //       })
+  //       .catch((error) => {
+  //         console.error('Service Worker registration failed:', error);
+  //       });
+  //   }
+  // }, []);
+  
   useEffect(() => {
+    console.log("쿠키 - token: ", token);
+    console.log("쿠키 - userName: ", userName);
+    console.log("쿠키 - userEmail: ", userEmail);
+  }, [token, userName, userEmail]);
 
-    if (typeof window !== 'undefined') {
-      // 브라우저 환경에서만 실행되도록 조건부 처리
-
-      navigator.serviceWorker
-        .register('./sw.js')
-        .then((registration) => {
-          console.log('Service Worker registered successfully:', registration);
-        })
-        .catch((error) => {
-          console.error('Service Worker registration failed:', error);
-        });
-    }
-  }, []);
-    //
-
+  
 
   return (
     <div className={style.mp}>
