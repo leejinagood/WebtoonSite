@@ -145,11 +145,17 @@ const ListPage = () => {
           }),
 
         });
-        
 
 
-
-      } catch (error) {
+              
+        if (response.ok) {
+          // 좋아요가 성공적으로 추가되면 좋아요 개수를 업데이트합니다.
+          setLike((prevLike) => Number(prevLike) + 1); // 화면에 보여지는 라이크 값을 1 증가시킵니다.
+          console.log("Like UP");
+          window.alert("좋아요 추가");
+        } 
+      } 
+      catch (error) {
         console.error("좋아요 추가 오류:", error);
       }
   }
