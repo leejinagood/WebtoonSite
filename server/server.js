@@ -65,6 +65,10 @@ webtoonListAPI(server, getConn);
 const webtoonAddApi = require('./apiCode/webtoonAdd');
 webtoonAddApi(server, getConn);
 
+// 웹툰 삭제 api 
+const webtoonDeleteApi = require('./apiCode/webtoonDelete');
+webtoonDeleteApi(server, getConn);
+
 //http://localhost:4000/ 접속
 server.listen(port, () => {
     console.log("---------------------------구동 시작---------------------------"); // 로그 기록
