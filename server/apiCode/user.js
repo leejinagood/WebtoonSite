@@ -80,25 +80,22 @@ const userAPI = (server, getConn) => {
             if (isMatch) {
                 // 비밀번호 일치
                 
+                const enNickname = encodeURIComponent(selectUserResult[0].userName);
+                const enEmail = encodeURIComponent(selectUserResult[0].userEmail);
+
                 let token = "";
                 //jwt 회원 정보를 받은 후 토큰을 생성
                 token = jwt.sign(
                     {
-                        UserId: selectUserResult[0].userID,
-                        UserEmail: selectUserResult[0].userEmail,
+                        UserId: enNickname,
+                        UserEmail: enEmail,
                         UserUniqueID: UserID[0][0].userID 
                     },
                     'your-secret-key', // 비밀키
                     { expiresIn: '10m' } // 토큰 만료 시간 10분 설정
                 );
 
-                // const enNickname = encodeURIComponent(selectUserResult[0].userName);
-                // const enEmail = encodeURIComponent(selectUserResult[0].userEmail);
-
-                // 쿠키로 헤더에 데이터를 담아 응답 보내기
                 res.setHeader('Set-Cookie', [
-                    // `userName=${enNickname}; Path=/`,
-                    // `userEmail=${enEmail}; Path=/`,
                     `token=${token}; Path=/`
                   ], {
                     sameSite: 'lax',
@@ -106,10 +103,7 @@ const userAPI = (server, getConn) => {
                     httpOnly: false
                   });
 
-                // 유저 닉네임과 유저 이메일, 토큰을 응답으로
                 res.send({
-                    // userName: enNickname,
-                    // userEmail: enEmail,
                     token: token
                 });
 
@@ -186,10 +180,7 @@ const userAPI = (server, getConn) => {
 
             // 쿠키에 저장하여 보내기
             res.setHeader('Set-Cookie', [
-                // `userName=${enNickname}; Path=/`,
-                // `userEmail=${enEmail}; Path=/`,
                 `token=${token}; Path=/`,
-                // `sub=${enSub}; Path=/`
               ], {
                 sameSite: 'lax',
                 domain: 'localhost',
