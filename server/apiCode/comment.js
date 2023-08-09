@@ -44,11 +44,10 @@ const commentAPI = (server, getConn) => {
 
                 res.send('댓글이 성공적으로 작성되었습니다.');  //응답
 
-            } else { //토큰 인증 실패했을 때 
-                res.send('입력실패');
+            } else {
+                res.send('로그인 하세요');
             }
         } catch (error) {
-            //console.error(error);
             res.send('로그인 하세요');
         } finally {
             conn.release();

@@ -86,14 +86,13 @@ const likeAPI = (server, getConn) => {
                             // }
                             res.send("like 수정");
                     } else {
-                        res.status(500).json('좋아요 오류'); 
+                        res.json('좋아요 오류'); 
                     }
                 }else {
-                res.status(401).send('로그인 하세요');
+                res.send('로그인 하세요');
             }
         } catch (error) {
-            console.error(error);
-            res.status(500).json('입력 실패');
+            res.json('로그인 하세요');
         } finally {
             conn.release();
         }

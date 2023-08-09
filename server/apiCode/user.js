@@ -71,8 +71,6 @@ const userAPI = (server, getConn) => {
 
             const UserID = await conn.query(selectQuery, [ID]);
 
-            console.log(UserID[0][0].userID);
-
             const { userPassword } = selectUserResult[0];
             //입력한 비밀번호와 db에 저장된 비밀번호 일치하는지 
             const isMatch = await bcrypt.compare(password, userPassword);
@@ -87,9 +85,9 @@ const userAPI = (server, getConn) => {
                 //jwt 회원 정보를 받은 후 토큰을 생성
                 token = jwt.sign(
                     {
-                        UserId: enNickname,
+                        UserName: enNickname,
                         UserEmail: enEmail,
-                        UserUniqueID: UserID[0][0].userID 
+                        UserID: UserID[0][0].userID 
                     },
                     'your-secret-key', // 비밀키
                     { expiresIn: '10m' } // 토큰 만료 시간 10분 설정
@@ -171,8 +169,8 @@ const userAPI = (server, getConn) => {
             token = jwt.sign(
                 {
                     UserEmail: enEmail,
-                    UserSub: enSub,
-                    UserNickname: enNickname
+                    UserID: enSub,
+                    UserName: enNickname
                 },
                 'your-secret-key', // 비밀 키
                 { expiresIn: '10m' } // 토큰 만료 시간 10분 설정
@@ -185,7 +183,7 @@ const userAPI = (server, getConn) => {
                 sameSite: 'lax',
                 domain: 'localhost',
                 httpOnly: false
-              });
+            });
 
 
             //회원가입 로직
@@ -195,7 +193,7 @@ const userAPI = (server, getConn) => {
 
             // 사용자 정보가 없으면 회원가입
             if (Result.length === 0) {
-                const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, socialNumber) VALUES (?, "", ?, ?);';
+                const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, userID) VALUES (?, "", ?, ?);';
                 const values = [email, nickname, sub];
                 await conn.query(insertQuery, values);
             }
