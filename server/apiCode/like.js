@@ -52,10 +52,18 @@ const likeAPI = (server, getConn) => {
                     //db에서 수행되어 행이 수정된 갯수 
                     if (Result.affectedRows > 0) { //1개 이상이면 좋아요 수정 성공
 
-                        // const key = `likes:${resultArray[0].webtoonID}`; // redis 고유 키 값
-                        // let value = await redisClient.get(key); // 해당 키값으로 데이터 조회
+                        const key = `likes:${resultArray[0].webtoonID}`; // redis 고유 키 값
+                        let value = await redisClient.get(key); // 해당 키값으로 데이터 조회
 
-                        // if (value !== null) { 
+                        // const newLikes = resultArray[0].totalLikes; // 업데이트된 좋아요 수
+                        // if (newLikes > value) {
+                        //     const increment = newLikes - value;
+                        //     await redisClient.INCRBY(key, increment); // INCRBY로 값 증가
+                        // } else if (newLikes < value) {
+                        //     const decrement = value - newLikes;
+                        //     await redisClient.DECRBY(key, decrement); // DECRBY로 값 감소
+                        // }
+
                             // redisClient.INCRBY(key, 1 ,(err, reply) => { //1 추가
                             //     if (err) {
                             //         console.error(err);

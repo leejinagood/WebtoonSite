@@ -10,6 +10,7 @@ import Head from 'next/head';
 import AllToonInfo from "../Component/AllToonInfo";
 import { useRouter } from "next/router";
 import { parseCookies } from 'nookies'; // nookies 라이브러리 import
+import jwt_decode from 'jwt-decode'; // JWT 토큰을 디코딩하기 위한 라이브러리
 
 const MainPage = () => {
 
@@ -34,14 +35,27 @@ const MainPage = () => {
   // }, []);
   
   useEffect(() => {
-    console.log("쿠키 - token: ", token);
-    console.log("document ", document.cookie);
+    // 쿠키에서 토큰 값을 추출
+    const cookies = document.cookie.split(';');
+    let token = '';
 
-    console.log("쿠키 - userName: ", userName);
-    console.log("쿠키 - userEmail: ", userEmail);
-  }, [token, userName, userEmail]);
+    for (const cookie of cookies) {
+        const [name, value] = cookie.trim().split('=');
+        if (name === 'token') {
+            token = decodeURIComponent(value);
+            break;
+        }
+    }
 
-  
+    if (token) {
+        // JWT 토큰 디코딩하여 클레임 값을 추출
+        const decodedToken = jwt_decode(token);
+
+        // userEmail 클레임 값을 콘솔에 출력
+        console.log('userEmail:', decodedToken.UserEmail);
+    }
+}, []);
+
 
   return (
     <div className={style.mp}>
