@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useEffect, useState} from "react";
 import style from "../styles/MainPageCss.module.css";
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
@@ -13,6 +13,7 @@ import { parseCookies } from 'nookies'; // nookies 라이브러리 import
 import jwt_decode from 'jwt-decode'; // JWT 토큰을 디코딩하기 위한 라이브러리
 
 const MainPage = () => {
+  const [allToonData, setAllToonData] = useState([]); // 추가된 웹툰 데이터 상태
 
   const router = useRouter();
   const { token, userName, userEmail } = parseCookies(); // 쿠키에서 필요한 값 가져오기
@@ -33,46 +34,13 @@ const MainPage = () => {
   //       });
   //   }
   // }, []);
-  
-  useEffect(() => {
-    // 쿠키에서 토큰 값을 추출
-    const cookies = document.cookie.split(';');
-    let token = '';
-
-    for (const cookie of cookies) {
-        const [name, value] = cookie.trim().split('=');
-        if (name === 'token') {
-            token = decodeURIComponent(value);
-            break;
-        }
-    }
-
-    if (token) {
-        // JWT 토큰 디코딩하여 클레임 값을 추출
-        const decodedToken = jwt_decode(token);
-
-        // userEmail 클레임 값을 콘솔에 출력
-        console.log('userEmail:', decodedToken.UserEmail);
-    }
-}, []);
-
-useEffect(() => {
-  // 쿠키에서 토큰 값을 추출
-  const cookies = document.cookie.split(';');
-  let token = '';
-    console.log("쿠키 - userName: ", userName);
-    console.log("쿠키 - userEmail: ", userEmail);
-
-    if (userEmail === 'qkaejwnj@naver.com') {
-      const addButton = document.createElement("button");
-      addButton.className = style.addBtn;
-      addButton.textContent = "추가";
-      document.querySelector(".addButtonContainer").appendChild(addButton);
-    }
-  }, [token, userName, userEmail]);
 
 
-  
+
+
+
+
+
 
   return (
     <div className={style.mp}>
@@ -88,10 +56,9 @@ useEffect(() => {
         <Slick />
       </div>
       <h3 className={style.Categories}>요일별 전체 웹툰</h3>
-      <div className="addButtonContainer"></div> {/* 버튼을 추가할 컨테이너 */}
       <div className={style.AllToon}>
         <div className={style.AllTonnbox}>
-          <AllToonInfo />
+          <AllToonInfo addtoon={allToonData}  />
         </div>
       </div>
       <div className={style.mr}>

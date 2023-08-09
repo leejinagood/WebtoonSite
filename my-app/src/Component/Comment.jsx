@@ -5,6 +5,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import styles from "./CommetCss.module.css";
 import { insertComment, loadCommentList } from "../pages/api/commentInsert";
+import { parseCookies ,destroyCookie} from 'nookies'; // nookies 라이브러리 import
+import jwt_decode from 'jwt-decode'; // JWT 토큰을 디코딩하기 위한 라이브러리
 
 const Comment = ({ webtoonName, episodeNumber }) => {
   const [comments, setComments] = useState([]);
@@ -13,9 +15,17 @@ const Comment = ({ webtoonName, episodeNumber }) => {
   const commentInputRef = useRef(null);
 
   console.log("comnent EnName:" + webtoonName + "Ep" + episodeNumber);
-
+  let token;
   const submitComment = () => {
     const commentContent = commentInputRef.current.value;
+
+
+    const cookies = parseCookies();
+    token = cookies.token; // 쿠키에서 토큰 값을 'token' 변수에 할당합니다.
+
+    const decodedToken = jwt_decode(token);
+    console.log(decodedToken);
+    console.log(decodedToken.UserID);
 
     fetch('/api/comment_insert', {
       method: 'POST',
@@ -25,7 +35,7 @@ const Comment = ({ webtoonName, episodeNumber }) => {
       body: JSON.stringify({
         WebEnName: webtoonName,
         Ep: episodeNumber,
-        UserEmail: UserEmail,
+        userID: decodedToken.UserID,
         content: commentContent,
       }),
     })

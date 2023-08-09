@@ -38,6 +38,7 @@ const Header = () => {
     return style.AllDay; // 다른 요일에 적용될 스타일 클래스
   };
 
+  const [admin,setAdmin] = useState("");
 
   const handleLogout = () => {
     // 세션 스토리지에서 토큰 삭제
@@ -56,36 +57,39 @@ const Header = () => {
     window.location.reload(); // 페이지 리프레시
 
   };
+  useEffect(() => {
+    // 쿠키에서 토큰 값을 추출
+    const cookies = document.cookie.split(';');
+    let token = '';
 
-  
-  // useEffect(() => {
-  //   const checkLoginStatus = async () => {
-  //     // 클라이언트 사이드에서만 실행
-  //     if (typeof window !== "undefined") {
-  //       // sessionStorage에 토큰이 있는지 확인
-  //       const token = sessionStorage.getItem("token");
-  //       if (token) {
-  //         try {
-  //           const response = await axios.get("/api/Token");
-  //           if (response.status === 200) {
-  //             setUserId(response.data.userId);
-  //             console.log("유저네임:", sessionStorage.getItem("userName"));
-  //             console.log("토큰:", sessionStorage.getItem("token"));
-  //           } else {
-  //             setUserId(null);
-  //             console.log("토큰:", sessionStorage.getItem("token"));
-  //           }
-  //         } catch (error) {
-  //           console.error("API 호출 에러:", error);
-  //         }
-  //       } else {
-  //         console.log("토큰 없음");
-  //       }
-  //     }
-  //   };
-  
-  //   checkLoginStatus();
-  // }, []);
+    for (const cookie of cookies) {
+        const [name, value] = cookie.trim().split('=');
+        if (name === 'token') {
+            token = decodeURIComponent(value);
+            break;
+        }
+    }
+
+    if (token) {
+        // JWT 토큰 디코딩하여 클레임 값을 추출
+        const decodedToken = jwt_decode(token);
+        setAdmin(decodedToken.UserEmail);
+        // userEmail 클레임 값을 콘솔에 출력
+        console.log(admin);
+        console.log('userEmail:', decodedToken.UserEmail);
+    }
+}, []);
+  useEffect(() => {
+    // 쿠키에서 토큰 값을 추출
+    console.log(admin);
+    if (admin === 'qkaejwnj%40naver.com') { // 수정: 이메일 주소에서 URL 인코딩된 문자 제거
+      const addButton = document.createElement("button");
+      addButton.className = style.addBtn;
+      addButton.textContent = "adminPage";
+      document.querySelector(".addButtonContainer").appendChild(addButton);
+    }
+  }, [admin]);
+
 
 
 
@@ -119,8 +123,10 @@ const Header = () => {
   }
   console.log(user);
   return (
+    
     <div className={style.HederBox}>
-      <h1 onClick={handleLogout}>sss</h1>
+      <div className="addButtonContainer"></div> {/* 버튼을 추가할 컨테이너 */}
+
       <div className={style.header}>
         <div className={style.TopHeader}>
         <link rel="manifest" href="/manifest.json" />
