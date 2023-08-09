@@ -116,8 +116,6 @@
     .AllToonInfo {
         width: calc(28% - 0px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
         margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
-        display: flex;
-        flex-wrap: wrap; /* 요소들을 여러 줄로 감싸기 */
     }
 
     .AllToonInfo img{
@@ -189,7 +187,10 @@
     .DayToonIMG{
         object-fit: cover;
     }
-    
+    #ll{
+        width: 450px !important;
+    }
+
     
     .DayToonBox{
         width: 100% !important;
@@ -884,9 +885,3 @@
   }
 
 
-  /* //어드민페이지 // */
-  .addBtn{
-    width: 10%;
-    height: 30px;
-    margin-top: 10px;
-  }

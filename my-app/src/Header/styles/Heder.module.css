@@ -277,3 +277,11 @@
 #go{
     color:white !important;
 }
+
+
+  /* //어드민페이지 // */
+  .addBtn{
+    width: 10%;
+    height: 30px;
+    margin-top: 10px;
+  }

@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { parseCookies ,destroyCookie} from 'nookies'; // nookies 라이브러리 import
 import jwt_decode from 'jwt-decode'; // JWT 토큰을 디코딩하기 위한 라이브러리
 
-const Header = () => {
+const Header = ({ showAdminLink }) => {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
@@ -81,6 +81,7 @@ const Header = () => {
 }, []);
   useEffect(() => {
     // 쿠키에서 토큰 값을 추출
+    if(!showAdminLink ){
     console.log(admin);
     if (admin === 'qkaejwnj%40naver.com') { // 수정: 이메일 주소에서 URL 인코딩된 문자 제거
       const addButton = document.createElement("button");
@@ -88,6 +89,7 @@ const Header = () => {
       addButton.textContent = "adminPage";
       document.querySelector(".addButtonContainer").appendChild(addButton);
     }
+  }
   }, [admin]);
 
 
@@ -125,7 +127,6 @@ const Header = () => {
   return (
     
     <div className={style.HederBox}>
-      <div className="addButtonContainer"></div> {/* 버튼을 추가할 컨테이너 */}
 
       <div className={style.header}>
         <div className={style.TopHeader}>
@@ -207,6 +208,8 @@ const Header = () => {
           </Link>
         </div>
       </div>
+      <Link href="/adminpage"><div className="addButtonContainer"></div> {/* 버튼을 추가할 컨테이너 */}</Link>
+
     </div>
   );
 };
