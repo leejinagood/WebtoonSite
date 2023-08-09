@@ -34,7 +34,6 @@ const webtoonAPI = (server, getConn) => {
                 
                         if (likeValue) {
                             item.likes = JSON.parse(likeValue); // 이미 저장된 좋아요 정보 사용
-                            //console.log(likeValue);
                         } else {
                             await redisClient.set(likeKey, item.totalLikes);
                             item.likes = item.totalLikes; // 새로운 좋아요 정보 저장

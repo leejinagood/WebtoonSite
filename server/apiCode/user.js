@@ -159,7 +159,7 @@ const userAPI = (server, getConn) => {
             const nickname = userResponse.data.kakao_account.profile.nickname;
             const email = userResponse.data.kakao_account.email;
 
-            //한글과 기호가 포함되어 있기 때문에 쿠키로 보내기전 인코딩 해야 됨
+            //한글과 기호가 포함되어 있기 때문에 쿠키로 보내기전 인코딩 해야됨
             const enSub = encodeURIComponent(sub);
             const enNickname = encodeURIComponent(nickname);
             const enEmail = encodeURIComponent(email);
@@ -187,9 +187,8 @@ const userAPI = (server, getConn) => {
 
 
             //회원가입 로직
-            //email과 동일한 행이 존재하는지
             const selectQuery = "select userEmail from UserTable where userEmail = ?;";
-            const [Result] = await conn.query(selectQuery, [email]);
+            const [Result] = await conn.query(selectQuery, [sub]);
 
             // 사용자 정보가 없으면 회원가입
             if (Result.length === 0) {
