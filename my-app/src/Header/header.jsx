@@ -4,26 +4,20 @@ import axios from 'axios';
 import style from "./styles/Heder.module.css";
 import { useRouter } from "next/router";
 import { parseCookies ,destroyCookie} from 'nookies'; // nookies 라이브러리 import
+import jwt_decode from 'jwt-decode'; // JWT 토큰을 디코딩하기 위한 라이브러리
 
 const Header = () => {
-  const [userId, setUserId] = useState(null);
-  const [webtoonData, setWebtoonData] = useState([]);
   const router = useRouter();
-  let token;
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     // 클라이언트 사이드에서 실행되도록 설정
     setIsClient(true);
   }, []);
 
-  if (typeof window !== 'undefined') {
-    // 브라우저 환경에서만 sessionStorage에 접근
-    token = sessionStorage.getItem("token");
-  }
+
   // 유저가 검색창에 입력하는 값
   const [userInput, setUserInput] = useState('');
-  const [user, setUser] = useState("login"); // API 응답에서 가져온 유저 이름
-  const userName = "";
+  const [user, setUser] = useState(""); // API 응답에서 가져온 유저 이름
   const handleChange = (e) => {
     setUserInput(e.target.value);
   };
@@ -51,13 +45,11 @@ const Header = () => {
     sessionStorage.removeItem("userEmail");
     destroyCookie(null, "userEmail");
     destroyCookie(null, "userName");
-
     destroyCookie(null, "token");
     sessionStorage.removeItem("userName");
 
     console.log("토큰 유저네임 삭제");
     // userId와 userName 초기화
-    setUserId(null);
     setUser("login");
     // 페이지 이동
     router.push("/");
@@ -66,60 +58,69 @@ const Header = () => {
   };
 
   
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      // 클라이언트 사이드에서만 실행
-      if (typeof window !== "undefined") {
-        // sessionStorage에 토큰이 있는지 확인
-        const token = sessionStorage.getItem("token");
-        if (token) {
-          try {
-            const response = await axios.get("/api/Token");
-            if (response.status === 200) {
-              setUserId(response.data.userId);
-              console.log("유저네임:", sessionStorage.getItem("userName"));
-              setUser(sessionStorage.getItem("userName"));
-              console.log("토큰:", sessionStorage.getItem("token"));
-            } else {
-              setUserId(null);
-              console.log("토큰:", sessionStorage.getItem("token"));
-            }
-          } catch (error) {
-            console.error("API 호출 에러:", error);
-          }
-        } else {
-          console.log("토큰 없음");
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const checkLoginStatus = async () => {
+  //     // 클라이언트 사이드에서만 실행
+  //     if (typeof window !== "undefined") {
+  //       // sessionStorage에 토큰이 있는지 확인
+  //       const token = sessionStorage.getItem("token");
+  //       if (token) {
+  //         try {
+  //           const response = await axios.get("/api/Token");
+  //           if (response.status === 200) {
+  //             setUserId(response.data.userId);
+  //             console.log("유저네임:", sessionStorage.getItem("userName"));
+  //             console.log("토큰:", sessionStorage.getItem("token"));
+  //           } else {
+  //             setUserId(null);
+  //             console.log("토큰:", sessionStorage.getItem("token"));
+  //           }
+  //         } catch (error) {
+  //           console.error("API 호출 에러:", error);
+  //         }
+  //       } else {
+  //         console.log("토큰 없음");
+  //       }
+  //     }
+  //   };
   
-    checkLoginStatus();
-  }, []);
-  
+  //   checkLoginStatus();
+  // }, []);
 
 
 
+  let token ; // Declare the 'token' variable here
 
   useEffect(() => {
     // 쿠키에 저장된 정보를 가져오기
     const cookies = parseCookies();
-    const userEmail = cookies.userEmail;
-    const userName = cookies.userName;
-    const token = cookies.token;
+    token = cookies.token;
 
-    // 쿠키에 정보가 있을 경우 상태에 저장
-    if (userEmail && userName && token) {
-      sessionStorage.setItem("userEmail", userEmail);
-      sessionStorage.setItem("userName", userName);
-      sessionStorage.setItem("token", token);
+    if (cookies.token) {
+      token = cookies.token; // 쿠키에서 토큰 값을 'token' 변수에 할당합니다.
+
+      const decodedToken = jwt_decode(token);
+      const userEmail = decodedToken.UserEmail;
+      const userName = decodedToken.UserId;
+      console.log(decodedToken);
+      setUser(userName); // 상태 업데이트
     }
   }, []);
+
+  useEffect(() => {
+    // user 상태가 변경될 때마다 실행됩니다.
+    console.log("user", user);
+  }, [user]);
+
+
+
   function gogo(){
     window.location.href="https://comic.naver.com/webtoon";
   }
-
+  console.log(user);
   return (
     <div className={style.HederBox}>
+      <h1 onClick={handleLogout}>sss</h1>
       <div className={style.header}>
         <div className={style.TopHeader}>
         <link rel="manifest" href="/manifest.json" />
@@ -144,7 +145,7 @@ const Header = () => {
                 {isClient && ( // 클라이언트 사이드에서만 렌더링
                   <>
                     <button type="submit" className={style.SerchBtn}>검색</button>
-                    {token ? (
+                    {user ? (
                       <>
                         <p onClick={handleLogout} className={style.LoginBtn}>{decodeURIComponent(user)}</p>
                       </>
