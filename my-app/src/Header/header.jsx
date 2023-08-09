@@ -101,7 +101,7 @@ const Header = () => {
 
       const decodedToken = jwt_decode(token);
       const userEmail = decodedToken.UserEmail;
-      const userName = decodedToken.UserId;
+      const userName = decodedToken.UserName;
       console.log(decodedToken);
       setUser(userName); // 상태 업데이트
     }

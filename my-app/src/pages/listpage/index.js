@@ -6,6 +6,9 @@ import Footer from "../../Footer/footer";
 import ListItem from "../../Component/listitem";
 import Head from "next/head";
 import Link from "next/link";
+import { parseCookies ,destroyCookie} from 'nookies'; // nookies 라이브러리 import
+import jwt_decode from 'jwt-decode'; // JWT 토큰을 디코딩하기 위한 라이브러리
+
 const ListPage = () => {
   const router = useRouter();
   const { EnName,id } = router.query;
@@ -117,16 +120,20 @@ const ListPage = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
+  let token;
   const handleLike = async () => {
-    // 토큰이 있는 경우에만 userEmail 값을 가져오도록 합니다.
-        const tokenExists = isTokenValid();
+    const cookies = parseCookies();
+    token = cookies.token; // 쿠키에서 토큰 값을 'token' 변수에 할당합니다.
 
-    const userEmail = sessionStorage.getItem("userEmail");
-    console.log(userEmail,EnName);
+    const decodedToken = jwt_decode(token);
+    console.log(decodedToken);
+    console.log(decodedToken.UserID,EnName);
+
 
       try {
         // 좋아요 요청을 서버에 보냅니다.
+        console.log(decodedToken.UserID,EnName);
+
         const response = await fetch("/api/update_like", {
           method: "PUT", // PUT 메서드로 변경
           headers: {
@@ -134,32 +141,14 @@ const ListPage = () => {
           },
           body: JSON.stringify({
             EnName: EnName,
-            UserEmail: userEmail, // userEmail 변수를 사용
+            userID: decodedToken.UserID, // userEmail 변수를 사용
           }),
+
         });
         
-        const data = await response.json(); // JSON 데이터를 받아옵니다.
-        const likeCheck = data.change; // 좋아요 체크 결과를 변수에 저장합니다.
-        console.log(likeCheck);
-        console.log(data);
 
-        if (likeCheck === 0) {
-          // 좋아요가 성공적으로 추가되면 좋아요 개수를 업데이트합니다.
 
-          setLike((prevLike) => Number(prevLike) + 1); // 화면에 보여지는 라이크 값을 1 증가시킵니다.
-          console.log("Like UP");
-          window.alert("좋아요 추가");
-        } 
-        else if (likeCheck === 1) {
-          // 좋아요가 성공적으로 추가되면 좋아요 개수를 업데이트합니다.
 
-          setLike((prevLike) => Number(prevLike) - 1); // 화면에 보여지는 라이크 값을 1 감소시킵니다.
-          window.alert("좋아요 취소");
-        }
-          else {
-          console.error("좋아요 추가 실패:", response);
-          window.alert("로그인 후 이용 가능합니다 ");
-        }
       } catch (error) {
         console.error("좋아요 추가 오류:", error);
       }
