@@ -15,7 +15,7 @@ const likeAPI = (server, getConn) => {
             if (value !== null) {
                 res.send(value);
             } else {
-                res.send( "" );
+                res.send( "좋아요 오류" );
             }
         } catch (error) {
             console.error(error);
@@ -84,7 +84,7 @@ const likeAPI = (server, getConn) => {
                             // if (result === null) {
                             //     result = ''; 
                             // }
-                            res.send("like 수정");
+                           res.send();
                     } else {
                         res.json('좋아요 오류'); 
                     }
