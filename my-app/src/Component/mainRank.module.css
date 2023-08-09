@@ -8,35 +8,31 @@
     }
 }
 @media screen and (max-width:721px) and (min-width:362px){
+    .HHH{
+        margin-left: 10px !important;
+    }
     .mrbox{
         width: 100% !important;
-        position: relative;
-        overflow: hidden;
-        right:70px;
     }
     .rc p{
         float: left !important; 
         position: relative;
-        right: 13px;
     }
     .HotToon{
-        width: 100% !important;
+        width: 80% !important;
+        min-height: 100px;
     }
     .RBox{
         float: left !important;
         width: 100% !important;
     }
 
-    .RankImg img{
-        margin-left: 40px;
-    }
+
     .Rank{
         width: 100% !important;
-        background-color: blue;
     }
     .Rankitem{
         width: 100% !important;
-        background-color: red;
     }
     .RankImg{
         width: 100% !important;
@@ -46,10 +42,7 @@
         margin-left: 0px !important;
         margin-right: 0px !important;
     }
-    .rankNum{
-        position: relative;
-        left:50px;
-    }
+
 }
 
 @media screen and (max-width:361px) and (min-width:10px){
@@ -58,20 +51,17 @@
     }
     .mrbox{
         width: 100% !important;
-        position: relative;
-        overflow: hidden;
-        right:40px;
+
     }
     .rc p{
         float: left !important; 
-        position: relative;
-        right: 20px;
-        width: 120% !important;
+        width: 105% !important;
         margin-top:0px !important;
         font-size: 11px !important;
     }
     .HotToon{
-        width: 100% !important;
+        width: 80% !important;
+        margin-left: 7% !important;
     }
     .RBox{
         float: left !important;
@@ -79,19 +69,17 @@
     }
 
     .RankImg img{
-        margin-left: 20px;
     }
     .Rank{
         width: 100% !important;
         background-color: blue;
     }
     .RankText{
-        position: relative;
-        right: 13px;
         font-size: 13px !important;
     }
     .Rankitem{
         width: 100% !important;
+
         background-color: red;
     }
     .RankImg{

@@ -8,6 +8,9 @@
     margin:  0 auto;
 } */
 @media screen and (max-width:1800px) and (min-width:1741px) {
+    .Categories{
+        margin-left: 10px !important;
+    }
     .leftWn{
         width: 35% !important;
         font-size: 14px;
@@ -28,11 +31,11 @@
         font-size: 14px;
     }
     .AllToonInfo img{
-        background-color: red;
         height: 65% !important;
     } 
     .imgBox{
         height: auto !important;
+
     }
     .rightAr{
         font-size: 14px;
@@ -49,6 +52,9 @@
 
 @media screen and (max-width:721px) and (min-width:362px) {
     /* 메인 */
+    .Categories{
+        margin-left: 25px !important;
+    }
     .rankContent{
         display: none;
     }
@@ -79,7 +85,7 @@
       }
 
     .MNewToon{
-        width: 80% !important;
+        width: 100% !important;
     }
 
     .RankNum{
@@ -99,8 +105,8 @@
         width: 66% !important;
     }
     .MainPage{
-        width: 720px !important;
-        margin: 0 auto;
+        width: 100% !important;
+        overflow: hidden;
         overflow: hidden;
     }
     
@@ -108,11 +114,10 @@
         margin-left: 20px !important;
     }   
     .AllToonInfo {
-        width: calc(33.3% - 10px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
+        width: calc(28% - 0px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
         margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
         display: flex;
         flex-wrap: wrap; /* 요소들을 여러 줄로 감싸기 */
-        margin-right: 1%;
     }
 
     .AllToonInfo img{
@@ -122,10 +127,10 @@
     .hoverP{
         width: 100% !important;
         font-size: 12px;
-        bottom: 6px !important;
     }
     .imgBox{
-        height: 100% !important;
+        height: 95% !important;
+        width:100% !important;
     }
 
     .AllTonnbox{
@@ -155,7 +160,7 @@
 
   
     .AllToon{  
-        width: 80% !important;
+        width: 100% !important;
         margin: 0 auto;
     }
     .AllToon table{
@@ -168,17 +173,18 @@
 
     /* 데이페이지 */
     .DayBox{
-        width: 720px !important;
+        overflow: hidden;
+        width: 100% !important;
     }
     .Mid {
         display: flex !important; /* 요소들을 가로 방향으로 배치하기 위해 flexbox를 사용합니다 */
         justify-content: space-between ; /* 요소들을 양쪽으로 붙이도록 설정합니다 */
         align-items: flex-start; /* 요소들을 위쪽으로 정렬합니다 */
-        width: 80% !important;
       }
     
     .DayToonItem{
-        width: 72% !important;
+        width: auto !important;
+        margin-left: 25px !important;
     }
     .DayToonIMG{
         object-fit: cover;
@@ -215,7 +221,10 @@
     }
     .Rank{
         float: left !important;
-        width: 100% !important;
+        width: 95% !important;
+    }
+    .RankNum{
+        margin-top: 25px !important;
     }
     .Rank .RankImg{
         width:35% !important;
@@ -229,7 +238,7 @@
         margin-top: 40px !important;
         float: left !important;
         bottom: 30px !important;
-        margin-left: 6.5% !important;
+        margin-left:0px !important;
     }
 
     .Rankitem{
@@ -239,6 +248,7 @@
     }
     .RankText{
         float: right;
+        margin-top: 25px !important;
     }
 
 
@@ -331,7 +341,7 @@
     /* 태그페이지 */
     .tag{
         
-        width: 80% !important;
+        width: 100% !important;
     }
     .tagItem li{
         width: 8.7vw !important ;
@@ -345,11 +355,17 @@
 
 
 @media screen and (max-width:361px) and (min-width:10px) {
+    .DtextBox{
+        width: auto;
+        margin-left: 10px;
+    }
     .rankContent{
         display: none;
     }
     .ATtext{
         display: block !important;
+        width: auto !important;
+        margin-left: 16px;
     }
     .hoverP{
         display: none;
@@ -362,7 +378,9 @@
         display: block !important;
     }
     .imgBox{
-        height: 121px !important;
+        height: 140px !important;
+        margin-left: 5%;
+        width:90% !important;
     }
     .dayimgBox{
         float: left !important;
@@ -387,11 +405,11 @@
     /* 메인페이지  */
 
     .MainPage{
-        width: 360px !important;
         margin: 0 auto;
+        width: 100% !important;
     } 
     .AllToon{  
-        width: 80% !important;
+        width: 100% !important;
         margin: 0 auto;
         
     }
@@ -411,14 +429,14 @@
         display: flex !important; /* 요소들을 가로 방향으로 배치하기 위해 flexbox를 사용합니다 */
         justify-content: space-between ; /* 요소들을 양쪽으로 붙이도록 설정합니다 */
         align-items: flex-start; /* 요소들을 위쪽으로 정렬합니다 */
-        width: 80% !important;
+        width: 100% !important;
       }
     .DayBox{
         width: 360px !important;
         
     }
     .DayToonBox{
-        width: 80% !important;
+        width: 100% !important;
     }
     .ToonTitle{
         float: left !important;
@@ -449,8 +467,9 @@
     
 
     .RBox{
-        width: 100% !important;
+        width: auto !important;
         float: left !important;
+        margin-right: 15px !important;
     }
     .HotToon{
         width: 100%;
@@ -495,6 +514,7 @@
         width: 60% !important;
         margin-top: 40px !important;
         float: left !important;
+        font-size: 15px !important;
     }
 
 
@@ -502,7 +522,7 @@
 
 @media screen and (max-width:362px) and (min-width:30px){
     .MNewToon{
-        width: 80% !important;
+        width: 100% !important;
     }
     .ATBox{
         width: 100%;
@@ -531,9 +551,14 @@
         margin-bottom: 6px;
     }
     .Categories{
-        font-size: 11px !important;
+        font-size: 16px !important;
+        margin-left: 16px !important;
     }
 
+    .DayToonItem{
+        width: 70% !important;
+        margin-left: 10% !important;
+    }
     .DayToonItem img{
         object-fit: contain;
     
@@ -541,7 +566,7 @@
 
 }
 .Categories{
-    font-size: 23px !important;
+    font-size: 23px ;
     width: 90%;
     float: left;
     margin-top: 10px;
@@ -856,4 +881,12 @@
     padding: 2px;
     margin-top: 83px;
     float: left;
+  }
+
+
+  /* //어드민페이지 // */
+  .addBtn{
+    width: 10%;
+    height: 30px;
+    margin-top: 10px;
   }
