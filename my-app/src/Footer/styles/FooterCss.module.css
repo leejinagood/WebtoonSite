@@ -1,11 +1,11 @@
 @media screen and (max-width:361px) and (min-width:10px){
     .footer{
-        width:80% !important;
+        width:100% !important;
     }
 }
 @media screen and (max-width:721px) and (min-width:362px){
     .footer{
-        width: 80% !important;
+        width: 100% !important;
     }
 }
 .footer{

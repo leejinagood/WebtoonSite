@@ -1,15 +1,19 @@
 @media screen and (max-width:721px) and (min-width:362px) {
   .ClickLayout{
-    width: 64.3% !important;
+    width: 100% !important;
+  }
+  .sticky{
+    width: 100% !important;
   }
   .RigthLayout{
     margin-top: 8px;
-    width: 55%;
+    width: 38% !important;
 
   }
   .LeftLayout{
     float: left;
     width: 45%;
+    margin-left: 90px;
     margin-top: 8px;
   }
   .Litem{
@@ -29,21 +33,26 @@
 
 @media screen and (max-width:361px) and (min-width:10px){
   .ClickLayout{
-    width: 64% !important;
+    width: 100% !important;
   }
   .Layout{
      font-size: 12px;
      line-height: 18px;
   }
+  .ClickLayout{
+    margin-top: 0px !important;
+  }
   .Litem{
     width: 100% !important;
-    position: relative;
-    right: 35px;
   }
   .Ritem{
     position: relative;
+    position: relative;right: 10px !important;
     right: 75px;
-    width: 40vw !important;
+    width: auto !important;
+  }
+  .sticky{
+    width: 100% !important;
   }
 }
   .ClickLayout{
@@ -51,17 +60,19 @@
   }
 
   .LayoutContent {
-    width: 100% !important;
+    width: 100%;
     margin: 0 auto;
     background-color: black;
     height: 35px;
   }
   .ClickLayout {
     color:white;
-    position: fixed;
-    margin-top: 29px;
+    position: sticky;
+    width: 100% !important;
+    margin-top: 30px;
     font-size: 15px;
   }
+
   .LeftLayout{
     float: left;
     width: 45%;
@@ -90,27 +101,18 @@
   width: 50px;
 }
 
-/* 
-.ClickLayout .sticky{
-  position: absolute !important;
-  bottom: 160px !important;
-  background-color: black !important;
-  color:red;  
-} */
-
-/* .LayoutContent .sticky{
-  position: absolute !important;
-  top: 77px !important;
-  height: 40px !important;
-} */
 
 
 
 .sticky{
+  position: fixed !important;
   top: 0 !important;
+  width: 80% ;
   margin-top: 0;
 }
-
+.sticky .ScrollBTN{
+  margin-top: 35px;
+}
 .ScrollBTN{
   float: left;
 }

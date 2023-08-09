@@ -56,6 +56,23 @@ const MainPage = () => {
     }
 }, []);
 
+useEffect(() => {
+  // 쿠키에서 토큰 값을 추출
+  const cookies = document.cookie.split(';');
+  let token = '';
+    console.log("쿠키 - userName: ", userName);
+    console.log("쿠키 - userEmail: ", userEmail);
+
+    if (userEmail === 'qkaejwnj@naver.com') {
+      const addButton = document.createElement("button");
+      addButton.className = style.addBtn;
+      addButton.textContent = "추가";
+      document.querySelector(".addButtonContainer").appendChild(addButton);
+    }
+  }, [token, userName, userEmail]);
+
+
+  
 
   return (
     <div className={style.mp}>
@@ -71,6 +88,7 @@ const MainPage = () => {
         <Slick />
       </div>
       <h3 className={style.Categories}>요일별 전체 웹툰</h3>
+      <div className="addButtonContainer"></div> {/* 버튼을 추가할 컨테이너 */}
       <div className={style.AllToon}>
         <div className={style.AllTonnbox}>
           <AllToonInfo />

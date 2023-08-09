@@ -1,21 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 @media screen and (max-width:721px) and (min-width:362px){
     .ListPage{
-        width: 720px !important;
+        width: 100% !important;
+        overflow: hidden;
     }
 
 
-    .Pagination{
-        position: relative;
-        right: 50px;
-    }
+
     .ListInfo{
         margin-top: 10px !important;
     }
     .DESC{
         font-size: 9px;
         margin-top: 10px !important;
-
+        margin-bottom: 0px !important;
+        margin-left: 10%;
         width: 150px !important;
 
     }
@@ -38,6 +37,7 @@
 
     .ListInfoBox{
         height: 200px !important;
+        margin-left: 10% !important;
         width: 80% !important;
     }
     .ListImgBox{
@@ -82,13 +82,14 @@
 
     .ListBox{
         margin-top: 10px;
-        width: 80% !important;
+        width: 100% !important;
     }
     .List{
         position: relative;
-        left:20px;
+        /* left:250px; */
+        left:35%;
         height: 500px !important;
-        width: 90% !important;
+        width: 100% !important;
 
     }
     .ListItem{
@@ -215,17 +216,13 @@
 @media screen and (max-width:361px) and (min-width:10px) {
 
     .ListPage{
-        overflow: hidden;
-        width: 360px !important;
+        width: 100% !important;
     }
     .ListInfo{
         margin-top: 5px !important;
+        width: 100% !important;
+    }
 
-    }
-    .Pagination{
-        position: relative;
-        right: 33px !important;
-    }
     .InfoBtn{
         width: 100% !important;
         float: left;
@@ -241,6 +238,7 @@
         font-size: 10px !important;
     }
     .DESC{
+        margin-left: 5%;
         font-size: 5px !important;
         margin-top: 8px !important;
         width: 77px !important;
@@ -257,28 +255,35 @@
     }
 
     
+    .tab2{
+        font-size: 16px !important;
+    }
 
 
 
 
     .ListInfoBox{
-        height: 140px !important;
-        width: 80% !important;
+        height: 150px !important;
+        width: 100% !important;
     }
     .TextBox{
         height: 80px !important;
-        float: left;
+        float: left !important;
         width: 100% !important;
         margin: 0 auto;
         
     }
+
     .ListInfot{
         width: 55% !important;
         height: 140px !important;
     }
     .ListImgBox {
         align-items: center;
-        width: 40% !important;
+        width: 30% !important;
+        padding: 0 !important;
+        margin-left: 5% !important;
+        background-color: green;
         height: 140px !important;
       }
     .ListImgBox img{
@@ -295,16 +300,16 @@
     }
     .List{
         margin-top: 0px !important;
-        width: 80% !important;
+        width: 100% !important;
         float: left !important;
         height: 300px !important;
     }
     .ListItem{
-        position: relative;
-        right:15% !important; 
-        width: 280px !important;
+        width: 80% !important;
         height: 55px !important;
+        margin-left: 5% ;
     }
+
     .ListImg {
         width: 35% !important;
         height: 100% !important;
@@ -320,6 +325,7 @@
         width:40% !important;
         height: 100%;
         font-size: 10px !important;
+        margin-left: 5px !important;
         margin-top: 0px !important;
       }
     .LT{

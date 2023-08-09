@@ -2,25 +2,30 @@
 
 @media screen and (max-width:721px) and (min-width:362px) 
 {
+    .RListImg img{
+        height: 550px !important;
+    }
 
     .SerchWebToon{
         overflow: hidden;
-        width: 720px !important
+        width: 100% !important
     }
     .EpisodeP{
-        float: left;
+        float: left !important;
+        margin-left: 3%;
     }
     .tab2{
-        float: left;
+        float: left !important;
+        width: 50% !important;
+        margin-left: 3%;
+
     }
     .SerchPage ul li{
-        width:calc(28%) !important; 
-        position: relative;
-        right: 30px;
+        margin-left: 5%;
     }
 
 
-    .SerchWebToon img{
+    .ListImg img{
         object-fit: contain;
         width: 150px !important;
         height: 200px !important;
@@ -30,27 +35,45 @@
 
 @media screen and (max-width:361px) and (min-width:10px) 
  {
+    .serchResult p{
+        width: auto !important;
+    }
+    .SerchPage{
+        width: 100% !important;
+        height: 750px !important;
+    }
+    .ListImg{
+        width: 40% !important;
+        float: left !important;
+    }
     .SerchWebToon{
         overflow: hidden;
-        width: 720px !important
+        width: 100% !important
     }
+
     .EpisodeP{
-        float: left;
+        margin-left: 3%;
+        width: 50% !important;
+        float: left !important;
     }
     .tab2{
-        float: left;
+        float: left !important;
+        margin-left: 3%;
+        width: 50% !important;
     }
     .SerchPage ul li{
-        width:calc(28%) !important; 
-        position: relative;
-        right: 30px;
+        width: 100% !important;
+        margin-left: 5%;
+    }
+    .RListImg img{
+        height: 400px !important;
     }
 
-
-    .SerchWebToon img{
+    .ListImg img{
         object-fit: contain;
-        width: 150px !important;
+        width: auto !important;
         height: 200px !important;
+        float: left !important;
     }
 
 }
@@ -91,6 +114,7 @@
 }
 
 .SerchPage{
+    height:900px;
     width: 100%;
     float: left;
 
@@ -98,10 +122,60 @@
 .SerchPage ul{
     margin: 0;
     padding: 0;
+    
 }
 .SerchPage ul li{
+    width: calc(50%);
     margin-top: 20px;
     list-style: none;
     float: left;
+    float: left;
+}
+
+
+.serchResult{
+    width: 100%;
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+
+}
+.serchResult p{
+    width: 400px;
+    border-bottom: 1px solid rgb(171,230,157);;
+}
+.color{
+    color:rgb(171,230,157);
+}
+
+.highlight{
+    color:rgb(171,230,157);
+}
+
+.noResults{
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+}
+.RListItem h1{
+    margin-top: 30px;
+    font-size: 25px;
+}
+.RListItem{
+    text-align: center;
+}
+.RListImg{
+    width: 100% !important;
+}
+.RListImg img{
+    width: 100% ;
+    height: 500px;
+}
+.REpisodeP{
+    float: left;
+    font-size: 25px;
+}
+.Rtab2{
     float: left;
 }

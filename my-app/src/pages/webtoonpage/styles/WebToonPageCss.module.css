@@ -3,12 +3,12 @@
 @media screen and (max-width:721px) and (min-width:362px) {
 
     .WebToonPage{
-        width: 720px !important;
         margin: 0 auto;
-        
+        width: 100% !important;
+        overflow: hidden;
     }
     .WebToonBox{
-        width: 80% !important;
+        width: 100% !important;
         margin: 0 auto;
 
         
@@ -31,11 +31,11 @@
 /* teset */
 @media screen and (max-width:414px) and (min-width:362px) {
     .WebToonPage{
-        width: 360px !important;
+        width: 100% !important;
         margin: 0 auto;
     }
     .WebToonBox{
-        width: 80% !important;
+        width: 100% !important;
     }
     .WebToonCut{
         width:100% !important;
@@ -51,11 +51,11 @@
 /* test */
 @media screen and (max-width:361px) and (min-width:10px) {
     .WebToonPage{
-        width: 360px !important;
+        width: 100% !important;
         margin: 0 auto;
     }
     .WebToonBox{
-        width: 80% !important;
+        width: 100% !important;
     }
     .WebToonCut{
         width:100% !important;

@@ -2,28 +2,27 @@
 
 @media screen and (max-width:721px) and (min-width:362px) {
   .SignUpBox{
-    width: 100% !important;
-    margin-top: 50% !important;
+    width: 80% !important;
+    margin-left: 10%;
+    margin-top: 20% !important;
   }
   .SignBtn{
 
-    width: 70% !important;
-    margin-left: 15% !important;
-    margin-top: 20% !important;
+    width: 90% !important;
   }
 }
 @media screen and (max-width:361px) and (min-width:100px) {
   .SignUpBox{
     padding: 10px;
-    width: 100% !important;
+    margin-left: 10%;
+    width: 80% !important;
     height: 450px !important;
     margin-top: 50% !important;
   }
   .SignBtn{
 
-    width: 70% !important;
-    margin-left: 15% !important;
-    margin-top: 20% !important;
+    width:90% !important;
+    margin-top: 10% !important;
   }
 }
 .SignUpPage{

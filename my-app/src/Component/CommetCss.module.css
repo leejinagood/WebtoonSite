@@ -1,8 +1,7 @@
 @media screen and (max-width:721px) and (min-width:362px) {
     .CommentComponent{
-        width: 80%;
-        position: relative;
-        right:10% !important;
+        width: 80% !important;
+        margin-left: 10% !important;
         float: left !important;
     }
     .CommentBox{
@@ -10,25 +9,25 @@
         float: left !important;
     }
     .CommentList{
-        left: 2% !important;
-        width: 100% !important;
-        
+        width: 80% !important;
+        margin-left: 3% !important;
         float: left !important;
     }
     .CommentComponent li{
         font-size: 16px !important;
         list-style: none;
         float: left !important;
-        right: 80px;
+        width: 100% !important;
         position: relative;
-        width: 120% !important;
+        right: 6%;
         border-bottom: 1px solid #000;
     }
 }
 @media screen and (max-width:361px) and (min-width:50px) {
     .CommentComponent{
         width: 80% !important;
-        margin: 0 auto !important;
+        margin-left: 10% !important;
+        overflow: hidden;
     }
     .CommentBox{
 
@@ -37,7 +36,6 @@
     .Comment{
 
         width: 100% !important;
-        background-color: rebeccapurple;
     }
     .CommentList{
         float: left;
@@ -45,9 +43,9 @@
     .CommentComponent li{
         list-style: none;
         font-size: 10px !important ;
-        position: relative;
-        right: 16% !important;
-        width: 124% !important;
+        position: relative !important;
+        right: 10% !important;
+        width: 100% !important;
         border-bottom: 1px solid #000;
     }
 }
