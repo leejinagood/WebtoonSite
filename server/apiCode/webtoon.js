@@ -22,28 +22,28 @@ const webtoonAPI = (server, getConn) => {
                 const [rows] = await conn.query('CALL usp_get_Webtoons();'); //모든 웹툰 정보 가져옴
                 const row = rows[0]; // row에 저장
 
-                const key2 = `likes:${row.webtoonID}`; //likes 키값 설정
-                let value2 = await redisClient.get(key2);
-                if(value2){ // 존재하면
-                    res.send(JSON.parse(value2)); // 문자열로 파싱
-                }else{ //아니면 
-                    for (const item of row) { // row의 갯수만큼 좋아요의 갯수를 담은 value 생성
-                        const key2 = `likes:${item.webtoonID}`;
-                        const totalLikesValue = item.totalLikes.toString(); 
-                        await redisClient.set(key2, totalLikesValue);  //저장
-                    }
-                }
+                // const key2 = `likes:${row.webtoonID}`; //likes 키값 설정
+                // let value2 = await redisClient.get(key2);
+                // if(value2){ // 존재하면
+                //     res.send(JSON.parse(value2)); // 문자열로 파싱
+                // }else{ //아니면 
+                //     for (const item of row) { // row의 갯수만큼 좋아요의 갯수를 담은 value 생성
+                //         const key2 = `likes:${item.webtoonID}`;
+                //         const totalLikesValue = item.totalLikes.toString(); 
+                //         await redisClient.set(key2, totalLikesValue);  //저장
+                //     }
+                // }
 
                 if (pi_vch_condition === 'All') {  
                     
                     res.send(row); // 응답으로 모든 웹툰 정보를 보냄
-                    await redisClient.set(key, JSON.stringify(row)); 
-                    await redisClient.expire(key, 3600); //webtoon : All 키 1시간마다 삭제
+                    // await redisClient.set(key, JSON.stringify(row)); 
+                    // await redisClient.expire(key, 3600); //webtoon : All 키 1시간마다 삭제
 
                 }else { // 요일별 웹툰
                     const result = row.filter((item) => item.webtoonWeek === pi_vch_condition); //요일이 같은 것만 출력
                     res.send(result);
-                    await redisClient.set(key, JSON.stringify(result));  // 저장
+                    //await redisClient.set(key, JSON.stringify(result));  // 저장
                 }
             }
         } catch (error) {
@@ -72,7 +72,7 @@ const webtoonAPI = (server, getConn) => {
             const row = rows[0];
 
             res.send(row);
-            await redisClient.set(key, JSON.stringify(row)); 
+            //await redisClient.set(key, JSON.stringify(row)); 
           }
         } catch (error) {
             console.error(error);

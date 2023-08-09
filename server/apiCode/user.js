@@ -62,12 +62,16 @@ const userAPI = (server, getConn) => {
 
             //아이디에 맞는 row를 selectUserResult 배열 변수에 저장
             const [selectUserResult] = await conn.query(selectQuery, [ID]);
-
+            
             // 회원 정보가 없는 경우 
             if (selectUserResult.length === 0) {
                 res.send('아이디가 없습니다');
                 return;
             }
+
+            const UserID = await conn.query(selectQuery, [ID]);
+
+            console.log(UserID[0][0].userID);
 
             const { userPassword } = selectUserResult[0];
             //입력한 비밀번호와 db에 저장된 비밀번호 일치하는지 
@@ -75,22 +79,26 @@ const userAPI = (server, getConn) => {
 
             if (isMatch) {
                 // 비밀번호 일치
-
+                
                 let token = "";
                 //jwt 회원 정보를 받은 후 토큰을 생성
                 token = jwt.sign(
-                    { UserId: selectUserResult[0].userID, UserEmail: selectUserResult[0].userEmail },
+                    {
+                        UserId: selectUserResult[0].userID,
+                        UserEmail: selectUserResult[0].userEmail,
+                        UserUniqueID: UserID[0][0].userID 
+                    },
                     'your-secret-key', // 비밀키
                     { expiresIn: '10m' } // 토큰 만료 시간 10분 설정
                 );
 
-                const enNickname = encodeURIComponent(selectUserResult[0].userName);
-                const enEmail = encodeURIComponent(selectUserResult[0].userEmail);
+                // const enNickname = encodeURIComponent(selectUserResult[0].userName);
+                // const enEmail = encodeURIComponent(selectUserResult[0].userEmail);
 
                 // 쿠키로 헤더에 데이터를 담아 응답 보내기
                 res.setHeader('Set-Cookie', [
-                    `userName=${enNickname}; Path=/`,
-                    `userEmail=${enEmail}; Path=/`,
+                    // `userName=${enNickname}; Path=/`,
+                    // `userEmail=${enEmail}; Path=/`,
                     `token=${token}; Path=/`
                   ], {
                     sameSite: 'lax',
@@ -100,8 +108,8 @@ const userAPI = (server, getConn) => {
 
                 // 유저 닉네임과 유저 이메일, 토큰을 응답으로
                 res.send({
-                    userName: enNickname,
-                    userEmail: enEmail,
+                    // userName: enNickname,
+                    // userEmail: enEmail,
                     token: token
                 });
 
@@ -167,17 +175,21 @@ const userAPI = (server, getConn) => {
             let token = "";
             //jwt 토큰을 생성
             token = jwt.sign(
-                { UserEmail: enEmail },
+                {
+                    UserEmail: enEmail,
+                    UserSub: enSub,
+                    UserNickname: enNickname
+                },
                 'your-secret-key', // 비밀 키
                 { expiresIn: '10m' } // 토큰 만료 시간 10분 설정
             );
 
             // 쿠키에 저장하여 보내기
             res.setHeader('Set-Cookie', [
-                `userName=${enNickname}; Path=/`,
-                `userEmail=${enEmail}; Path=/`,
+                // `userName=${enNickname}; Path=/`,
+                // `userEmail=${enEmail}; Path=/`,
                 `token=${token}; Path=/`,
-                `sub=${enSub}; Path=/`
+                // `sub=${enSub}; Path=/`
               ], {
                 sameSite: 'lax',
                 domain: 'localhost',
@@ -190,7 +202,7 @@ const userAPI = (server, getConn) => {
             const selectQuery = "select userEmail from UserTable where userEmail = ?;";
             const [Result] = await conn.query(selectQuery, [email]);
 
-            // 사용자 정보가 없으면 회원가입 및 좋아요 초기화
+            // 사용자 정보가 없으면 회원가입
             if (Result.length === 0) {
                 const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, socialNumber) VALUES (?, "", ?, ?);';
                 const values = [email, nickname, sub];
@@ -260,11 +272,8 @@ const userAPI = (server, getConn) => {
         try {
             // 쿠키 삭제
             res.setHeader('Set-Cookie', [
-                `userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`,
-                `userEmail=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`,
                 `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
             ]);
-
             res.send('로그아웃 성공');
         } catch (error) {
             console.error('카카오 로그아웃 실패:', error.message);
