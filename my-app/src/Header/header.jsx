@@ -3,7 +3,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import style from "./styles/Heder.module.css";
 import { useRouter } from "next/router";
-import { parseCookies } from 'nookies'; // nookies 라이브러리 import
+import { parseCookies ,destroyCookie} from 'nookies'; // nookies 라이브러리 import
 
 const Header = () => {
   const [userId, setUserId] = useState(null);
@@ -49,7 +49,10 @@ const Header = () => {
     // 세션 스토리지에서 토큰 삭제
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("userEmail");
+    destroyCookie(null, "userEmail");
+    destroyCookie(null, "userName");
 
+    destroyCookie(null, "token");
     sessionStorage.removeItem("userName");
 
     console.log("토큰 유저네임 삭제");
@@ -58,6 +61,8 @@ const Header = () => {
     setUser("login");
     // 페이지 이동
     router.push("/");
+    window.location.reload(); // 페이지 리프레시
+
   };
 
   

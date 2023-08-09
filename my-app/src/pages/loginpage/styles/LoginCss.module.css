@@ -3,9 +3,11 @@
 @media screen and (max-width:721px) and (min-width:362px) {
   .LoginMenu{
     margin: 0 auto;
-
-
   }
+  .LoginPageBtn{
+    width: 90% !important;
+  }
+
 
   .LoginPageBtn{
     width: 100%;
@@ -15,19 +17,22 @@
     border: none;
   }
   .KLoginPageBtn{
-    width: 80% !important;
+    width: 90% !important;
 
     height: 50px;
     border: none;
   }
 
   .LoginPage{
-    width: 720px !important;
+    overflow: hidden;
+    width: 100% !important;
     margin: 0 auto !important;
 
   }
   .LoginMenu{
-    margin-left: 200px !important;
+    margin-left: 28% !important;
+
+    float: left !important;
   }
   .LoginMenu li{
     float: left;
@@ -38,21 +43,21 @@
 }
 
   .LoginBox {
-    margin-left: 0px !important;
+    margin-left: 10% !important;
     width: 80% !important;
-    margin-top: 22% !important;
+    margin-top: 30% !important;
     padding: 0px !important;
 
   }
   .LoginBox table {
-    width: 100% !important;
+    width: 90% !important;
   }
   .LoginBox table td {
+
     border: 1px solid #000;
   }
   
   .LoginBox table input {
-  
     width: 100% !important;
     height: 50px;
     border: 0px solid #000;
@@ -67,7 +72,7 @@
 
   }
   .LoginPage{
-    width: 360px !important;
+    width: 100% !important;
     margin: 0 auto !important;
 
   }
@@ -76,18 +81,19 @@
     width: 100% !important;
   }
   .LoginBox{
+    margin-top: 30% !important;
     width: 80% !important;
-    margin-left: 0px !important;
+    margin-left: 10% !important;
   }
   .LoginBox  table {
     width: 100% !important;
     border-radius: 10%;
   }
   .KLoginPageBtn{
-    width: 80% !important;
+    width: 100% !important;
   }
   .LoginMenu{
-    margin-left: 55px !important;
+    margin-left: 39px !important;
   }
   .LoginMenu li{
     float: left;
@@ -136,7 +142,7 @@
     border: none;
   }
   .KLoginPageBtn{
-    width: 100% !important;
+    width: 100% ;
     margin: 0 auto;
     margin-top: 10px;
     background-color: rgb(250,231,72);
