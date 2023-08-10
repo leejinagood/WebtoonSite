@@ -25,7 +25,7 @@ const webtoonDeleteApi = (server, getConn) => {
             await redisClient.del(`likes:${ID}`);
 
         } catch (error) {
-            res.status(500).json('입력 실패');
+            res.json({ message: "삭제 실패"});
         } finally {
             conn.release();
         }
@@ -50,12 +50,11 @@ const webtoonDeleteApi = (server, getConn) => {
             await redisClient.del(`webtoon_list : ${ID}`);
 
         } catch (error) {
-            res.status(500).json('삭제 실패');
+            res.json({ message: "삭제 실패"});
         } finally {
             conn.release();
         }
     });
-    
 
 }
 module.exports = webtoonDeleteApi;
