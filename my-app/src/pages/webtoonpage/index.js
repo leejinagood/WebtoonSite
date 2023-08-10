@@ -66,7 +66,6 @@ const handleWebToonCutClick = (webtoon) => {
 
   // 스크롤을 1만큼 이동시키기
   window.scrollBy({
-    top: 1,
     behavior: "auto", // 또는 "smooth"로 변경
   });  setIsVisible(true);
 
