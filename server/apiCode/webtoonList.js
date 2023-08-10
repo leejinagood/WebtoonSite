@@ -21,8 +21,8 @@ const webtoonListAPI = (server, getConn) => {
                 res.send(JSON.parse(value)); //문자열을 객체로 변환하여
 
             } else {
-                let [rows] = await conn.query(webtoonQuery, [ID]); // EnName 파라미터로 받아온 후
-                const webtoon = rows[0];
+                let [result] = await conn.query(webtoonQuery, [ID]); // EnName 파라미터로 받아온 후
+                const webtoon = result[0];
 
                 await redisClient.set(key, JSON.stringify(webtoon)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
                 res.send(webtoon);
@@ -30,7 +30,7 @@ const webtoonListAPI = (server, getConn) => {
             }
         } catch (error) {
             console.error(error);
-            res.json({ message: "오류"});
+            res.status(500).json({ message: '서버 오류' });
         } finally {
             conn.release(); // 연결 해제
         }
@@ -52,15 +52,15 @@ const webtoonListAPI = (server, getConn) => {
                 res.send(JSON.parse(value)); //문자열을 객체로 변환하여
 
             } else {
-                let [rows] = await conn.query(webtoonQuery, [ID]); // EnName 파라미터로 받아온 후
-                const webtoon = rows[0]; //결과를 저장 후 응답으로 보냄
+                let [result] = await conn.query(webtoonQuery, [ID]); // EnName 파라미터로 받아온 후
+                const webtoon = result[0]; //결과를 저장 후 응답으로 보냄
 
                 await redisClient.set(key, JSON.stringify(webtoon)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
                 res.send(webtoon);
             }
         } catch (error) {
             console.error(error);
-            res.json({ message: "오류"});
+            res.status(500).json({ message: '서버 오류' });
         } finally {
             conn.release(); // 연결 해제
         }
@@ -75,14 +75,14 @@ const webtoonListAPI = (server, getConn) => {
         const ImgAndNext = 'CALL usp_get_webtoonPages(?, ?);'; // episodeID를 받아와 웹툰 정보를 출력하는 SP
 
         try {
-                let [rows] = await conn.query(ImgAndNext, values); // EnName과 ep 파라미터를 배열로 전달
-                const webtoon = rows[0];
+                let [result] = await conn.query(ImgAndNext, values); // EnName과 ep 파라미터를 배열로 전달
+                const webtoon = result[0];
 
                 res.send(webtoon);
             }
          catch (error) {
             console.error(error);
-            res.json({ message: "오류"});
+            res.status(500).json({ message: '서버 오류' });
         } finally {
             conn.release(); // 연결 해제
         }

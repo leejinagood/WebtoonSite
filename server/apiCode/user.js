@@ -45,7 +45,7 @@ const userAPI = (server, getConn) => {
         } catch (error) {
             console.error(error);
             await conn.rollback(); // 트랜잭션 롤백
-            res.json({ message: "회원가입 오류"});
+            res.status(500).json({ message: '회원가입 오류' });
         } finally {
             conn.release();
         }
@@ -111,7 +111,7 @@ const userAPI = (server, getConn) => {
             }
         } catch (error) {
             console.error(error);
-            res.json({ message: "로그인 실패"});
+            res.status(500).json({ message: '로그인 실패' });
         } finally {
             conn.release();
         } 
@@ -185,13 +185,12 @@ const userAPI = (server, getConn) => {
                 httpOnly: false
             });
 
-
             //회원가입 로직
             const selectQuery = "select userEmail from UserTable where userEmail = ?;";
             const [Result] = await conn.query(selectQuery, [sub]);
 
             // 사용자 정보가 없으면 회원가입
-            if (Result.length === 0) {
+            if (Result.length === null) {
                 const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, userID) VALUES (?, "", ?, ?);';
                 const values = [email, nickname, sub];
                 await conn.query(insertQuery, values);
@@ -205,8 +204,8 @@ const userAPI = (server, getConn) => {
             res.end('Redirecting to http://localhost:3000');
 
         } catch (error) {
-            // console.error(error);
-            res.json({ message: "카카오 로그인 실패"});
+            console.error(error);
+            res.status(500).json({ message: '카카오 로그인 실패' });
         }   
     });
 
@@ -250,6 +249,7 @@ const userAPI = (server, getConn) => {
                 res.json({ message: "쿠키에 토큰이 없음"});
             }
         } else {
+            console.error(error);
             res.json({ message: "쿠키 없음"});
         }
     });
@@ -265,7 +265,7 @@ const userAPI = (server, getConn) => {
             res.send('로그아웃 성공');
         } catch (error) {
             console.error('카카오 로그아웃 실패:', error.message);
-            res.json({ message: "로그아웃 오류"});
+            res.status(500).json({ message: '서버 오류' });
         }
     });
 
