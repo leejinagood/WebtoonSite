@@ -34,9 +34,12 @@ const webtoonAddApi = (server, getConn) => {
     //에피소드 추가 메서드
     server.post('/api/episodeAdd', async (req, res) => {
         const conn = await getConn();
-        const { WebtoonEnName, count, img, thumbnail} = req.body;
-        const Webtoon = [WebtoonEnName, count, img, thumbnail];
+        const { WebtoonEnName, count, thumbnail, ep} = req.body;
 
+        const img = `/WebtoonImg/${WebtoonEnName}/${ep}/${WebtoonEnName}_${ep}_`
+
+        const Webtoon = [WebtoonEnName, count, img, thumbnail];
+        
         const episodeQuery = 'CALL usp_post_episode(?, ?, ?, ?);';
 
         try {
