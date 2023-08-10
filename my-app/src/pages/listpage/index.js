@@ -277,7 +277,7 @@ const ListPage = () => {
               </div>
 
                     <div className={style.InfoBtn}>
-                      <button id={style.PointBtn} className={style.IBtn} onClick={handleLike}>
+                      <button id={style.PointBtn} className={style.IBtn} onClick={handleLike}> 
                         좋아요 {like}
                       </button>
                       <Link href={`/webtoonpage?EnName=${EnName}&ep=1`}><button className={style.IBtn}>첫화보기 1화</button></Link>
@@ -326,8 +326,8 @@ const ListPage = () => {
           <button
             key={index + 1}
             onClick={() => handlePageChange(index + 1)}
-            className={currentPage === index + 1 ? `${style.active}` : ""}
-          >
+            className={currentPage === index + 1 ? style.active : ""}
+            >
             {index + 1}
           </button>
         ))}

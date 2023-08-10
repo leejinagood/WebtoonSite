@@ -95,6 +95,21 @@ const AdminPage = () => {
       genres: selectedGenres, // 선택한 장르 목록
 
     };
+    if(!content){
+      window.alert("내용을 작성해주세요");
+    }if(!author){
+      window.alert("작가를 작성해주세요");
+    }if(!webtoonName){
+      window.alert("웹툰이름을 작성해주세요");
+    }if(!webtoonEnName){
+      window.alert("웹툰영어이름을 작성해주세요");
+    }if(!selectedDay){
+      window.alert("요일을 선택해주세요");
+    }if(selectedGenres.length === 0){
+      window.alert("장르를 체크해주세요");
+    }if(selectedImage === null){
+      window.alert("이미지 경로를 입력해주세요");
+    }
 
     try {
       const formData = new FormData();
@@ -110,7 +125,10 @@ const AdminPage = () => {
       if (response.ok) {
         console.log("웹툰 추가 성공");
         // 웹툰 추가 성공 후 필요한 동작 수행
-      } else {
+      }if(response.status===500){
+        console.log("빠짐없이 입력해주세요");
+      }
+      else {
         console.error("웹툰 추가 실패");
         // 웹툰 추가 실패 처리
       }
