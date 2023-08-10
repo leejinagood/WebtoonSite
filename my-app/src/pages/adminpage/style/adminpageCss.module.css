@@ -106,7 +106,9 @@ margin-left: 2%;
     margin-top: 60px;
 }
 #uploadBtn{
+    width: 100.72%;
     height: 35px;
+    margin-top: 10px;
 }
 
 /* https://i.imgur.com/bicvcUQ.jpg */
@@ -114,3 +116,6 @@ margin-left: 2%;
 
 
   
+#newEpH{
+    margin-top: 30px;
+}

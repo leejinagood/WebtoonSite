@@ -7,10 +7,27 @@ const AdminPage = () => {
   const [selectedDay, setSelectedDay] = useState(""); // 초기 값을 빈 문자열로 설정
   const [webtoonName, setWebtoonName] = useState(""); // 웹툰 제목을 저장
   const [webtoonEnName, setWebtoonEnName] = useState(""); // 웹툰 영문 제목을 저장
+  const [epEnName, setEpEnName] = useState(""); // 웹툰 영문 제목을 저장
+
   const [author, setAuthor] = useState(""); // 작가명을 저장
   const [content, setContent] = useState(""); // 웹툰 내용을 저장
   const [categories, setCategories] = useState([]); // 선택된 카테고리를 저장
+  const [count, setCount] = useState(""); // 초기값을 0으로 설정
+  const [thumbnailPath, setThumbnailPath] = useState(""); // 초기값은 빈 문자열
+  const [episode, setEpisode] = useState(""); // 에피소드 입력 상태
 
+  const handleEpisodeChange = (event) => {
+    const newEpisode = event.target.value;
+    setEpisode(newEpisode);
+  };
+  const handleThumbnailChange = (event) => {
+    const newPath = event.target.value;
+    setThumbnailPath(newPath);
+  };
+  const handleCountChange = (event) => {
+    const newCount = parseInt(event.target.value); // 입력된 값을 정수로 변환
+    setCount(newCount);
+  };
   const isAdminPage = true; // 어드민 페이지 여부를 true 또는 false로 설정
 
 
@@ -96,6 +113,35 @@ const AdminPage = () => {
   };
   
 
+  const handleEpisodeAdd = async () => {
+    console.log(epEnName,count,thumbnailPath,episode);
+    try {
+      const response = await fetch("/api/episodeAdd", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          WebtoonEnName: epEnName,
+          count: count,
+          thumbnail: thumbnailPath,
+          ep: episode,
+        }),
+      });
+
+      if (response.ok) {
+        console.log("에피소드 추가 성공");
+        // 에피소드 추가 성공 후 필요한 동작 수행
+      } else {
+        console.error("에피소드 추가 실패");
+        // 에피소드 추가 실패 처리
+      }
+    } catch (error) {
+      console.error("API 호출 오류:", error);
+      // 오류 처리
+    }
+  };
+
   return (
     <div className={style.adminpage}>
       <Header showAdminLink={isAdminPage} />
@@ -103,7 +149,7 @@ const AdminPage = () => {
       <form>
         <div className={style.newWebtoon}>
 
-        <h2>신규 웹툰 등록</h2>
+          <h2>신규 웹툰 등록</h2>
 
           {/* 작품 정보 입력 부분 */}
           <input
@@ -177,8 +223,50 @@ const AdminPage = () => {
           <button id={style.uploadBtn} type="button" onClick={handleWebtoonAdd}>
             웹툰 등록
           </button>
+
+          <h2  id={style.newEpH}>신규 회차 등록</h2>
+
+          {/* 에피소드 정보 입력 부분 */}
+
+          <input
+            type="text"
+            placeholder="웹툰 영문 제목"
+            value={epEnName}
+            onChange={(e) => setEpEnName(e.target.value)}
+          />
+      <input
+        type="number"
+        id="countInput"
+        placeholder="에피소드 컷 수"
+
+        value={count} 
+        onChange={handleCountChange}
+      />
+      <input
+        type="number"
+        id="episodeInput"
+        value={episode}
+        placeholder="에피소드 회차"
+        onChange={handleEpisodeChange}
+      />
+      <input
+        type="text"
+        id={style.bottom}
+        value={thumbnailPath}
+        placeholder="썸네일경로"
+        onChange={handleThumbnailChange}
+      />
+      
+
+      {thumbnailPath && ( // 경로가 입력된 경우에만 이미지 표시
+        <img src={thumbnailPath} alt="Thumbnail" style={{ maxWidth: "100px", maxHeight: "100px" }} />
+      )}
+        <button id={style.uploadBtn}onClick={handleEpisodeAdd}>회차등록</button>
+
         </div>
+
       </form>
+      
     </div>
   );
 };
