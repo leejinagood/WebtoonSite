@@ -38,9 +38,9 @@ const webtoonAddApi = (server, getConn) => {
 
         const img = `/WebtoonImg/${WebtoonEnName}/${ep}/${WebtoonEnName}_${ep}_`
 
-        const Webtoon = [WebtoonEnName, count, img, thumbnail];
+        const Webtoon = [WebtoonEnName, count, img, thumbnail, ep];
         
-        const episodeQuery = 'CALL usp_post_episode(?, ?, ?, ?);';
+        const episodeQuery = 'CALL usp_post_episode(?, ?, ?, ?, ?);';
 
         try {
             await conn.query(episodeQuery, Webtoon); 
