@@ -1,8 +1,13 @@
 import Header from "@/src/Header/header";
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import style from "./style/adminpageCss.module.css";
+import jwt_decode from 'jwt-decode'; // JWT 토큰을 디코딩하기 위한 라이브러리
+import { parseCookies ,destroyCookie} from 'nookies'; // nookies 라이브러리 import
+import { useRouter } from 'next/router';
 
 const AdminPage = () => {
+  const router = useRouter();
+
   const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 파일을 저장
   const [selectedDay, setSelectedDay] = useState(""); // 초기 값을 빈 문자열로 설정
   const [webtoonName, setWebtoonName] = useState(""); // 웹툰 제목을 저장
@@ -15,6 +20,34 @@ const AdminPage = () => {
   const [count, setCount] = useState(""); // 초기값을 0으로 설정
   const [thumbnailPath, setThumbnailPath] = useState(""); // 초기값은 빈 문자열
   const [episode, setEpisode] = useState(""); // 에피소드 입력 상태
+
+
+  const [admin,setAdmin] = useState("");
+  let token = "";
+
+
+  useEffect(() => {
+    const cookies = parseCookies();
+    const token = cookies.token; // 실제 JWT 토큰 쿠키 이름으로 대체해주세요
+
+      if (token) {
+        const decodedToken = jwt_decode(token);
+        setAdmin(decodedToken.UserEmail);
+  
+        if (decodedToken.UserEmail !== "qkaejwnj%40naver.com" 
+        && decodedToken.UserEmail !== "mnb2098%40naver.com") {
+          window.alert("접근불가");
+          router.push('/'); // 다른 페이지로 리다이렉트
+        }
+      }
+      else{
+        window.alert("접근불가");
+        router.push('/'); // 다른 페이지로 리다이렉트
+      }
+    }, []);
+  
+
+
 
   const handleEpisodeChange = (event) => {
     const newEpisode = event.target.value;
@@ -216,6 +249,9 @@ const AdminPage = () => {
                     placeholder="이미지 경로 입력"
                     onChange={handleImageChange}
                 />
+                      {handleImageChange && ( // 경로가 입력된 경우에만 이미지 표시
+        <img src={selectedImage} alt="Thumbnail" style={{ maxWidth: "300px", maxHeight: "500px"  }} />
+      )}
           </div>
           </div>
 
@@ -259,7 +295,7 @@ const AdminPage = () => {
       
 
       {thumbnailPath && ( // 경로가 입력된 경우에만 이미지 표시
-        <img src={thumbnailPath} alt="Thumbnail" style={{ maxWidth: "100px", maxHeight: "100px" }} />
+        <img src={thumbnailPath} alt="Thumbnail" style={{ maxWidth: "200px", maxHeight: "100px" }} />
       )}
         <button id={style.uploadBtn}onClick={handleEpisodeAdd}>회차등록</button>
 

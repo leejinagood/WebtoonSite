@@ -125,11 +125,12 @@ const ListPage = () => {
     const cookies = parseCookies();
     token = cookies.token; // 쿠키에서 토큰 값을 'token' 변수에 할당합니다.
 
-    const decodedToken = jwt_decode(token);
-    console.log(decodedToken);
-    console.log(decodedToken.UserID,EnName);
 
 
+    if(token){
+      const decodedToken = jwt_decode(token);
+      console.log(decodedToken);
+      console.log(decodedToken.UserID,EnName);
       try {
         // 좋아요 요청을 서버에 보냅니다.
         console.log(decodedToken.UserID,EnName);
@@ -159,7 +160,12 @@ const ListPage = () => {
       catch (error) {
         console.error("좋아요 추가 오류:", error);
       }
-  }
+
+    }
+    else{
+      window.alert("로그인 후 이용 가능");
+    }
+}
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -230,6 +236,7 @@ const ListPage = () => {
     KrDay = "요일 정보 없음";
   }
   }
+  
 
 
   return (

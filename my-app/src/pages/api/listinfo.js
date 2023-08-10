@@ -4,11 +4,11 @@ import axios from "axios";
 
 export default async function handler(req, res) {
   const { query } = req;
-  const { EnName } = query;
+  const { ID } = query;
 
-  if (EnName) {
+  if (ID) {
     try {
-      const response = await axios.get(`http://192.168.0.98:4000/api/webtoondetail?EnName=${EnName}`);
+      const response = await axios.get(`http://192.168.0.98:4000/api/webtoondetail?ID=${ID}`);
 
       const webtoonData = response.data;
       res.status(200).json({ webtoonData });
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
       res.status(500).json({ error: "Error fetching API" });
     }
   } else {
-    res.status(400).json({ error: "Missing parameters" + EnName });
+    res.status(400).json({ error: "Missing parameters" + ID });
 
   }
 }
