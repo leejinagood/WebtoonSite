@@ -18,37 +18,40 @@ const Comment = ({ webtoonName, episodeNumber }) => {
   let token;
   const submitComment = () => {
     const commentContent = commentInputRef.current.value;
-
-
+  
     const cookies = parseCookies();
-    token = cookies.token; // 쿠키에서 토큰 값을 'token' 변수에 할당합니다.
-
-    const decodedToken = jwt_decode(token);
-    console.log(decodedToken);
-    console.log(decodedToken.UserID);
-
-    fetch('/api/comment_insert', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        WebEnName: webtoonName,
-        Ep: episodeNumber,
-        userID: decodedToken.UserID,
-        content: commentContent,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setComments((prevComments) => [...prevComments, data]);
-        loadComments();
+    const token = cookies.token; // 쿠키에서 토큰 값을 'token' 변수에 할당합니다.
+  
+    if (token) {
+      const decodedToken = jwt_decode(token);
+  
+      fetch('/api/comment_insert', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          WebEnName: webtoonName,
+          Ep: episodeNumber,
+          userID: decodedToken.UserID,
+          content: commentContent,
+        }),
       })
-      .catch((error) => {
-        console.error("Error uploading comment:", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setComments((prevComments) => [...prevComments, data]);
+          loadComments();
+        })
+        .catch((error) => {
+          console.error("Error uploading comment:", error);
+        });
+    } else {
+      window.alert("로그인필요");
+    }
   };
+
+
 
   // const submitComment = async () => {
   //   const commentContent = commentInputRef.current.value;
