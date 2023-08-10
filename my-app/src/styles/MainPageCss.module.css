@@ -368,6 +368,10 @@
         width: auto !important;
         margin-left: 16px;
     }
+    .ATtext p{
+        position: relative;
+        bottom: 10px;
+    }
     .hoverP{
         display: none;
     }
@@ -418,9 +422,14 @@
         width: 66% !important;
     }
     .AllToonInfo{
-        margin-bottom: 0px !important;
+        margin-bottom: 70px !important;
+        
     }
 
+    .imgBox{
+        width: auto !important;
+        height: auto !important;
+    }
     
     
 
@@ -607,25 +616,20 @@
 }
 
 .AllToonInfo {
-
-    overflow: hidden;
-    height: 100% !important;
-    width: 13%;
-    /* width: calc(33.33% - 25px); 각 요소의 너비를 33.33%로 설정 (여백 10px 제외) */
+    height: auto ;
+    width: calc(16.66% - 20px); 
     margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
   }
 
 .ATBox {
     display: flex;
+    justify-content: flex-start;
     flex-wrap: wrap; /* 넘치는 요소를 여러 줄로 감싸기 */
-    justify-content: space-between;
      /* 요소들을 간격을 유지하면서 정렬 */
   }
 
 
-.AllToon tr{
-    float: left;
-}
+
 
 /* 요일별 css */
 .Mid{
@@ -836,8 +840,7 @@
 .imgBox{
     overflow: hidden;
     float: left;
-    height: 257px;
-    background-color: gray;
+    height: auto;
     margin-bottom: 10px;
     position: relative;
 
@@ -853,7 +856,7 @@
 .hoverP {
     position: absolute; /* .hoverP 요소를 절대적 위치로 설정 */
     left: 0;
-    bottom:0px;
+    bottom:0;
     width: 100%;
     color: white;
     background-color: rgba(0, 0, 0, 0.7); /* 배경에 반투명한 검정색 추가 */
@@ -885,3 +888,5 @@
   }
 
 
+
+  

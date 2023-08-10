@@ -26,7 +26,34 @@
         width:12% !important;
     }
 }
+@media screen and (max-width: 361px) and (min-width: 10px) {
+    .adminpage{
+        width: 100% !important;
+    }
+    .inputP{
+        font-size: 10px !important;
+        width: 20% !important;
+    }
+    /* .checkBox input{
+        width: 10px !important;
+        height: 10px !important;
+        
+    } */
+    #CategoriP{
+        width:7% !important;
+    }
+    .checkBox{
+        font-size: 10px !important;
+    }
 
+    .checkBox input{
+        width: 50% !important;
+    }
+    .checkBox label{
+        float: right !important;
+        width: 40% !important;
+    }
+}
 .adminpage {
     width: 80%;
     font-family: 'Jua', sans-serif;
@@ -80,6 +107,7 @@
 .checkBox label{
     float: left;
 width: 9%;
+
 margin-left: 2%;
 }
 .checkBox input{
@@ -104,10 +132,15 @@ margin-left: 2%;
 }
 #imgUpload{
     margin-top: 60px;
+    border: 0px solid #000;
 }
 #uploadBtn{
     width: 100.72%;
     height: 35px;
+    border: 0px solid #000;
+
+    background-color: rgb(171,230,157);
+
     margin-top: 10px;
 }
 

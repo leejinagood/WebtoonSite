@@ -102,7 +102,7 @@ const WeekPage = () => {
         <title>AVATOON</title>
 
       </Head>
-                  <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}`}>
+                  <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}&id=${webtoon.webtoonID}`}>
                     {/* <Thumbnail day={webtoon} /> */}
                     <div className={style.dayimgBox}>
                     <img src={webtoon.webtoonThumbnail} alt="" />
