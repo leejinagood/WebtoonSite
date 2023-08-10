@@ -43,7 +43,7 @@ const ListPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/listinfo?EnName=${encodeURIComponent(EnName)}`, {
+        const response = await fetch(`/api/listinfo?ID=${id}`, {
           cache: 'no-store', // 캐시 사용 안 함
         });
         const { webtoonData } = await response.json(); // 데이터를 가져와서 변수에 저장
@@ -71,7 +71,7 @@ const ListPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/listitem?EnName=${encodeURIComponent(EnName)}`);
+        const response = await fetch(`/api/listitem?ID=${id}`);
         const { webtoonData } = await response.json();
         setWebtoonItem(webtoonData.reverse());
 
