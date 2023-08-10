@@ -72,7 +72,7 @@ const webtoonAPI = (server, getConn) => {
             const row = rows[0];
 
             res.send(row);
-            await redisClient.set(key, JSON.stringify(row)); 
+            //await redisClient.set(key, JSON.stringify(row)); 
           }
         } catch (error) {
             console.error(error);
@@ -81,6 +81,7 @@ const webtoonAPI = (server, getConn) => {
             conn.release(); // 연결 해제
         }
     });
+
 
     //카테고리 검색
     server.get('/api/category', async (req, res) => {
