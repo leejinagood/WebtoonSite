@@ -56,6 +56,7 @@ return (
           추가
         </button>
       </div> */}
+      
     {webtoons.length > 0 && webtoons.map((webtoon, index) => (
       <div className={style.AllToonInfo} key={index}>
 
@@ -75,9 +76,7 @@ return (
     {webtoons.length % 3 !== 0 && (
       <div id={style.ll} className={style.AllToonInfo} ></div>
     )}
-        {webtoons.length % 2 !== 0 && (
-      <div id={style.lll} className={style.AllToonInfo} ></div>
-    )}
+
   </div>
 );
 
