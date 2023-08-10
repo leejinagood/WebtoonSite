@@ -47,6 +47,8 @@ const webtoonAddApi = (server, getConn) => {
 
             await redisClient.del(`webtoon_detail : ${WebtoonId[0][0].webtoonID}`);
             await redisClient.del(`webtoon_list : ${WebtoonId[0][0].webtoonID}`);
+
+            res.send("에피소드 추가");
         } catch (error) {
             res.status(500).json('입력 실패');
         } finally {

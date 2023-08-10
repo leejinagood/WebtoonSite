@@ -72,7 +72,7 @@ const webtoonAPI = (server, getConn) => {
             const row = rows[0];
 
             res.send(row);
-            //await redisClient.set(key, JSON.stringify(row)); 
+            await redisClient.set(key, JSON.stringify(row)); 
           }
         } catch (error) {
             console.error(error);
