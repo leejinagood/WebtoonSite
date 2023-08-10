@@ -30,7 +30,7 @@ const webtoonListAPI = (server, getConn) => {
             }
         } catch (error) {
             console.error(error);
-            res.status(500).send({ error: '서버 스크립트의 오류' });
+            res.json({ message: "오류"});
         } finally {
             conn.release(); // 연결 해제
         }
@@ -60,7 +60,7 @@ const webtoonListAPI = (server, getConn) => {
             }
         } catch (error) {
             console.error(error);
-            res.status(500).send({ error: '서버 스크립트의 오류' });
+            res.json({ message: "오류"});
         } finally {
             conn.release(); // 연결 해제
         }
@@ -82,7 +82,7 @@ const webtoonListAPI = (server, getConn) => {
             }
          catch (error) {
             console.error(error);
-            res.status(500).send({ error: '서버 스크립트의 오류' });
+            res.json({ message: "오류"});
         } finally {
             conn.release(); // 연결 해제
         }

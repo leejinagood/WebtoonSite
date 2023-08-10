@@ -25,7 +25,7 @@ const webtoonAddApi = (server, getConn) => {
 
             res.send("입력성공");
         } catch (error) {
-            res.status(500).json('입력 실패');
+            res.json({ message: "추가 실패"});
         } finally {
             conn.release();
         }
@@ -50,7 +50,7 @@ const webtoonAddApi = (server, getConn) => {
 
             res.send("에피소드 추가");
         } catch (error) {
-            res.status(500).json('입력 실패');
+            res.json({ message: "추가 실패"});
         } finally {
             conn.release();
         }

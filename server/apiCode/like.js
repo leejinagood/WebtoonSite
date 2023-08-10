@@ -15,11 +15,11 @@ const likeAPI = (server, getConn) => {
             if (value !== null) {
                 res.send(value);
             } else {
-                res.send( "좋아요 오류" );
+                res.json({ message: "좋아요 오류"});
             }
         } catch (error) {
             console.error(error);
-            res.status(500).json('Internal server error');
+            res.json({ message: "서버 오류"});
         }
     });
     
@@ -65,11 +65,11 @@ const likeAPI = (server, getConn) => {
                     } else {
                         res.json('좋아요 오류'); 
                     }
-                }else {
-                res.send('로그인 하세요');
+            }else {
+            res.json({ message: "로그인 하세요"});
             }
         } catch (error) {
-            res.json('로그인 하세요');
+            res.json({ message: "서버 오류"});
         } finally {
             conn.release();
         }

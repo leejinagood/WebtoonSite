@@ -15,7 +15,7 @@ const commentAPI = (server, getConn) => {
             res.send(row); //댓글 내용을 응답으로
 
         } catch (error) {
-            res.status(500).send('서버 스크립트의 오류' );
+            res.json({ message: "서버 오류"});
         } finally {
             conn.release(); 
         }
@@ -44,10 +44,10 @@ const commentAPI = (server, getConn) => {
                 res.send('댓글이 성공적으로 작성되었습니다.');  //응답
 
             } else {
-                res.status(500).send('서버 스크립트의 오류' );
+                res.json({ message: "로그인 하세요"});
             }
         } catch (error) {
-            res.status(500).send('로그인 하세요' );
+            res.json({ message: "오류"});
         } finally {
             conn.release();
         }

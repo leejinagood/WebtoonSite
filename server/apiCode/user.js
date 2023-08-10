@@ -45,7 +45,7 @@ const userAPI = (server, getConn) => {
         } catch (error) {
             console.error(error);
             await conn.rollback(); // 트랜잭션 롤백
-            res.status(500).json('입력 실패');
+            res.json({ message: "회원가입 오류"});
         } finally {
             conn.release();
         }
@@ -107,11 +107,11 @@ const userAPI = (server, getConn) => {
 
             } else {
                 // 비밀번호 불일치 응답을 "" 로
-                res.send();
+                res.json({ message: "비밀번호 불일치"});
             }
         } catch (error) {
             console.error(error);
-            res.status(500).json('로그인 실패');
+            res.json({ message: "로그인 실패"});
         } finally {
             conn.release();
         } 
@@ -206,7 +206,7 @@ const userAPI = (server, getConn) => {
 
         } catch (error) {
             // console.error(error);
-            res.status(500).json('카카오 로그인 실패');
+            res.json({ message: "카카오 로그인 실패"});
         }   
     });
 
@@ -243,14 +243,14 @@ const userAPI = (server, getConn) => {
                     res.send('토큰 인증 성공');
 
                 } catch (error) {
-                    res.status(401).send('토큰 인증 실패');
+                    res.json({ message: "토큰 인증 실패"});
                 }
             } 
             else {
-                res.status(401).send('쿠키에 토큰이 없음');
+                res.json({ message: "쿠키에 토큰이 없음"});
             }
         } else {
-            res.status(401).send('쿠키 없음');
+            res.json({ message: "쿠키 없음"});
         }
     });
 
@@ -265,7 +265,7 @@ const userAPI = (server, getConn) => {
             res.send('로그아웃 성공');
         } catch (error) {
             console.error('카카오 로그아웃 실패:', error.message);
-            res.status(500).json('로그아웃 실패');
+            res.json({ message: "로그아웃 오류"});
         }
     });
 
