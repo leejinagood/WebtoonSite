@@ -43,7 +43,7 @@ const webtoonAPI = (server, getConn) => {
                 }else { // 요일별 웹툰
                     const result = row.filter((item) => item.webtoonWeek === pi_vch_condition); //요일이 같은 것만 출력
                     res.send(result);
-                    //await redisClient.set(Webtoonkey, JSON.stringify(result));  // 저장
+                    await redisClient.set(Webtoonkey, JSON.stringify(result));  // 저장
                 }
             }
         } catch (error) {

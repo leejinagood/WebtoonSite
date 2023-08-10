@@ -2,6 +2,7 @@
 
 const webtoonDeleteApi = (server, getConn) => {
 
+    //영어이름
     server.del('/api/webtoonDelete', async (req, res) => {
         const conn = await getConn();
         const { WebName } = req.query;
