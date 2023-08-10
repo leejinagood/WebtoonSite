@@ -27,6 +27,9 @@
     }
 }
 @media screen and (max-width: 361px) and (min-width: 10px) {
+    .accessDenied{
+        width: 50px !important;
+    }
     .adminpage{
         width: 100% !important;
     }
@@ -151,4 +154,11 @@ margin-left: 2%;
   
 #newEpH{
     margin-top: 30px;
+}
+
+
+.accessDenied{
+    margin: 0 auto;
+    text-align: center;
+    font-size: 100px;
 }

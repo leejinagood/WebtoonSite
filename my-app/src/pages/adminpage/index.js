@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 
 const AdminPage = () => {
   const router = useRouter();
+  const [webtoonId, setWebtoonId] = useState(""); // 웹툰 아이디를 저장할 상태 변수
 
   const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 파일을 저장
   const [selectedDay, setSelectedDay] = useState(""); // 초기 값을 빈 문자열로 설정
@@ -24,15 +25,16 @@ const AdminPage = () => {
 
   const [admin,setAdmin] = useState("");
   let token = "";
-
+  
 
   useEffect(() => {
     const cookies = parseCookies();
     const token = cookies.token; // 실제 JWT 토큰 쿠키 이름으로 대체해주세요
-
       if (token) {
         const decodedToken = jwt_decode(token);
         setAdmin(decodedToken.UserEmail);
+        console.log(decodedToken.UserEmail);
+        console.log(admin);
   
         if (decodedToken.UserEmail !== "qkaejwnj%40naver.com" 
         && decodedToken.UserEmail !== "mnb2098%40naver.com") {
@@ -178,7 +180,8 @@ const AdminPage = () => {
   return (
     <div className={style.adminpage}>
       <Header showAdminLink={isAdminPage} />
-
+      {admin === "qkaejwnj%40naver.com" ||
+      admin === "mnb2098%40naver.com" ? (
       <form>
         <div className={style.newWebtoon}>
 
@@ -299,10 +302,23 @@ const AdminPage = () => {
       )}
         <button id={style.uploadBtn}onClick={handleEpisodeAdd}>회차등록</button>
 
+
+        <h2>웹툰 전체 삭제</h2>
+
+          {/* 웹툰 전체  삭제 */}
+          <input
+              type="number"
+              placeholder="삭제할 웹툰 아이디"
+              value={webtoonId}
+              onChange={(e) => setWebtoonId(e.target.value)}
+            />
         </div>
+        
 
       </form>
-      
+            ) : (
+              <p className={style.accessDenied}>접근 불가</p>
+              )}
     </div>
   );
 };
