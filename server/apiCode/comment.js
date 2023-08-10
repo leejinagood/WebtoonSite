@@ -11,8 +11,8 @@ const commentAPI = (server, getConn) => {
 
         try {
             const [rows] = await conn.query(viewCommentQuery, values); 
-            const row = rows[0];
-            res.send(row); //댓글 내용을 응답으로
+            const comment = rows[0];
+            res.send(comment); //댓글 내용을 응답으로
 
         } catch (error) {
             res.json({ message: "서버 오류"});
