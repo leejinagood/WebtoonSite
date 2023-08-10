@@ -116,10 +116,10 @@
 
   .leftWn{
     float: left;
-    width: 35%;
+    width: auto;
   }
   .rightAr{
     float: right;
-    width: 60%;
+    width: auto;
     text-align: right;
   }

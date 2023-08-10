@@ -6,12 +6,24 @@
         overflow: hidden;
         width: 100% !important;
     }
+    .checkBox input{
+        width: 20px !important;
+        height: 20px !important;
+    }
     .placeholder {
         top: 50% !important; /* 수정된 위치 값 */
         transform: translateY(-50%); /* 추가된 값 */
     }
     .inputP{
-        font-size: 19px !important;
+        font-size: 18px !important;
+        width: 17% !important;
+    }
+    .checkBox{
+        width: 100%;
+        font-size: 5px;
+    }
+    #CategoriP{
+        width:12% !important;
     }
 }
 
@@ -21,6 +33,7 @@
 }
 
 .newWebtoon {
+    margin-top: 5%;
     width: 80%;
 }
 
@@ -79,3 +92,25 @@ margin-left: 2%;
     bottom: 7px;
     width: auto;
 }
+#bottom{
+    margin-bottom: 20px;
+}
+.newWebtoon h2{
+    margin-bottom: 10px;
+}
+#dayOption{
+    height: 30px;
+    margin-bottom: 5px;
+}
+#imgUpload{
+    margin-top: 60px;
+}
+#uploadBtn{
+    height: 35px;
+}
+
+/* https://i.imgur.com/bicvcUQ.jpg */
+
+
+
+  
