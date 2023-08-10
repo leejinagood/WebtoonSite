@@ -20,15 +20,18 @@ const webtoonAPI = (server, getConn) => {
             } else{ // 만약 redis에 데이터가 없다면 db에서 조회
 
                 const [rows] = await conn.query('CALL usp_get_Webtoons();'); //모든 웹툰 정보 가져옴
-                const row = rows[0]; // row에 저장
+                const webtoon = rows[0]; 
 
                 if (pi_vch_condition === 'All') {  
                     
-                    res.send(row); // 응답으로 모든 웹툰 정보를 보냄
-                    await redisClient.set(Webtoonkey, JSON.stringify(row)); 
+                    res.send(webtoon); // 응답으로 모든 웹툰 정보를 보냄
+                    await redisClient.set(Webtoonkey, JSON.stringify(webtoon)); 
                     await redisClient.expire(Webtoonkey, 3600); //webtoon : All 키 1시간마다 삭제
 
-                    for (const item of row) {
+                    for (const item of webtoon) {
+
+                        console.log(item.webtoonID);
+
                         const likeKey = `likes:${item.webtoonID}`;
                         const likeValue = await redisClient.get(likeKey);
                 
@@ -41,7 +44,7 @@ const webtoonAPI = (server, getConn) => {
                         
                     }
                 }else { // 요일별 웹툰
-                    const result = row.filter((item) => item.webtoonWeek === pi_vch_condition); //요일이 같은 것만 출력
+                    const result = webtoon.filter((item) => item.webtoonWeek === pi_vch_condition); //요일이 같은 것만 출력
                     res.send(result);
                     await redisClient.set(Webtoonkey, JSON.stringify(result));  // 저장
                 }
@@ -69,10 +72,10 @@ const webtoonAPI = (server, getConn) => {
             res.send(JSON.parse(value)); //문자열로 파싱
           } else {
             const [rows] = await conn.query(query, [word]); //검색 결과를 row에 넣고 응답을 보냄
-            const row = rows[0];
+            const webtoon = rows[0];
 
-            res.send(row);
-            //await redisClient.set(key, JSON.stringify(row)); 
+            res.send(webtoon);
+            //await redisClient.set(key, JSON.stringify(webtoon)); 
           }
         } catch (error) {
             console.error(error);
@@ -97,10 +100,10 @@ const webtoonAPI = (server, getConn) => {
             res.send(JSON.parse(value)); //문자열로 파싱
           } else {
             const [rows] = await conn.query(query, [word]); //검색 결과를 row에 넣고 응답을 보냄
-            const row = rows[0];
+            const webtoon = rows[0];
 
-            res.send(row);
-            //await redisClient.set(key, JSON.stringify(row)); 
+            res.send(webtoon);
+            //await redisClient.set(key, JSON.stringify(webtoon)); 
           }
         } catch (error) {
             console.error(error);

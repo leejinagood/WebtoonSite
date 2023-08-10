@@ -13,8 +13,6 @@ const webtoonDeleteApi = (server, getConn) => {
 
         try {
             const [week] = await conn.query(webtoonQuery, ID); 
-            console.log(week[0][0].deleted_webtoonWeek);
-            console.log(ID);
             res.send("삭제 성공");
 
             //redis 값 삭제
@@ -37,7 +35,6 @@ const webtoonDeleteApi = (server, getConn) => {
         const conn = await getConn();
         const { ID, ep } = req.body;
         const value = [ID, ep];
-        
 
         const episodeQuery = 'CALL usp_delete_episode(?, ?);';
 
