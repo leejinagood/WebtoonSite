@@ -43,8 +43,10 @@ const webtoonAddApi = (server, getConn) => {
         const episodeQuery = 'CALL usp_post_episode(?, ?, ?, ?, ?);';
 
         try {
-            await conn.query(episodeQuery, Webtoon); 
-            res.send("에피소드 추가 성공");
+            const [WebtoonId] = await conn.query(episodeQuery, Webtoon); 
+
+            await redisClient.del(`webtoon_detail : ${WebtoonId[0][0].webtoonID}`);
+            await redisClient.del(`webtoon_list : ${WebtoonId[0][0].webtoonID}`);
         } catch (error) {
             res.status(500).json('입력 실패');
         } finally {
