@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 const AdminPage = () => {
   const router = useRouter();
   const [webtoonId, setWebtoonId] = useState(""); // 웹툰 아이디를 저장할 상태 변수
+  const [episodeId, setEpisodeId] = useState(""); // 웹툰 아이디를 저장할 상태 변수
+  const [ep, setEp] = useState(""); // 웹툰 아이디를 저장할 상태 변수
 
   const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 파일을 저장
   const [selectedDay, setSelectedDay] = useState(""); // 초기 값을 빈 문자열로 설정
@@ -177,6 +179,57 @@ const AdminPage = () => {
     }
   };
 
+  const handleWebtoonDelete = async () => {
+    try {
+      const response = await fetch("/api/webtoonDelete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ID: webtoonId, // 웹툰 아이디 전달
+        }),
+      });
+  
+      if (response.ok) {
+        console.log("웹툰 전체 삭제 성공");
+        // 웹툰 전체 삭제 성공 후 필요한 동작 수행
+      } else {
+        console.error("웹툰 전체 삭제 실패");
+        // 웹툰 전체 삭제 실패 처리
+      }
+    } catch (error) {
+      console.error("API 호출 오류:", error);
+      // 오류 처리
+    }
+  };
+
+
+  const handleEpisodeDelete = async () => {
+    try {
+      const response = await fetch("/api/episodeDelete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ID: episodeId, // 웹툰 아이디 전달
+          ep: ep, // 삭제할 에피소드 번호 전달
+        }),
+      });
+
+      if (response.ok) {
+        console.log("에피소드 삭제 성공");
+        // 에피소드 삭제 성공 후 필요한 동작 수행
+      } else {
+        console.error("에피소드 삭제 실패");
+        // 에피소드 삭제 실패 처리
+      }
+    } catch (error) {
+      console.error("API 호출 오류:", error);
+      // 오류 처리
+    }
+  };
   return (
     <div className={style.adminpage}>
       <Header showAdminLink={isAdminPage} />
@@ -303,7 +356,7 @@ const AdminPage = () => {
         <button id={style.uploadBtn}onClick={handleEpisodeAdd}>회차등록</button>
 
 
-        <h2>웹툰 전체 삭제</h2>
+        <h2 id={style.top}>웹툰 전체 삭제</h2>
 
           {/* 웹툰 전체  삭제 */}
           <input
@@ -312,12 +365,30 @@ const AdminPage = () => {
               value={webtoonId}
               onChange={(e) => setWebtoonId(e.target.value)}
             />
+            <button id={style.uploadBtn} onClick={handleWebtoonDelete}>웹툰 전체 삭제</button>
+
+            <h2 id={style.top}>웹툰 회차 삭제</h2>
+
+          {/* 웹툰 회차  삭제 */}
+          <input
+              type="number"
+              placeholder="에피소드를 삭제할 웹툰 아이디"
+              value={episodeId}
+              onChange={(e) => setEpisodeId(e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="삭제할 에피소드"
+              value={ep}
+              onChange={(e) => setEp(e.target.value)}
+            />
+            <button id={style.uploadBtn} onClick={handleEpisodeDelete}>선택한 웹툰 회차 삭제</button>
         </div>
         
 
       </form>
             ) : (
-              <p className={style.accessDenied}>접근 불가</p>
+              <p className={style.accessDenied} >접근 불가</p>
               )}
     </div>
   );

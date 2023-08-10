@@ -8,7 +8,7 @@ import style from "./styles/WebToonPageCss.module.css";
 
 const WebtoonPage = () => {
   const router = useRouter();
-  const { EnName, ep } = router.query;
+  const { EnName,ID, ep } = router.query;
   const scrollYRef = useRef(0);
 
   const [webtoons, setWebtoons] = useState([]);
@@ -21,7 +21,7 @@ const WebtoonPage = () => {
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const response = await fetch(`/api/webtoon?EnName=${EnName}&ep=${ep}`);
+      const response = await fetch(`/api/webtoon?ID=${ID}&ep=${ep}`);
       const data = await response.json();
       const [webtoonData] = data; // 첫 번째 웹툰 데이터를 가져옴
       setSelectedWebtoon(webtoonData);
@@ -32,10 +32,10 @@ useEffect(() => {
     }
   };
 
-  if (EnName && ep) {
+  if (ID && ep) {
     fetchData();
   }
-}, [EnName, ep]);
+}, [ID, ep]);
 
 // 웹툰 이미지를 가져오는 useEffect
 useEffect(() => {
@@ -56,7 +56,7 @@ useEffect(() => {
   if (EnName && ep && count) {
     fetchImg(count);
   }
-}, [EnName, ep, count]);
+}, [ID, ep, count]);
 
 const handleWebToonCutClick = (webtoon) => {
   setSelectedWebtoon(webtoon);

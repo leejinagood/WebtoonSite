@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export default async function handler(req, res) {
-  const { EnName ,ep} = req.query;
-  console.log(EnName);
+  const { ID ,ep} = req.query;
+  console.log(ID);
 
-  if (EnName) {
+  if (ID) {
     try {
-      const response = await axios.get(`http://192.168.0.98:4000/api/webtoonpage?EnName=${EnName}&ep=${ep}`);
+      const response = await axios.get(`http://192.168.0.98:4000/api/webtoonpage?ID=${ID}&ep=${ep}`);
       const webtoons = response.data;
       
       

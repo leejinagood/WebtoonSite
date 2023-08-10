@@ -1,9 +1,9 @@
 import Link from "next/link";
 import styles from "../pages/listpage/styles/ListPageCss.module.css";
-const ListItem = ({ EnName,thumbnail,webtoonName, ep /*uploadDate*/, handleClick }) => {
+const ListItem = ({ ID,EnName,thumbnail,webtoonName, ep /*uploadDate*/, handleClick }) => {
 
   return (
-    <Link href={`/webtoonpage?EnName=${EnName}&ep=${encodeURIComponent(ep)}`}>
+    <Link href={`/webtoonpage?EnName=${EnName}&ID=${ID}&ep=${encodeURIComponent(ep)}`}>
       <div className={styles.ListItem} onClick={handleClick}>
         <div className={styles.ListImg}>
           <img src={thumbnail} alt={thumbnail} />

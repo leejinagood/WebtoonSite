@@ -302,6 +302,7 @@ const ListPage = () => {
       {webtoonInfo && Array.from({ length: webtoonInfo.episodeCount }).map((_, index) => (
         <li key={index}>
           <ListItem
+            ID={id}
             EnName={EnName}
             thumbnail = {webtoonItem[index]?.episodeThumbnail}
             webtoonName={webtoonItem[index]?.webtoonName}
