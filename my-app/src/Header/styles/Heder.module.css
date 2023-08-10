@@ -6,6 +6,8 @@
     .InputBox{
         margin-left: 70px;
     }
+    .Day li{
+    }
     .TodayText{
         right: 12px !important;
     }
@@ -47,13 +49,12 @@
         background-color: ghostwhite;
         float: left;
     }
-    #AD{
-        width: 14% !important;
+    .AD{
+        width: 10% !important;
         margin-right: 30px !important;
     }
     .HDayBox li{
         margin-right: 17px !important;
-        width: 10% !important;
     }
 
 .Day{
@@ -123,9 +124,9 @@
 
         display: block !important;
     }
-    #AD{
+    .AD{
         margin-right: 15px;
-        width: 15% !important;
+        width: 20% !important;
     }
     .vis{
         display: none;
@@ -172,7 +173,7 @@
     float: left;
     height: 100%;
 }
-#AD{
+.AD{
     width: 10% ;
     font-size: 17px;
     margin-left: 5px;
@@ -226,14 +227,14 @@
     font-size: 18px;
     float: left;
     list-style: none;
-    width: 5% !important;
+    width: 5% ;
     color:white;
 
     margin-right: 0.5vw;
 }
 .AllDay{
 
-    width: 15% !important;
+    width: 15% ;
 }
 
 .AllDay{

@@ -171,43 +171,26 @@ const Header = ({ showAdminLink }) => {
         </div>
       </div>
       <div className={style.HDayBox}>
-        <div className={style.Day}>
-          <Link href={{ pathname: '/', query: { day: 'All' } }}>
-            <li id={style.AD}>전체<span className={style.vis}>요일</span></li>
-          </Link>
-          <Link href={{ pathname: '/daypage', query: { day: 'mon' } }}>
-          {currentDay === 1 && <p className={style.TodayText}>today !</p>}
-            <li className={getDayStyle(1)}>월</li>
-          </Link>
-          <Link href={{ pathname: '/daypage', query: { day: 'tues' } }}>
-          {currentDay === 2 && <p className={style.TodayText}>today !</p>}
-            <li className={getDayStyle(2)}>화</li>
-          </Link>
-          <Link href={{ pathname: '/daypage', query: { day: 'wendes' } }}>
-          {currentDay === 3 && <p className={style.TodayText}>today !</p>}
-            <li className={getDayStyle(3)}>수</li>
-          </Link>
-          <Link href={{ pathname: '/daypage', query: { day: 'thurs' } }}>
-          {currentDay === 4 && <p className={style.TodayText}>today !</p>}
+  <div className={style.Day}>
+    {[
+      { day: 'All', text: '전체요일', index: -1 },
+      { day: 'mon', text: '월', index: 1 },
+      { day: 'tues', text: '화', index: 2 },
+      { day: 'wendes', text: '수', index: 3 },
+      { day: 'thurs', text: '목', index: 4 },
+      { day: 'fri', text: '금', index: 5 },
+      { day: 'satur', text: '토', index: 6 },
+      { day: 'sun', text: '일', index: 0 },
+    ].map(({ day, text, index }) => (
+      <Link key={index} href={{ pathname: `/daypage`, query: { day } }}>
+        {currentDay === index && <p className={style.TodayText}>today !</p>}
+        <li
+          className={`${getDayStyle(index)} ${day === 'All' ? style.AD : ''}`}
+        >{text}</li>      </Link>
+    ))}
+  </div>
+</div>
 
-            <li className={getDayStyle(4)}>목</li>
-          </Link>
-          <Link href={{ pathname: 'daypage', query: { day: 'fri' } }}>
-          {currentDay === 5 && <p className={style.TodayText}>today !</p>}
-
-            <li className={getDayStyle(5)}>금</li>
-          </Link>
-          <Link href={{ pathname: '/daypage', query: { day: 'satur' } }}>
-          {currentDay === 6 && <p className={style.TodayText}>today !</p>}
-
-            <li className={getDayStyle(6)}>토</li>
-          </Link>
-          <Link href={{ pathname: '/daypage', query: { day: 'sun' } }}>
-          {currentDay === 0 && <p className={style.TodayText}>today !</p>}
-            <li className={getDayStyle(0)}>일</li>
-          </Link>
-        </div>
-      </div>
       <Link href="/adminpage"><div className="addButtonContainer"></div> {/* 버튼을 추가할 컨테이너 */}</Link>
 
     </div>
