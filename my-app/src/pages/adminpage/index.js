@@ -25,7 +25,11 @@ const AdminPage = () => {
   };
 
   const handleWebtoonAdd = async () => {
-    console.log(content,author,webtoonName,webtoonEnName,selectedDay,selectedImage,categories)
+    const selectedGenres = Object.entries(checkboxStates)
+    .filter(([genre, isChecked]) => isChecked)
+    .map(([genre]) => genre);
+  
+    console.log(content,author,webtoonName,webtoonEnName,selectedDay,selectedImage,categories,selectedGenres)
     const data = {
       content:content,
       author:author,
@@ -33,7 +37,9 @@ const AdminPage = () => {
       WebtoonEnName: webtoonEnName,
       week: selectedDay,
       thumbnail: selectedImage, // 이미지 파일로 변경
-      categories:categories,
+      categories:selectedGenres,
+      genres: selectedGenres, // 선택한 장르 목록
+
     };
 
     try {
@@ -96,6 +102,9 @@ const AdminPage = () => {
 
       <form>
         <div className={style.newWebtoon}>
+
+        <h2>신규 웹툰 등록</h2>
+
           {/* 작품 정보 입력 부분 */}
           <input
             type="text"
@@ -118,6 +127,7 @@ const AdminPage = () => {
           <input
             type="text"
             placeholder="웹툰 내용"
+            id={style.bottom}
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
@@ -125,8 +135,8 @@ const AdminPage = () => {
           <div className={style.inputRow}>
             <span className={style.inputP}>요일 선택</span>
             <div className={style.inputBox}>
-              <select value={selectedDay} onChange={handleDayChange}>
-                <option value="">요일을 선택하세요</option>
+              <select id={style.dayOption} value={selectedDay} onChange={handleDayChange}>
+                <option  value="">요일을 선택하세요</option>
                 {dayOptions.map((day) => (
                   <option key={day.value} value={day.value}>
                     {day.label}
@@ -138,10 +148,10 @@ const AdminPage = () => {
 
           {/* 장르 선택 부분 */}
           <div className={style.checkBox}>
-            <span className={style.inputP}>장르</span>
+            <span id={style.CategoriP} className={style.inputP}>장르</span>
             {/* 장르 체크박스 목록 */}
             {Object.entries(checkboxStates).map(([genre, isChecked]) => (
-              <label key={genre}>
+              <label key={genre} className={style.checkboxLabel}>
                 <input
                   type="checkbox"
                   checked={isChecked}
@@ -151,9 +161,8 @@ const AdminPage = () => {
               </label>
             ))}
           </div>
-
           {/* 사진 업로드 부분 */}
-          <div className={style.inputRow}>
+          <div id={style.imgUpload} className={style.inputRow}>
             <span className={style.inputP}>사진 업로드</span>
             <div className={style.inputBox}>
                 <input
@@ -165,7 +174,7 @@ const AdminPage = () => {
           </div>
 
           {/* 웹툰 등록 버튼 */}
-          <button type="button" onClick={handleWebtoonAdd}>
+          <button id={style.uploadBtn} type="button" onClick={handleWebtoonAdd}>
             웹툰 등록
           </button>
         </div>
