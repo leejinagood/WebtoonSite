@@ -11,8 +11,8 @@ const userAPI = (server, getConn) => {
         const { email, pass, name, age } = req.body;
         const saltRounds = 10; // 솔트 생성에 사용되는 라운드 수
 
-        const valiEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        const valiPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        // const valiEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        // const valiPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
 
         try {
             // // 유효성 검사
@@ -36,9 +36,9 @@ const userAPI = (server, getConn) => {
             const hashedPassword = await bcrypt.hash(pass, saltRounds);
 
             const query = 'INSERT INTO UserTable (userEmail, userPassword, userName, userAge) VALUES (?, ?, ?, ?);';
-            const value = [email, hashedPassword, name, age];
+            const result = [email, hashedPassword, name, age];
             //쿼리에 비밀번호 암호화된 내용으로 삽입
-            await conn.query(query, value);
+            await conn.query(query, result);
 
             await conn.commit(); // 트랜잭션 커밋
             res.send('입력 성공');
@@ -90,7 +90,7 @@ const userAPI = (server, getConn) => {
                         UserID: UserID[0][0].userID 
                     },
                     'your-secret-key', // 비밀키
-                    { expiresIn: '10m' } // 토큰 만료 시간 10분 설정
+                    { expiresIn: '30m' } // 토큰 만료 시간 30분 설정
                 );
 
                 res.setHeader('Set-Cookie', [
@@ -160,7 +160,6 @@ const userAPI = (server, getConn) => {
             const email = userResponse.data.kakao_account.email;
 
             //한글과 기호가 포함되어 있기 때문에 쿠키로 보내기전 인코딩 해야됨
-            const enSub = encodeURIComponent(sub);
             const enNickname = encodeURIComponent(nickname);
             const enEmail = encodeURIComponent(email);
 
@@ -169,11 +168,11 @@ const userAPI = (server, getConn) => {
             token = jwt.sign(
                 {
                     UserEmail: enEmail,
-                    UserID: enSub,
+                    UserID: sub,
                     UserName: enNickname
                 },
                 'your-secret-key', // 비밀 키
-                { expiresIn: '10m' } // 토큰 만료 시간 10분 설정
+                { expiresIn: '30m' } // 토큰 만료 시간 30분 설정
             );
 
             // 쿠키에 저장하여 보내기
@@ -187,16 +186,17 @@ const userAPI = (server, getConn) => {
 
             //회원가입 로직
             const selectQuery = "select userEmail from UserTable where userEmail = ?;";
-            const [Result] = await conn.query(selectQuery, [sub]);
+            const [Result] = await conn.query(selectQuery, [email]);
 
+            console.log(Result.length);
             // 사용자 정보가 없으면 회원가입
-            if (Result.length === null) {
+            if (Result.length === 0) {
                 const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, userID) VALUES (?, "", ?, ?);';
-                const values = [email, nickname, sub];
-                await conn.query(insertQuery, values);
+                const insertValue = [email, nickname, sub];
+                await conn.query(insertQuery, insertValue);
             }
         
-            //리다리엑트는 기본적으로 쿠키를 함께 보냄! 같은 도메인이면 저장됨. 이를 쿠키의 동작 방식으로 도메인 기반 쿠키 라고 함
+            //리다리엑트는 기본적으로 쿠키를 함께 보냄 같은 도메인이면 저장됨. 이를 쿠키의 동작 방식으로 도메인 기반 쿠키 라고 함
             res.writeHead(302, { //상태는 302
                 'Location': 'http://localhost:3000', //주소
                 'Content-Type': 'text/plain'
@@ -213,8 +213,8 @@ const userAPI = (server, getConn) => {
     // 쿠키에서 토큰 추출하는 함수
     function DelisousCookie(cookies) { //cookies라는 매개변수를
         if (typeof cookies === 'string') { //문자열인지 확인
-            const cookieA = cookies.split(';'); //; 으로 나눔
-            const tokenCookie = cookieA.find(cookie => cookie.trim().startsWith('token=')); //토큰부분만 빼내기
+            const resultCookie = cookies.split(';'); //; 으로 나눔
+            const tokenCookie = resultCookie.find(cookie => cookie.trim().startsWith('token=')); //토큰부분만 빼내기
             if (tokenCookie) {
                 const token = tokenCookie.split('=')[1];
                 //토큰만 추출
