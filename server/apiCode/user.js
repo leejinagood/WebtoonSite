@@ -155,7 +155,7 @@ const userAPI = (server, getConn) => {
             });
 
             // userResponse에서 정보 추출
-            const sub = userResponse.data.id;
+            let sub = userResponse.data.id;
             const nickname = userResponse.data.kakao_account.profile.nickname;
             const email = userResponse.data.kakao_account.email;
 
@@ -163,12 +163,16 @@ const userAPI = (server, getConn) => {
             const enNickname = encodeURIComponent(nickname);
             const enEmail = encodeURIComponent(email);
 
+            //회원가입 로직
+            const selectQuery = "select userEmail, userID from UserTable where userEmail = ?;";
+            const [Result] = await conn.query(selectQuery, [email]);
+
             let token = "";
             //jwt 토큰을 생성
             token = jwt.sign(
                 {
                     UserEmail: enEmail,
-                    UserID: sub,
+                    UserID: Result[0].userID,
                     UserName: enNickname
                 },
                 'your-secret-key', // 비밀 키
@@ -184,13 +188,10 @@ const userAPI = (server, getConn) => {
                 httpOnly: false
             });
 
-            //회원가입 로직
-            const selectQuery = "select userEmail from UserTable where userEmail = ?;";
-            const [Result] = await conn.query(selectQuery, [email]);
 
             // 사용자 정보가 없으면 회원가입
             if (Result.length === 0) {
-                const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, userID) VALUES (?, "", ?, ?);';
+                const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, socialNumber) VALUES (?, "", ?, ?);';
                 const insertValue = [email, nickname, sub];
                 await conn.query(insertQuery, insertValue);
             }

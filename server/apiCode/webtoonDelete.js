@@ -8,17 +8,11 @@ const webtoonDeleteApi = (server, getConn) => {
     server.del('/api/webtoonDelete', async (req, res) => {
         const conn = await getConn();
         const { ID } = req.body;
-        const webtoonQuery = 'CALL usp_delete_webtoon(?);';
 
-        
         try {
+            const webtoonQuery = 'CALL usp_delete_webtoon(?);';
+        
             const [week] = await conn.query(webtoonQuery, ID); 
-
-            if (week[0][0].deleted_webtoonWeek === null) {
-                res.send({ message: '아이디가 없습니다' });
-                return;
-            }
-
             res.send("삭제 성공");
 
             //redis 값 삭제
@@ -27,7 +21,7 @@ const webtoonDeleteApi = (server, getConn) => {
             await redisClient.del(`webtoon_detail : ${ID}`);
             await redisClient.del(`webtoon_list : ${ID}`);
             await redisClient.del(`likes:${ID}`);
-
+        
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: '삭제 실패' });
@@ -42,10 +36,8 @@ const webtoonDeleteApi = (server, getConn) => {
         const conn = await getConn();
         const { ID, ep } = req.body;
         const value = [ID, ep];
-
-        const episodeQuery = 'CALL usp_delete_episode(?, ?);';
-
         try {
+            const episodeQuery = 'CALL usp_delete_episode(?, ?);';
             await conn.query(episodeQuery, value); 
             res.send(ep+"화 삭제 성공");
 
