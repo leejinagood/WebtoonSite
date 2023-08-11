@@ -109,6 +109,8 @@ function SerchWebToon() {
                     </p>
                     <span className={style.tab2}>
                       {highlightSearchText(webtoon.webtoonAuthor, word)} /{" "}
+                      {highlightSearchText(webtoon.categoryKind, word)} {" "}
+
                       {highlightSearchText(webtoon.categoryKinds, word)} {" "}
                     </span>
                     <p className={style.content}>
