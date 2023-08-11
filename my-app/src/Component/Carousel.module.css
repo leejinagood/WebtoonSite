@@ -41,7 +41,7 @@
     
       .slide img {
         width: 100px !important;
-        margin-top: 15px !important;
+        height: 120px !important;
         margin-left: 0 !important;
       }
 
@@ -68,6 +68,7 @@
   .slide img {
     border: 1px solid black;
     width:190px;
+    height: 250px;
     margin-top: 5px;
     padding: 10px;
     background-color: white;

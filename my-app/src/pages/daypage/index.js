@@ -80,7 +80,11 @@ const WeekPage = () => {
   
 
   return (
-    <div className={style.DayBox}>
+    
+    <div className={style.DayBox}>       <Head>
+
+   </Head>
+      
       <Header token={token} />
       <h3 className={style.Categories}>{week}요일 추천 웹툰</h3>
       <div className={style.MNewToon}>
@@ -96,9 +100,9 @@ const WeekPage = () => {
                 return webtoon ? (
                   
                   <div className={style.DayToonItem} key={subIndex}>
-                           <Head>
+       <Head>
        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#FF0000"/>
+        <meta name="theme-color" content="rgb(171,230,157)"/>
         <title>AVATOON</title>
 
       </Head>

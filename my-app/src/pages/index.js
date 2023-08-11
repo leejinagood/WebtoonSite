@@ -41,13 +41,12 @@ const MainPage = () => {
 
 
 
-
   return (
     <div className={style.mp}>
     <div className={style.MainPage}>
        <Head>
        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#317EFB"/>
+        <meta name="theme-color" content="rgb(171,230,157)"/>
         <title>AVATOON</title>
 
       </Head>

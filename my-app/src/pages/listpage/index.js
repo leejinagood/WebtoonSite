@@ -20,8 +20,31 @@ const ListPage = () => {
 
   const [ascSort, setAscSort] = useState(false); // 오름차순 여부
   const [descSort, setDescSort] = useState(false); // 내림차순 여부
-
-
+  const getThemeColor = (enName) => {
+    // EnName에 따라 원하는 테마 컬러를 반환하도록 설정합니다.
+    //
+    switch (enName) {
+      case "daughter_mom_looks_just_like":
+        return "rgb(231,59,40)"; 
+      case "maruisdog":
+        return "rgb(255,229,164)";
+      case "girltrial":
+        return "rgb(233,60,128)"; 
+      case "honeymoondiary":
+        return "rgb(171,230,157)"; 
+      case "questsupremacy":
+        return "rgb(161,245,254)"; 
+      case "lookism":
+        return "rgb(18,28,243)"; 
+      case "monstercat":
+        return "rgb(228,241,101)"; 
+      case "GyeBaeksoon":
+        return "rgb(187,181,169)"; 
+      default:
+        return "rgb(171,230,157)"; // 기본 테마 컬러
+    }
+    
+  };
 
   const getTokenFromLocalStorage = () => {
     if (typeof window !== 'undefined') {
@@ -241,10 +264,11 @@ const ListPage = () => {
 
   return (
     <div className={style.ListPage}>
-      <Head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#317EFB" />
-      </Head>
+    <Head>
+      <link rel="manifest" href="/manifest.json" />
+      <meta name="theme-color" content={getThemeColor(EnName)} />
+    </Head>
+
 
       <Header />
 

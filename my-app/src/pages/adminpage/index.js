@@ -251,7 +251,7 @@ const AdminPage = () => {
       errors.push("삭제하려는 웹툰 ID를 입력하세요");
     }
     if(errors.length>0){
-      console.error("에러 발생:", errors);
+      console.log("에러 발생:", errors);
       window.alert(errors);
       return; // 에러가 있으면 함수 종료
     }else{
@@ -270,11 +270,15 @@ const AdminPage = () => {
         console.log("웹툰 전체 삭제 성공");
         // 웹툰 전체 삭제 성공 후 필요한 동작 수행
       } if(response.status === 500) {
-        console.error("웹툰 전체 삭제 실패");
+        console.log("웹툰 전체 삭제 실패");
+        window.alert("없는 웹툰 ID 입니다");
+
         // 웹툰 전체 삭제 실패 처리
       }
     } catch (error) {
-      console.error("API 호출 오류:", error);
+      console.log("API 호출 오류:", error);
+      window.alert("없는 웹툰 에피소드 입니다");
+
       // 오류 처리
     }
   }
@@ -314,7 +318,8 @@ const AdminPage = () => {
         // 에피소드 삭제 성공 후 필요한 동작 수행
       } else {
         console.error("에피소드 삭제 실패");
-        // 에피소드 삭제 실패 처리
+        window.alert("없는 웹툰 에피소드 입니다");
+                // 에피소드 삭제 실패 처리
       }
     } catch (error) {
       console.error("API 호출 오류:", error);
@@ -441,6 +446,13 @@ const AdminPage = () => {
         placeholder="썸네일경로"
         onChange={handleThumbnailChange}
       />
+            {/* <input
+        type="file"
+        id={style.bottom}
+        value={thumbnailPath}
+        placeholder="썸네일경로"
+        onChange={handleThumbnailChange}
+      /> */}
       
 
       {thumbnailPath && ( // 경로가 입력된 경우에만 이미지 표시

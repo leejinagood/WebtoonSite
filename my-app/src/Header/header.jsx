@@ -29,6 +29,13 @@ const Header = ({ showAdminLink }) => {
     }
   };
 
+  const handleKeyClick =() => {
+
+      event.preventDefault(); // 기본 동작 막기
+      window.location.href = `/serachwebtoonpage?word=${userInput}`;
+      //나중에 라우트로 변경
+    }
+
   const [currentDay, setCurrentDay] = useState(new Date().getDay()); // 현재 요일 가져오기
 
   const getDayStyle = (dayIndex) => {
@@ -148,10 +155,13 @@ const Header = ({ showAdminLink }) => {
                     onKeyPress={handleKeyPress}
                     placeholder="작가/제목으로 검색할 수 있습니다."
                   />
-                    <div className={style.BTN}>
+                    <div  className={style.BTN}>
                 {isClient && ( // 클라이언트 사이드에서만 렌더링
                   <>
-                    <button type="submit" className={style.SerchBtn}>검색</button>
+                    <button type="submit" className={style.SerchBtn}
+                    onClick={handleKeyClick}
+                    
+                    >검색</button>
                     {user ? (
                       <>
                         <p onClick={handleLogout} className={style.LoginBtn}>{decodeURIComponent(user)}</p>
