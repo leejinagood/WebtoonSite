@@ -167,12 +167,24 @@ const userAPI = (server, getConn) => {
             const selectQuery = "select userEmail, userID from UserTable where userEmail = ?;";
             const [Result] = await conn.query(selectQuery, [email]);
 
+            console.log(Result);
+            // 사용자 정보가 없으면 회원가입
+            if (Result.length === 0) {
+                const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, socialNumber) VALUES (?, "", ?, ?);';
+                const insertValue = [email, nickname, sub];
+                await conn.query(insertQuery, insertValue);
+            }
+            
+            else if(Result.length > 0) {
+                ID = Result[0].userID;
+            }
+            
             let token = "";
             //jwt 토큰을 생성
             token = jwt.sign(
                 {
                     UserEmail: enEmail,
-                    UserID: Result[0].userID,
+                    UserID: ID,
                     UserName: enNickname
                 },
                 'your-secret-key', // 비밀 키
@@ -187,14 +199,6 @@ const userAPI = (server, getConn) => {
                 domain: 'localhost',
                 httpOnly: false
             });
-
-
-            // 사용자 정보가 없으면 회원가입
-            if (Result.length === 0) {
-                const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, socialNumber) VALUES (?, "", ?, ?);';
-                const insertValue = [email, nickname, sub];
-                await conn.query(insertQuery, insertValue);
-            }
         
             //리다리엑트는 기본적으로 쿠키를 함께 보냄 같은 도메인이면 저장됨. 이를 쿠키의 동작 방식으로 도메인 기반 쿠키 라고 함
             res.writeHead(302, { //상태는 302
