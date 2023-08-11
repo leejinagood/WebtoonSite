@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "./ClickLayoutCss.module.css";
 
-const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
+const ClickLayoutComponent = ({ webtoonName, episodeNumber,ID }) => {
   const router = useRouter();
   const [exists, setExists] = useState(null);
   const scrollRef = useRef(null);
@@ -33,7 +33,7 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
   };
 
   useEffect(() => {
-    fetch(`/api/webtoon?EnName=${webtoonName}&ep=${episodeNumber}`)
+    fetch(`/api/webtoon?ID=${ID}&ep=${episodeNumber}`)
       .then((response) => response.json())
       .then((data) => {
         const [webtoonData] = data;
@@ -51,7 +51,7 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
       const nextEp = parseInt(episodeNumber, 10) + 1;
       console.log(episodeNumber, nextEp);
       console.log("실행");
-      router.push(`/webtoonpage?EnName=${webtoonName}&ep=${nextEp}`);
+      router.push(`/webtoonpage?EnName=${webtoonName}&ID=${ID}&ep=${nextEp}`);
     }
   };
 
@@ -59,7 +59,7 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber }) => {
     if (episodeNumber > 1) {
       const PrevEp = episodeNumber - 1;
       console.log(episodeNumber);
-      router.push(`/webtoonpage?EnName=${webtoonName}&ep=${PrevEp}`);
+      router.push(`/webtoonpage?EnName=${webtoonName}&ID=${ID}&ep=${PrevEp}`);
     } else {
       console.log("이전화가 없음");
     }

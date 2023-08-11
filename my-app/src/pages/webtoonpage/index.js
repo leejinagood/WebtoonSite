@@ -10,7 +10,7 @@ const WebtoonPage = () => {
   const router = useRouter();
   const { EnName,ID, ep } = router.query;
   const scrollYRef = useRef(0);
-
+  console.log(ID);
   const [webtoons, setWebtoons] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
   const [selectedWebtoon, setSelectedWebtoon] = useState(null);
@@ -99,6 +99,7 @@ const handleWebToonCutClick = (webtoon) => {
           webtoonName={EnName}
           episodeNumber={ep}
           maxEp={count}
+          ID={ID}
           exists={exists}
         />
       )}
