@@ -167,45 +167,59 @@ const userAPI = (server, getConn) => {
             const selectQuery = "select userEmail, userID from UserTable where userEmail = ?;";
             const [Result] = await conn.query(selectQuery, [email]);
 
-            console.log(Result);
+            let ID = null;
+
             // 사용자 정보가 없으면 회원가입
             if (Result.length === 0) {
                 const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, socialNumber) VALUES (?, "", ?, ?);';
                 const insertValue = [email, nickname, sub];
                 await conn.query(insertQuery, insertValue);
+                console.log(ID);
             }
             
             else if(Result.length > 0) {
                 ID = Result[0].userID;
+                console.log(Result[0].userID);
             }
-            
-            let token = "";
-            //jwt 토큰을 생성
-            token = jwt.sign(
-                {
-                    UserEmail: enEmail,
-                    UserID: ID,
-                    UserName: enNickname
-                },
-                'your-secret-key', // 비밀 키
-                { expiresIn: '30m' } // 토큰 만료 시간 30분 설정
-            );
+            console.log(ID);
+            if (ID) {
+                let token = "";
+                //jwt 토큰을 생성
+                token = jwt.sign(
+                    {
+                        UserEmail: enEmail,
+                        UserID: ID,
+                        UserName: enNickname
+                    },
+                    'your-secret-key', // 비밀 키
+                    { expiresIn: '30m' } // 토큰 만료 시간 30분 설정
+                );
 
-            // 쿠키에 저장하여 보내기
-            res.setHeader('Set-Cookie', [
-                `token=${token}; Path=/`,
-              ], {
-                sameSite: 'lax',
-                domain: 'localhost',
-                httpOnly: false
-            });
-        
-            //리다리엑트는 기본적으로 쿠키를 함께 보냄 같은 도메인이면 저장됨. 이를 쿠키의 동작 방식으로 도메인 기반 쿠키 라고 함
-            res.writeHead(302, { //상태는 302
-                'Location': 'http://localhost:3000', //주소
-                'Content-Type': 'text/plain'
-            });
-            res.end('Redirecting to http://localhost:3000');
+                // 쿠키에 저장하여 보내기
+                res.setHeader('Set-Cookie', [
+                    `token=${token}; Path=/`,
+                ], {
+                    sameSite: 'lax',
+                    domain: 'localhost',
+                    httpOnly: false
+                });
+            
+                //리다리엑트는 기본적으로 쿠키를 함께 보냄 같은 도메인이면 저장됨. 이를 쿠키의 동작 방식으로 도메인 기반 쿠키 라고 함
+                res.writeHead(302, { //상태는 302
+                    'Location': 'http://localhost:3000', //주소
+                    'Content-Type': 'text/plain'
+                });
+                res.end('Redirecting to http://localhost:3000');
+
+                console.log(ID+"가 잇을 때");
+            }else{
+                res.writeHead(302, { //상태는 302
+                    'Location': 'http://localhost:3000/loginpage', //주소
+                    'Content-Type': 'text/plain'
+                });
+                res.end('Redirecting to http://localhost:3000/loginpage');
+                console.log(ID+"가 없을 때");
+            }
 
         } catch (error) {
             console.error(error);
