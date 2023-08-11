@@ -269,7 +269,7 @@ const AdminPage = () => {
       if (response.ok) {
         console.log("웹툰 전체 삭제 성공");
         // 웹툰 전체 삭제 성공 후 필요한 동작 수행
-      } else {
+      } if(response.status === 500) {
         console.error("웹툰 전체 삭제 실패");
         // 웹툰 전체 삭제 실패 처리
       }
@@ -282,6 +282,8 @@ const AdminPage = () => {
 
 
   const handleEpisodeDelete = async () => {
+    event.preventDefault(); // 이벤트의 기본 동작을 막음
+
     const errors=[]
     if(!episodeId){
       errors.push("episodeId를 입력하세요");
