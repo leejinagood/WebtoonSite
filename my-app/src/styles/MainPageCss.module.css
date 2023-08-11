@@ -638,9 +638,22 @@
 
 .AllToonInfo {
     height: auto ;
-    width: calc(16.66% - 20px); 
+    width: calc(25% - 20px); 
     margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
   }
+  @media (max-width: 1900px) and (min-width: 723px){
+    .AllToonInfo {
+      width: calc(24% - 20px) !important;
+    }
+  }
+  .ATIMG{
+    width: 80%;
+    display: none;
+    height: 100%;
+    object-fit: cover;
+}
+
+
 
 .ATBox {
     display: flex;
@@ -781,13 +794,6 @@
 
 
 
-
-
-.ATIMG{
-    width: 80%;
-    height: 100%;
-    object-fit: cover;
-}
 
 
 
