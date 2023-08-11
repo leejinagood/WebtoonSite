@@ -174,14 +174,12 @@ const userAPI = (server, getConn) => {
                 const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, socialNumber) VALUES (?, "", ?, ?);';
                 const insertValue = [email, nickname, sub];
                 await conn.query(insertQuery, insertValue);
-                console.log(ID);
             }
             
             else if(Result.length > 0) {
                 ID = Result[0].userID;
-                console.log(Result[0].userID);
             }
-            console.log(ID);
+
             if (ID) {
                 let token = "";
                 //jwt 토큰을 생성
@@ -210,15 +208,13 @@ const userAPI = (server, getConn) => {
                     'Content-Type': 'text/plain'
                 });
                 res.end('Redirecting to http://localhost:3000');
-
-                console.log(ID+"가 잇을 때");
+                
             }else{
                 res.writeHead(302, { //상태는 302
                     'Location': 'http://localhost:3000/loginpage', //주소
                     'Content-Type': 'text/plain'
                 });
                 res.end('Redirecting to http://localhost:3000/loginpage');
-                console.log(ID+"가 없을 때");
             }
 
         } catch (error) {
