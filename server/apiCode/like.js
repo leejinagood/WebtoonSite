@@ -31,7 +31,7 @@ const likeAPI = (server, getConn) => {
         const userID = req.body.userID;
         const { EnName } = req.body; //영어이름과 유저 이메일을 받아옴
         const values = [userID, EnName];
-        const Query ='call usp_get_likes_by_email_and_webtoon(?, ?)' //좋아요 했는지 안 했는지
+        const Query ='call usp_get_likes_by_email(?, ?)' //좋아요 했는지 안 했는지
 
         const LikeQuery = 'CALL usp_put_likes(?, ?);'; // 좋아요를 수정하는 sp (추가)
 
