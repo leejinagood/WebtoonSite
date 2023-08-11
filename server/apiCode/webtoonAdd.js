@@ -15,27 +15,27 @@ const webtoonAddApi = (server, getConn) => {
         //카테고리는 ["일상", "드라마"] 이런 형태로 넣기
         const DetailQuery = 'call usp_post_WebtoonDetail(?, ?, ?, ?)';
 
-        try {
-            if (!content || !author || !WebtoonName || !WebtoonEnName || !week ||!thumbnail) {
-                res.status(400).json({ message: '내용을 입력하세요' });
-                return;
-            }
-            
-            await conn.query(webtoonQuery, Webtoon); 
-            await conn.query(DetailQuery, Detail); 
+        if (!content || !author || !WebtoonName || !WebtoonEnName || !week ||!thumbnail) {
+            res.status(400).json({ message: '내용을 입력하세요' });
+            return;
+        }else{
+            try {
+                await conn.query(webtoonQuery, Webtoon); 
+                await conn.query(DetailQuery, Detail); 
 
-            //redis 값 삭제
-            await redisClient.del('webtoon : All');
-            await redisClient.del(`webtoon : ${week}`);
+                //redis 값 삭제
+                await redisClient.del('webtoon : All');
+                await redisClient.del(`webtoon : ${week}`);
 
-            res.send("입력성공");
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: '추가 실패' });
-        } finally {
-            conn.release();
-        }
+                res.send("입력성공");
+            } catch (error) {
+                console.error(error);
+                res.status(500).json({ message: '추가 실패' });
+            } finally {
+                conn.release();
+        }}
     });
+
 
     //에피소드 추가 메서드
     server.post('/api/episodeAdd', async (req, res) => {
@@ -48,23 +48,23 @@ const webtoonAddApi = (server, getConn) => {
         
         const episodeQuery = 'CALL usp_post_episode(?, ?, ?, ?, ?);';
 
-        try {
-            if (!count || !WebtoonEnName || !img || !thumbnail) {
-                res.status(400).json({ message: '내용을 입력하세요' });
-                return;
+        if (!count || !WebtoonEnName || !img || !thumbnail) {
+            res.status(400).json({ message: '내용을 입력하세요' });
+            return;
+        }else{
+            try {
+                const [WebtoonId] = await conn.query(episodeQuery, Webtoon); 
+
+                await redisClient.del(`webtoon_detail : ${WebtoonId[0][0].webtoonID}`);
+                await redisClient.del(`webtoon_list : ${WebtoonId[0][0].webtoonID}`);
+
+                res.send("에피소드 추가");
+            } catch (error) {
+                console.error(error);
+                res.status(500).json({ message: '추가 실패' });
+            } finally {
+                conn.release();
             }
-            
-            const [WebtoonId] = await conn.query(episodeQuery, Webtoon); 
-
-            await redisClient.del(`webtoon_detail : ${WebtoonId[0][0].webtoonID}`);
-            await redisClient.del(`webtoon_list : ${WebtoonId[0][0].webtoonID}`);
-
-            res.send("에피소드 추가");
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: '추가 실패' });
-        } finally {
-            conn.release();
         }
     });
     

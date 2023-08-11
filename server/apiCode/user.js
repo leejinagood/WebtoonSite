@@ -155,7 +155,7 @@ const userAPI = (server, getConn) => {
             });
 
             // userResponse에서 정보 추출
-            const sub = userResponse.data.id;
+            let sub = userResponse.data.id;
             const nickname = userResponse.data.kakao_account.profile.nickname;
             const email = userResponse.data.kakao_account.email;
 
