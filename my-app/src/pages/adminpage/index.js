@@ -82,6 +82,7 @@ const AdminPage = () => {
     const selectedGenres = Object.entries(checkboxStates)
     .filter(([genre, isChecked]) => isChecked)
     .map(([genre]) => genre);
+    
   
     console.log("컨텐츠"+content,"작가"+author,"웹툰제목",webtoonName,"영어제목",webtoonEnName,selectedDay,"웹툰이미지",selectedImage,"장르",selectedGenres)
     const data = {
@@ -177,6 +178,7 @@ const AdminPage = () => {
     드라마: false,
     무협: false,
   });
+  
   
   const handleCheckboxChange = (genre) => {
     setCheckboxStates((prevState) => ({
