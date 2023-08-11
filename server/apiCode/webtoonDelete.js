@@ -8,10 +8,9 @@ const webtoonDeleteApi = (server, getConn) => {
     server.del('/api/webtoonDelete', async (req, res) => {
         const conn = await getConn();
         const { ID } = req.body;
+        const webtoonQuery = 'CALL usp_delete_webtoon(?);';
 
         try {
-            const webtoonQuery = 'CALL usp_delete_webtoon(?);';
-        
             const [week] = await conn.query(webtoonQuery, ID); 
             res.send("삭제 성공");
 
