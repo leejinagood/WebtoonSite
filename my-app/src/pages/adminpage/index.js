@@ -305,6 +305,7 @@ const AdminPage = () => {
   
       if (response.ok) {
         console.log("웹툰 전체 삭제 성공");
+        window.alert("웹툰 전체 삭제 성공");
         // 웹툰 전체 삭제 성공 후 필요한 동작 수행
       } if(response.status === 500) {
         console.log("웹툰 전체 삭제 실패");
