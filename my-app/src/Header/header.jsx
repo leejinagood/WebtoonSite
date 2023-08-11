@@ -182,11 +182,10 @@ const Header = ({ showAdminLink }) => {
       { day: 'satur', text: '토', index: 6 },
       { day: 'sun', text: '일', index: 0 },
     ].map(({ day, text, index }) => (
-      <Link key={index} href={{ pathname: `/daypage`, query: { day } }}>
-        {currentDay === index && <p className={style.TodayText}>today !</p>}
-        <li
-          className={`${getDayStyle(index)} ${day === 'All' ? style.AD : ''}`}
-        >{text}</li>      </Link>
+      <Link key={index} href={day === 'All' ? '/' : { pathname: `/daypage`, query: { day } }}>
+      {currentDay === index && <p className={style.TodayText}>today !</p>}
+      <li className={`${getDayStyle(index)} ${day === 'All' ? style.AD : ''}`}>{text}</li>
+    </Link>
     ))}
   </div>
 </div>

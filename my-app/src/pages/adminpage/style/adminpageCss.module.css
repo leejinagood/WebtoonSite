@@ -58,6 +58,7 @@
     }
 }
 .adminpage {
+    max-width: 1940px;
     width: 80%;
     font-family: 'Jua', sans-serif;
 }
@@ -101,7 +102,7 @@
 .inputP{
     font-size: 22px;
     float: left;
-    width: 10% ;
+    width: 15% ;
 }
 .checkBox{
     float: left;
@@ -109,9 +110,8 @@
 }
 .checkBox label{
     float: left;
-width: 9%;
-
-margin-left: 2%;
+    width:9.2%;
+    margin-left: 2%;
 }
 .checkBox input{
     width: 25px;
@@ -164,4 +164,10 @@ margin-left: 2%;
 }
 #top{
     margin-top: 20px;
+}
+#CategoriP{
+    width:10%;
+}
+.bottomm{
+    margin-bottom: 100px;
 }
