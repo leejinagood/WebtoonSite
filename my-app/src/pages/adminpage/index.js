@@ -83,7 +83,7 @@ const AdminPage = () => {
     .filter(([genre, isChecked]) => isChecked)
     .map(([genre]) => genre);
   
-    console.log(content,author,webtoonName,webtoonEnName,selectedDay,selectedImage,categories,selectedGenres)
+    console.log("컨텐츠"+content,"작가"+author,"웹툰제목",webtoonName,"영어제목",webtoonEnName,selectedDay,"웹툰이미지",selectedImage,"장르",selectedGenres)
     const data = {
       content:content,
       author:author,
@@ -95,23 +95,38 @@ const AdminPage = () => {
       genres: selectedGenres, // 선택한 장르 목록
 
     };
-    if(!content){
-      window.alert("내용을 작성해주세요");
-    }if(!author){
-      window.alert("작가를 작성해주세요");
-    }if(!webtoonName){
-      window.alert("웹툰이름을 작성해주세요");
-    }if(!webtoonEnName){
-      window.alert("웹툰영어이름을 작성해주세요");
-    }if(!selectedDay){
-      window.alert("요일을 선택해주세요");
-    }if(selectedGenres.length === 0){
-      window.alert("장르를 체크해주세요");
-    }if(selectedImage === null){
-      window.alert("이미지 경로를 입력해주세요");
-    }
+    const errors = []; // 발생한 예외 메시지들을 저장할 배열
 
-    try {
+    if (!content) {
+      errors.push("내용을 작성해주세요");
+    }
+    if (!author) {
+      errors.push("작가를 작성해주세요");
+    }
+    if (!webtoonName) {
+      errors.push("웹툰이름을 작성해주세요");
+    }
+    if (!webtoonEnName) {
+      errors.push("웹툰영어이름을 작성해주세요");
+    }
+    if (!selectedDay) {
+      errors.push("요일을 선택해주세요");
+    }
+    if (selectedGenres.length === 0) {
+      errors.push("장르를 체크해주세요");
+    }
+    if (selectedImage === null) {
+      errors.push("이미지 경로를 입력해주세요");
+    }
+    //이미지경로 해결하기
+
+    if (errors.length > 0) {
+      // 에러 메시지를 출력하거나 필요한 동작을 수행
+      console.error("에러 발생:", errors);
+      window.alert(errors);
+
+    } else {
+      try {
       const formData = new FormData();
       for (const key in data) {
         formData.append(key, data[key]);
@@ -124,6 +139,8 @@ const AdminPage = () => {
 
       if (response.ok) {
         console.log("웹툰 추가 성공");
+        window.alert("웹툰 추가 성공");
+
         // 웹툰 추가 성공 후 필요한 동작 수행
       }if(response.status===500){
         console.log("빠짐없이 입력해주세요");
@@ -136,6 +153,7 @@ const AdminPage = () => {
       console.error("API 호출 오류:", error);
       // 오류 처리
     }
+  }
   };
 
   const dayOptions = [
@@ -169,7 +187,31 @@ const AdminPage = () => {
   
 
   const handleEpisodeAdd = async () => {
-    console.log(epEnName,count,thumbnailPath,episode);
+    event.preventDefault(); // 이벤트의 기본 동작을 막음
+
+    const errors = []; // 발생한 예외 메시지들을 저장할 배열
+  
+    console.log(epEnName, count, thumbnailPath, episode);
+  
+    if (!epEnName) {
+      errors.push("웹툰 영어제목을 입력해주세요");
+    }
+    if (!count) {
+      errors.push("컷수를 입력해주세요");
+    }
+    if (!thumbnailPath) {
+      errors.push("썸네일 경로를 입력해주세요");
+    }
+    if (!episode) {
+      errors.push("회차를 입력해주세요");
+    }
+    if (errors.length > 0) {
+      window.alert(errors);
+
+      console.error("에러 발생:", errors);
+      return; // 에러가 있으면 함수 종료
+    }
+    
     try {
       const response = await fetch("/api/episodeAdd", {
         method: "POST",
@@ -183,12 +225,14 @@ const AdminPage = () => {
           ep: episode,
         }),
       });
-
+  
       if (response.ok) {
         console.log("에피소드 추가 성공");
+        window.alert("에피소드 추가 성공");
         // 에피소드 추가 성공 후 필요한 동작 수행
       } else {
         console.error("에피소드 추가 실패");
+        window.alert("해당하는 웹툰 정복 없습니다");
         // 에피소드 추가 실패 처리
       }
     } catch (error) {
@@ -198,6 +242,17 @@ const AdminPage = () => {
   };
 
   const handleWebtoonDelete = async () => {
+    event.preventDefault(); // 이벤트의 기본 동작을 막음
+
+    const errors = []; // 발생한 예외 메시지들을 저장할 배열
+    if(!webtoonId){
+      errors.push("삭제하려는 웹툰 ID를 입력하세요");
+    }
+    if(errors.length>0){
+      console.error("에러 발생:", errors);
+      window.alert(errors);
+      return; // 에러가 있으면 함수 종료
+    }else{
     try {
       const response = await fetch("/api/webtoonDelete", {
         method: "DELETE",
@@ -220,10 +275,24 @@ const AdminPage = () => {
       console.error("API 호출 오류:", error);
       // 오류 처리
     }
+  }
   };
 
 
   const handleEpisodeDelete = async () => {
+    const errors=[]
+    if(!episodeId){
+      errors.push("episodeId를 입력하세요");
+    }
+    if(!ep){
+      errors.push("ep를 입력하세요");
+    }
+    if(errors.length>0){
+      console.error("에러 발생:", errors);
+      window.alert(errors);
+      return; // 에러가 있으면 함수 종료
+    }
+    else{
     try {
       const response = await fetch("/api/episodeDelete", {
         method: "DELETE",
@@ -247,6 +316,8 @@ const AdminPage = () => {
       console.error("API 호출 오류:", error);
       // 오류 처리
     }
+  }
+
   };
   return (
     <div className={style.adminpage}>
@@ -400,7 +471,7 @@ const AdminPage = () => {
               value={ep}
               onChange={(e) => setEp(e.target.value)}
             />
-            <button id={style.uploadBtn} onClick={handleEpisodeDelete}>선택한 웹툰 회차 삭제</button>
+            <button className={style.bottomm}id={style.uploadBtn} onClick={handleEpisodeDelete}>선택한 웹툰 회차 삭제</button>
         </div>
         
 
