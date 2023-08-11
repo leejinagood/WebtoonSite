@@ -188,7 +188,6 @@ const userAPI = (server, getConn) => {
             const selectQuery = "select userEmail from UserTable where userEmail = ?;";
             const [Result] = await conn.query(selectQuery, [email]);
 
-            console.log(Result.length);
             // 사용자 정보가 없으면 회원가입
             if (Result.length === 0) {
                 const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, userID) VALUES (?, "", ?, ?);';
