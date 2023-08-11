@@ -13,6 +13,12 @@ const webtoonDeleteApi = (server, getConn) => {
 
         try {
             const [week] = await conn.query(webtoonQuery, ID); 
+
+            if (week[0][0].deleted_webtoonWeek === null) {
+                res.send({ message: '아이디가 없습니다' });
+                return;
+            }
+
             res.send("삭제 성공");
 
             //redis 값 삭제
