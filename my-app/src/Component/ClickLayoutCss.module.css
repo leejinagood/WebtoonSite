@@ -116,3 +116,10 @@
 .ScrollBTN{
   float: left;
 }
+
+.BackEpisode{
+  cursor: pointer;
+}
+.NextEpisode{
+  cursor: pointer;
+}

@@ -107,7 +107,7 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber,ID }) => {
                   <span className={styles.BackEpisode} onClick={handlePrevEpisode}>
                     &lt;이전화
                   </span>
-                  <Link href="../">
+                  <Link href={`/listpage/?EnName=${webtoonName}&id=${ID}`}>
                     <span> 목록 </span>
                   </Link>
                   <span className={styles.NextEpisode} onClick={handleNextEpisode}>

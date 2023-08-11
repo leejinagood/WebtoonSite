@@ -52,6 +52,9 @@
 
 @media screen and (max-width:721px) and (min-width:362px) {
     /* 메인 */
+    .ATimg{
+        height: 264px !important;
+    }
     .Categories{
         margin-left: 25px !important;
     }
@@ -181,7 +184,8 @@
       }
     
     .DayToonItem{
-        width: auto !important;
+        padding-right: 0px !important;
+        width: 205px !important;
         margin-left: 25px !important;
     }
     .DayToonIMG{
@@ -296,6 +300,7 @@
     }
 
 
+
     /* 데이페이지 */
     .DayBox{
         width: 360px !important;
@@ -395,10 +400,13 @@
     .aTMT{
         font-size: 6px !important;
         margin-top: 1px !important;
-        width: 100%;
+        width: 100% !important;
         
         position: relative !important;right: 10px;
         
+    }
+    .ATimg{
+        height: 155px !important;
     }
     .DtextBox p{
 
@@ -422,12 +430,12 @@
         width: 66% !important;
     }
     .AllToonInfo{
-        margin-bottom: 70px !important;
+        margin-bottom: 80px !important;
         
     }
 
     .imgBox{
-        width: auto !important;
+        width: 100% !important;
         height: auto !important;
     }
     
@@ -464,11 +472,13 @@
     }   
     .DayToonItem{
         width: 100% !important;
-        height: 100%; 
         margin: 0 !important;       
     }
 
     .DayToonItem p{
+        margin-top: 0px !important;
+        position: relative;
+        bottom: 0px;
         font-size: 10px !important;
         text-align: left;
       }
@@ -531,6 +541,14 @@
 }
 
 @media screen and (max-width:362px) and (min-width:30px){
+    .dayimgBox{
+        float: left;
+        background-color: gray;
+        height: 165px !important;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
     .MNewToon{
         width: 100% !important;
     }
@@ -553,8 +571,11 @@
 
         /* 솔 */
         width: calc(33.3% - 1px) !important;
-        height: 30vw !important;
+        height: 95px !important;
         float: left !important;
+    }
+    .AllToonInfo img{
+        width: 100% !important;
     }
     .Star{
         line-height: 3px !important;
@@ -609,10 +630,10 @@
 }
 .AllTonnbox{
     width: 100% ;
-    float: left !important;
+    float: left ;
 }
 .AToonTitle{
-    line-height: 5px !important;
+    line-height: 5px ;
 }
 
 .AllToonInfo {
@@ -659,11 +680,7 @@
 } 
 
 
-.Mid .DayToon .DayToonItem {
-    width: 10px;
-    margin-bottom: 50px;
-    margin-left: 0px;
-}
+
 
   /* .Mid .DayToon .DayToonItem.second-item {
     margin-left: 0px;
@@ -671,12 +688,14 @@
    */
   
    .DayToonItem{
-    position: relative;
-    width: 140px;
-    margin-bottom: 50px;
+    width: 300px;
+    float: left;
+    padding-right: 30px;
+    height: auto ;
     margin-left: 0px;
 
    }
+
  
   .DayToonItem p{
     width: 100%;
@@ -783,20 +802,17 @@
 
 }
 .dayimgBox{
+    background-color: gray ;
+
     overflow: hidden;
     position: relative;
     float: left;
     height: 390px;
     width: 100%;
+    margin-bottom: 10px;
 }
 
-.DayToonItem{
-    overflow: hidden;
-    height: auto;
-    width: auto;float: left;
-    margin-right: 20px;
-    
-}
+
 
 .Writer{
     line-height:18px;
@@ -830,8 +846,9 @@
     color:gray;
 }
 .ATimg{
-    width: 100%;
-    height: 100%;
+    width: 100% ;
+    background-color: gray;
+    height: 305px;
     transition: transform 0.2s ease; /* 애니메이션 효과를 위한 transition 추가 */
 }
 .AllToonInfo .ATimg:hover{
