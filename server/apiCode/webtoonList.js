@@ -5,8 +5,6 @@ const webtoonListAPI = (server, getConn) => {
     const redisClient = require('./redis'); // redis.js 모듈을 가져옴
 
     //웹툰 list 상단에 들어갈 정보
-    //웹툰 이미지나 제목을 클릭했을 때 보이는 웹툰 정보들
-    //webtoonEnName을 파라미터로 받음.
     server.get('/api/webtoondetail', async (req, res) => {
         const conn = await getConn();
         const { ID } = req.query; //영어이름
@@ -26,7 +24,6 @@ const webtoonListAPI = (server, getConn) => {
 
                 await redisClient.set(key, JSON.stringify(webtoon)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
                 res.send(webtoon);
-
             }
         } catch (error) {
             console.error(error);

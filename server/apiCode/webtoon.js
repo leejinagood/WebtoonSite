@@ -21,8 +21,9 @@ const webtoonAPI = (server, getConn) => {
 
                 const [result] = await conn.query('CALL usp_get_Webtoons();'); //모든 웹툰 정보 가져옴
                 const webtoon = result[0]; 
-
-                for (const item of webtoon) {
+                for (let i = 0; i < webtoon.length; i++) {
+                    //console.log(webtoon[i]);
+                    const item = webtoon[i];
                     const likeKey = `likes:${item.webtoonID}`;
                     const likeValue = await redisClient.get(likeKey);
 
