@@ -10,12 +10,13 @@ const commentAPI = (server, getConn) => {
         const viewCommentQuery = 'call usp_get_comment(?, ?);'; //댓글 조회
 
         try {
-            const [rows] = await conn.query(viewCommentQuery, values); 
-            const comment = rows[0];
+            const [result] = await conn.query(viewCommentQuery, values); 
+            const comment = result[0];
             res.send(comment); //댓글 내용을 응답으로
 
         } catch (error) {
-            res.json({ message: "서버 오류"});
+            console.error(error);
+            res.status(500).json({ message: '서버 오류' });
         } finally {
             conn.release(); 
         }
@@ -47,7 +48,8 @@ const commentAPI = (server, getConn) => {
                 res.json({ message: "로그인 하세요"});
             }
         } catch (error) {
-            res.json({ message: "오류"});
+            console.error(error);
+            res.status(500).json({ message: '서버오류' });
         } finally {
             conn.release();
         }

@@ -19,7 +19,7 @@ const likeAPI = (server, getConn) => {
             }
         } catch (error) {
             console.error(error);
-            res.json({ message: "서버 오류"});
+            res.status(500).json({ message: '서버 오류' });
         }
     });
     
@@ -61,7 +61,7 @@ const likeAPI = (server, getConn) => {
                         } else { // 좋아요 상태가 false인 경우 
                             await redisClient.INCRBY(key, 1); 
                         }
-                           res.send();
+                        res.send("좋아요 수정");
                     } else {
                         res.json('좋아요 오류'); 
                     }
@@ -69,7 +69,8 @@ const likeAPI = (server, getConn) => {
             res.json({ message: "로그인 하세요"});
             }
         } catch (error) {
-            res.json({ message: "서버 오류"});
+            console.error(error);
+            res.status(500).json({ message: '서버 오류' });
         } finally {
             conn.release();
         }
