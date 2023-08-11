@@ -13,42 +13,42 @@ const userAPI = (server, getConn) => {
 
         // const valiEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         // const valiPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        //     // 유효성 검사
+        //     if (!valiEmail.test(email)) {
+        //         res.status(400).json('이메일을 입력하세요');
+        //         return;
+        //       }
+        //       if (!valiPass.test(pass)) {
+        //         res.status(400).json('6자리 이상 입력하세요.');
+        //         return;
+        //       }
+        //       if (!name) {
+        //         res.status(400).json('이름을 입력해주세요');
+        //         return;
+        //       }
+        //       else {
+                try {
+                    // 트랜잭션 시작
+                    await conn.beginTransaction(); 
 
-        try {
-            // // 유효성 검사
-            // if (!valiEmail.test(email)) {
-            //   res.status(400).json('이메일을 입력하세요');
-            //   return;
-            // }
-            // if (!valiPass.test(pass)) {
-            //     res.status(400).json('6자리 이상 입력하세요.');
-            //     return;
-            // }
-            // if (!name) {
-            //     res.status(400).json('이름을 입력해주세요');
-            //     return;
-            // }
+                    //bcrypt.hash()로 비밀번호 암호화 
+                    const hashedPassword = await bcrypt.hash(pass, saltRounds);
 
-            // 트랜잭션 시작
-            await conn.beginTransaction(); 
+                    const query = 'INSERT INTO UserTable (userEmail, userPassword, userName, userAge) VALUES (?, ?, ?, ?);';
+                    const result = [email, hashedPassword, name, age];
+                    //쿼리에 비밀번호 암호화된 내용으로 삽입
+                    await conn.query(query, result);
 
-            //bcrypt.hash()로 비밀번호 암호화 
-            const hashedPassword = await bcrypt.hash(pass, saltRounds);
-
-            const query = 'INSERT INTO UserTable (userEmail, userPassword, userName, userAge) VALUES (?, ?, ?, ?);';
-            const result = [email, hashedPassword, name, age];
-            //쿼리에 비밀번호 암호화된 내용으로 삽입
-            await conn.query(query, result);
-
-            await conn.commit(); // 트랜잭션 커밋
-            res.send('입력 성공');
-        } catch (error) {
-            console.error(error);
-            await conn.rollback(); // 트랜잭션 롤백
-            res.status(500).json({ message: '회원가입 오류' });
-        } finally {
-            conn.release();
-        }
+                    await conn.commit(); // 트랜잭션 커밋
+                    res.send('입력 성공');
+                } catch (error) {
+                    console.error(error);
+                    await conn.rollback(); // 트랜잭션 롤백
+                    res.status(500).json({ message: '회원가입 오류' });
+                } finally {
+                    conn.release();
+                }
+        //}
     });
 
 
@@ -163,7 +163,6 @@ const userAPI = (server, getConn) => {
             const enNickname = encodeURIComponent(nickname);
             const enEmail = encodeURIComponent(email);
 
-            //회원가입 로직
             const selectQuery = "select userEmail, userID from UserTable where userEmail = ?;";
             const [Result] = await conn.query(selectQuery, [email]);
 
@@ -187,7 +186,8 @@ const userAPI = (server, getConn) => {
                     {
                         UserEmail: enEmail,
                         UserID: ID,
-                        UserName: enNickname
+                        UserName: enNickname,
+                        Sub: sub
                     },
                     'your-secret-key', // 비밀 키
                     { expiresIn: '30m' } // 토큰 만료 시간 30분 설정

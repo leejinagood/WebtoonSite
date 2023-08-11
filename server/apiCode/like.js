@@ -66,7 +66,7 @@ const likeAPI = (server, getConn) => {
                     res.json('좋아요 오류'); 
                 }
             }else {
-            res.json({ message: "로그인 하세요"});
+                res.json({ message: "로그인 하세요"});
             }
         } catch (error) {
             console.error(error);
