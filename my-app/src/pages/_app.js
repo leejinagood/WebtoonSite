@@ -29,7 +29,10 @@ function MyApp({ Component, pageProps }) {
         text-decoration: none;        color: inherit;
         margin:  0 auto;
         width:100%;
-    }
+      }
+      button{
+        cursor:pointer;
+      }
 
     @media screen and (max-width:361px) and (min-width:10px) {
       *{

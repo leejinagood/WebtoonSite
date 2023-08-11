@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 
 const AdminPage = () => {
   const router = useRouter();
+  const [webtoons, setWebtoons] = useState(""); // 웹툰 아이디를 저장할 상태 변수
+
   const [webtoonId, setWebtoonId] = useState(""); // 웹툰 아이디를 저장할 상태 변수
   const [episodeId, setEpisodeId] = useState(""); // 웹툰 아이디를 저장할 상태 변수
   const [ep, setEp] = useState(""); // 웹툰 아이디를 저장할 상태 변수
@@ -27,7 +29,20 @@ const AdminPage = () => {
 
   const [admin,setAdmin] = useState("");
   let token = "";
-  
+  useEffect(() => {
+
+  fetch("/api/daytoon?day=All")
+  .then((response) => response.json())
+  .then((data) => {
+    const webtoonIDs = data.map((webtoon) => webtoon.webtoonID);
+    setWebtoons(webtoonIDs);
+  })
+  .catch((error) => {
+    console.error("Error fetching API:", error);
+  });
+},[])
+
+
 
   useEffect(() => {
     const cookies = parseCookies();
@@ -101,14 +116,25 @@ const AdminPage = () => {
     if (!content) {
       errors.push("내용을 작성해주세요");
     }
+    else if (author.length > 100) {
+      errors.push("작품설명은 최대 100글자까지 가능합니다");
+    }
     if (!author) {
       errors.push("작가를 작성해주세요");
+    } else if (author.length > 6) {
+      errors.push("작가 이름은 최대 6글자까지 가능합니다");
     }
+  
     if (!webtoonName) {
       errors.push("웹툰이름을 작성해주세요");
+    } else if (webtoonName.length > 6) {
+      errors.push("웹툰 이름은 최대 6글자까지 가능합니다");
     }
     if (!webtoonEnName) {
       errors.push("웹툰영어이름을 작성해주세요");
+    }
+    else if (!/^[A-Za-z]+$/.test(webtoonEnName)) {
+      errors.push("웹툰 영어 이름은 영어로만 구성되어야 합니다");
     }
     if (!selectedDay) {
       errors.push("요일을 선택해주세요");
@@ -197,9 +223,14 @@ const AdminPage = () => {
   
     if (!epEnName) {
       errors.push("웹툰 영어제목을 입력해주세요");
+    }else if (!/^[A-Za-z]+$/.test(epEnName)) {
+      errors.push("웹툰 영어 이름은 영어로만 구성되어야 합니다");
     }
     if (!count) {
       errors.push("컷수를 입력해주세요");
+    }
+    else if (count > 100) {
+      errors.push("최대 100컷 까지만 가능합니다");
     }
     if (!thumbnailPath) {
       errors.push("썸네일 경로를 입력해주세요");
@@ -245,10 +276,16 @@ const AdminPage = () => {
 
   const handleWebtoonDelete = async () => {
     event.preventDefault(); // 이벤트의 기본 동작을 막음
+    const deletewebtoonID = Number(webtoonId);
+    console.log(webtoons , webtoonId, deletewebtoonID) ;
 
     const errors = []; // 발생한 예외 메시지들을 저장할 배열
     if(!webtoonId){
       errors.push("삭제하려는 웹툰 ID를 입력하세요");
+    }
+    if(!webtoons.includes(deletewebtoonID)){
+      errors.push("존재하지 않는 웹툰 ID입니다");
+
     }
     if(errors.length>0){
       console.log("에러 발생:", errors);
@@ -271,7 +308,6 @@ const AdminPage = () => {
         // 웹툰 전체 삭제 성공 후 필요한 동작 수행
       } if(response.status === 500) {
         console.log("웹툰 전체 삭제 실패");
-        window.alert("없는 웹툰 ID 입니다");
 
         // 웹툰 전체 삭제 실패 처리
       }
@@ -289,8 +325,15 @@ const AdminPage = () => {
     event.preventDefault(); // 이벤트의 기본 동작을 막음
 
     const errors=[]
+
+    const deletewebtoonID = Number(episodeId);
+    console.log(webtoons , episodeId, deletewebtoonID) ;
+
     if(!episodeId){
       errors.push("episodeId를 입력하세요");
+    }
+    if(!webtoons.includes(deletewebtoonID)){
+      errors.push("존재하지 않는 웹툰 ID입니다");
     }
     if(!ep){
       errors.push("ep를 입력하세요");
