@@ -14,6 +14,8 @@ function MyApp({ Component, pageProps }) {
     }
   }, []);
 
+  
+
   // 공통 레이아웃이나 설정을 처리하는 로직을 추가할 수 있습니다.
   return(
     <>  
