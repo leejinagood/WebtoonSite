@@ -12,8 +12,8 @@ const port = process.env.PORT || 4000;
 // CORS 정책 설정
 const corsMiddleware = require('restify-cors-middleware');
 const cors = corsMiddleware({
-  origins: ['http://localhost:3000', 'https://imgur.com', 'https://kauth.kakao.com'], // 클라이언트 도메인 주소
-  allowHeaders: ['Authorization'],
+    origins: ['http://localhost:3000', 'https://imgur.com', 'https://kauth.kakao.com'], // 클라이언트 도메인 주소
+    allowHeaders: ['Authorization'],
 });
 server.pre(cors.preflight);
 server.use(cors.actual);
@@ -27,14 +27,11 @@ require('./routes/webtoonListRoute')(server);
 require('./routes/webtoonAddRoute')(server);
 require('./routes/webtoonDeleteRoute')(server);
 require('./routes/commentRoute')(server);
+require('./routes/likeRoute')(server);
 
 // 사용자 api 
 const userAPI = require('./apiCode/user');
 userAPI(server, getConn);
-
-// 좋아요 api 
-const likeAPI = require('./apiCode/like');
-likeAPI(server, getConn);
 
 // 서버 시작
 server.listen(port, () => {
