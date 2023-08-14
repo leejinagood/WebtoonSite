@@ -29,10 +29,17 @@ const WebtoonModel = {
                     }
                 }
 
-                await redisClient.set(Webtoonkey, JSON.stringify(webtoon));
-                await redisClient.expire(Webtoonkey, 3600);
+                if (pi_vch_condition === 'All') {  
+                    await redisClient.set(Webtoonkey, JSON.stringify(webtoon)); 
+                    await redisClient.expire(Webtoonkey, 3600); //webtoon : All 키 1시간마다 삭제
 
-                return webtoon;
+                    return webtoon; // 응답으로 모든 웹툰 정보를 보냄
+
+                }else { // 요일별 웹툰
+                    const result = webtoon.filter((item) => item.webtoonWeek === pi_vch_condition); //요일이 같은 것만 출력
+                    await redisClient.set(Webtoonkey, JSON.stringify(result));  // 저장
+                    return result; // 응답으로 모든 웹툰 정보를 보냄
+                }
             }
         } catch (error) {
             throw error;

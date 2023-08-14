@@ -18,9 +18,6 @@ const cors = corsMiddleware({
 server.pre(cors.preflight);
 server.use(cors.actual);
 
-// 데이터베이스 관련 코드 실행
-const { getConn } = require('./database');
-
 // 서버 설정 및 라우트 호출
 require('./routes/webtoonRoute')(server);
 require('./routes/webtoonListRoute')(server);
@@ -28,10 +25,7 @@ require('./routes/webtoonAddRoute')(server);
 require('./routes/webtoonDeleteRoute')(server);
 require('./routes/commentRoute')(server);
 require('./routes/likeRoute')(server);
-
-// 사용자 api 
-const userAPI = require('./apiCode/user');
-userAPI(server, getConn);
+require('./routes/userRoute')(server);
 
 // 서버 시작
 server.listen(port, () => {
