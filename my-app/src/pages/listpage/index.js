@@ -40,6 +40,8 @@ const ListPage = () => {
         return "rgb(228,241,101)"; 
       case "GyeBaeksoon":
         return "rgb(187,181,169)"; 
+      case "new":
+        return "black";         
       default:
         return "rgb(171,230,157)"; // 기본 테마 컬러
     }
