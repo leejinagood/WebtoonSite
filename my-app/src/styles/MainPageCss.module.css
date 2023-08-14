@@ -640,6 +640,7 @@
 
 .AllToonInfo {
     height: auto ;
+
     margin-right:1% ;
     margin-left: 0px ;
     width: calc(16.66% - 20px); 
@@ -652,12 +653,7 @@
     height: 305px;
     transition: transform 0.2s ease; /* 애니메이션 효과를 위한 transition 추가 */
 }
-  .ATIMG{
-    width: 80%;
-    display: none;
-    height: 100%;
-    object-fit: cover;
-}
+
 
 
 
@@ -786,8 +782,7 @@
     margin-left: 3%;
     margin-top: 50px;
 }
-.RankText .RankAT{
-}
+
 .RankText .RankWN{
     margin-top: 36px;
 }
@@ -864,7 +859,7 @@
 .imgBox{
     overflow: hidden;
     float: left;
-    height: auto;
+    height: 305px;
     margin-bottom: 10px;
     position: relative;
 
@@ -910,6 +905,7 @@
     margin-top: 83px;
     float: left;
   }
+  
 
 
 
