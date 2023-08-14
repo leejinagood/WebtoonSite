@@ -2,6 +2,7 @@ const redisClient = require('../redis');
 const { getConn } = require('../database');
 
 const WebtoonAddService = {
+    // 웹툰 추가
     async addWebtoon(content, author, WebtoonName, WebtoonEnName, week, thumbnail, categories) {
         const conn = await getConn();
 
@@ -31,6 +32,7 @@ const WebtoonAddService = {
         }
     },
 
+    //에피소드 추가
     async addEpisode(WebtoonEnName, count, thumbnail, ep) {
         const conn = await getConn();
 

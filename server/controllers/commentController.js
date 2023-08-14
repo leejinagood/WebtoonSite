@@ -2,6 +2,7 @@ const axios = require('axios');
 const CommentService = require('../service/commentService');
 
 const CommentController = {
+    // 댓글 보기
     async viewComment(req, res) {
         try {
             const { EnName, ep } = req.query;
@@ -14,6 +15,7 @@ const CommentController = {
         }
     },
 
+    // 댓글 삽입 
     async insertComment(req, res) {
         try {
             const userID = req.body.userID;

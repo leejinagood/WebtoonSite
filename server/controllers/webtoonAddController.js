@@ -1,6 +1,7 @@
 const WebtoonAddService = require('../service/webtoonAddService');
 
 const WebtoonAddController = {
+    // 웹툰 추가
     async addWebtoon(req, res) {
         try {
             const { content, author, WebtoonName, WebtoonEnName, week, thumbnail, categories } = req.body;
@@ -12,6 +13,7 @@ const WebtoonAddController = {
         }
     },
 
+    // 에피소드 추가
     async addEpisode(req, res) {
         try {
             const { WebtoonEnName, count, thumbnail, ep } = req.body;

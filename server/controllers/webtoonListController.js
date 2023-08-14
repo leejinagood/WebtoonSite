@@ -1,6 +1,7 @@
 const WebtoonListService = require('../service/webtoonListService');
 
 const WebtoonListController = {
+    // 웹툰 디테일
     async getWebtoonDetail(req, res) {
         try {
             const { ID } = req.query;
@@ -12,6 +13,7 @@ const WebtoonListController = {
         }
   },
 
+    // 웹툰 리스트
     async getWebtoonList(req, res) {
         try {
             const { ID } = req.query;
@@ -23,6 +25,7 @@ const WebtoonListController = {
         }
     },
 
+    //웹툰 페이지
     async getWebtoonPage(req, res) {
         try {
             const { ID, ep } = req.query;

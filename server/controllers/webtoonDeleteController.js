@@ -1,6 +1,7 @@
 const WebtoonDeleteService = require('../service/webtoonDeleteService');
 
 const WebtoonDeleteController = {
+    // 웹툰 삭제
     async deleteWebtoon(req, res) {
         try {
             const { EnName } = req.body;
@@ -12,6 +13,7 @@ const WebtoonDeleteController = {
         }
     },
 
+    // 에피소드 삭제 
     async deleteEpisode(req, res) {
         try {
             const { EnName, ep } = req.body;

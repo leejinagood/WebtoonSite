@@ -1,5 +1,4 @@
 const redisClient = require('../redis'); // redis.js 모듈을 가져옴
-const axios = require('axios'); 
 const { getConn } = require('../database');
 
 const LikeService = {

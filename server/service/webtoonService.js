@@ -2,6 +2,8 @@ const redisClient = require('../redis'); // redis.js 모듈
 const { getConn } = require('../database'); // database.js 모듈
 
 const WebtoonService = {
+
+    //웹툰 정보 출력
     async getWebtoons(pi_vch_condition) {
         const conn = await getConn();
 
@@ -48,6 +50,7 @@ const WebtoonService = {
         }
     },
 
+    // 웹툰 검색
     async searchWebtoon(word) {
         const conn = await getConn();
         const query = 'CALL usp_get_search(?);';
@@ -72,6 +75,7 @@ const WebtoonService = {
         }
     },
 
+    // 카테고리 검색 
     async searchByCategory(word) {
         const conn = await getConn();
         const query = 'CALL usp_get_search_cate(?);'; //검색한 웹툰의 정보를 출력

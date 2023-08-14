@@ -2,6 +2,7 @@ const redisClient = require('../redis');
 const { getConn } = require('../database');
 
 const WebtoonDeleteService = {
+    // 웹툰 삭제
     async deleteWebtoon(EnName) {
         const conn = await getConn();
 
@@ -28,6 +29,7 @@ const WebtoonDeleteService = {
         }
     },
 
+    // 에피소드 삭제
     async deleteEpisode(EnName, ep) {
         const conn = await getConn();
 

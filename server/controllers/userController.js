@@ -1,6 +1,7 @@
 const UserService = require('../service/userService');
 
 const UserController = {
+    // 회원가입
     async signUp(req, res) {
         try {
             const { email, pass, name, age } = req.body;
@@ -12,6 +13,7 @@ const UserController = {
         }
     },
 
+    // 로그인
     async login(req, res) {
         try {
             const { ID, password } = req.query;
@@ -28,6 +30,7 @@ const UserController = {
         }
     },
 
+    // 카카오 로그인
     async kakaoLogin(req, res) {
         try {
             const { code } = req.query;
@@ -49,6 +52,7 @@ const UserController = {
         }
     },
 
+    // 토큰 검증
     async verifyToken(req, res) {
         try {
             const cookies = req.headers.cookie;
@@ -60,6 +64,7 @@ const UserController = {
         }
     },
 
+    // 로그아웃
     async logout(req, res) {
         try {
             const result = await UserService.logout();

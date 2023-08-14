@@ -1,6 +1,7 @@
 const WebtoonService = require('../service/webtoonService');
 
 const WebtoonController = {
+    // 웹툰 정보
     async getWebtoons(req, res) {
         try {
             const { pi_vch_condition } = req.query;
@@ -12,6 +13,7 @@ const WebtoonController = {
         }
     },
 
+    // 검색
     async searchWebtoon(req, res) {
         try {
             const { word } = req.query;
@@ -23,6 +25,7 @@ const WebtoonController = {
         }
     },
 
+    // 카테고리 검색
     async searchByCategory(req, res) {
         try {
             const { word } = req.query;

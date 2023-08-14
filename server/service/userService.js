@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
 
+// 쿠키값 빼내는 함수
 function DelisousCookie(cookies) { //cookies라는 매개변수를
     if (typeof cookies === 'string') { //문자열인지 확인
         const resultCookie = cookies.split(';'); //; 으로 나눔
@@ -18,6 +19,7 @@ function DelisousCookie(cookies) { //cookies라는 매개변수를
 
 
 const UserService = {
+    // 회원가입
     async signUp(email, pass, name, age) {
         const conn = await getConn();
         try {
@@ -25,7 +27,7 @@ const UserService = {
             const hashedPassword = await bcrypt.hash(pass, saltRounds);
 
             const query = 'INSERT INTO UserTable (userEmail, userPassword, userName, userAge) VALUES (?, ?, ?, ?);';
-            const result = await conn.query(query, [email, hashedPassword, name, age]);
+            await conn.query(query, [email, hashedPassword, name, age]);
 
             return '입력 성공';
         } catch (error) {
@@ -35,6 +37,7 @@ const UserService = {
         }
     },
 
+    // 로그인
     async login(ID, password) {
         const conn = await getConn();
         try {
@@ -76,6 +79,7 @@ const UserService = {
     },
   
 
+    // 카카오 로그인
     async kakaoLogin(code, res) {
         const conn = await getConn();
         try {
@@ -141,27 +145,29 @@ const UserService = {
     },
     
 
-  async verifyToken(cookies) {
-    try {
-        const token = DelisousCookie(cookies);
-        if (token) {
-            jwt.verify(token, 'your-secret-key');
-            return '토큰 인증 성공';
-        } else {
-            return '쿠키에 토큰이 없음';
+    // 토큰 검증
+    async verifyToken(cookies) {
+        try {
+            const token = DelisousCookie(cookies);
+            if (token) {
+                jwt.verify(token, 'your-secret-key');
+                return '토큰 인증 성공';
+            } else {
+                return '쿠키에 토큰이 없음';
+            }
+        } catch (error) {
+            throw error;
         }
-    } catch (error) {
-        throw error;
-    }
-  },
+    },
 
-  async logout() {
-    try {
-        return '로그아웃 성공';
-    } catch (error) {
-        throw error;
+    // 로그아웃
+    async logout() {
+        try {
+            return '로그아웃 성공';
+        } catch (error) {
+            throw error;
+        }
     }
-  }
 };
 
 module.exports = UserService;

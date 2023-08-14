@@ -2,6 +2,7 @@ const axios = require('axios');
 const { getConn } = require('../database');
 
 const CommentService = {
+    // 댓글 보기
     async viewComment(EnName, ep) {
         const conn = await getConn();
 
@@ -18,6 +19,7 @@ const CommentService = {
         }
     },
 
+    // 댓글 삽입 
     async insertComment(Ep, WebEnName, userID, content) {
         const conn = await getConn();
 
