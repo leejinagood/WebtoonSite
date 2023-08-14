@@ -392,7 +392,8 @@ const findWebtoonTitleById = (id) => {
 
   const convertToEnglishPronunciation = (koreanText) => {
     const koreanToEnglish = {
-      "ㄱ":"g"
+      "ㄱ":"g",
+      "ㄴ":""
       // 다른 한국어 문자에 대한 변환 규칙 추가
     };
 
