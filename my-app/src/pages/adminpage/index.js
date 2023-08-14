@@ -386,6 +386,28 @@ const findWebtoonTitleById = (id) => {
   }
 
   };
+
+
+  const [enName, setEnName] = useState("");
+
+  const convertToEnglishPronunciation = (koreanText) => {
+    const koreanToEnglish = {
+      "ㄱ":"g"
+      // 다른 한국어 문자에 대한 변환 규칙 추가
+    };
+
+    const englishArray = Array.from(koreanText, char => koreanToEnglish[char] || char);
+    return englishArray.join("");
+  };
+
+  const handleWebtoonNameChange = (e) => {
+    const inputWebtoonName = e.target.value;
+    setWebtoonName(inputWebtoonName);
+    const englishPronunciation = convertToEnglishPronunciation(inputWebtoonName);
+    setEnName(englishPronunciation);
+  };
+
+
   return (
     <div className={style.adminpage}>
       <Header showAdminLink={isAdminPage} />
@@ -401,7 +423,10 @@ const findWebtoonTitleById = (id) => {
             type="text"
             placeholder="웹툰 제목"
             value={webtoonName}
-            onChange={(e) => setWebtoonName(e.target.value)}
+            onChange={(e) => {
+              setWebtoonName(e.target.value);
+              handleWebtoonNameChange(e); 
+            }}
           />
           <input
             type="text"
@@ -409,6 +434,8 @@ const findWebtoonTitleById = (id) => {
             value={webtoonEnName}
             onChange={(e) => setWebtoonEnName(e.target.value)}
           />
+                <p>추천 영어제목: {enName}</p>
+
           <input
             type="text"
             placeholder="작가명"
