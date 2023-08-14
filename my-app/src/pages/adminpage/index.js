@@ -8,9 +8,11 @@ import { useRouter } from 'next/router';
 const AdminPage = () => {
   const router = useRouter();
   const [webtoons, setWebtoons] = useState(""); // 웹툰 아이디를 저장할 상태 변수
+  const [DwebtoonEnName, setDwebtoonEnName] = useState(""); // 웹툰 아이디를 저장할 상태 변수
+  const [EwebtoonEnName, setEwebtoonEnName] = useState(""); // 웹툰 아이디를 저장할 상태 변수
 
-  const [webtoonId, setWebtoonId] = useState(""); // 웹툰 아이디를 저장할 상태 변수
-  const [episodeId, setEpisodeId] = useState(""); // 웹툰 아이디를 저장할 상태 변수
+  // const [webtoonId, setWebtoonId] = useState(""); // 웹툰 아이디를 저장할 상태 변수
+  // const [episodeId, setEpisodeId] = useState(""); // 웹툰 아이디를 저장할 상태 변수
   const [ep, setEp] = useState(""); // 웹툰 아이디를 저장할 상태 변수
 
   const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 파일을 저장
@@ -46,11 +48,11 @@ const AdminPage = () => {
   });
 },[])
 
-const findWebtoonTitleById = (id) => {
-  if (id === null) {
-    return "입력된 ID가 없습니다";
+const findWebtoonTitleById = (DwebtoonEnName) => {
+  if (DwebtoonEnName === null) {
+    return "입력된 영어제목이 없습니다";
   }
-  const webtoon = webtoonData.find((item) => item.webtoonID === id);
+  const webtoon = webtoonData.find((item) => item.webtoonEnName === DwebtoonEnName);
   return webtoon ? webtoon.webtoonName : "웹툰을 찾을 수 없음";
 };
 
@@ -290,15 +292,20 @@ const findWebtoonTitleById = (id) => {
 
   const handleWebtoonDelete = async () => {
     event.preventDefault(); // 이벤트의 기본 동작을 막음
-    const deletewebtoonID = Number(webtoonId);
-    console.log(webtoons , webtoonId, deletewebtoonID) ;
+
 
     const errors = []; // 발생한 예외 메시지들을 저장할 배열
-    if(!webtoonId){
-      errors.push("삭제하려는 웹툰 ID를 입력하세요");
+    if(!DwebtoonEnName){
+      errors.push("삭제하려는 웹툰 영어이름을 입력하세요");
     }
-    if(!webtoons.includes(deletewebtoonID)){
-      errors.push("존재하지 않는 웹툰 ID입니다");
+
+    const webtoonToDelete = webtoonData.find(
+      (webtoon) => webtoon.webtoonEnName === DwebtoonEnName
+    );
+
+
+    if(!webtoonToDelete){
+      errors.push("해당 웹툰은 존재하지 않습니다");
 
     }
     if(errors.length>0){
@@ -313,7 +320,7 @@ const findWebtoonTitleById = (id) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ID: webtoonId, // 웹툰 아이디 전달
+          EnName: DwebtoonEnName, // 웹툰 아이디 전달
         }),
       });
   
@@ -328,7 +335,6 @@ const findWebtoonTitleById = (id) => {
       }
     } catch (error) {
       console.log("API 호출 오류:", error);
-      window.alert("없는 웹툰 에피소드 입니다");
 
       // 오류 처리
     }
@@ -341,14 +347,19 @@ const findWebtoonTitleById = (id) => {
 
     const errors=[]
 
-    const deletewebtoonID = Number(episodeId);
-    console.log(webtoons , episodeId, deletewebtoonID) ;
 
-    if(!episodeId){
-      errors.push("episodeId를 입력하세요");
+    if(!EwebtoonEnName){
+      errors.push("에피소드를 삭제할 웹툰 영어이름을 입력하세요");
     }
-    if(!webtoons.includes(deletewebtoonID)){
-      errors.push("존재하지 않는 웹툰 ID입니다");
+
+    const webtoonToDelete = webtoonData.find(
+      (webtoon) => webtoon.webtoonEnName === EwebtoonEnName
+    );
+
+
+
+    if(!webtoonToDelete){
+      errors.push("해당 웹툰은 존재하지 않습니다");
     }
     if(!ep){
       errors.push("ep를 입력하세요");
@@ -366,13 +377,14 @@ const findWebtoonTitleById = (id) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ID: episodeId, // 웹툰 아이디 전달
+          EnName: EwebtoonEnName, // 웹툰 아이디 전달
           ep: ep, // 삭제할 에피소드 번호 전달
         }),
       });
 
       if (response.ok) {
         console.log("에피소드 삭제 성공");
+        window.alert("에피소드가 삭제되었습니다.");
         // 에피소드 삭제 성공 후 필요한 동작 수행
       } else {
         console.error("에피소드 삭제 실패");
@@ -388,25 +400,6 @@ const findWebtoonTitleById = (id) => {
   };
 
 
-  const [enName, setEnName] = useState("");
-
-  const convertToEnglishPronunciation = (koreanText) => {
-    const koreanToEnglish = {
-      "ㄱ":"g",
-      "ㄴ":""
-      // 다른 한국어 문자에 대한 변환 규칙 추가
-    };
-
-    const englishArray = Array.from(koreanText, char => koreanToEnglish[char] || char);
-    return englishArray.join("");
-  };
-
-  const handleWebtoonNameChange = (e) => {
-    const inputWebtoonName = e.target.value;
-    setWebtoonName(inputWebtoonName);
-    const englishPronunciation = convertToEnglishPronunciation(inputWebtoonName);
-    setEnName(englishPronunciation);
-  };
 
 
   return (
@@ -426,7 +419,6 @@ const findWebtoonTitleById = (id) => {
             value={webtoonName}
             onChange={(e) => {
               setWebtoonName(e.target.value);
-              handleWebtoonNameChange(e); 
             }}
           />
           <input
@@ -435,7 +427,6 @@ const findWebtoonTitleById = (id) => {
             value={webtoonEnName}
             onChange={(e) => setWebtoonEnName(e.target.value)}
           />
-                <p>추천 영어제목: {enName}</p>
 
           <input
             type="text"
@@ -551,24 +542,24 @@ const findWebtoonTitleById = (id) => {
 
           {/* 웹툰 전체  삭제 */}
           <input
-              type="number"
-              placeholder="삭제할 웹툰 아이디"
-              value={webtoonId}
-              onChange={(e) => setWebtoonId(e.target.value)}
+              type="text"
+              placeholder="삭제할 웹툰 영어이름"
+              value={DwebtoonEnName}
+              onChange={(e) => setDwebtoonEnName(e.target.value)}
             />
-        <p className={style.deleteWN}>웹툰 제목: {findWebtoonTitleById(webtoonId !== "" ? parseInt(webtoonId) : null)}</p>
+        <p className={style.deleteWN}>웹툰 제목: {findWebtoonTitleById(DwebtoonEnName !== "" ? DwebtoonEnName : null)}</p>
             <button id={style.uploadBtn} onClick={handleWebtoonDelete}>웹툰 전체 삭제</button>
 
             <h2 id={style.top}>웹툰 회차 삭제</h2>
 
           {/* 웹툰 회차  삭제 */}
           <input
-              type="number"
-              placeholder="에피소드를 삭제할 웹툰 아이디"
-              value={episodeId}
-              onChange={(e) => setEpisodeId(e.target.value)}
+              type="text"
+              placeholder="에피소드를 삭제할 웹툰 영어이름"
+              value={EwebtoonEnName}
+              onChange={(e) => setEwebtoonEnName(e.target.value)}
             />
-                    <p className={style.deleteEpID}>웹툰 제목: {findWebtoonTitleById(episodeId !== "" ? parseInt(episodeId) : null)}</p>
+        <p className={style.deleteP}>웹툰 제목: {findWebtoonTitleById(EwebtoonEnName !== "" ? EwebtoonEnName : null)}</p>
 
             <input
               type="number"
