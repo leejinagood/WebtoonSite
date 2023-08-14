@@ -73,7 +73,7 @@ const webtoonAPI = (server, getConn) => {
             const webtoon = result[0];
 
             res.send(webtoon);
-            //await redisClient.set(key, JSON.stringify(webtoon)); 
+            await redisClient.set(key, JSON.stringify(webtoon)); 
           }
         } catch (error) {
             console.error(error);
@@ -101,7 +101,7 @@ const webtoonAPI = (server, getConn) => {
             const webtoon = result[0];
 
             res.send(webtoon);
-            //await redisClient.set(key, JSON.stringify(webtoon)); 
+            await redisClient.set(key, JSON.stringify(webtoon)); 
           }
         } catch (error) {
             console.error(error);
