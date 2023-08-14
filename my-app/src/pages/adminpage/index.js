@@ -25,6 +25,7 @@ const AdminPage = () => {
   const [count, setCount] = useState(""); // 초기값을 0으로 설정
   const [thumbnailPath, setThumbnailPath] = useState(""); // 초기값은 빈 문자열
   const [episode, setEpisode] = useState(""); // 에피소드 입력 상태
+  const [webtoonData, setWebtoonData] = useState([]); // Add this state variable
 
 
   const [admin,setAdmin] = useState("");
@@ -34,13 +35,26 @@ const AdminPage = () => {
   fetch("/api/daytoon?day=All")
   .then((response) => response.json())
   .then((data) => {
+    setWebtoonData(data); // Store the fetched data in the state
+
     const webtoonIDs = data.map((webtoon) => webtoon.webtoonID);
     setWebtoons(webtoonIDs);
+
   })
   .catch((error) => {
     console.error("Error fetching API:", error);
   });
 },[])
+
+const findWebtoonTitleById = (id) => {
+  if (id === null) {
+    return "입력된 ID가 없습니다";
+  }
+  const webtoon = webtoonData.find((item) => item.webtoonID === id);
+  return webtoon ? webtoon.webtoonName : "웹툰을 찾을 수 없음";
+};
+
+
 
 
 
@@ -514,6 +528,7 @@ const AdminPage = () => {
               value={webtoonId}
               onChange={(e) => setWebtoonId(e.target.value)}
             />
+        <p className={style.deleteWN}>웹툰 제목: {findWebtoonTitleById(webtoonId !== "" ? parseInt(webtoonId) : null)}</p>
             <button id={style.uploadBtn} onClick={handleWebtoonDelete}>웹툰 전체 삭제</button>
 
             <h2 id={style.top}>웹툰 회차 삭제</h2>
@@ -525,6 +540,8 @@ const AdminPage = () => {
               value={episodeId}
               onChange={(e) => setEpisodeId(e.target.value)}
             />
+                    <p className={style.deleteEpID}>웹툰 제목: {findWebtoonTitleById(episodeId !== "" ? parseInt(episodeId) : null)}</p>
+
             <input
               type="number"
               placeholder="삭제할 에피소드"
