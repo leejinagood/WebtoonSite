@@ -1,10 +1,10 @@
-const WebtoonDeleteModel = require('../models/webtoonDeleteModel');
+const WebtoonDeleteService = require('../service/webtoonDeleteService');
 
 const WebtoonDeleteController = {
     async deleteWebtoon(req, res) {
         try {
             const { EnName } = req.body;
-            await WebtoonDeleteModel.deleteWebtoon(EnName);
+            await WebtoonDeleteService.deleteWebtoon(EnName);
             res.send("삭제 성공");
         } catch (error) {
             console.error(error);
@@ -15,7 +15,7 @@ const WebtoonDeleteController = {
     async deleteEpisode(req, res) {
         try {
             const { EnName, ep } = req.body;
-            await WebtoonDeleteModel.deleteEpisode( EnName, ep);
+            await WebtoonDeleteService.deleteEpisode( EnName, ep);
             res.send(ep+"화 삭제 성공");
         } catch (error) {
             console.error(error);

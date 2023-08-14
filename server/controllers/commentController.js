@@ -1,11 +1,11 @@
 const axios = require('axios');
-const CommentModel = require('../models/commentModel');
+const CommentService = require('../service/commentService');
 
 const CommentController = {
     async viewComment(req, res) {
         try {
             const { EnName, ep } = req.query;
-            const comments = await CommentModel.viewComment(EnName, ep);
+            const comments = await CommentService.viewComment(EnName, ep);
 
             res.send(comments);
         } catch (error) {
@@ -26,7 +26,7 @@ const CommentController = {
             });
 
         if (tokenResponse.data === '토큰 인증 성공') {
-            const resultMessage = await CommentModel.insertComment(Ep, WebEnName, userID, content);
+            const resultMessage = await CommentService.insertComment(Ep, WebEnName, userID, content);
 
             res.send(resultMessage);
         } else {

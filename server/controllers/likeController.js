@@ -1,4 +1,4 @@
-const LikeModel = require('../models/likeModel');
+const LikeService = require('../service/likeService');
 const axios = require('axios');
 
 
@@ -7,7 +7,7 @@ const LikeController = {
         try {
             const { id } = req.query;
     
-            const like = await LikeModel.viewLike(id);
+            const like = await LikeService.viewLike(id);
     
             res.send(like);
         } catch (error) {
@@ -29,7 +29,7 @@ const LikeController = {
         });
 
         if (tokenResponse.data === '토큰 인증 성공') {
-            await LikeModel.insertLike(userID, EnName);
+            await LikeService.insertLike(userID, EnName);
 
             res.send("좋아요 수정");
         } else {

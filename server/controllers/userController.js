@@ -1,10 +1,10 @@
-const UserModel = require('../models/userModel');
+const UserService = require('../service/userService');
 
 const UserController = {
     async signUp(req, res) {
         try {
             const { email, pass, name, age } = req.body;
-            const result = await UserModel.signUp(email, pass, name, age);
+            const result = await UserService.signUp(email, pass, name, age);
             res.send(result);
         } catch (error) {
             console.error(error);
@@ -15,7 +15,7 @@ const UserController = {
     async login(req, res) {
         try {
             const { ID, password } = req.query;
-            const token = await UserModel.login(ID, password, res);
+            const token = await UserService.login(ID, password, res);
 
             res.setHeader('Set-Cookie', [
                 `token=${token}; Path=/; SameSite=Lax;`, // 쿠키 설정
@@ -31,7 +31,7 @@ const UserController = {
     async kakaoLogin(req, res) {
         try {
             const { code } = req.query;
-            const token = await UserModel.kakaoLogin(code, res);
+            const token = await UserService.kakaoLogin(code, res);
 
             res.setHeader('Set-Cookie', [
                 `token=${token}; Path=/; SameSite=Lax;`, // 쿠키 설정
@@ -52,7 +52,7 @@ const UserController = {
     async verifyToken(req, res) {
         try {
             const cookies = req.headers.cookie;
-            const result = await UserModel.verifyToken(cookies);
+            const result = await UserService.verifyToken(cookies);
             res.send(result);
         } catch (error) {
             console.error(error);
@@ -62,7 +62,7 @@ const UserController = {
 
     async logout(req, res) {
         try {
-            const result = await UserModel.logout();
+            const result = await UserService.logout();
             res.setHeader('Set-Cookie', [`token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`]);
             res.send(result);
         } catch (error) {

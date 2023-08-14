@@ -17,7 +17,7 @@ function DelisousCookie(cookies) { //cookies라는 매개변수를
 }
 
 
-const UserModel = {
+const UserService = {
     async signUp(email, pass, name, age) {
         const conn = await getConn();
         try {
@@ -164,4 +164,4 @@ const UserModel = {
   }
 };
 
-module.exports = UserModel;
+module.exports = UserService;

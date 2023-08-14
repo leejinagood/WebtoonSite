@@ -1,7 +1,7 @@
 const redisClient = require('../redis');
 const { getConn } = require('../database');
 
-const WebtoonDeleteModel = {
+const WebtoonDeleteService = {
     async deleteWebtoon(EnName) {
         const conn = await getConn();
 
@@ -54,4 +54,4 @@ const WebtoonDeleteModel = {
     }
 };
 
-module.exports = WebtoonDeleteModel;
+module.exports = WebtoonDeleteService;

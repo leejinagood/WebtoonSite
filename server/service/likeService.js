@@ -2,7 +2,7 @@ const redisClient = require('../redis'); // redis.js 모듈을 가져옴
 const axios = require('axios'); 
 const { getConn } = require('../database');
 
-const LikeModel = {
+const LikeService = {
     async viewLike(id) {
         const conn = await getConn();
     
@@ -54,4 +54,4 @@ const LikeModel = {
     }
 };
 
-module.exports = LikeModel;
+module.exports = LikeService;

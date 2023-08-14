@@ -1,7 +1,7 @@
 const redisClient = require('../redis'); // redis.js 모듈을 가져옴
 const { getConn } = require('../database'); // database.js 모듈을 가져옴
 
-const WebtoonListModel = {
+const WebtoonListService = {
     async getWebtoonDetail(ID) {
         const conn = await getConn(); // 데이터베이스 연결을 얻어옴
         const webtoonQuery = 'CALL usp_get_webtoonDetail_ID(?);'; // 파라미터 값에 해당하는 웹툰 정보를 출력하는 SP
@@ -70,4 +70,4 @@ const WebtoonListModel = {
     }
 };
 
-module.exports = WebtoonListModel;
+module.exports = WebtoonListService;

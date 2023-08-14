@@ -1,10 +1,10 @@
-const WebtoonListModel = require('../models/webtoonListModel');
+const WebtoonListService = require('../service/webtoonListService');
 
 const WebtoonListController = {
     async getWebtoonDetail(req, res) {
         try {
             const { ID } = req.query;
-            const webtoonDetail = await WebtoonListModel.getWebtoonDetail(ID);
+            const webtoonDetail = await WebtoonListService.getWebtoonDetail(ID);
             res.send(webtoonDetail);
         } catch (error) {
             console.error(error);
@@ -15,7 +15,7 @@ const WebtoonListController = {
     async getWebtoonList(req, res) {
         try {
             const { ID } = req.query;
-            const webtoonList = await WebtoonListModel.getWebtoonList(ID);
+            const webtoonList = await WebtoonListService.getWebtoonList(ID);
             res.send(webtoonList);
         } catch (error) {
             console.error(error);
@@ -26,7 +26,7 @@ const WebtoonListController = {
     async getWebtoonPage(req, res) {
         try {
             const { ID, ep } = req.query;
-            const webtoonPage = await WebtoonListModel.getWebtoonPage(ID, ep);
+            const webtoonPage = await WebtoonListService.getWebtoonPage(ID, ep);
             res.send(webtoonPage);
         } catch (error) {
             console.error(error);

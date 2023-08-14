@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { getConn } = require('../database');
 
-const CommentModel = {
+const CommentService = {
     async viewComment(EnName, ep) {
         const conn = await getConn();
 
@@ -36,4 +36,4 @@ const CommentModel = {
     }
 };
 
-module.exports = CommentModel;
+module.exports = CommentService;

@@ -1,7 +1,7 @@
 const redisClient = require('../redis');
 const { getConn } = require('../database');
 
-const WebtoonAddModel = {
+const WebtoonAddService = {
     async addWebtoon(content, author, WebtoonName, WebtoonEnName, week, thumbnail, categories) {
         const conn = await getConn();
 
@@ -58,4 +58,4 @@ const WebtoonAddModel = {
     }
 };
 
-module.exports = WebtoonAddModel;
+module.exports = WebtoonAddService;

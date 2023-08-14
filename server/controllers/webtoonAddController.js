@@ -1,10 +1,10 @@
-const WebtoonAddModel = require('../models/webtoonAddModel');
+const WebtoonAddService = require('../service/webtoonAddService');
 
 const WebtoonAddController = {
     async addWebtoon(req, res) {
         try {
             const { content, author, WebtoonName, WebtoonEnName, week, thumbnail, categories } = req.body;
-            const result = await WebtoonAddModel.addWebtoon(content, author, WebtoonName, WebtoonEnName, week, thumbnail, categories);
+            const result = await WebtoonAddService.addWebtoon(content, author, WebtoonName, WebtoonEnName, week, thumbnail, categories);
             res.send(result);
         } catch (error) {
             console.error(error);
@@ -15,7 +15,7 @@ const WebtoonAddController = {
     async addEpisode(req, res) {
         try {
             const { WebtoonEnName, count, thumbnail, ep } = req.body;
-            const result = await WebtoonAddModel.addEpisode(WebtoonEnName, count, thumbnail, ep);
+            const result = await WebtoonAddService.addEpisode(WebtoonEnName, count, thumbnail, ep);
             res.send(result);
         } catch (error) {
             console.error(error);

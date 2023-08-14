@@ -1,7 +1,7 @@
 const redisClient = require('../redis'); // redis.js 모듈
 const { getConn } = require('../database'); // database.js 모듈
 
-const WebtoonModel = {
+const WebtoonService = {
     async getWebtoons(pi_vch_condition) {
         const conn = await getConn();
 
@@ -96,4 +96,4 @@ const WebtoonModel = {
     },
 }
 
-module.exports = WebtoonModel;
+module.exports = WebtoonService;
