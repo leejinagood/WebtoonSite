@@ -23,7 +23,9 @@
     "restify": "^11.1.0",
     "restify-cookies": "^0.2.6",
     "restify-cors-middleware": "^1.1.1",
-    "restify-session": "^1.1.1"
+    "restify-router": "^0.6.2",
+    "restify-session": "^1.1.1",
+    "route": "^0.2.5"
   },
   "description": ""
 }
