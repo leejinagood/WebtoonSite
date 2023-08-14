@@ -1,9 +1,13 @@
 .tag{
+    background-color: white  ;
+
     float: left;
     max-width: 1920px;
     width: 100%;
 }
 .tag .tagItem li{
+    background-color: white  ;
+
     width: 20%;
     float: left;
     height: 20px;
@@ -23,8 +27,10 @@
 
 
 .tag h3{
+    background-color: white  ;
+
     font-size: 16px;
-    width: 100%;
+    width: 80%;
     height: 2vw;
     margin-bottom: 15px;
 }
@@ -82,6 +88,7 @@
 }
 .tag{
     width: 100%;
+    padding-bottom: 40px;
 }
 #tagtop{
     margin-top: 0px;

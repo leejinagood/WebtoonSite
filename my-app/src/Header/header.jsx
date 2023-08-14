@@ -198,9 +198,11 @@ const Header = ({ showAdminLink }) => {
     </Link>
     ))}
   </div>
-</div>
 
-      <Link href="/adminpage"><div className="addButtonContainer"></div> {/* 버튼을 추가할 컨테이너 */}</Link>
+</div>
+<div className={style.c}>
+<Link href="/adminpage"><div className="addButtonContainer"></div> {/* 버튼을 추가할 컨테이너 */}</Link>
+</div>
 
     </div>
   );

@@ -51,10 +51,14 @@ const AdminPage = () => {
 
 const findWebtoonTitleById = (DwebtoonEnName) => {
   if (DwebtoonEnName === null) {
-    return "입력된 영어제목이 없습니다";
+    return <span style={{ color: 'gray' }}>입력된 영어제목이 없습니다</span>;
   }
   const webtoon = webtoonData.find((item) => item.webtoonEnName === DwebtoonEnName);
-  return webtoon ? webtoon.webtoonName : "웹툰을 찾을 수 없음";
+  if (webtoon) {
+    return <span style={{ color: 'rgb(131,220,117)' }}>{webtoon.webtoonName}</span>;
+  } else {
+    return <span style={{ color: 'red' }}>웹툰을 찾을 수 없음</span>;
+  }
 };
 
 
@@ -144,7 +148,7 @@ const findWebtoonTitleById = (DwebtoonEnName) => {
   
     if (!webtoonName) {
       errors.push("웹툰이름을 작성해주세요");
-    } else if (webtoonName.length > 6) {
+    } else if (webtoonName.length > 12) {
       errors.push("웹툰 이름은 최대 6글자까지 가능합니다");
     }
     if (!webtoonEnName) {
@@ -520,7 +524,7 @@ const findWebtoonTitleById = (DwebtoonEnName) => {
                 />
                       {handleImageChange && ( // 경로가 입력된 경우에만 이미지 표시
                       <div className={style.show}>
-                        <img src={selectedImage} alt="Thumbnail" />
+                        <img src={selectedImage} alt="미리보기" />
                         <div className={style.hoverP}>
                           <p className={style.lp}>{webtoonName}</p>
                           <p className={style.rp}>{author}</p>
@@ -580,9 +584,7 @@ const findWebtoonTitleById = (DwebtoonEnName) => {
       
     
       {thumbnailPath && ( // 경로가 입력된 경우에만 이미지 표시
-      <div className={style.show}>      
         <img src={thumbnailPath} alt="Thumbnail" style={{ maxWidth: "200px", maxHeight: "100px" }} />
-      </div>  
       )}
         <button id={style.uploadBtn}onClick={handleEpisodeAdd}>회차등록</button>
 

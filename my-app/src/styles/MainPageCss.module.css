@@ -52,11 +52,12 @@
 
 @media screen and (max-width:721px) and (min-width:362px) {
     /* 메인 */
+    
     .ATimg{
         height: 264px !important;
     }
     .Categories{
-        margin-left: 25px !important;
+        padding-left: 10px !important;
     }
     .rankContent{
         display: none;
@@ -117,25 +118,30 @@
         margin-left: 20px !important;
     }   
     .AllToonInfo {
-        margin-left: 3.5% !important;
+        margin-left: 3% !important;
         width: calc(28% - 0px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
-        margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
+        margin-bottom: 10px !important; /* 요소들 사이의 간격 설정 */
     }
 
     .AllToonInfo img{
         object-fit: contain !important;
         width: 100% !important;
+        height: 100% !important;
+        
     }
     .hoverP{
         width: 100% !important;
         font-size: 12px;
+        bottom: 2.5px !important;
     }
     .imgBox{
-        height: 95% !important;
+        height: 100% !important;
         width:100% !important;
+        background-color: white !important;
     }
 
     .AllTonnbox{
+        background-color: white;
         width: 100% !important;
     }
     .ToonTitle{
@@ -372,6 +378,7 @@
     .ATtext{
         display: block !important;
         width: auto !important;
+        background-color: white;
         margin-left: 16px;
     }
     .ATtext p{
@@ -388,10 +395,14 @@
         font-size: 100px !important;
         display: block !important;
     }
+    .ATBox{
+        height: 470px !important;
+    }
     .imgBox{
         height: 140px !important;
         margin-left: 5%;
         width:90% !important;
+
     }
     .dayimgBox{
         float: left !important;
@@ -399,39 +410,40 @@
         width: 100% !important;
     }
     .aTMT{
+        background-color: white;
         font-size: 6px !important;
         margin-top: 1px !important;
         width: 100% !important;
-        
         position: relative !important;right: 10px;
         
     }
     .ATimg{
-        height: 155px !important;
+        /* 솔빈 */
+        z-index: 10;
+        float: left !important;
+        height: auto !important;
     }
     .DtextBox p{
 
     }
     .AToonTitle{
+        margin-top: 153px;
         font-size: 10px !important;
-        margin-top: 0px !important;
     }
     /* 메인페이지  */
 
     .MainPage{
+        background-color: white !important;
+
         margin: 0 auto;
         width: 100% !important;
     } 
-    .AllToon{  
-        width: 100% !important;
-        margin: 0 auto;
-        
-    }
+
     #ll{
         width: 66% !important;
     }
     .AllToonInfo{
-        margin-bottom: 80px !important;
+        margin-bottom: 55px !important;
         
     }
 
@@ -553,31 +565,28 @@
     .MNewToon{
         width: 100% !important;
     }
-    .ATBox{
-        width: 100%;
-    }
-    .AllToon{
-        width: 80%;
-    }
-    .DayToonItem p{
-    }
+ 
+
     .AToonTitle{
-        margin-bottom: 0px !important;
-        width: 100% !important;
+
+        margin-bottom: 0px  !important;
+        width: 120px !important;
         position: relative;
         right: 10px;
     }
     .AllToonInfo {
-        margin-top: 4px;
-        margin-left: 1% !important;
-        margin-right: 1px !important;
+        margin-top: 4px !important;
+        margin-left: 0% !important;
+        margin-right: 10px !important;
         /* 솔 */
-        width: calc(33.3% - 5px) !important;
+        background-color: rgba(0, 0, 0, 0) !important;
+        width: calc(32.5% - 10px) !important;
         height: 95px !important;
         float: left !important;
     }
     .AllToonInfo img{
         width: 100% !important;
+
     }
     .Star{
         line-height: 3px !important;
@@ -585,7 +594,6 @@
     }
     .Categories{
         font-size: 16px !important;
-        margin-left: 16px !important;
     }
 
     .DayToonItem{
@@ -600,14 +608,19 @@
 }
 .Categories{
     font-size: 23px ;
-    width: 90%;
+    width: 100%;
     float: left;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    background-color: white  ;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
+
 
 .MainPage{
     width: 80%;
+    background-color: white !important;
+
     max-width: 1920px;
 }
 
@@ -621,9 +634,13 @@
 
 
 .AllToon .ToonTitle{
+    background-color: white  ;
+
     font-size: 11px !important;
+    
 }
 .AllToon .AllToonInfo img{
+
     object-fit: contain;
     text-align: center;
     width: 100%;
@@ -632,23 +649,32 @@
 }
 .AllTonnbox{
     width: 100% ;
+
     float: left ;
 }
 .AToonTitle{
     line-height: 5px ;
+    
+    background-color: white  ;
+
 }
 
 .AllToonInfo {
     height: auto ;
+    background-color: white;
 
-    margin-right:1% ;
-    margin-left: 0px ;
+    margin-right:1.3% ;
+    margin-left: 0 ;
+    position: relative;
+    left: 0.7%;
     width: calc(16.66% - 20px); 
-    margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
+    padding-bottom: 10px;
   }
 
 
   .ATimg{
+    background-color: white ;
+    
     width: 100% ;
     height: 305px;
     transition: transform 0.2s ease; /* 애니메이션 효과를 위한 transition 추가 */
@@ -659,6 +685,8 @@
 
 .ATBox {
     display: flex;
+    background-color: white  ;
+
     justify-content: flex-start;
     flex-wrap: wrap; /* 넘치는 요소를 여러 줄로 감싸기 */
      /* 요소들을 간격을 유지하면서 정렬 */
@@ -672,10 +700,12 @@
     width: 100%;
     float: left;
     margin: 0 auto;
+
 }
 /* 미디어쿼리 포인트 */
 
 .DayToon{
+
     display: flex;
     display: none;
     flex-wrap: wrap;
@@ -801,6 +831,8 @@
 .DayToonItem img{
     width: 100%;
     height: 100%;
+    background-color: white ;
+
     object-fit: contain;
 }
 .DayToonItem img:hover{
@@ -809,7 +841,6 @@
 
 }
 .dayimgBox{
-    background-color: gray ;
 
     overflow: hidden;
     position: relative;
@@ -829,7 +860,7 @@
 
 .AToonTitle{
     font-size: 19px;
-    margin-top: 5px;
+    
 }
 
 
@@ -860,8 +891,9 @@
     overflow: hidden;
     float: left;
     height: 305px;
-    margin-bottom: 10px;
     position: relative;
+    background-color: white ;
+
 
     width: 100%;
 }
@@ -884,14 +916,22 @@
     z-index: 1; /* .hoverP 요소를 이미지 위로 올리기 위해 z-index 사용 */
   }
   .leftWn{
+    background-color: rgba(0, 0, 0, 0.0) ;
+
     float: left;
     width: auto;
   }
   .rightAr{
     width: auto;
+    background-color: rgba(0, 0, 0, 0.0) ;
+
     margin-right: 10px;
     text-align: right;
     float: right;
+  }
+  .likee{
+    background-color: rgba(0, 0, 0, 0.0) ;
+
   }
 
   .ATtext

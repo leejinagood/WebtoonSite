@@ -3,6 +3,9 @@
         font-size: 23px !important;
         margin-left: 10px !important;
     }
+    .addBtn{
+        width: 20% !important;
+    }
     .InputBox{
         margin-left: 70px;
     }
@@ -72,6 +75,10 @@
   
 /* teset */
 @media screen and (max-width:361px) and (min-width:10px) {
+    .addBtn{
+        font-size: 15px !important;
+        width: 30% !important;
+    }
     .HederBox{
         width: 100% !important;
         margin-left:0%;
@@ -149,36 +156,48 @@
 }
 
 .header{
+    background-color: white ;
     display: block;
     width: 100%;
     height: 75px;
     /* border-bottom: 1px solid gray; */
 }
 .TopHeader{
+    background-color: white ;
+
     float: left;
     width: 100%;
     height: 100%;
 }
 .header .LogoBox{
     float: left;
+    background-color: white ;
+
     width: 50%;    
 }
 .header .Logo{
+    z-index: 9 !important;
     margin-top: 5px;
     font-size: 27px;
     float: left;
     width: 10%;
+    background-color: white ;
 }
 .LogoBox h1{
+
     float: left;
     line-height:70px;
 }
+
 .rb{
+    background-color: white ;
+
     width: 50%;
     float: left;
     height: 100%;
 }
 .AD{
+    
     width: 10% ;
     font-size: 17px;
     margin-left: 5px;
@@ -190,6 +209,7 @@
 
 }
 .SerchBar input{
+    background-color: white ;
 
     width: 50%;
     height: 20px;
@@ -197,11 +217,15 @@
     font-size: 1px;
 }
 .LoginBtn{
+    background-color: white ;
+
     width: 20%;
     float: right;
 }
 
 .SerchBtn{
+    background-color: white ;
+
     height: 25px;
     width:25%;
     float: left;
@@ -212,22 +236,25 @@
 }
 
 .HDayBox{
+
     /* background-color: ghostwhite; */
     background-color: rgb(171,230,157);
     /* margin-bottom: 20px; */
     width: 100%;
     /* border-bottom: 1px solid black; */
-    height: 30px;
+    height: 32px;
     float: left;
+
     display: block;
 }
 
 .Day{
-
+    background-color: rgb(171,230,157);
     margin: 0 auto;
 }
 .Day li{
-    
+
+    height: 30px;
     line-height: 32px;
     font-size: 18px;
     float: left;
@@ -243,17 +270,31 @@
 }
 
 .AllDay{
+
     position: relative;    
     z-index: 99;
 }
 
+@media (prefers-color-scheme: dark)  {
+    .Color{
+    background-color: white;
+    margin-left: 2.5px;
+    }
+    .SerchBar{
+        background-color: white;
+
+    }
+}
+
 .Color{
     color:rgb(171,230,157);
+    z-index: 0 !important;
 
 
 }
 
 .CurrentDay {
+
     cursor: pointer;
     position: relative;
   }
@@ -263,6 +304,7 @@
     bottom: 18px;
     right: 15px;
     height: 0;
+    background-color: white;
 
     animation: scaleani 2s ease infinite; 
   }
@@ -282,13 +324,22 @@
 
 #go{
     color:white !important;
+    
 }
 
 
   /* //어드민페이지 // */
   .addBtn{
-    width: 10%;
-    height: 30px;
     margin-top: 10px;
+    width: 10%;
+    height: 40px;
+    font-size: 20px;
   }
+  .addButtonContainer{
+    width: 100%;
+    height: 1000px;
+    background-color: white;
+  }
+
+
 
