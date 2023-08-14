@@ -32,26 +32,31 @@ const commentAPI = (server, getConn) => {
         const values = [Ep, WebEnName, userID, content ];
         const insertQuery = 'CALL usp_post_comment(?, ?, ?, ?)'; //댓글 입력
 
-        try {
-            const Response = await axios.get('http://localhost:4000/api/Token', { //토큰 인증 호출
-                headers: { //헤더에
-                    Cookie: req.headers.cookie, // 현재 쿠키를 그대로 전달
-                },
-            });
+        if(!Ep || !WebEnName || !content){
+            res.status(400).json({ message: '내용을 입력하세요' });
+            return;
+        }else{
+            try {
+                const Response = await axios.get('http://localhost:4000/api/Token', { //토큰 인증 호출
+                    headers: { //헤더에
+                        Cookie: req.headers.cookie, // 현재 쿠키를 그대로 전달
+                    },
+                });
 
-            if (Response.data === '토큰 인증 성공') { //인증 성공일 때 댓글 달 수 있음
-                await conn.query(insertQuery, values); //댓글 삽입
+                if (Response.data === '토큰 인증 성공') { //인증 성공일 때 댓글 달 수 있음
+                    await conn.query(insertQuery, values); //댓글 삽입
 
-                res.send('댓글이 성공적으로 작성되었습니다.');  //응답
+                    res.send('댓글이 성공적으로 작성되었습니다.');  //응답
 
-            } else {
-                res.json({ message: "로그인 하세요"});
+                } else {
+                    res.json({ message: "로그인 하세요"});
+                }
+            } catch (error) {
+                console.error(error);
+                res.status(500).json({ message: '서버오류' });
+            } finally {
+                conn.release();
             }
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: '서버오류' });
-        } finally {
-            conn.release();
         }
     });
 

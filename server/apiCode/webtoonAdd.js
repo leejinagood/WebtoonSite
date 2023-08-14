@@ -12,10 +12,10 @@ const webtoonAddApi = (server, getConn) => {
         const Detail = [WebtoonEnName, week, thumbnail, JSON.stringify(categories)];
 
         const webtoonQuery = 'CALL usp_post_webtoon(?, ?, ?, ?);';
-        //카테고리는 ["일상", "드라마"] 이런 형태로 넣기
+        //카테고리는 ["일상", "드라마"]
         const DetailQuery = 'call usp_post_WebtoonDetail(?, ?, ?, ?)';
 
-        if (!content || !author || !WebtoonName || !WebtoonEnName || !week ||!thumbnail) {
+        if (!content || !author || !WebtoonName || !WebtoonEnName || !week || !thumbnail) {
             res.status(400).json({ message: '내용을 입력하세요' });
             return;
         }else{

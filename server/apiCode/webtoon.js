@@ -15,7 +15,7 @@ const webtoonAPI = (server, getConn) => {
 
             if (value) {
                 // 만약 redis에 데이터가 있다면 그대로 반환 
-                res.send(JSON.parse(value)); // 문자열로 파싱
+                res.send(JSON.parse(value)); 
 
             } else{ // 만약 redis에 데이터가 없다면 db에서 조회
 
