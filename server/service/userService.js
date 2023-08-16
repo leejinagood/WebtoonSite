@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const axios = require('axios');
 
 // 쿠키값 빼내는 함수
-function DelisousCookie(cookies) { //cookies라는 매개변수를
+function CookieAuth(cookies) { //cookies라는 매개변수를
     if (typeof cookies === 'string') { //문자열인지 확인
         const resultCookie = cookies.split(';'); //; 으로 나눔
         const tokenCookie = resultCookie.find(cookie => cookie.trim().startsWith('token=')); //토큰부분만 빼내기
@@ -17,25 +17,27 @@ function DelisousCookie(cookies) { //cookies라는 매개변수를
     return null;
 }
 
-
 const UserService = {
+
     // 회원가입
     async signUp(email, pass, name, age) {
         const conn = await getConn();
         try {
             const saltRounds = 10;
+            // 암호화된 비밀번호로
             const hashedPassword = await bcrypt.hash(pass, saltRounds);
 
             const query = 'INSERT INTO UserTable (userEmail, userPassword, userName, userAge) VALUES (?, ?, ?, ?);';
             await conn.query(query, [email, hashedPassword, name, age]);
 
-            return '입력 성공';
+            return '회원가입 성공';
         } catch (error) {
             throw error;
         } finally { 
             conn.release();
         }
     },
+
 
     // 로그인
     async login(ID, password) {
@@ -77,7 +79,7 @@ const UserService = {
             conn.release();
         }
     },
-  
+
 
     // 카카오 로그인
     async kakaoLogin(code, res) {
@@ -96,6 +98,7 @@ const UserService = {
             { headers: header }
         );
     
+        // 엑세스 토큰
         const Token = response.data.access_token;
     
         const userResponse = await axios.get('https://kapi.kakao.com/v2/user/me', {
@@ -104,10 +107,11 @@ const UserService = {
             },
         });
     
-        let sub = userResponse.data.id;
-        const nickname = userResponse.data.kakao_account.profile.nickname;
-        const email = userResponse.data.kakao_account.email;
+        let sub = userResponse.data.id; // 회원 고유 키
+        const nickname = userResponse.data.kakao_account.profile.nickname; // 회원 닉네임
+        const email = userResponse.data.kakao_account.email; //회원 이메일
     
+        // 인코딩
         const enNickname = encodeURIComponent(nickname);
         const enEmail = encodeURIComponent(email);
     
@@ -116,13 +120,13 @@ const UserService = {
     
         let ID = null;
     
-        if (Result.length === 0) {
+        if (Result.length === 0) { //회원가입
             const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, socialNumber) VALUES (?, "", ?, ?);';
             const insertValue = [email, nickname, sub];
             await conn.query(insertQuery, insertValue);
             const [id] = await conn.query(selectQuery, [email]);
             ID = id[0].userID
-        } else if (Result.length > 0) {
+        } else if (Result.length > 0) { //회원이 이미 있을 때
             ID = Result[0].userID;
         }
 
@@ -150,7 +154,7 @@ const UserService = {
     // 토큰 검증
     async verifyToken(cookies) {
         try {
-            const token = DelisousCookie(cookies);
+            const token = CookieAuth(cookies);
             if (token) {
                 jwt.verify(token, 'your-secret-key');
                 return '토큰 인증 성공';
@@ -162,6 +166,7 @@ const UserService = {
         }
     },
 
+    
     // 로그아웃
     async logout() {
         try {
@@ -170,6 +175,7 @@ const UserService = {
             throw error;
         }
     }
+
 };
 
 module.exports = UserService;

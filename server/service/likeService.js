@@ -2,6 +2,7 @@ const redisClient = require('../redis'); // redis.js 모듈을 가져옴
 const { getConn } = require('../database');
 
 const LikeService = {
+
     // 좋아요 보기
     async viewLike(id) {
         const conn = await getConn();
@@ -10,9 +11,9 @@ const LikeService = {
             const key = `likes:${id}`;
             const value = await redisClient.get(key);
             if (value !== null) {
-                return value; // 반환 값으로 변경
+                return value; 
             } else {
-                return { message: "좋아요 오류"}; // 반환 값으로 변경
+                return { message: "좋아요 오류"}; 
             }
         } catch (error) {
             throw error;
@@ -20,6 +21,7 @@ const LikeService = {
             conn.release();
         }
     },
+
 
     // 좋아요 수정 및 삽입
     async insertLike(userID, EnName) {
@@ -38,21 +40,23 @@ const LikeService = {
             const [Result] = await conn.query(LikeQuery, values); // 좋아요 추가
         
             if (Result.affectedRows > 0) { // 1개 이상이면 좋아요 수정 성공
-                const likeKey = `likes:${resultArray[0].webtoonID}`; // Redis 고유 키 값
-                const newLikes = resultArray[0].likes;
+                const likeKey = `likes:${resultArray[0].webtoonID}`; 
         
-                //이미 눌러 true이면 1 빼고 false이면 1 증가
-                const redisOperation = newLikes ? 'DECRBY' : 'INCRBY';
+                // 이미 눌러 true이면 1 빼고 false이면 1 증가
+                const redisOperation = resultArray[0].likes ? 'DECRBY' : 'INCRBY';
                 await redisClient[redisOperation](likeKey, 1);
-        
+
+                return '좋아요 수정 성공';
+            }else{
+                return '좋아요 수정 실패';
             }
-            return '좋아요 수정';
         } catch (error) {
             throw error;
         } finally {
             conn.release();
         }
     }
+    
 };
 
 module.exports = LikeService;

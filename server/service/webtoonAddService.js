@@ -2,35 +2,31 @@ const redisClient = require('../redis');
 const { getConn } = require('../database');
 
 const WebtoonAddService = {
+
     // 웹툰 추가
     async addWebtoon(content, author, WebtoonName, WebtoonEnName, week, thumbnail, categories) {
         const conn = await getConn();
 
         try {
-            const webtoonQuery = 'CALL usp_post_webtoon(?, ?, ?, ?);';
-            const DetailQuery = 'CALL usp_post_WebtoonDetail(?, ?, ?, ?)';
+            const webtoonAddAuery = 'Call usp_post_webtoon_with_detail(?,?,?,?,?,?,?)'
 
-            if (!content || !author || !WebtoonName || !WebtoonEnName || !week || !thumbnail) {
-                throw new Error('내용을 입력하세요');
-            }
+            const webtoonValues = [content, author, WebtoonName, WebtoonEnName, week, thumbnail, JSON.stringify(categories)];
 
-            const webtoonValues = [content, author, WebtoonName, WebtoonEnName];
-            const detailValues = [WebtoonEnName, week, thumbnail, JSON.stringify(categories)];
-
-            await conn.query(webtoonQuery, webtoonValues);
-            await conn.query(DetailQuery, detailValues);
+            await conn.query(webtoonAddAuery, webtoonValues);
 
             // Redis 값 삭제
             await redisClient.del('webtoon : All');
             await redisClient.del(`webtoon : ${week}`);
 
-            return "입력 성공";
+            return "웹툰 추가 성공";
         } catch (error) {
             throw error;
         } finally {
             conn.release();
         }
+        
     },
+
 
     //에피소드 추가
     async addEpisode(WebtoonEnName, count, thumbnail, ep) {
@@ -38,12 +34,9 @@ const WebtoonAddService = {
 
         try {
             const img = `/WebtoonImg/${WebtoonEnName}/${ep}/${WebtoonEnName}_${ep}_`;
+
             const Webtoon = [WebtoonEnName, count, img, thumbnail, ep];
             const episodeQuery = 'CALL usp_post_episode(?, ?, ?, ?, ?);';
-
-            if (!count || !WebtoonEnName || !img || !thumbnail) {
-                throw new Error('내용을 입력하세요');
-            }
 
             const [WebtoonId] = await conn.query(episodeQuery, Webtoon);
 
@@ -51,13 +44,14 @@ const WebtoonAddService = {
             await redisClient.del(`webtoon_detail : ${WebtoonId[0][0].webtoonID}`);
             await redisClient.del(`webtoon_list : ${WebtoonId[0][0].webtoonID}`);
 
-            return "에피소드 추가";
+            return "에피소드 추가 성공";
         } catch (error) {
             throw error;
         } finally {
             conn.release();
         }
     }
+
 };
 
 module.exports = WebtoonAddService;

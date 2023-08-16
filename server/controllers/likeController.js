@@ -3,6 +3,7 @@ const axios = require('axios');
 
 
 const LikeController = {
+
     // 좋아요 보기
     async viewLike(req, res) {
         try {
@@ -15,7 +16,7 @@ const LikeController = {
           console.error(error);
           res.status(500).json({ message: '서버 오류' });
         }
-      },
+    },
     
 
     // 좋아요 수정
@@ -31,9 +32,10 @@ const LikeController = {
             });
 
             if (tokenResponse.data === '토큰 인증 성공') {
-                await LikeService.insertLike(userID, EnName);
+                const resultMessage = await LikeService.insertLike(userID, EnName);
 
-                res.send("좋아요 수정");
+                // 좋아요 수정 성공
+                res.send(resultMessage);
             } else {
                 res.json({ message: '로그인 하세요' });
             }
@@ -42,6 +44,7 @@ const LikeController = {
             res.status(500).json({ message: '서버 오류' });
         }
     }
+    
 };
 
 module.exports = LikeController;

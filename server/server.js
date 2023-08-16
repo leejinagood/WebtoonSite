@@ -1,5 +1,4 @@
 const restify = require('restify');
-const fs = require('fs');
 
 // 모듈 설치 및 설정
 const server = restify.createServer();

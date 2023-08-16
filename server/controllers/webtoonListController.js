@@ -1,6 +1,7 @@
 const WebtoonListService = require('../service/webtoonListService');
 
 const WebtoonListController = {
+
     // 웹툰 디테일
     async getWebtoonDetail(req, res) {
         try {
@@ -11,7 +12,8 @@ const WebtoonListController = {
             console.error(error);
             res.status(500).json({ message: '서버 오류' });
         }
-  },
+    },
+
 
     // 웹툰 리스트
     async getWebtoonList(req, res) {
@@ -25,6 +27,7 @@ const WebtoonListController = {
         }
     },
 
+
     //웹툰 페이지
     async getWebtoonPage(req, res) {
         try {
@@ -36,6 +39,7 @@ const WebtoonListController = {
             res.status(500).json({ message: '서버 오류' });
         }
     }
+    
 };
 
 module.exports = WebtoonListController;

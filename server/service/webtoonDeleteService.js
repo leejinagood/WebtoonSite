@@ -2,6 +2,7 @@ const redisClient = require('../redis');
 const { getConn } = require('../database');
 
 const WebtoonDeleteService = {
+
     // 웹툰 삭제
     async deleteWebtoon(EnName) {
         const conn = await getConn();
@@ -21,13 +22,14 @@ const WebtoonDeleteService = {
         await redisClient.del(`webtoon_list : ${result[0][0].deleted_webtoonID}`);
         await redisClient.del(`likes:${result[0][0].deleted_webtoonID}`);
 
-        return "웹툰 삭제";
+        return "웹툰 삭제 성공";
         } catch (error) {
             throw error;
         } finally {
             conn.release();
         }
     },
+
 
     // 에피소드 삭제
     async deleteEpisode(EnName, ep) {
@@ -47,13 +49,14 @@ const WebtoonDeleteService = {
         await redisClient.del(`webtoon_detail : ${result[0][0].p_webtoonID}`);
         await redisClient.del(`webtoon_list : ${result[0][0].p_webtoonID}`);
 
-        return "에피소드 삭제";
+        return "에피소드 삭제 성공";
         } catch (error) {
             throw error;
         } finally {
             conn.release();
         }
     }
+    
 };
 
 module.exports = WebtoonDeleteService;
