@@ -62,7 +62,6 @@
         height: 100% !important;
     }
     .ListImg{
-        background-color: red;
         width: 18% !important;
         float: left !important;
     }
@@ -145,6 +144,8 @@
         line-height: 10vw !important;
     }
     #line{
+        background-color: white;
+        
         line-height: 10px;
     }
     .ListInfoBox{
@@ -344,12 +345,18 @@
 
 .ListPage{
     max-width: 1920px;
+    background-color: white !important;
+    height: 100vh;
     width: 80%;
     font-family: 'Jua', sans-serif;
     list-style: none;
+    box-sizing: border-box;
+    
     margin: 0 auto;
 }
 .ListInfo{
+    background-color: white ;
+
     height: 100px;
     max-width: 1920px;
 
@@ -360,12 +367,15 @@
 }
 .ListImgBox{
     max-width: 1920px;
+    background-color: white ;
 
     float: left;
     width: 15%;
 }
 
 .ListInfoBox{
+    background-color: white ;
+
     max-width: 1920px;
     width: 100%;
     float: left;
@@ -373,8 +383,9 @@
 }
 .ListImgBox img{
     max-width: 1920px;
-
     float: left;
+    background-color: white ;
+
     width: 100%;
     height: 300px;
     margin-top: 1px;
@@ -389,20 +400,28 @@
 }
 .ConTent{
     max-width: 1920px;
+    background-color: white;
 
     float: left !important;
 }
 .ListInfot{
     max-width: 1920px;
     float: left;
+    background-color: white ;
+
     width: 84.3%;
     height: 263px;
     margin-left: 10px;
 }
 .tab2{
     font-size: 20px;
+    border: 0px solid #000 !important;
+    background-color: white ;
+
 }
 .GrayP{
+    background-color: white;
+
     color:gray;
     float: left;
     margin-bottom: 5px;
@@ -415,6 +434,8 @@
     color:black;
     margin-left: 5%;
     width: 20%;
+    background-color: white;
+
 }
 .TextBox{
     height: 100px;
@@ -426,9 +447,13 @@
     max-width: 1920px;
     height: 1000px;
     padding: 0;
+    background-color: white;
+
 }
 
 .InfoBtn{
+    
+    background-color: white;
     width: 100%;
     margin-top: 226px;
 }
@@ -471,6 +496,8 @@
 .Pagination{
     float: left;
     width: 100%;
+    background-color: white;
+
     text-align: center;
     margin-top: 35px;
 }
@@ -481,10 +508,18 @@
     margin-right: 8px;
     width: 10%;
 }
-.ListImg{
-    width: 100%;
+.Pagination span{
+    background-color: white;
 }
+.ListImg{
+    width: 195px;   
+    height: 100%;
+    float: left;
+}
+
 .ListItem{
+    background-color: white;
+
     max-width: 1920px;
     width: 100%;
     box-sizing: border-box; /* padding과 border가 요소 크기에 포함되도록 설정 */
@@ -500,13 +535,15 @@
     float: left;
 } */
 .ListItem .ListImg img{
-    width: 12%;
+    width: 100%;
     object-fit: contain;
+    height: 100%;
     max-width: 1920px;
     float: left;
 }
 .Episode{
     max-width: 1920px;
+    background-color: white;
 
     margin-top: 40px;
     width: 50%;
@@ -520,20 +557,26 @@
 
 .SU span{
     margin-left: 20px;
+
 }
 
 
-
+.short{
+    background-color: white;
+}
 
 .DESC{
     font-size: 15px;
     float: left;
     margin-top: 40px;
+    background-color: white;
     margin-bottom: 13px;
     width: 9%;
 }
 .DESC span{
     cursor: pointer;
+    background-color: white;
+
 }
 
 .dn{
@@ -544,4 +587,14 @@
 .List li{
     list-style: none;
 
+}
+
+#line{
+    background-color: white;
+    margin-bottom: 0;
+    float: left;
+    height: 55px;
+}
+.tab{
+    background-color: white;
 }

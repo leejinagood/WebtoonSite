@@ -556,6 +556,7 @@
   font-size: 10px !important;
   margin-top: 30px !important;
   width: 20% !important;
+  
   float: left !important;
   line-height: 0px !important; /* 순위를 수직 가운데로 정렬합니다 */
 }
@@ -716,12 +717,13 @@
     width: 100%;
     float: left;
     margin: 0 auto;
+    background-color: white;
 
 }
 /* 미디어쿼리 포인트 */
 
 .DayToon{
-
+    background-color: white;
     display: flex;
     display: none;
     flex-wrap: wrap;
@@ -738,6 +740,7 @@
     /* 전체 너비에서 Rank 영역의 너비와 여백을 뺀 값으로 설정 */
     display: block;
     float: left;
+    background-color: white;
 } 
 
 
@@ -754,7 +757,7 @@
     padding-right: 30px;
     height: auto ;
     margin-left: 0px;
-
+    background-color: white;
    }
 
  
@@ -769,10 +772,30 @@
     bottom: 21px;
     float: right;
     width:51%;
+    background-color: white;
+
   }
   .Rank:hover{
     background-color: rgb(171,230,157);
 
+  }
+  .Rank:hover  .RankNum h2 {
+    background-color: rgb(171,230,157);
+
+  }
+  .Rank:hover  .rankContent {
+    background-color: rgb(171,230,157);
+
+  }
+  .Rank:hover  .RankText {
+    background-color: rgb(171,230,157) !important;
+
+  }
+  .Rank:hover  .RankWN {
+    background-color: rgb(171,230,157) !important;
+  }
+  .Rank:hover  .RankAT {
+    background-color: rgb(171,230,157) !important;
   }
   .Rank {
     border: 2px solid rgb(171,230,157);
@@ -794,6 +817,8 @@
 .HHH{
     position: relative;
     bottom: 30px;
+    background-color: white;
+
     font-size: 23px;
     margin-bottom: 1px;
     width: 50%;
@@ -805,6 +830,8 @@
 .RankImg{
     width: 20%;
     float: left;
+    background-color: white;
+
 }
 .RankImg img{
     float: left;
@@ -813,15 +840,22 @@
     height:100%;
     border-radius: 10px;
 }
+.RankNum h2{
+    background-color: white;
+}
 .RankNum{
     width: 10%;
     float: left;
     font-size: 15px;
     margin-left: 2%;
+    background-color: white ;
+    
     line-height: 100px;
     margin-top: 50px;
 }
 .RankText{
+    background-color: white;
+
     float: left;
     font-size: 15px;
     width: 10%;
@@ -830,6 +864,8 @@
 }
 
 .RankText .RankWN{
+    background-color: white ;
+
     margin-top: 36px;
 }
 
@@ -837,6 +873,7 @@
     float: left;
     line-height: 2px;
     display: none;
+    
 }
 
 
@@ -857,6 +894,7 @@
 
 }
 .dayimgBox{
+    background-color: white ;
 
     overflow: hidden;
     position: relative;
@@ -871,10 +909,14 @@
 .Writer{
     line-height:18px;
     display: none;
+    background-color: white ;
+
 }
 
 
 .AToonTitle{
+    background-color: white ;
+
     font-size: 19px;
     
 }
@@ -897,6 +939,8 @@
 }
 .RankAT
 {
+    background-color: white ;
+
     color:gray;
 }
 
@@ -957,6 +1001,8 @@
 
   .rankContent{
     width: 53%;
+    background-color: white ;
+
     padding: 2px;
     margin-top: 83px;
     float: left;

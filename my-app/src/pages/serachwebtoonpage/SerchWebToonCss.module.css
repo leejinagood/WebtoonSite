@@ -89,6 +89,8 @@
 
 .SerchWebToon img{
     width: 200px;
+    background-color: white;
+
     height: 250px;
     float: left;
     object-fit: contain;
@@ -99,14 +101,20 @@
     float: left;
     font-size: 20px;
     width: 50%;
+    background-color: white;
+
 }
 .tab2{
+    background-color: white;
+
     font-size: 13px;
     color: gray;
     float: left;
     width: 70%;
 }
 .content{
+    background-color: white;
+
     width: 70%;
     background-color: red;
     height: auto;
@@ -116,10 +124,14 @@
 .SerchPage{
     height:900px;
     width: 100%;
+    background-color: white;
+
     float: left;
 
 }
 .SerchPage ul{
+    background-color: white;
+
     margin: 0;
     padding: 0;
     
@@ -127,6 +139,8 @@
 .SerchPage ul li{
     width: calc(50%);
     margin-top: 20px;
+    background-color: white;
+
     list-style: none;
     float: left;
     float: left;
@@ -138,18 +152,25 @@
     font-size: 30px;
     margin-top: 20px;
     margin-bottom: 20px;
+    background-color: white;
+
     text-align: center;
 
 }
 .serchResult p{
     width: 400px;
+    background-color: white;
+
     border-bottom: 1px solid rgb(171,230,157);;
 }
 .color{
+    background-color: white;
+
     color:rgb(171,230,157);
 }
 
 .highlight{
+
     color:rgb(171,230,157);
 }
 
@@ -178,4 +199,10 @@
 }
 .Rtab2{
     float: left;
+}
+.tab2 span{
+    background-color: white !important;
+}
+.EpisodeP span{
+    background-color: white;
 }
