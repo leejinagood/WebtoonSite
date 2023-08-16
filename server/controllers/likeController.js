@@ -31,8 +31,12 @@ const LikeController = {
             });
 
             if (tokenResponse.data === '토큰 인증 성공') {
-                const resultMessage = await LikeService.insertLike(userID, EnName);
-                res.send(resultMessage); // '좋아요 수정 성공'
+                if(!EnName || !userID){
+                    throw new Error('좋아요 에러');
+                }else{
+                    const resultMessage = await LikeService.insertLike(userID, EnName);
+                    res.send(resultMessage); // '좋아요 수정 성공'
+                }
             } else {
                 res.json({ message: '로그인 하세요' });
             }

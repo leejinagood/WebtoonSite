@@ -121,15 +121,16 @@ const UserService = {
         let ID = null;
     
         if (Result.length === 0) { //회원가입
-            const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, socialNumber) VALUES (?, "", ?, ?);';
+            const insertQuery = 'call usp_post_user(?, ?, ?);';
             const insertValue = [email, nickname, sub];
-            await conn.query(insertQuery, insertValue);
-            const [id] = await conn.query(selectQuery, [email]);
-            ID = id[0].userID
+
+            //회원가입하고 바로 userID를 반환
+            const [resultID] = await conn.query(insertQuery, insertValue);
+            ID = resultID[0][0].userID
         } else if (Result.length > 0) { //회원이 이미 있을 때
             ID = Result[0].userID;
         }
-
+        
         let = token = jwt.sign(
             {
                 UserEmail: enEmail,

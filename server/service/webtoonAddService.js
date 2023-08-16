@@ -11,11 +11,12 @@ const WebtoonAddService = {
             const webtoonAddAuery = 'Call usp_post_webtoon_with_detail(?,?,?,?,?,?,?)'
 
             // ["일상", "드라마"]
-            const webtoonValues = [content, author, WebtoonName, WebtoonEnName, week, thumbnail, JSON.stringify(categories)];
+            const webtoonValues = [content, author, WebtoonName, WebtoonEnName, week, thumbnail, categories];
 
             await conn.query(webtoonAddAuery, webtoonValues);
 
             // Redis 값 삭제
+            // 삭제가 되면서 자동으로 likes의 redis값이 생김
             await redisClient.del('webtoon : All');
             await redisClient.del(`webtoon : ${week}`);
 
@@ -25,7 +26,6 @@ const WebtoonAddService = {
         } finally {
             conn.release();
         }
-        
     },
 
 

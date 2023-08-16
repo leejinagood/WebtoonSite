@@ -123,7 +123,7 @@ const findWebtoonTitleById = (DwebtoonEnName) => {
       WebtoonEnName: webtoonEnName,
       week: selectedDay,
       thumbnail: selectedImage, // 이미지 파일로 변경
-      categories:selectedGenres,
+      categories:JSON.stringify(selectedGenres),
       genres: selectedGenres, // 선택한 장르 목록
 
     };

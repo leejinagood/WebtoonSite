@@ -5,6 +5,7 @@ const WebtoonController = {
     // 웹툰 정보
     async getWebtoons(req, res) {
         try {
+            // All 또는 요일
             const { pi_vch_condition } = req.query;
             const webtoon = await WebtoonService.getWebtoons(pi_vch_condition);
             res.send(webtoon); // 웹툰 내용

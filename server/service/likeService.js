@@ -32,15 +32,16 @@ const LikeService = {
             const LikeQuery = 'Call usp_put_get_likes(?, ?);';
 
             const [result] = await conn.query(LikeQuery, values); 
-            const [resultArray] = result;
 
-            const likeKey = `likes:${resultArray[0].webtoonID}`; 
+            const likeKey = `likes:${result[0][0].webtoonID}`; 
     
-            // 이미 눌러 true이면 1 빼고 null이거나 false이면 1 증가
-            const redisOperation = resultArray[0].likes ? 'DECRBY' : 'INCRBY';
+            // 이미 눌러 likes가 true이면 1 빼고 null이거나 false이면 1 증가
+            const redisOperation = result[0][0].likes ? 'DECRBY' : 'INCRBY';
             await redisClient[redisOperation](likeKey, 1);        
 
+            //await redisClient.del(`webtoon : ${result[0][0].webtoonWeek}`);
             return '좋아요 수정 성공';
+
         } catch (error) {
             throw error;
         } finally {

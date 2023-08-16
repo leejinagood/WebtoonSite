@@ -17,6 +17,7 @@ const WebtoonService = {
                 const [result] = await conn.query('CALL usp_get_Webtoons();');
                 const webtoon = result[0];
 
+                // 좋아요 redis에 저장
                 for (let i = 0; i < webtoon.length; i++) {
                     //console.log(webtoon[i]);
                     const item = webtoon[i];
@@ -50,6 +51,7 @@ const WebtoonService = {
         }
     },
 
+
     // 웹툰 검색
     async searchWebtoon(word) {
         const conn = await getConn();
@@ -75,6 +77,7 @@ const WebtoonService = {
         }
     },
 
+    
     // 카테고리 검색 
     async searchByCategory(word) {
         const conn = await getConn();
@@ -97,7 +100,8 @@ const WebtoonService = {
         } finally {
             conn.release();
         }
-    },
+    }
+    
 }
 
 module.exports = WebtoonService;

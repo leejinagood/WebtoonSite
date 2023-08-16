@@ -1,6 +1,7 @@
 const WebtoonDeleteService = require('../service/webtoonDeleteService');
 
 const WebtoonDeleteController = {
+
     // 웹툰 삭제
     async deleteWebtoon(req, res) {
         try {
@@ -19,6 +20,7 @@ const WebtoonDeleteController = {
         }
     },
 
+
     // 에피소드 삭제 
     async deleteEpisode(req, res) {
         try {
@@ -36,6 +38,7 @@ const WebtoonDeleteController = {
             res.status(500).json({ message: '서버 오류' });
         }
     }
+    
 };
 
 module.exports = WebtoonDeleteController;
