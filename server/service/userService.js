@@ -90,8 +90,8 @@ const UserService = {
             'https://kauth.kakao.com/oauth/token',
             {
             grant_type: 'authorization_code',
-            client_id: 'c3f27e51572a41e42f4204019b897192', // .env에서 값 읽어오기
-            client_secret: 'caNhtDvsdnv2Bu4HJEo74EKXVR6e1zA6', // .env에서 값 읽어오기
+            client_id: 'c3f27e51572a41e42f4204019b897192', 
+            client_secret: 'caNhtDvsdnv2Bu4HJEo74EKXVR6e1zA6', 
             redirect_uri: 'http://localhost:4000/api/Kakao',
             code,
             },

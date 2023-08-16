@@ -35,12 +35,12 @@ const WebtoonService = {
                     await redisClient.set(Webtoonkey, JSON.stringify(webtoon)); 
                     await redisClient.expire(Webtoonkey, 3600); //webtoon : All 키 1시간마다 삭제
 
-                    return webtoon; // 응답으로 모든 웹툰 정보를 보냄
+                    return webtoon; // 응답으로 모든 웹툰 정보
 
                 }else { // 요일별 웹툰
                     const result = webtoon.filter((item) => item.webtoonWeek === pi_vch_condition); //요일이 같은 것만 출력
                     await redisClient.set(Webtoonkey, JSON.stringify(result));  // 저장
-                    return result; // 응답으로 모든 웹툰 정보를 보냄
+                    return result; // 응답으로 모든 웹툰 정보
                 }
             }
         } catch (error) {
@@ -80,13 +80,13 @@ const WebtoonService = {
         const conn = await getConn();
         const query = 'CALL usp_get_search_cate(?);'; //검색한 웹툰의 정보를 출력
         try { 
-            const key = `webtoon_search_category : ${word}`; //redis의 고유 키값
+            const key = `webtoon_search_category : ${word}`; 
             let value = await redisClient.get(key); // redis에서 해당 key로 데이터 조회
 
             if (value) {
                 return JSON.parse(value);
             } else {
-                const [result] = await conn.query(query, [word]); //검색 결과를 row에 넣고 응답을 보냄
+                const [result] = await conn.query(query, [word]); 
                 const webtoon = result[0];
 
                 await redisClient.set(key, JSON.stringify(webtoon)); 
