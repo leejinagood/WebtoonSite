@@ -66,7 +66,7 @@
     }
 }
 
-@media screen and (max-width:721px) and (min-width:362px) {
+@media screen and (max-width:721px) and (min-width:461px) {
     /* 메인 */
     
     .ATimg{
@@ -290,44 +290,118 @@
         margin-left: 5.5px;
     }
 }
+
+
 /* phone */
-@media screen and (max-width:415px) and (min-width:362px) {
+@media screen and (max-width:460px) and (min-width:362px) {
+    #DhoverP{
+        width: 169px !important;
+        bottom: 0 !important;
+        left: 1px !important;
+    }
     /* 메인페이지  */
     /* .mp *{
         width: 100% !important;
     } */
+    .DayBox{
+        width: 100% !important;
+        overflow: hidden;
+
+    }
+    .dayimgBox{
+        margin-left: 10px !important;
+        width: 170px !important;
+        height: 220px !important;
+    }
+    .dayimgBox img{
+        object-fit: contain !important;
+        height: 220px !important;
+    }
+    
+    .MNewToon{
+        width: 100% !important;
+    }
+    .Rank{
+
+        width: 90% !important;
+        height: 90px !important;
+    }
+    .Rankitem{
+        position: relative;
+        bottom: 5px !important;
+        width: 100% !important;
+    }
+    .RankImg{
+        width: 30% !important;
+        height: auto !important;
+    }
+    .RankNum{
+        margin-top: 0 !important;
+        line-height: 80px !important;
+        width: 20% !important;
+    }
+    .RankNum h2{
+        height: 30px !important;
+    }
+    .RankWN{
+    }
+    .RankText{
+        line-height: 14px !important;
+        margin-top: 0 !important;
+        width: 40% !important;
+        position: relative;
+        bottom: 5px !important;
+    }
+    .rankContent{
+        display: none;
+    }
+    .Mid{
+        width: 100% !important;
+    }
+    .DayToonBox{
+    }
     .MainPage{
         width: 100% !important;
+        overflow: hidden;
         margin: 0 auto;
     } 
     .AllToon{  
         width: 100% !important;
-        margin: 0 auto;
-        
+        margin: 0 auto;   
     }
     .AllToon table{
         margin: 0 !important;
     }
-    .dayimgBox{
-        height: 150px !important;
-    }
+
 
 /* test */
     
     .AllToonInfo {
-        margin-top:6% !important;
-        width: calc(33.3% - 10px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
+        margin-top:0px !important;
+        width: calc(33% - 5px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
         margin-bottom: 5px !important; /* 요소들 사이의 간격 설정 */
         display: flex;
         flex-wrap: wrap; /* 요소들을 여러 줄로 감싸기 */
     }
+    .imgBox img{
+            width: 100% !important;
+        }
+    .imgBox{
+        height: auto !important;
+    }
+    .ATimg{
+        height: auto !important;
+
+        background-color: red !important;
+    }
 
 
+    .hoverP{
+        bottom: 5px !important;
+    }
 
     /* 데이페이지 */
-    .DayBox{
-        width: 360px !important;
-    }
+
 
     .HHH{
         font-size: 1px !important        ;
@@ -376,6 +450,15 @@
         width: 8.7vw !important ;
         /* margin-right: 1.5vw !important; */
         margin-left: 5.5px;
+    }
+    .leftWn{
+        width: auto !important;
+    }
+    .rightAr{
+        width: auto !important;
+    }
+    .likee{
+        display: none;
     }
 }
 
@@ -570,7 +653,7 @@
 
 }
 
-@media screen and (max-width:362px) and (min-width:30px){
+@media screen and (max-width:361px) and (min-width:30px){
     .dayimgBox{
         float: left;
         background-color: gray;

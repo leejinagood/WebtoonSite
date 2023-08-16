@@ -100,12 +100,12 @@ const WeekPage = () => {
                 return webtoon ? (
                   
                   <div className={style.DayToonItem} key={subIndex}>
-       <Head>
-       <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="rgb(171,230,157)"/>
-        <title>AVATOON</title>
+                    <Head>
+                    <link rel="manifest" href="/manifest.json" />
+                      <meta name="theme-color" content="rgb(171,230,157)"/>
+                      <title>AVATOON</title>
 
-      </Head>
+                    </Head>
                   <Link href={`/listpage?EnName=${encodeURIComponent(webtoon.webtoonEnName)}&id=${webtoon.webtoonID}`}>
                     {/* <Thumbnail day={webtoon} /> */}
                     <div className={style.dayimgBox}>

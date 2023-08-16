@@ -56,7 +56,32 @@
     }
 
 }
+@media screen and (max-width:460px) and (min-width:362px) {
+    .mrbox{
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+    .rc p{
+        margin-top: 0px !important;
+        padding-bottom: 20px !important;
+    }
+    .rankContent{
+        margin-bottom: 10px !important;
 
+    }
+    .RankImg{
+        width: 100% !important;
+        height: 180px !important;
+    }
+    .RankImg img{
+        width: 100% !important;
+        height: 176px !important;
+    }
+    .RBox{
+        margin-left: 15% !important;
+    }
+
+}
 @media screen and (max-width:361px) and (min-width:10px){
     .HHH{
         width: 97%;
@@ -112,6 +137,8 @@
     }
 
 }
+
+
 .mrbox{
     background-color: white;
     width: 100%;

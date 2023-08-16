@@ -56,6 +56,15 @@
     }
 
 }
+@media screen and (max-width:460px) and (min-width:362px) {
+    .tag{
+        width: 100% !important;
+    }
+    .tag .tagItem li{
+        width: 16% !important;
+        height: 10px !important;
+    }
+}
 
 @media screen and (max-width:362px) and (min-width:30px){
     .tag{
