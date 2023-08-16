@@ -1,4 +1,4 @@
-@media screen and (max-width:721px) and (min-width:362px) {
+@media screen and (max-width:721px) and (min-width:461px) {
   .ClickLayout{
     width: 100% !important;
   }
@@ -30,7 +30,17 @@
   }
 
 }
-
+@media screen and (max-width:460px) and (min-width:362px) {
+  .ClickLayout{
+    width: 100% !important;
+  }
+  .sticky{
+    width: 100% !important;
+  }
+  .Ritem{
+    width: auto !important;
+  }
+}
 @media screen and (max-width:361px) and (min-width:10px){
   .ClickLayout{
     width: 100% !important;

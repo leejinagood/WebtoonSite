@@ -71,19 +71,19 @@
 /* test */
 
   
-@media screen and (max-width:460px) and (min-width:362px) {
+@media screen and (max-width:460px) and (min-width:401px) {
     .header{
     }
     .SerchBar{
         margin-right: 35% !important;
     }
     .AD{
-        width: 15% !important;
+        width: 18% !important;
     }
 }
   
 /* teset */
-@media screen and (max-width:361px) and (min-width:10px) {
+@media screen and (max-width:400px) and (min-width:10px) {
     .addBtn{
         font-size: 15px !important;
         width: 30% !important;
