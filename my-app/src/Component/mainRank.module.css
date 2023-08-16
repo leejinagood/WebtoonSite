@@ -6,8 +6,12 @@
         width: 30% !important;
         margin-left: 0px !important;
     }
+    .RankImg{
+        width: 100%  !important;
+        height: 330px !important;
+    }
     .RankImg img{
-        height: 260px !important;
+        height: 325px !important;
     }
 
 }
@@ -33,7 +37,7 @@
         width: 100% !important;
     }
     .RankImg img{
-        height: 300px !important;
+        height: 325px !important;
     }
 
     .Rank{
@@ -84,6 +88,7 @@
     }
 
     .RankImg img{
+        height: 162px !important;
     }
     .Rank{
         width: 100% !important;
@@ -150,6 +155,7 @@
 .RankImg img{ 
     width: 100%;
     height: 260px;
+    object-fit: contain;
     box-shadow: 2px 2px 2px 2px;
 }
 .RankImg{
