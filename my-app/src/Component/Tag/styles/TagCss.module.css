@@ -37,6 +37,18 @@
     height: 2vw;
     margin-bottom: 15px;
 }
+@media screen and (max-width:1901px) and (min-width:1199px){
+    .tag{
+        width: 100% !important;
+    }
+    .tagItem{
+        width: 100% !important;
+    }
+    .tagItem li{
+        margin-left: 2% !important;
+        width: 19% !important;
+    }
+}
 
 @media screen and (max-width:721px) and (min-width:363px){
     .tag{

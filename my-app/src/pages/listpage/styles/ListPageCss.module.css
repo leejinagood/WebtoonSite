@@ -1,4 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@media screen and (max-width:1899px) and (min-width:1199px){
+    .ListPage{
+
+    }
+    .ListInfoBox{
+        width: 100% !important;
+    }
+    .ListImgBox{
+        width: 30.8% !important;
+    }
+    .ListInfot{
+        width: 65% !important;
+    }
+    .TextBox{
+    }
+    .SNSBTN{
+        width: 38.2% !important;
+    }
+    .ListInfo{
+    }
+    .DESC{
+        width: 100% !important;
+    }
+}
 @media screen and (max-width:721px) and (min-width:461px){
     .ListPage{
         width: 100% !important;
