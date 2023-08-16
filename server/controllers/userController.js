@@ -51,7 +51,7 @@ const UserController = {
             const { code } = req.query;
 
             // 유효성 검사
-            if(!code || !password){
+            if(!code){
                 throw new Error('카카오 로그인 에러');
             }else{
                 const token = await UserService.kakaoLogin(code, res);
