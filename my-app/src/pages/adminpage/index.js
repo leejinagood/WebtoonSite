@@ -4,6 +4,7 @@ import style from "./style/adminpageCss.module.css";
 import jwt_decode from 'jwt-decode'; // JWT 토큰을 디코딩하기 위한 라이브러리
 import { parseCookies ,destroyCookie} from 'nookies'; // nookies 라이브러리 import
 import { useRouter } from 'next/router';
+import axios from 'axios'; // 이미 import 문이 사용되었을 것으로 가정
 
 const AdminPage = () => {
   const router = useRouter();
@@ -50,10 +51,14 @@ const AdminPage = () => {
 
 const findWebtoonTitleById = (DwebtoonEnName) => {
   if (DwebtoonEnName === null) {
-    return "입력된 영어제목이 없습니다";
+    return <span style={{ color: 'gray' }}>입력된 영어제목이 없습니다</span>;
   }
   const webtoon = webtoonData.find((item) => item.webtoonEnName === DwebtoonEnName);
-  return webtoon ? webtoon.webtoonName : "웹툰을 찾을 수 없음";
+  if (webtoon) {
+    return <span style={{ color: 'rgb(131,220,117)' }}>{webtoon.webtoonName}</span>;
+  } else {
+    return <span style={{ color: 'red' }}>웹툰을 찾을 수 없음</span>;
+  }
 };
 
 
@@ -143,7 +148,7 @@ const findWebtoonTitleById = (DwebtoonEnName) => {
   
     if (!webtoonName) {
       errors.push("웹툰이름을 작성해주세요");
-    } else if (webtoonName.length > 6) {
+    } else if (webtoonName.length > 12) {
       errors.push("웹툰 이름은 최대 6글자까지 가능합니다");
     }
     if (!webtoonEnName) {
@@ -399,7 +404,41 @@ const findWebtoonTitleById = (DwebtoonEnName) => {
 
   };
 
+  const [translatedWebtoonName, setTranslatedWebtoonName] = useState(""); // 번역된 웹툰 제목을 저장할 상태 변수
 
+  // ... (다른 상태 변수와 useEffect)
+ // 번역 함수 수정
+// const translateText = async (webtoonName) => {
+//   const apiUrl = '/api/translate'; // 백엔드로 요청을 보내도록 수정
+//   try {
+//     const response = await axios.post(
+//       apiUrl,
+//       {
+//         text: webtoonName,
+//       },
+//       {
+//         withCredentials: true, // CORS 관련 설정
+//       }
+//     );
+
+//     const translatedText = response.data.message.result.translatedText;
+
+//     return translatedText;
+//   } catch (error) {
+//     console.error('번역 오류:', error);
+//     return ''; // 오류가 발생하면 빈 문자열을 반환
+//   }
+// };
+
+// // 웹툰 이름 변경 핸들러 수정
+// const handleWebtoonNameChange = async (event) => {
+//   const newWebtoonName = event.target.value;
+//   setWebtoonName(newWebtoonName);
+
+//   // 입력한 제목을 번역하고 번역된 상태를 업데이트합니다
+//   const translatedTitle = await translateText(newWebtoonName);
+//   setTranslatedWebtoonName(translatedTitle);
+// };
 
 
   return (
@@ -419,8 +458,11 @@ const findWebtoonTitleById = (DwebtoonEnName) => {
             value={webtoonName}
             onChange={(e) => {
               setWebtoonName(e.target.value);
+              
             }}
           />
+                  {/* <p>번역된 웹툰 제목: {translatedWebtoonName}</p> */}
+
           <input
             type="text"
             placeholder="웹툰 영문 제목"
@@ -473,7 +515,7 @@ const findWebtoonTitleById = (DwebtoonEnName) => {
           </div>
           {/* 사진 업로드 부분 */}
           <div id={style.imgUpload} className={style.inputRow}>
-            <span className={style.inputP}>사진 업로드</span>
+            <span className={style.inputP}>사진 업로드 <br/>/  미리보기</span>
             <div className={style.inputBox}>
                 <input
                     type="text"
@@ -481,7 +523,14 @@ const findWebtoonTitleById = (DwebtoonEnName) => {
                     onChange={handleImageChange}
                 />
                       {handleImageChange && ( // 경로가 입력된 경우에만 이미지 표시
-        <img src={selectedImage} alt="Thumbnail" style={{ maxWidth: "300px", maxHeight: "500px"  }} />
+                      <div className={style.show}>
+                        <img src={selectedImage} alt="미리보기" />
+                        <div className={style.hoverP}>
+                          <p className={style.lp}>{webtoonName}</p>
+                          <p className={style.rp}>{author}</p>
+                        </div>
+                      </div>
+      
       )}
           </div>
           </div>
@@ -501,6 +550,8 @@ const findWebtoonTitleById = (DwebtoonEnName) => {
             value={epEnName}
             onChange={(e) => setEpEnName(e.target.value)}
           />
+                  <p className={style.epEn}>웹툰 제목: {findWebtoonTitleById(epEnName !== "" ? epEnName : null)}</p>
+
       <input
         type="number"
         id="countInput"
@@ -531,7 +582,7 @@ const findWebtoonTitleById = (DwebtoonEnName) => {
         onChange={handleThumbnailChange}
       /> */}
       
-
+    
       {thumbnailPath && ( // 경로가 입력된 경우에만 이미지 표시
         <img src={thumbnailPath} alt="Thumbnail" style={{ maxWidth: "200px", maxHeight: "100px" }} />
       )}

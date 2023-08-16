@@ -7,6 +7,22 @@
     width: 360px;
     margin:  0 auto;
 } */
+@media screen and (max-width:4000px) and (min-width:2500px) {
+    .AllToonInfo{
+        width: 250px !important;
+        margin-right: 20px !important;
+    }
+    .imgBox{
+        height: 300px !important;
+        width: 100% !important;
+    }
+    .ATimg{
+        height: 300px !important;
+
+        object-fit: cover !important;
+    }
+}
+
 @media screen and (max-width:1800px) and (min-width:1741px) {
     .Categories{
         margin-left: 10px !important;
@@ -50,13 +66,14 @@
     }
 }
 
-@media screen and (max-width:721px) and (min-width:362px) {
+@media screen and (max-width:721px) and (min-width:461px) {
     /* 메인 */
+    
     .ATimg{
         height: 264px !important;
     }
     .Categories{
-        margin-left: 25px !important;
+        padding-left: 10px !important;
     }
     .rankContent{
         display: none;
@@ -117,25 +134,30 @@
         margin-left: 20px !important;
     }   
     .AllToonInfo {
-        margin-left: 3.5% !important;
+        margin-left: 3% !important;
         width: calc(28% - 0px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
-        margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
+        margin-bottom: 10px !important; /* 요소들 사이의 간격 설정 */
     }
 
     .AllToonInfo img{
         object-fit: contain !important;
         width: 100% !important;
+        height: 100% !important;
+        
     }
     .hoverP{
         width: 100% !important;
         font-size: 12px;
+        bottom: 2.5px !important;
     }
     .imgBox{
-        height: 95% !important;
+        height: 100% !important;
         width:100% !important;
+        background-color: white !important;
     }
 
     .AllTonnbox{
+        background-color: white;
         width: 100% !important;
     }
     .ToonTitle{
@@ -268,44 +290,118 @@
         margin-left: 5.5px;
     }
 }
+
+
 /* phone */
-@media screen and (max-width:415px) and (min-width:362px) {
+@media screen and (max-width:460px) and (min-width:362px) {
+    #DhoverP{
+        width: 169px !important;
+        bottom: 0 !important;
+        left: 1px !important;
+    }
     /* 메인페이지  */
     /* .mp *{
         width: 100% !important;
     } */
+    .DayBox{
+        width: 100% !important;
+        overflow: hidden;
+
+    }
+    .dayimgBox{
+        margin-left: 10px !important;
+        width: 170px !important;
+        height: 220px !important;
+    }
+    .dayimgBox img{
+        object-fit: contain !important;
+        height: 220px !important;
+    }
+    
+    .MNewToon{
+        width: 100% !important;
+    }
+    .Rank{
+
+        width: 90% !important;
+        height: 90px !important;
+    }
+    .Rankitem{
+        position: relative;
+        bottom: 5px !important;
+        width: 100% !important;
+    }
+    .RankImg{
+        width: 30% !important;
+        height: auto !important;
+    }
+    .RankNum{
+        margin-top: 0 !important;
+        line-height: 80px !important;
+        width: 20% !important;
+    }
+    .RankNum h2{
+        height: 30px !important;
+    }
+    .RankWN{
+    }
+    .RankText{
+        line-height: 14px !important;
+        margin-top: 0 !important;
+        width: 40% !important;
+        position: relative;
+        bottom: 5px !important;
+    }
+    .rankContent{
+        display: none;
+    }
+    .Mid{
+        width: 100% !important;
+    }
+    .DayToonBox{
+    }
     .MainPage{
         width: 100% !important;
+        overflow: hidden;
         margin: 0 auto;
     } 
     .AllToon{  
         width: 100% !important;
-        margin: 0 auto;
-        
+        margin: 0 auto;   
     }
     .AllToon table{
         margin: 0 !important;
     }
-    .dayimgBox{
-        height: 150px !important;
-    }
+
 
 /* test */
     
     .AllToonInfo {
-        margin-top:6% !important;
-        width: calc(33.3% - 10px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
+        margin-top:0px !important;
+        width: calc(33% - 5px) !important; /* 각 요소의 너비를 33.3%로 설정 (여백 10px 제외) */
         margin-bottom: 5px !important; /* 요소들 사이의 간격 설정 */
         display: flex;
         flex-wrap: wrap; /* 요소들을 여러 줄로 감싸기 */
     }
+    .imgBox img{
+            width: 100% !important;
+        }
+    .imgBox{
+        height: auto !important;
+    }
+    .ATimg{
+        height: auto !important;
+
+        background-color: red !important;
+    }
 
 
+    .hoverP{
+        bottom: 5px !important;
+    }
 
     /* 데이페이지 */
-    .DayBox{
-        width: 360px !important;
-    }
+
 
     .HHH{
         font-size: 1px !important        ;
@@ -355,6 +451,15 @@
         /* margin-right: 1.5vw !important; */
         margin-left: 5.5px;
     }
+    .leftWn{
+        width: auto !important;
+    }
+    .rightAr{
+        width: auto !important;
+    }
+    .likee{
+        display: none;
+    }
 }
 
 
@@ -372,6 +477,7 @@
     .ATtext{
         display: block !important;
         width: auto !important;
+        background-color: white;
         margin-left: 16px;
     }
     .ATtext p{
@@ -388,10 +494,14 @@
         font-size: 100px !important;
         display: block !important;
     }
+    .ATBox{
+        height: 470px !important;
+    }
     .imgBox{
         height: 140px !important;
         margin-left: 5%;
         width:90% !important;
+
     }
     .dayimgBox{
         float: left !important;
@@ -399,39 +509,40 @@
         width: 100% !important;
     }
     .aTMT{
+        background-color: white;
         font-size: 6px !important;
         margin-top: 1px !important;
         width: 100% !important;
-        
         position: relative !important;right: 10px;
         
     }
     .ATimg{
-        height: 155px !important;
+        /* 솔빈 */
+        z-index: 10;
+        float: left !important;
+        height: auto !important;
     }
     .DtextBox p{
 
     }
     .AToonTitle{
+        margin-top: 153px;
         font-size: 10px !important;
-        margin-top: 0px !important;
     }
     /* 메인페이지  */
 
     .MainPage{
+        background-color: white !important;
+
         margin: 0 auto;
         width: 100% !important;
     } 
-    .AllToon{  
-        width: 100% !important;
-        margin: 0 auto;
-        
-    }
+
     #ll{
         width: 66% !important;
     }
     .AllToonInfo{
-        margin-bottom: 80px !important;
+        margin-bottom: 55px !important;
         
     }
 
@@ -528,6 +639,7 @@
   font-size: 10px !important;
   margin-top: 30px !important;
   width: 20% !important;
+  
   float: left !important;
   line-height: 0px !important; /* 순위를 수직 가운데로 정렬합니다 */
 }
@@ -541,7 +653,7 @@
 
 }
 
-@media screen and (max-width:362px) and (min-width:30px){
+@media screen and (max-width:361px) and (min-width:30px){
     .dayimgBox{
         float: left;
         background-color: gray;
@@ -553,31 +665,28 @@
     .MNewToon{
         width: 100% !important;
     }
-    .ATBox{
-        width: 100%;
-    }
-    .AllToon{
-        width: 80%;
-    }
-    .DayToonItem p{
-    }
+ 
+
     .AToonTitle{
-        margin-bottom: 0px !important;
-        width: 100% !important;
+
+        margin-bottom: 0px  !important;
+        width: 120px !important;
         position: relative;
         right: 10px;
     }
     .AllToonInfo {
-        margin-top: 4px;
-        margin-left: 1% !important;
-        margin-right: 1px !important;
+        margin-top: 4px !important;
+        margin-left: 0% !important;
+        margin-right: 10px !important;
         /* 솔 */
-        width: calc(33.3% - 5px) !important;
+        background-color: rgba(0, 0, 0, 0) !important;
+        width: calc(32.5% - 10px) !important;
         height: 95px !important;
         float: left !important;
     }
     .AllToonInfo img{
         width: 100% !important;
+
     }
     .Star{
         line-height: 3px !important;
@@ -585,7 +694,6 @@
     }
     .Categories{
         font-size: 16px !important;
-        margin-left: 16px !important;
     }
 
     .DayToonItem{
@@ -600,14 +708,19 @@
 }
 .Categories{
     font-size: 23px ;
-    width: 90%;
+    width: 100%;
     float: left;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    background-color: white  ;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
+
 
 .MainPage{
     width: 80%;
+    background-color: white !important;
+
     max-width: 1920px;
 }
 
@@ -621,9 +734,13 @@
 
 
 .AllToon .ToonTitle{
+    background-color: white  ;
+
     font-size: 11px !important;
+    
 }
 .AllToon .AllToonInfo img{
+
     object-fit: contain;
     text-align: center;
     width: 100%;
@@ -632,23 +749,32 @@
 }
 .AllTonnbox{
     width: 100% ;
+
     float: left ;
 }
 .AToonTitle{
     line-height: 5px ;
+    
+    background-color: white  ;
+
 }
 
 .AllToonInfo {
     height: auto ;
+    background-color: white;
 
-    margin-right:1% ;
-    margin-left: 0px ;
+    margin-right:1.3% ;
+    margin-left: 0 ;
+    position: relative;
+    left: 0.7%;
     width: calc(16.66% - 20px); 
-    margin-bottom: 10px; /* 요소들 사이의 간격 설정 */
+    padding-bottom: 10px;
   }
 
 
   .ATimg{
+    background-color: white ;
+    
     width: 100% ;
     height: 305px;
     transition: transform 0.2s ease; /* 애니메이션 효과를 위한 transition 추가 */
@@ -659,6 +785,8 @@
 
 .ATBox {
     display: flex;
+    background-color: white  ;
+
     justify-content: flex-start;
     flex-wrap: wrap; /* 넘치는 요소를 여러 줄로 감싸기 */
      /* 요소들을 간격을 유지하면서 정렬 */
@@ -672,10 +800,13 @@
     width: 100%;
     float: left;
     margin: 0 auto;
+    background-color: white;
+
 }
 /* 미디어쿼리 포인트 */
 
 .DayToon{
+    background-color: white;
     display: flex;
     display: none;
     flex-wrap: wrap;
@@ -692,6 +823,7 @@
     /* 전체 너비에서 Rank 영역의 너비와 여백을 뺀 값으로 설정 */
     display: block;
     float: left;
+    background-color: white;
 } 
 
 
@@ -708,7 +840,7 @@
     padding-right: 30px;
     height: auto ;
     margin-left: 0px;
-
+    background-color: white;
    }
 
  
@@ -723,10 +855,30 @@
     bottom: 21px;
     float: right;
     width:51%;
+    background-color: white;
+
   }
   .Rank:hover{
     background-color: rgb(171,230,157);
 
+  }
+  .Rank:hover  .RankNum h2 {
+    background-color: rgb(171,230,157);
+
+  }
+  .Rank:hover  .rankContent {
+    background-color: rgb(171,230,157);
+
+  }
+  .Rank:hover  .RankText {
+    background-color: rgb(171,230,157) !important;
+
+  }
+  .Rank:hover  .RankWN {
+    background-color: rgb(171,230,157) !important;
+  }
+  .Rank:hover  .RankAT {
+    background-color: rgb(171,230,157) !important;
   }
   .Rank {
     border: 2px solid rgb(171,230,157);
@@ -748,6 +900,8 @@
 .HHH{
     position: relative;
     bottom: 30px;
+    background-color: white;
+
     font-size: 23px;
     margin-bottom: 1px;
     width: 50%;
@@ -759,6 +913,8 @@
 .RankImg{
     width: 20%;
     float: left;
+    background-color: white;
+
 }
 .RankImg img{
     float: left;
@@ -767,15 +923,22 @@
     height:100%;
     border-radius: 10px;
 }
+.RankNum h2{
+    background-color: white;
+}
 .RankNum{
     width: 10%;
     float: left;
     font-size: 15px;
     margin-left: 2%;
+    background-color: white ;
+    
     line-height: 100px;
     margin-top: 50px;
 }
 .RankText{
+    background-color: white;
+
     float: left;
     font-size: 15px;
     width: 10%;
@@ -784,6 +947,8 @@
 }
 
 .RankText .RankWN{
+    background-color: white ;
+
     margin-top: 36px;
 }
 
@@ -791,6 +956,7 @@
     float: left;
     line-height: 2px;
     display: none;
+    
 }
 
 
@@ -801,6 +967,8 @@
 .DayToonItem img{
     width: 100%;
     height: 100%;
+    background-color: white ;
+
     object-fit: contain;
 }
 .DayToonItem img:hover{
@@ -809,7 +977,7 @@
 
 }
 .dayimgBox{
-    background-color: gray ;
+    background-color: white ;
 
     overflow: hidden;
     position: relative;
@@ -824,12 +992,16 @@
 .Writer{
     line-height:18px;
     display: none;
+    background-color: white ;
+
 }
 
 
 .AToonTitle{
+    background-color: white ;
+
     font-size: 19px;
-    margin-top: 5px;
+    
 }
 
 
@@ -850,6 +1022,8 @@
 }
 .RankAT
 {
+    background-color: white ;
+
     color:gray;
 }
 
@@ -860,8 +1034,9 @@
     overflow: hidden;
     float: left;
     height: 305px;
-    margin-bottom: 10px;
     position: relative;
+    background-color: white ;
+
 
     width: 100%;
 }
@@ -884,14 +1059,22 @@
     z-index: 1; /* .hoverP 요소를 이미지 위로 올리기 위해 z-index 사용 */
   }
   .leftWn{
+    background-color: rgba(0, 0, 0, 0.0) ;
+
     float: left;
     width: auto;
   }
   .rightAr{
     width: auto;
+    background-color: rgba(0, 0, 0, 0.0) ;
+
     margin-right: 10px;
     text-align: right;
     float: right;
+  }
+  .likee{
+    background-color: rgba(0, 0, 0, 0.0) ;
+
   }
 
   .ATtext
@@ -901,6 +1084,8 @@
 
   .rankContent{
     width: 53%;
+    background-color: white ;
+
     padding: 2px;
     margin-top: 83px;
     float: left;

@@ -14,6 +14,8 @@ function MyApp({ Component, pageProps }) {
     }
   }, []);
 
+  
+
   // 공통 레이아웃이나 설정을 처리하는 로직을 추가할 수 있습니다.
   return(
     <>  
@@ -30,21 +32,30 @@ function MyApp({ Component, pageProps }) {
         margin:  0 auto;
         width:100%;
       }
+      @media (prefers-color-scheme: dark) {
+        
+        *{
+          background-color: rgb(29,30,31);
+        }
+
+      }
       button{
         cursor:pointer;
       }
 
     @media screen and (max-width:361px) and (min-width:10px) {
       *{
+          
           width:100%;
       }
     }
-    @media screen and (max-width:421px) and (min-width:362px) {
+    @media screen and (max-width:460px) and (min-width:362px) {
       *{
           width:100%;
+
       }
     }
-    @media screen and (max-width:721px) and (min-width:422px) {
+    @media screen and (max-width:721px) and (min-width:461px) {
       *{
           width:100%;
       }

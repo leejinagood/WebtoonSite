@@ -1,4 +1,4 @@
-@media screen and (max-width:3001px) and (min-width:723px){
+@media screen and (max-width:3001px) and (min-width:2000px){
     .mrbox{
         width: 100% !important;
     }
@@ -6,8 +6,12 @@
         width: 30% !important;
         margin-left: 0px !important;
     }
+    .RankImg{
+        width: 100%  !important;
+        height: 330px !important;
+    }
     .RankImg img{
-        height: 260px !important;
+        height: 325px !important;
     }
 
 }
@@ -25,13 +29,15 @@
     .HotToon{
         width: 80% !important;
         min-height: 100px;
+        margin-right: 90px !important;
+
     }
     .RBox{
         float: left !important;
         width: 100% !important;
     }
     .RankImg img{
-        height: 300px !important;
+        height: 325px !important;
     }
 
     .Rank{
@@ -50,13 +56,39 @@
     }
 
 }
+@media screen and (max-width:460px) and (min-width:401px) {
+    .mrbox{
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+    .rc p{
+        margin-top: 0px !important;
+        padding-bottom: 20px !important;
+    }
+    .rankContent{
+        margin-bottom: 10px !important;
 
-@media screen and (max-width:361px) and (min-width:10px){
+    }
+    .RankImg{
+        width: 100% !important;
+        height: 180px !important;
+    }
+    .RankImg img{
+        width: 100% !important;
+        height: 176px !important;
+    }
+    .RBox{
+        margin-left: 15% !important;
+    }
+
+}
+@media screen and (max-width:400px) and (min-width:10px){
     .HHH{
+        width: 97%;
+        padding-left: 3%;
         margin-top: 15px;
         font-size: 16px !important;
-        margin-left: 15px;
-    }
+        }
     .RankImg img{
         height: 220px !important;
     }
@@ -81,6 +113,7 @@
     }
 
     .RankImg img{
+        height: 162px !important;
     }
     .Rank{
         width: 100% !important;
@@ -104,13 +137,18 @@
     }
 
 }
+
+
 .mrbox{
+    background-color: white;
     width: 100%;
     max-width: 1920px;
     float: left;
 }
 
 .HotToon {
+    background-color: white;
+
     display: flex;
     flex-wrap: wrap; /* 줄바꿈 설정 */
     justify-content: space-between; /* 요소들을 가로로 고르게 배치 */
@@ -118,10 +156,18 @@
 
 .HHH{
     font-size: 22px;
+    background-color: white;
+
     float: left;
     margin-bottom: 20px;
 }
+@media (prefers-color-scheme: dark) {
+    .RBox{
+        margin-left: 0.3% !important;
+    }
+}
 .RBox{
+    background-color: white;
 
     width: calc(30%);
     /* border: 1px solid rgb(171,230,157); */
@@ -136,6 +182,8 @@
 .RankImg img{ 
     width: 100%;
     height: 260px;
+    
+    object-fit: contain;
     box-shadow: 2px 2px 2px 2px;
 }
 .RankImg{
@@ -150,6 +198,8 @@
 .rc p{
     float: left;
     font-size: 15px;
+    background-color: white;
+
     margin-top: 20px;
     height: 60px;
     padding-bottom: 10px;
@@ -161,6 +211,8 @@
 
 
 .RankAT{
+    background-color: white;
+
     color:gray;
 }
 
@@ -169,9 +221,12 @@
 /* mainRank.module.css 파일 */
 
 .webtoonImage {
+    
     transition: transform 0.3s; /* 애니메이션 효과를 위한 속성 추가 */
   }
-  
+  .RankWN{
+    background-color: white;
+  }
   .webtoonImage:hover {
     transform: scale(1.1); /* 이미지를 확대하는 애니메이션 */
   }
@@ -185,6 +240,8 @@
     /* width: 40%; */
     margin-top: 12px;
     width: 60%;
+    background-color: white;
+
     margin-bottom: 10px;
 }
   .rankNum{
@@ -195,6 +252,8 @@
     font-size: 32px;
   }
   .rankNum{
+    background-color: white;
+
   }
 
   .FirstRank{

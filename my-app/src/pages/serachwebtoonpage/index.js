@@ -6,11 +6,19 @@ import style from "./SerchWebToonCss.module.css";
 import Link from "next/link";
 
 function SerchWebToon() {
+  
   const router = useRouter();
   const { word } = router.query;
   const [webtoonData, setWebtoonData] = useState([]);
   const [randomWebtoon, setRandomWebtoon] = useState(null);
 
+  const [searchHistory, setSearchHistory] = useState({});
+  // 기존 코드 ...
+
+
+
+
+  
   const highlightSearchText = (text, search) => {
     if (!text) return null;
 
@@ -78,6 +86,7 @@ function SerchWebToon() {
         {randomWebtoon && (
           <div className={style.RListItem}>
             <h1>이런 웹툰은 어떠세요 ?</h1>
+            <Link href={`/listpage?EnName=${randomWebtoon.webtoonEnName}&id=${randomWebtoon.webtoonID}`}>
             <div className={style.RListImg}>
               <img src={randomWebtoon.webtoonThumbnail} alt="Random Webtoon" />
             </div>
@@ -88,6 +97,7 @@ function SerchWebToon() {
                 <br />
               </p>
             </div>
+            </Link>
           </div>
         )}
         </div>
