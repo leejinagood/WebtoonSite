@@ -12,12 +12,6 @@ const pool = mysql.createPool({
     user : 'admin',
     password : 'abcd1234',
     database : 'webtoon'
-
-    // host : '127.0.0.1',
-    // port : '3306',
-    // user : 'root',
-    // password : '2098',
-    // database : 'webtoon'
 });
 
 
