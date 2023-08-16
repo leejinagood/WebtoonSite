@@ -1,4 +1,4 @@
-@media screen and (max-width:3001px) and (min-width:2000px){
+@media screen and (max-width:3001px) and (min-width:2500px){
     .mrbox{
         width: 100% !important;
     }
@@ -12,6 +12,30 @@
     }
     .RankImg img{
         height: 325px !important;
+    }
+
+}
+@media screen and (max-width:1899px) and (min-width:1200px){
+    .mrbox{
+        width: 100% !important;
+    }
+    .rankContent{
+        margin-top: 0px !important;
+        margin-bottom: 10px !important;
+    }
+    .rc p{
+        padding-bottom: 40px !important;
+    }
+    .RBox{
+        width: 30% !important;
+        margin-left: 0px !important;
+    }
+    .RankImg{
+        width: 100%  !important;
+        height: 170px !important;
+    }
+    .RankImg img{
+        height: 170px !important;
     }
 
 }
