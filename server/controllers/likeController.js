@@ -32,6 +32,7 @@ const LikeController = {
 
             if (tokenResponse.data === '토큰 인증 성공') {
                 if(!EnName || !userID){
+                    res.send(400, { message: '좋아요 에러' });
                     throw new Error('좋아요 에러');
                 }else{
                     const resultMessage = await LikeService.insertLike(userID, EnName);

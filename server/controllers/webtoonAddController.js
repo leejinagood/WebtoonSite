@@ -9,9 +9,11 @@ const WebtoonAddController = {
 
             //유효성 검사
             if (!content || !author || !WebtoonName || !week || !thumbnail) {
+                res.send(400, { message: '내용을 입력하세요' });
                 throw new Error('내용을 입력하세요');
             }
             else if (!/^[A-Za-z]+$/.test(WebtoonEnName)) { 
+                res.send(400, { message: '영어로 웹툰 이름을 입력하세요' });
                 throw new Error('영어로 웹툰 이름을 입력하세요');
             }
             else{
@@ -32,9 +34,11 @@ const WebtoonAddController = {
 
             // 유효성 검사
             if (!count || !thumbnail) {
+                res.send(400, { message: '내용을 입력하세요' });
                 throw new Error('내용을 입력하세요');
             }
             else if (!/^[A-Za-z]+$/.test(WebtoonEnName)) { 
+                res.send(400, { message: '영어로 웹툰 이름을 입력하세요' });
                 throw new Error('영어로 웹툰 이름을 입력하세요');
             }
             else{
