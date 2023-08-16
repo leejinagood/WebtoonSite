@@ -29,27 +29,18 @@ const LikeService = {
 
         try {
             const values = [userID, EnName];
-            const Query ='call usp_get_likes_by_email(?, ?)' //좋아요 했는지 안 했는지
-            const LikeQuery = 'CALL usp_put_likes(?, ?);'; // 좋아요를 수정하는 sp (추가)
+            const LikeQuery = 'Call usp_put_get_likes(?, ?);';
 
-            const [date] = await conn.query(Query, values); // 좋아요 했는지 안 했는지
+            const [result] = await conn.query(LikeQuery, values); 
+            const [resultArray] = result;
 
-            //[ { likes: 1, webtoonWeek: 'satur', webtoonID: 2 } ]
-            const [resultArray] = date;
-            
-            const [Result] = await conn.query(LikeQuery, values); // 좋아요 추가
-        
-            if (Result.affectedRows > 0) { // 1개 이상이면 좋아요 수정 성공
-                const likeKey = `likes:${resultArray[0].webtoonID}`; 
-        
-                // 이미 눌러 true이면 1 빼고 false이면 1 증가
-                const redisOperation = resultArray[0].likes ? 'DECRBY' : 'INCRBY';
-                await redisClient[redisOperation](likeKey, 1);
+            const likeKey = `likes:${resultArray[0].webtoonID}`; 
+    
+            // 이미 눌러 true이면 1 빼고 null이거나 false이면 1 증가
+            const redisOperation = resultArray[0].likes ? 'DECRBY' : 'INCRBY';
+            await redisClient[redisOperation](likeKey, 1);        
 
-                return '좋아요 수정 성공';
-            }else{
-                return '좋아요 수정 실패';
-            }
+            return '좋아요 수정 성공';
         } catch (error) {
             throw error;
         } finally {

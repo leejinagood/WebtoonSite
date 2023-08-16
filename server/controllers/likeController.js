@@ -7,7 +7,7 @@ const LikeController = {
     // 좋아요 보기
     async viewLike(req, res) {
         try {
-            const { id } = req.query;
+            const { id } = req.query; // 웹툰 아이디 
     
             const like = await LikeService.viewLike(id);
             res.send(like); // 좋아요 갯수
