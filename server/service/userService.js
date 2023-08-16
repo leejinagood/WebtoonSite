@@ -65,7 +65,7 @@ const UserService = {
                     UserID: UserID[0][0].userID 
                 },
                 'your-secret-key',
-                { expiresIn: '30m' }
+                { expiresIn: '1h' }
                 );
         
                 return token; // 토큰 반환
@@ -138,7 +138,7 @@ const UserService = {
                 Sub: sub
             },
             'your-secret-key',
-            { expiresIn: '30m' }
+            { expiresIn: '1h' }
         );
         
         return token; // 토큰 반환

@@ -11,7 +11,7 @@ const CommentService = {
             const viewCommentQuery = 'CALL usp_get_comment(?, ?);';
             const [result] = await conn.query(viewCommentQuery, values);
 
-            return result[0];
+            return result[0]; // 댓글 내용들 반환
         } catch (error) {
             throw error;
         } finally {

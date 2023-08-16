@@ -6,11 +6,13 @@ const UserController = {
     async signUp(req, res) {
         try {
             const { email, pass, name, age } = req.body;
+
+            // 유효성 검사
             if(!email || !pass || !name){
                 throw new Error('내용을 입력하세요');
             }else{
                 const resultMessage = await UserService.signUp(email, pass, name, age);
-                res.send(resultMessage);
+                res.send(resultMessage); // '회원가입 성공'
             } 
         } catch (error) {
             console.error(error);
@@ -24,6 +26,7 @@ const UserController = {
         try {
             const { ID, password } = req.query;
 
+            // 유효성 검사
             if(!ID || !password){
                 throw new Error('내용을 입력하세요');
             }else{
@@ -33,7 +36,7 @@ const UserController = {
                     `token=${token}; Path=/; SameSite=Lax;`, // 쿠키 설정
                 ]);
 
-                res.send({ token });
+                res.send({ token }); // 토큰
             }
         } catch (error) {
             console.error(error);
@@ -46,6 +49,8 @@ const UserController = {
     async kakaoLogin(req, res) {
         try {
             const { code } = req.query;
+
+            // 유효성 검사
             if(!code || !password){
                 throw new Error('카카오 로그인 에러');
             }else{
@@ -73,7 +78,7 @@ const UserController = {
         try {
             const cookies = req.headers.cookie;
             const resultMessage = await UserService.verifyToken(cookies);
-            res.send(resultMessage);
+            res.send(resultMessage); // '토큰 인증 성공'
         } catch (error) {
             console.error(error);
             res.json({ message: '토큰 인증 실패' });
@@ -86,7 +91,7 @@ const UserController = {
         try {
             const resultMessage = await UserService.logout();
             res.setHeader('Set-Cookie', [`token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`]);
-            res.send(resultMessage);
+            res.send(resultMessage); // '로그아웃 성공'
         } catch (error) {
             console.error('카카오 로그아웃 실패:', error.message);
             res.status(500).json({ message: '서버 오류' });

@@ -10,8 +10,7 @@ const LikeController = {
             const { id } = req.query;
     
             const like = await LikeService.viewLike(id);
-    
-            res.send(like);
+            res.send(like); // 좋아요 갯수
         } catch (error) {
           console.error(error);
           res.status(500).json({ message: '서버 오류' });
@@ -33,9 +32,7 @@ const LikeController = {
 
             if (tokenResponse.data === '토큰 인증 성공') {
                 const resultMessage = await LikeService.insertLike(userID, EnName);
-
-                // 좋아요 수정 성공
-                res.send(resultMessage);
+                res.send(resultMessage); // '좋아요 수정 성공'
             } else {
                 res.json({ message: '로그인 하세요' });
             }

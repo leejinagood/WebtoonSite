@@ -6,8 +6,8 @@ const WebtoonController = {
     async getWebtoons(req, res) {
         try {
             const { pi_vch_condition } = req.query;
-            const webtoons = await WebtoonService.getWebtoons(pi_vch_condition);
-            res.send(webtoons);
+            const webtoon = await WebtoonService.getWebtoons(pi_vch_condition);
+            res.send(webtoon); // 웹툰 내용
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: '서버 오류' });
@@ -20,7 +20,7 @@ const WebtoonController = {
         try {
             const { word } = req.query;
             const webtoon = await WebtoonService.searchWebtoon(word);
-            res.send(webtoon);
+            res.send(webtoon); // 웹툰 내용
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: '서버 오류' });
@@ -33,7 +33,7 @@ const WebtoonController = {
         try {
             const { word } = req.query;
             const webtoon = await WebtoonService.searchByCategory(word);
-            res.send(webtoon);
+            res.send(webtoon); // 웹툰 내용
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: '서버 오류' });

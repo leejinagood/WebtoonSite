@@ -1,77 +1,75 @@
-const redisClient = require('../redis'); // redis.js 모듈을 가져옴
-const { getConn } = require('../database'); // database.js 모듈을 가져옴
+const redisClient = require('../redis'); 
+const { getConn } = require('../database'); 
 
 const WebtoonListService = {
 
     // 웹툰 디테일
     async getWebtoonDetail(ID) {
-        const conn = await getConn(); // 데이터베이스 연결을 얻어옴
-        const webtoonQuery = 'CALL usp_get_webtoonDetail_ID(?);'; // 파라미터 값에 해당하는 웹툰 정보를 출력하는 SP
+        const conn = await getConn(); 
+        const webtoonQuery = 'CALL usp_get_webtoonDetail_ID(?);';
 
         try {
-            const key = `webtoon_detail : ${ID}`; // redis의 고유 키값
-            let value = await redisClient.get(key); // redis에서 해당 key로 데이터 조회
+            const key = `webtoon_detail : ${ID}`; 
+            let value = await redisClient.get(key); 
 
-            if (value) {
-            // 만약 redis에 데이터가 있다면 그대로 반환
-            return JSON.parse(value); // 문자열을 객체로 변환하여 반환
+            if (value) { // 키에 해당하는 데이터가 있을 때
+                return JSON.parse(value);
             } else {
-                let [result] = await conn.query(webtoonQuery, [ID]); // 파라미터 ID를 전달하여 웹툰 정보를 얻어옴
-                const webtoon = result[0]; // 웹툰 정보를 저장
+                let [result] = await conn.query(webtoonQuery, [ID]);
+                const webtoonDetail = result[0]; 
 
-                await redisClient.set(key, JSON.stringify(webtoon)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
-                return webtoon; // 웹툰 정보 반환
+                await redisClient.set(key, JSON.stringify(webtoonDetail)); 
+                return webtoonDetail;
             }
         } catch (error) {
-            throw error; // 에러가 발생하면 에러를 던져서 상위에서 처리하도록 함
+            throw error; 
         } finally {
-            conn.release(); // 데이터베이스 연결 해제
+            conn.release(); 
         }
     },
 
 
     //웹툰 리스트
     async getWebtoonList(ID) {
-        const conn = await getConn(); // 데이터베이스 연결을 얻어옴
-        const webtoonQuery = 'CALL usp_get_WebtoonEpisode(?);'; // 웹툰 정보를 출력하는 SP
+        const conn = await getConn();
+        const webtoonQuery = 'CALL usp_get_WebtoonEpisode(?);'; 
 
         try {
-            const key = `webtoon_list : ${ID}`; // redis의 고유 키값
-            let value = await redisClient.get(key); // redis에서 해당 key로 데이터 조회
+            const key = `webtoon_list : ${ID}`; 
+            let value = await redisClient.get(key); 
 
             if (value) {
-                // 만약 redis에 데이터가 있다면 그대로 반환
-                return JSON.parse(value); // 문자열을 객체로 변환하여 반환
+                return JSON.parse(value); 
             } else {
-                let [result] = await conn.query(webtoonQuery, [ID]); // 파라미터 ID를 전달하여 웹툰 정보를 얻어옴
-                const webtoon = result[0]; // 웹툰 정보를 저장
+                let [result] = await conn.query(webtoonQuery, [ID]); 
+                const webtoonList = result[0]; 
 
-                await redisClient.set(key, JSON.stringify(webtoon)); // 조회한 데이터를 JSON 형태로 변환하여 redis에 저장
-                return webtoon; // 웹툰 정보 반환
+                await redisClient.set(key, JSON.stringify(webtoonList)); 
+                return webtoonList; 
             }
         } catch (error) {
-            throw error; // 에러가 발생하면 에러를 던져서 상위에서 처리하도록 함
+            throw error; 
         } finally {
-            conn.release(); // 데이터베이스 연결 해제
+            conn.release(); 
         }
     },
 
 
     //웹툰 페이지
     async getWebtoonPage(ID, ep) {
-        const conn = await getConn(); // 데이터베이스 연결을 얻어옴
+        const conn = await getConn(); 
         const values = [ID, ep];
-        const ImgAndNext = 'CALL usp_get_webtoonPages(?, ?);'; // episodeID를 받아와 웹툰 정보를 출력하는 SP
+        const ImgAndNext = 'CALL usp_get_webtoonPages(?, ?);'; 
 
         try {
-            let [result] = await conn.query(ImgAndNext, values); // 파라미터 ID와 ep를 전달하여 웹툰 페이지 정보를 얻어옴
-            const webtoonPage = result[0]; // 웹툰 페이지 정보를 저장
+            let [result] = await conn.query(ImgAndNext, values); 
+            const webtoonPage = result[0]; 
 
-            return webtoonPage; // 웹툰 페이지 정보 반환
+            return webtoonPage;
         } catch (error) {
-            throw error; // 에러가 발생하면 에러를 던져서 상위에서 처리하도록 함
+            throw error; 
         } finally {
-            conn.release(); // 데이터베이스 연결 해제
+            conn.release(); 
         }
     }
     
