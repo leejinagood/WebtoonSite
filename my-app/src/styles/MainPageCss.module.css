@@ -7,6 +7,22 @@
     width: 360px;
     margin:  0 auto;
 } */
+@media screen and (max-width:4000px) and (min-width:2500px) {
+    .AllToonInfo{
+        width: 250px !important;
+        margin-right: 20px !important;
+    }
+    .imgBox{
+        height: 300px !important;
+        width: 100% !important;
+    }
+    .ATimg{
+        height: 300px !important;
+
+        object-fit: cover !important;
+    }
+}
+
 @media screen and (max-width:1800px) and (min-width:1741px) {
     .Categories{
         margin-left: 10px !important;

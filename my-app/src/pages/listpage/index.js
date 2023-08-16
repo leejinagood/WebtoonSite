@@ -306,7 +306,7 @@ const ListPage = () => {
                       <button id={style.PointBtn} className={style.IBtn} onClick={handleLike}> 
                         좋아요 {like}
                       </button>
-                      <Link href={`/webtoonpage?EnName=${EnName}&ep=1`}><button className={style.IBtn}>첫화보기 1화</button></Link>
+                      <Link href={`/webtoonpage?EnName=${EnName}&ID=${id}&ep=1`}><button className={style.IBtn}>첫화보기 1화</button></Link>
                       <button className={style.SNSBTN}>공유<a className={style.short}>하기</a></button>
                     </div>
             </div>

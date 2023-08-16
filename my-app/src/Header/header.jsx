@@ -8,12 +8,14 @@ import jwt_decode from 'jwt-decode'; // JWT 토큰을 디코딩하기 위한 라
 
 const Header = ({ showAdminLink }) => {
   const router = useRouter();
+
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     // 클라이언트 사이드에서 실행되도록 설정
     setIsClient(true);
   }, []);
 
+  const [searchHistory, setSearchHistory] = useState({});
 
   // 유저가 검색창에 입력하는 값
   const [userInput, setUserInput] = useState('');
@@ -24,6 +26,7 @@ const Header = ({ showAdminLink }) => {
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); // 기본 동작 막기
+      
       window.location.href = `/serachwebtoonpage?word=${userInput}`;
       //나중에 라우트로 변경
     }

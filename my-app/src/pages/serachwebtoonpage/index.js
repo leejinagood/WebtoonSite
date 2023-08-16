@@ -4,8 +4,6 @@ import Footer from "@/src/Footer/footer";
 import { useRouter } from "next/router";
 import style from "./SerchWebToonCss.module.css";
 import Link from "next/link";
-import RealTimeSearchKeywords from "@/src/Component/RealTimeSearchKeywords";
-import {parseCookies} from "nookies"
 
 function SerchWebToon() {
   
@@ -13,39 +11,14 @@ function SerchWebToon() {
   const { word } = router.query;
   const [webtoonData, setWebtoonData] = useState([]);
   const [randomWebtoon, setRandomWebtoon] = useState(null);
-  const [searchHistory, setSearchHistory] = useState([]);
-  const [realTimeKeywords, setRealTimeKeywords] = useState([]);
-  const initialSearchHistory = parseCookies().searchHistory || '';
-  const handleSearch = (searchQuery) => {
-    // 기존 검색 이력에 새로운 검색어를 추가합니다.
-    const updatedSearchHistory = `${searchHistory},${searchQuery}`;
-    setSearchHistory(updatedSearchHistory);
 
-    // 검색 이력을 쿠키에 저장합니다.
-    setCookie(null, 'searchHistory', updatedSearchHistory, {
-      maxAge: 30 * 24 * 60 * 60, // 30일 동안 유지되는 쿠키
-      path: '/', // 전체 사이트에서 사용 가능한 쿠키
-    });
-
-    // 이후 검색어와 검색 횟수를 저장하는 로직을 추가하세요 (필요한 경우).
-  };
-
-
-  useEffect(() => {
-    // 검색 횟수가 가장 높은 순서로 검색어를 정렬하고 필터링합니다.
-    const sortedKeywords = searchHistory.sort((a, b) => {
-      // 검색 횟수를 기준으로 정렬하는 로직을 추가하세요.
-      // 필요한 경우 검색어와 검색 횟수를 연동하여 정렬합니다.
-    });
-
-    // 필요한 개수만큼 검색어를 추출하여 상태를 업데이트합니다.
-    const topKeywords = sortedKeywords.slice(0, 5); // 상위 10개 검색어 추출
-    setRealTimeKeywords(topKeywords);
-  }, [searchHistory]);
+  const [searchHistory, setSearchHistory] = useState({});
+  // 기존 코드 ...
 
 
 
 
+  
   const highlightSearchText = (text, search) => {
     if (!text) return null;
 
@@ -113,6 +86,7 @@ function SerchWebToon() {
         {randomWebtoon && (
           <div className={style.RListItem}>
             <h1>이런 웹툰은 어떠세요 ?</h1>
+            <Link href={`/listpage?EnName=${randomWebtoon.webtoonEnName}&id=${randomWebtoon.webtoonID}`}>
             <div className={style.RListImg}>
               <img src={randomWebtoon.webtoonThumbnail} alt="Random Webtoon" />
             </div>
@@ -123,6 +97,7 @@ function SerchWebToon() {
                 <br />
               </p>
             </div>
+            </Link>
           </div>
         )}
         </div>
@@ -154,14 +129,11 @@ function SerchWebToon() {
                   </div>
                 </div>
               </Link>
-
             </li>
           ))}
         </ul>
       )}
-      {/* 실시간 검색어 컴포넌트를 추가합니다. */}
-      <RealTimeSearchKeywords keywords={realTimeKeywords} />
-      {/* 이하 생략 */}
+
       </div>
 
       <Footer />
