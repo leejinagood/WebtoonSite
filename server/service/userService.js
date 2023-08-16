@@ -120,11 +120,13 @@ const UserService = {
             const insertQuery = 'INSERT INTO UserTable (userEmail, userPassword, userName, socialNumber) VALUES (?, "", ?, ?);';
             const insertValue = [email, nickname, sub];
             await conn.query(insertQuery, insertValue);
+            const [id] = await conn.query(selectQuery, [email]);
+            ID = id[0].userID
         } else if (Result.length > 0) {
             ID = Result[0].userID;
         }
-    
-            let token = jwt.sign(
+
+        let = token = jwt.sign(
             {
                 UserEmail: enEmail,
                 UserID: ID,
@@ -133,9 +135,9 @@ const UserService = {
             },
             'your-secret-key',
             { expiresIn: '30m' }
-            );
-
-            return token; // 토큰 반환
+        );
+        
+        return token; // 토큰 반환
         
         } catch (error) {
         throw error;

@@ -2,6 +2,7 @@ const redisClient = require('../redis'); // redis.js 모듈을 가져옴
 const { getConn } = require('../database');
 
 const LikeService = {
+    // 좋아요 보기
     async viewLike(id) {
         const conn = await getConn();
     
@@ -20,6 +21,7 @@ const LikeService = {
         }
     },
 
+    // 좋아요 수정 및 삽입
     async insertLike(userID, EnName) {
         const conn = await getConn();
 
