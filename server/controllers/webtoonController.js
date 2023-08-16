@@ -15,7 +15,7 @@ const WebtoonController = {
         }
     },
 
-
+ 
     // 검색
     async searchWebtoon(req, res) {
         try {

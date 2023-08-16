@@ -33,6 +33,7 @@ const CommentController = {
 
                 // 유효성 검사
                 if(!content){
+                    res.send(400, { message: '내용을 입력하세요' });
                     throw new Error('내용을 입력하세요');
                 }else{
                     const resultMessage = await CommentService.insertComment(Ep, WebEnName, userID, content);

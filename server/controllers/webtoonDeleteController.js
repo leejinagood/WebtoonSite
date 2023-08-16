@@ -9,6 +9,7 @@ const WebtoonDeleteController = {
 
             // 유효성 검사
             if (!EnName) {
+                res.send(400, { message: '내용을 입력하세요' });
                 throw new Error('내용을 입력하세요');
             }else{
                 const resultMessage = await WebtoonDeleteService.deleteWebtoon(EnName);
@@ -28,6 +29,7 @@ const WebtoonDeleteController = {
 
             // 유효성 검사
             if (!EnName || !ep) {
+                res.send(400, { message: '내용을 입력하세요' });
                 throw new Error('내용을 입력하세요');
             }else{
                 const resultMessage = await WebtoonDeleteService.deleteEpisode( EnName, ep);
