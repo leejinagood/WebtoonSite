@@ -1,5 +1,5 @@
-const redisClient = require('../redis');
-const { getConn } = require('../database');
+const redisClient = require('../../redis');
+const { getConn } = require('../../database');
 
 const WebtoonAddService = {
 
