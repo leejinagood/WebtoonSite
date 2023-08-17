@@ -72,10 +72,11 @@ const findWebtoonTitleById = (DwebtoonEnName) => {
         const decodedToken = jwt_decode(token);
         setAdmin(decodedToken.UserEmail);
         console.log(decodedToken.UserEmail);
-        console.log(admin);
+        //console.log(admin);
   
         if (decodedToken.UserEmail !== "qkaejwnj%40naver.com" 
-        && decodedToken.UserEmail !== "mnb2098%40naver.com") {
+        && decodedToken.UserEmail !== "mnb2098%40naver.com" 
+        && decodedToken.UserEmail !== "admin" ) {
           window.alert("접근불가");
           router.push('/'); // 다른 페이지로 리다이렉트
         }
@@ -445,7 +446,7 @@ const findWebtoonTitleById = (DwebtoonEnName) => {
     <div className={style.adminpage}>
       <Header showAdminLink={isAdminPage} />
       {admin === "qkaejwnj%40naver.com" ||
-      admin === "mnb2098%40naver.com" ? (
+      admin === "mnb2098%40naver.com" || admin === "admin"? (
       <form>
         <div className={style.newWebtoon}>
 

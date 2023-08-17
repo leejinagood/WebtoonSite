@@ -23,6 +23,7 @@ require('./routes/webtoonListRoute')(server);
 require('./admin/routes/webtoonAddRoute')(server);
 require('./admin/routes/webtoonDeleteRoute')(server);
 require('./admin/routes/webtoonShowRoute')(server);
+require('./admin/routes/adminAuthRoute')(server);
 require('./routes/commentRoute')(server);
 require('./routes/likeRoute')(server);
 require('./routes/userRoute')(server);
