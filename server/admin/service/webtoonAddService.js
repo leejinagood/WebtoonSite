@@ -10,7 +10,6 @@ const WebtoonAddService = {
         try {
             const webtoonAddAuery = 'Call usp_post_webtoon_with_detail(?,?,?,?,?,?,?)'
 
-            // ["일상", "드라마"]
             const webtoonValues = [content, author, WebtoonName, WebtoonEnName, week, thumbnail, categories];
 
             await conn.query(webtoonAddAuery, webtoonValues);

@@ -14,6 +14,7 @@ const WebtoonAddController = {
                 },
             });
             if (tokenResponse.data === '어드민 인증 성공') {
+
                 //유효성 검사
                 if (!content || !author || !WebtoonName || !week || !thumbnail) {
                     res.send(400, { message: '내용을 입력하세요' });
@@ -27,6 +28,7 @@ const WebtoonAddController = {
                     const resultMessage = await WebtoonAddService.addWebtoon(content, author, WebtoonName, WebtoonEnName, week, thumbnail, categories);
                     res.send(resultMessage); // "웹툰 추가 성공"
                 }
+                
             }else {
                 res.json({ message: '권한이 없습니다' });
             }
@@ -48,6 +50,7 @@ const WebtoonAddController = {
                 },
             });
             if (tokenResponse.data === '어드민 인증 성공') {
+
                 // 유효성 검사
                 if (!count || !thumbnail) {
                     res.send(400, { message: '내용을 입력하세요' });
@@ -61,6 +64,7 @@ const WebtoonAddController = {
                     const resultMessage = await WebtoonAddService.addEpisode(WebtoonEnName, count, thumbnail, ep);
                     res.send(resultMessage); // "에피소드 추가 성공"
                 }
+                
             }else {
                 res.json({ message: '권한이 없습니다' });
             }    

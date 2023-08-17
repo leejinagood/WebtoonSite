@@ -2,7 +2,7 @@ const redisClient = require('../../redis');
 const { getConn } = require('../../database');
 const jwt = require('jsonwebtoken');
 
-function ExtractUserEmailFromToken(cookies) {
+function AuthAdminToken(cookies) {
     if (typeof cookies === 'string') {
         const resultCookie = cookies.split(';');
         const tokenCookie = resultCookie.find(cookie => cookie.trim().startsWith('token='));
@@ -24,7 +24,7 @@ function ExtractUserEmailFromToken(cookies) {
 const AdminAuthService = {
 
     async verifyAdmin(cookies) {
-        const userEmail = ExtractUserEmailFromToken(cookies);
+        const userEmail = AuthAdminToken(cookies);
         if (userEmail === 'admin') { 
             return '어드민 인증 성공';
         } else {
