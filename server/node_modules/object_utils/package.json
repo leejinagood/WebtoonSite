@@ -1,0 +1,31 @@
+{
+  "name": "object_utils",
+  "description": "Simple module for object manipulation",
+  "preferGlobal": "true",
+  "version": "0.1.0",
+  "author": {
+    "name": "Marcello Gesmundo",
+    "email": "mgesmundo@yoovant.com",
+    "url": "http://www.yoovant.com"
+  },
+  "keywords": [
+    "object",
+    "utility",
+    "merge",
+    "equals"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mgesmundo/object_utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mgesmundo/object_utils/issues"
+  },
+  "main": "./object_utils.js",
+  "analyze": false,
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.4"
+  },
+  "readmeFilename": "README.md"
+}

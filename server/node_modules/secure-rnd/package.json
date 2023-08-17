@@ -1,0 +1,30 @@
+{
+  "name": "secure-rnd",
+  "version": "1.0.0",
+  "description": "Secure random generator",
+  "private": false,
+  "preferGlobal": "false",
+  "main": "index.js",
+  "analyze": false,
+  "bundledDependencies": [
+    "union",
+    "ecstatic"
+  ],  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mgesmundo/secure-rnd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mgesmundo/secure-rnd/issues"
+  },
+  "keywords": [
+     "random",
+     "rnd",
+     "generator"
+  ],
+  "author": "Marcello Gesmundo <mgesmundo@yoovant.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.8"
+  }
+}
