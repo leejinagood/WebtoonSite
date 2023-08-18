@@ -20,8 +20,10 @@ server.use(cors.actual);
 // 서버 설정 및 라우트 호출
 require('./routes/webtoonRoute')(server);
 require('./routes/webtoonListRoute')(server);
-require('./routes/webtoonAddRoute')(server);
-require('./routes/webtoonDeleteRoute')(server);
+require('./admin/routes/webtoonAddRoute')(server);
+require('./admin/routes/webtoonDeleteRoute')(server);
+require('./admin/routes/webtoonShowRoute')(server);
+require('./admin/routes/adminAuthRoute')(server);
 require('./routes/commentRoute')(server);
 require('./routes/likeRoute')(server);
 require('./routes/userRoute')(server);

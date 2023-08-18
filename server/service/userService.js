@@ -141,13 +141,13 @@ const UserService = {
             'your-secret-key',
             { expiresIn: '1h' }
         );
-        
+
         return token; // 토큰 반환
         
         } catch (error) {
-        throw error;
+            throw error;
         } finally {
-        conn.release();
+            conn.release();
         }
     },
     

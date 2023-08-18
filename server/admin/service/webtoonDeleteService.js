@@ -1,5 +1,5 @@
-const redisClient = require('../redis');
-const { getConn } = require('../database');
+const redisClient = require('../../redis');
+const { getConn } = require('../../database');
 
 const WebtoonDeleteService = {
 
@@ -11,12 +11,17 @@ const WebtoonDeleteService = {
             const webtoonQuery = 'CALL usp_delete_webtoon(?);';
 
             const [result] = await conn.query(webtoonQuery, EnName); 
-            //redis 값 삭제
-            await redisClient.del('webtoon : All');
-            await redisClient.del(`webtoon : ${result[0][0].deleted_webtoonWeek}`);
-            await redisClient.del(`webtoon_detail : ${result[0][0].deleted_webtoonID}`);
-            await redisClient.del(`webtoon_list : ${result[0][0].deleted_webtoonID}`);
-            await redisClient.del(`likes:${result[0][0].deleted_webtoonID}`);
+
+            const keysToDelete = [
+                'webtoon : All',
+                `webtoon : ${result[0][0].deleted_webtoonWeek}`,
+                `webtoon_detail : ${result[0][0].deleted_webtoonID}`,
+                `webtoon_list : ${result[0][0].deleted_webtoonID}`,
+                `likes:${result[0][0].deleted_webtoonID}`
+            ];
+              
+            await Promise.all(keysToDelete.map(key => redisClient.del(key)));
+              
 
             return "웹툰 삭제 성공";
         } catch (error) {
