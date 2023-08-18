@@ -233,3 +233,19 @@
     height: 100%;
     object-fit: contain;
 }
+
+.Nav{
+    margin-top:45px;
+    width: 80%;
+}
+
+.Nav ul li{
+    float: left;
+    position: relative;
+    right: 40px;
+    width: 10%;
+    list-style: none;
+}
+.Nav ul{
+    float: left;
+}

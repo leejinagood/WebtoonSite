@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import style from "../styles/MainPageCss.module.css"
+
 const AllToonInfo = () => {
   const [webtoons, setWebtoons] = useState([]);
   

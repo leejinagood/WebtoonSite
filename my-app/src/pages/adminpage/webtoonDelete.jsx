@@ -6,7 +6,7 @@ import { parseCookies ,destroyCookie} from 'nookies'; // nookies 라이브러리
 import { useRouter } from 'next/router';
 import axios from 'axios'; // 이미 import 문이 사용되었을 것으로 가정
 import Link from "next/link";
-const AdminPage = () => {
+const webtoonDelete = () => {
   const router = useRouter();
   const [DwebtoonEnName, setDwebtoonEnName] = useState(""); // 웹툰 아이디를 저장할 상태 변수
   const [EwebtoonEnName, setEwebtoonEnName] = useState(""); // 웹툰 아이디를 저장할 상태 변수
@@ -468,147 +468,7 @@ const findWebtoonTitleById = (EnName) => {
       admin === "mnb2098%40naver.com" ? (
           
       <form>
-
-        <div className={style.newWebtoon}>
-          <h2>신규 웹툰 등록</h2>
-
-          {/* 작품 정보 입력 부분 */}
-          <input
-            type="text"
-            placeholder="웹툰 제목"
-            value={webtoonName}
-            onChange={(e) => {
-              setWebtoonName(e.target.value);
-            }}
-          />
-                  {/* <p>번역된 웹툰 제목: {translatedWebtoonName}</p> */}
-
-          <input
-            type="text"
-            placeholder="웹툰 영문 제목"
-            value={webtoonEnName}
-            onChange={(e) => setWebtoonEnName(e.target.value)}
-          />
-
-          <input
-            type="text"
-            placeholder="작가명"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="웹툰 내용"
-            id={style.bottom}
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
-
-          <div className={style.inputRow}>
-            <span className={style.inputP}>요일 선택</span>
-            <div className={style.inputBox}>
-              <select id={style.dayOption} value={selectedDay} onChange={handleDayChange}>
-                <option  value="">요일을 선택하세요</option>
-                {dayOptions.map((day) => (
-                  <option key={day.value} value={day.value}>
-                    {day.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* 장르 선택 부분 */}
-          <div className={style.checkBox}>
-            <span id={style.CategoriP} className={style.inputP}>장르</span>
-            {/* 장르 체크박스 목록 */}
-            {Object.entries(checkboxStates).map(([genre, isChecked]) => (
-              <label key={genre} className={style.checkboxLabel}>
-                <input
-                  type="checkbox"
-                  checked={isChecked}
-                  onChange={() => handleCheckboxChange(genre)}
-                />
-                <span className={style.Categori}>{genre}</span>
-              </label>
-            ))}
-          </div>
-          {/* 사진 업로드 부분 */}
-          <div id={style.imgUpload} className={style.inputRow}>
-            <span className={style.inputP}>사진 업로드 <br/>/  미리보기</span>
-            <div className={style.inputBox}>
-                <input
-                    type="text"
-                    placeholder="이미지 경로 입력"
-                    onChange={handleImageChange}
-                />
-                      {handleImageChange && ( // 경로가 입력된 경우에만 이미지 표시
-                      <div className={style.show}>
-                        <img src={selectedImage} alt="미리보기" />
-                        <div className={style.hoverP}>
-                          <p className={style.lp}>{webtoonName}</p>
-                          <p className={style.rp}>{author}</p>
-                        </div>
-                      </div>
-      
-      )}
-          </div>
-          </div>
-
-          {/* 웹툰 등록 버튼 */}
-          <button id={style.uploadBtn} type="button" onClick={handleWebtoonAdd}>
-            웹툰 등록
-          </button>
-
-          <h2  id={style.newEpH}>신규 회차 등록</h2>
-
-          {/* 에피소드 정보 입력 부분 */}
-
-          <input
-            type="text"
-            placeholder="웹툰 영문 제목"
-            value={epEnName}
-            onChange={(e) => setEpEnName(e.target.value)}
-          />
-                  <p className={style.epEn}>웹툰 제목: {findWebtoonTitleById(epEnName !== "" ? epEnName : null)}</p>
-
-      <input
-        type="number"
-        id="countInput"
-        placeholder="에피소드 컷 수"
-
-        value={count} 
-        onChange={handleCountChange}
-      />
-      <input
-        type="number"
-        id="episodeInput"
-        value={episode}
-        placeholder="에피소드 회차"
-        onChange={handleEpisodeChange}
-      />
-      <input
-        type="text"
-        id={style.bottom}
-        value={thumbnailPath}
-        placeholder="썸네일경로"
-        onChange={handleThumbnailChange}
-      />
-            {/* <input
-        type="file"
-        id={style.bottom}
-        value={thumbnailPath}
-        placeholder="썸네일경로"
-        onChange={handleThumbnailChange}
-      /> */}
-      
-    
-      {thumbnailPath && ( // 경로가 입력된 경우에만 이미지 표시
-        <img src={thumbnailPath} alt="Thumbnail" style={{ maxWidth: "200px", maxHeight: "100px" }} />
-      )}
-        <button id={style.uploadBtn}onClick={handleEpisodeAdd}>회차등록</button>
-
-
+                <div className={style.newWebtoon}>
         <h2 id={style.top}>웹툰 전체 삭제</h2>
 
           {/* 웹툰 전체  삭제 */}
@@ -640,7 +500,6 @@ const findWebtoonTitleById = (EnName) => {
             />
             <button className={style.bottomm}id={style.uploadBtn} onClick={handleEpisodeDelete}>선택한 웹툰 회차 삭제</button>
         </div>
-        
 
       </form>
             ) : (
@@ -650,4 +509,4 @@ const findWebtoonTitleById = (EnName) => {
   );
 };
 
-export default AdminPage;
+export default webtoonDelete;
