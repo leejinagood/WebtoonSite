@@ -6,7 +6,7 @@ server.use(restify.plugins.bodyParser()); // JSON 데이터 파싱을 위한 미
 server.use(restify.plugins.queryParser());
 
 // 기본 포트번호 설정
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 2000;
 
 // CORS 정책 설정
 const corsMiddleware = require('restify-cors-middleware');
