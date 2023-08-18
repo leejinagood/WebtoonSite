@@ -11,11 +11,12 @@ const port = process.env.PORT || 4000;
 // CORS 정책 설정
 const corsMiddleware = require('restify-cors-middleware');
 const cors = corsMiddleware({
-    origins: ['http://localhost:3000', 'https://imgur.com', 'https://kauth.kakao.com'], // 클라이언트 도메인 주소
+    origins: ['http://localhost:3000', 'https://imgur.com', 'https://kauth.kakao.com', 'https://at0vjnzzcb.execute-api.ap-northeast-2.amazonaws.com/dev'], // 클라이언트 도메인 주소
     allowHeaders: ['Authorization'],
 });
 server.pre(cors.preflight);
 server.use(cors.actual);
+//
 
 // 서버 설정 및 라우트 호출
 require('./routes/webtoonRoute')(server);
