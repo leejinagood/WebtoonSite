@@ -8,34 +8,22 @@ import axios from 'axios'; // 이미 import 문이 사용되었을 것으로 가
 import Link from "next/link";
 const episodeDelete = () => {
   const router = useRouter();
-  const [DwebtoonEnName, setDwebtoonEnName] = useState(""); // 웹툰 아이디를 저장할 상태 변수
   const [EwebtoonEnName, setEwebtoonEnName] = useState(""); // 웹툰 아이디를 저장할 상태 변수
 
   // const [webtoonId, setWebtoonId] = useState(""); // 웹툰 아이디를 저장할 상태 변수
   // const [episodeId, setEpisodeId] = useState(""); // 웹툰 아이디를 저장할 상태 변수
   const [ep, setEp] = useState(""); // 웹툰 아이디를 저장할 상태 변수
 
-  const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 파일을 저장
-  const [selectedDay, setSelectedDay] = useState(""); // 초기 값을 빈 문자열로 설정
-  const [webtoonName, setWebtoonName] = useState(""); // 웹툰 제목을 저장
-  const [webtoonEnName, setWebtoonEnName] = useState(""); // 웹툰 영문 제목을 저장
-  const [epEnName, setEpEnName] = useState(""); // 웹툰 영문 제목을 저장
-
-  const [author, setAuthor] = useState(""); // 작가명을 저장
-  const [content, setContent] = useState(""); // 웹툰 내용을 저장
-  const [categories, setCategories] = useState([]); // 선택된 카테고리를 저장
-  const [count, setCount] = useState(""); // 초기값을 0으로 설정
-  const [thumbnailPath, setThumbnailPath] = useState(""); // 초기값은 빈 문자열
-  const [episode, setEpisode] = useState(""); // 에피소드 입력 상태
   const [webtoonData, setWebtoonData] = useState([]); // Add this state variable
 
+  const isAdminPage = true; // 어드민 페이지 여부를 true 또는 false로 설정
 
   const [admin,setAdmin] = useState("");
   let token = "";
   useEffect(() => {
 
-  fetch("/api/daytoon?day=All")
-  .then((response) => response.json())
+    fetch("/api/adminWebtoon")
+    .then((response) => response.json())
   .then((data) => {
     setWebtoonData(data); // Store the fetched data in the state
 
@@ -73,7 +61,8 @@ const findWebtoonTitleById = (EnName) => {
         console.log(admin);
   
         if (decodedToken.UserEmail !== "qkaejwnj%40naver.com" 
-        && decodedToken.UserEmail !== "mnb2098%40naver.com") {
+        && decodedToken.UserEmail !== "mnb2098%40naver.com"
+        && decodedToken.UserEmail !== "admin") {
           window.alert("접근불가");
           router.push('/'); // 다른 페이지로 리다이렉트
         }
@@ -87,264 +76,14 @@ const findWebtoonTitleById = (EnName) => {
 
 
 
-  const handleEpisodeChange = (event) => {
-    const newEpisode = event.target.value;
-    setEpisode(newEpisode);
-  };
-  const handleThumbnailChange = (event) => {
-    const newPath = event.target.value;
-    setThumbnailPath(newPath);
-  };
-  const handleCountChange = (event) => {
-    const newCount = parseInt(event.target.value); // 입력된 값을 정수로 변환
-    setCount(newCount);
-  };
-  const isAdminPage = true; // 어드민 페이지 여부를 true 또는 false로 설정
 
 
-  const handleImageChange = (event) => {
-    const imagePath = event.target.value;
-    setSelectedImage(imagePath);
-  };
 
-  const handleDayChange = (event) => {
-    const selectedDay = event.target.value;
-    setSelectedDay(selectedDay);
-  };
 
-  const handleWebtoonAdd = async () => {
-    const selectedGenres = Object.entries(checkboxStates)
-    .filter(([genre, isChecked]) => isChecked)
-    .map(([genre]) => genre);
-    
-  
-    console.log("컨텐츠"+content,"작가"+author,"웹툰제목",webtoonName,"영어제목",webtoonEnName,selectedDay,"웹툰이미지",selectedImage,"장르",selectedGenres)
-    const data = {
-      content:content,
-      author:author,
-      WebtoonName: webtoonName,
-      WebtoonEnName: webtoonEnName,
-      week: selectedDay,
-      thumbnail: selectedImage, // 이미지 파일로 변경
-      categories:JSON.stringify(selectedGenres),
-      genres: selectedGenres, // 선택한 장르 목록
 
-    };
-    const errors = []; // 발생한 예외 메시지들을 저장할 배열
-
-    if (!content) {
-      errors.push("내용을 작성해주세요");
-    }
-    else if (author.length > 100) {
-      errors.push("작품설명은 최대 100글자까지 가능합니다");
-    }
-    if (!author) {
-      errors.push("작가를 작성해주세요");
-    } else if (author.length > 6) {
-      errors.push("작가 이름은 최대 6글자까지 가능합니다");
-    }
-  
-    if (!webtoonName) {
-      errors.push("웹툰이름을 작성해주세요");
-    } else if (webtoonName.length > 12) {
-      errors.push("웹툰 이름은 최대 6글자까지 가능합니다");
-    }
-    if (!webtoonEnName) {
-      errors.push("웹툰영어이름을 작성해주세요");
-    }
-    else if (!/^[A-Za-z]+$/.test(webtoonEnName)) {
-      errors.push("웹툰 영어 이름은 영어로만 구성되어야 합니다");
-    }
-    if (!selectedDay) {
-      errors.push("요일을 선택해주세요");
-    }
-    if (selectedGenres.length === 0) {
-      errors.push("장르를 체크해주세요");
-    }
-    if (selectedImage === null) {
-      errors.push("이미지 경로를 입력해주세요");
-    }
-    
-
-    if (errors.length > 0) {
-      // 에러 메시지를 출력하거나 필요한 동작을 수행
-      console.error("에러 발생:", errors);
-      window.alert(errors);
-
-    } else {
-      try {
-      const formData = new FormData();
-      for (const key in data) {
-        formData.append(key, data[key]);
-      }
-
-      const response = await fetch("/api/webtoonAdd", {
-        method: "POST",
-        body: formData,
-      });
-      // . json 
-
-      if (response.ok) {
-        console.log("웹툰 추가 성공");
-        window.alert("웹툰 추가 성공");
-
-        // 웹툰 추가 성공 후 필요한 동작 수행
-      }else if(response.status===500){
-        console.log("빠짐없이 입력해주세요");
-      }
-      else {
-        console.error("웹툰 추가 실패");
-        // 웹툰 추가 실패 처리
-      }
-    } catch (error) {
-      console.error("API 호출 오류:", error);
-      // 오류 처리
-    }
-  }
-  };
-
-  const dayOptions = [
-    { value: "", label: "요일을 선택하세요" }, // 초기 값은 빈 문자열로 설정
-    { value: "mon", label: "월요일" },
-    { value: "tues", label: "화요일" },
-    { value: "wendes", label: "수요일" },
-    { value: "thurs", label: "목요일" },
-    { value: "fri", label: "금요일" },
-    { value: "satur", label: "토요일" },
-    { value: "sun", label: "일요일" },
-  ];
-
-  const [checkboxStates, setCheckboxStates] = useState({
-    로맨스: false,
-    액션: false,
-    공포: false,
-    일상: false,
-    힐링: false,
-    스포츠: false,
-    드라마: false,
-    무협: false,
-  });
-  
-  
-  const handleCheckboxChange = (genre) => {
-    setCheckboxStates((prevState) => ({
-      ...prevState,
-      [genre]: !prevState[genre],
-    }));
-  };
   
 
-  const handleEpisodeAdd = async () => {
-    event.preventDefault(); // 이벤트의 기본 동작을 막음
 
-    const errors = []; // 발생한 예외 메시지들을 저장할 배열
-  
-    console.log(epEnName, count, thumbnailPath, episode);
-  
-    if (!epEnName) {
-      errors.push("웹툰 영어제목을 입력해주세요");
-    }else if (!/^[A-Za-z]+$/.test(epEnName)) {
-      errors.push("웹툰 영어 이름은 영어로만 구성되어야 합니다");
-    }
-    if (!count) {
-      errors.push("컷수를 입력해주세요");
-    }
-    else if (count > 100) {
-      errors.push("최대 100컷 까지만 가능합니다");
-    }
-    if (!thumbnailPath) {
-      errors.push("썸네일 경로를 입력해주세요");
-    }
-    if (!episode) {
-      errors.push("회차를 입력해주세요");
-    }
-    if (errors.length > 0) {
-      window.alert(errors);
-
-      console.error("에러 발생:", errors);
-      return; // 에러가 있으면 함수 종료
-    }
-    
-    try {
-      const response = await fetch("/api/episodeAdd", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          WebtoonEnName: epEnName,
-          count: count,
-          thumbnail: thumbnailPath,
-          ep: episode,
-        }),
-      });
-  
-      if (response.ok) {
-        console.log("에피소드 추가 성공");
-        window.alert("에피소드 추가 성공");
-        // 에피소드 추가 성공 후 필요한 동작 수행
-      } else {
-        console.error("에피소드 추가 실패");
-        window.alert("해당하는 웹툰 정보가 없습니다");
-        // 에피소드 추가 실패 처리
-      }
-    } catch (error) {
-      console.error("API 호출 오류:", error);
-      // 오류 처리
-    }
-  };
-
-  const handleWebtoonDelete = async () => {
-    event.preventDefault(); // 이벤트의 기본 동작을 막음
-
-
-    const errors = []; // 발생한 예외 메시지들을 저장할 배열
-    if(!DwebtoonEnName){
-      errors.push("삭제하려는 웹툰 영어이름을 입력하세요");
-    }
-
-    const webtoonToDelete = webtoonData.find(
-      (webtoon) => webtoon.webtoonEnName === DwebtoonEnName
-    );
-    // 만들어둔 펀션이용하기
-
-
-    if(!webtoonToDelete){
-      errors.push("해당 웹툰은 존재하지 않습니다");
-
-    }
-    if(errors.length>0){
-      console.log("에러 발생:", errors);
-      window.alert(errors);
-      return; // 에러가 있으면 함수 종료
-    }else{
-    try {
-      const response = await fetch("/api/webtoonDelete", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          EnName: DwebtoonEnName, // 웹툰 아이디 전달
-        }),
-      });
-  
-      if (response.ok) {
-        console.log("웹툰 전체 삭제 성공");
-        window.alert("웹툰 전체 삭제 성공");
-        // 웹툰 전체 삭제 성공 후 필요한 동작 수행
-      } if(response.status === 500) {
-        console.log("웹툰 전체 삭제 실패");
-
-        // 웹툰 전체 삭제 실패 처리
-      }
-    } catch (error) {
-      console.log("API 호출 오류:", error);
-
-      // 오류 처리
-    }
-  }
-  };
 
 
   const handleEpisodeDelete = async () => {
@@ -404,41 +143,7 @@ const findWebtoonTitleById = (EnName) => {
 
   };
 
-  // const [translatedWebtoonName, setTranslatedWebtoonName] = useState(""); // 번역된 웹툰 제목을 저장할 상태 변수
 
-  // ... (다른 상태 변수와 useEffect)
- // 번역 함수 수정
-// const translateText = async (webtoonName) => {
-//   const apiUrl = '/api/translate'; // 백엔드로 요청을 보내도록 수정
-//   try {
-//     const response = await axios.post(
-//       apiUrl,
-//       {
-//         text: webtoonName,
-//       },
-//       {
-//         withCredentials: true, // CORS 관련 설정
-//       }
-//     );
-
-//     const translatedText = response.data.message.result.translatedText;
-
-//     return translatedText;
-//   } catch (error) {
-//     console.error('번역 오류:', error);
-//     return ''; // 오류가 발생하면 빈 문자열을 반환
-//   }
-// };
-
-// // 웹툰 이름 변경 핸들러 수정
-// const handleWebtoonNameChange = async (event) => {
-//   const newWebtoonName = event.target.value;
-//   setWebtoonName(newWebtoonName);
-
-//   // 입력한 제목을 번역하고 번역된 상태를 업데이트합니다
-//   const translatedTitle = await translateText(newWebtoonName);
-//   setTranslatedWebtoonName(translatedTitle);
-// };
 
 // 핸들 펀션 스테이트 하나로 줄이기
 // 쪼개기 메뉴로
@@ -455,17 +160,18 @@ const findWebtoonTitleById = (EnName) => {
               <li>
                 <Link href="/adminpage/episodeAdd">에피소드 등록</Link>
               </li>
-              <li>
+              <li >
                 <Link href="/adminpage/webtoonDelete">웹툰 삭제</Link>
               </li>
-              <li>
+              <li  className={style.choise}>
                 <Link href="/adminpage/episodeDelete">에피소드 삭제</Link>
               </li>
           </ul>
       </nav>
       
       {admin === "qkaejwnj%40naver.com" ||
-      admin === "mnb2098%40naver.com" ? (
+      admin === "mnb2098%40naver.com" ||
+      admin === "admin" ? (
           
       <form>
                 <div className={style.newWebtoon}>

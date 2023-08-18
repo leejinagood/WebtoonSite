@@ -24,12 +24,19 @@
     }
 }
 @media screen and (max-width:721px) and (min-width:461px){
+
     .ListPage{
         width: 100% !important;
         overflow: hidden;
     }
+    .handleEpisodeAdd{
+        height: 20px !important;
+    }
 
-
+    #line{
+        position: relative;
+        top:15px
+    }
 
     .ListInfo{
         margin-top: 10px !important;
@@ -38,7 +45,6 @@
         font-size: 9px;
         margin-top: 10px !important;
         margin-bottom: 0px !important;
-        margin-left: 10%;
         width: 150px !important;
 
     }
@@ -61,8 +67,7 @@
 
     .ListInfoBox{
         height: 200px !important;
-        margin-left: 10% !important;
-        width: 80% !important;
+        width: 100% !important;
     }
     .ListImgBox{
         width: 25% !important;
@@ -75,10 +80,13 @@
         width: 100% !important;
     }
     .tab2{
-        width: 100%;
+        width: 50%;
+        position: relative;
+        top:20px !important;
         height: 30px !important;
     }
     .ConTent{
+        width:100% !important;
         margin-bottom: 0px !important;
         margin-top: 0px !important;
     }
@@ -110,7 +118,7 @@
     .List{
         position: relative;
         /* left:250px; */
-        left:35%;
+        left:25%;
         height: 500px !important;
         width: 100% !important;
 
@@ -132,7 +140,7 @@
 }
 
 /* test */
-@media screen and (max-width:460px) and (min-width:362px) {
+@media screen and (max-width:460px) and (min-width:415px) {
     .ListPage{
         width: 100% !important;
     }
@@ -226,7 +234,7 @@
     .List{
         position: relative;
         bottom: 20px;
-        width: 80% !important;
+        width: 100% !important;
         float: left !important;
         margin-top: 0px !important;
         margin-left: 10% !important;
@@ -273,7 +281,7 @@
         float: left !important;
     }
     .ListInfo{
-        width: 80% !important;
+        width: 100% !important;
         margin-left: 10% !important;
         margin-top: 0px !important;
 
@@ -290,11 +298,19 @@
     .TextBox{
         margin-bottom: 0 !important;
     }
+    .ConTent{
+        width: 100% !important;
+
+        font-size: 10px;
+    }
+
 }
 
 /* test */
-@media screen and (max-width:361px) and (min-width:10px) {
-
+@media screen and (max-width:414px) and (min-width:10px) {
+    .handleEpisodeAdd{
+        line-height: 12px !important;
+    }
     .ListPage{
         width: 100% !important;
     }
@@ -336,6 +352,7 @@
 
     
     .tab2{
+        margin-top: 10px;
         font-size: 16px !important;
     }
 
@@ -355,15 +372,13 @@
     }
 
     .ListInfot{
-        width: 55% !important;
+        width: 65% !important;
         height: 140px !important;
     }
     .ListImgBox {
         align-items: center;
         width: 30% !important;
         padding: 0 !important;
-        margin-left: 5% !important;
-        background-color: green;
         height: 140px !important;
       }
     .ListImgBox img{
@@ -385,24 +400,21 @@
         height: 300px !important;
     }
     .ListItem{
-        width: 80% !important;
+
+        width: 100% !important;
         height: 55px !important;
-        margin-left: 5% ;
     }
     .ConTent{
         position: relative;
-        bottom: 30px !important;
+        bottom: 40px !important;
+        font-size: 10px;
+        width: 100% !important;
     }
     .GrayP{
         margin-bottom: 0 !important;
         padding: 0 !important;
     }
-    .ListImg {
-        width: 35% !important;
-        height: 100% !important;
-        float: left;
-        object-fit: contain; /* 이미지 비율 유지 */
-      }
+
     .ListItem .ListImg img{
         width:100% !important;
         height: 100% !important;
@@ -432,8 +444,7 @@
 .ListPage{
     max-width: 1920px;
     background-color: white !important;
-    height: 100vh;
-    width: 80%;
+    width: 100%;
     font-family: 'Jua', sans-serif;
     list-style: none;
     box-sizing: border-box;
@@ -441,9 +452,7 @@
     margin: 0 auto;
 }
 .ListInfo{
-    background-color: white ;
 
-    height: 100px;
     max-width: 1920px;
 
     width: 100%;
@@ -453,24 +462,20 @@
 }
 .ListImgBox{
     max-width: 1920px;
-    background-color: white ;
 
     float: left;
-    width: 15%;
+    width: 20%;
 }
 
 .ListInfoBox{
-    background-color: white ;
 
     max-width: 1920px;
     width: 100%;
     float: left;
-    height: 290px;
 }
 .ListImgBox img{
     max-width: 1920px;
     float: left;
-    background-color: white ;
 
     width: 100%;
     height: 300px;
@@ -480,13 +485,12 @@
 
 .ListInfo p{
     max-width: 1920px;
-
     float: left;
-    width: 100%;
+    width: 60%;
 }
 .ConTent{
     max-width: 1920px;
-    background-color: white;
+    width: 60%;
     position: relative;
     bottom: 10px;
     float: left !important;
@@ -495,16 +499,14 @@
 .ListInfot{
     max-width: 1920px;
     float: left;
-    background-color: white ;
 
-    width: 84.3%;
+    width: 79%;
     height: 263px;
     margin-left: 10px;
 }
 .tab2{
     font-size: 20px;
     border: 0px solid #000 !important;
-    background-color: white ;
 
 }
 .GrayP{
@@ -547,7 +549,7 @@
 }
 
 .IBtn{
-    width: 60%;
+    width: 59.6%;
     height: 35px;
     border-radius: 5px;
     border: 1px solid rgb(230, 226, 226);
@@ -631,6 +633,7 @@
 }
 .Episode{
     max-width: 1920px;
+    background-color: white;
 
     margin-top: 40px;
     width: 50%;
@@ -658,7 +661,7 @@
     margin-top: 40px;
     background-color: white;
     margin-bottom: 13px;
-    width: 9%;
+    width:10%;
 }
 .DESC span{
     cursor: pointer;
@@ -684,4 +687,18 @@
 }
 .tab{
     background-color: white;
+}
+
+.addEp{
+    width: 10%;
+    height: 30px;
+    margin-bottom: 10px;
+}
+.handleEpisodeAdd{
+    width: auto;
+    background-color: rgb(171,230,157);
+    height: auto;
+    border: 0;
+    border-radius: 5px;
+    margin-bottom: 15px;
 }
