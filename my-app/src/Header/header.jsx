@@ -49,7 +49,7 @@ const Header = ({ showAdminLink }) => {
   };
 
   const [admin,setAdmin] = useState("");
-
+  const [adminToken ,setAdminToken] = useState("");
   const handleLogout = () => {
     // 세션 스토리지에서 토큰 삭제
     sessionStorage.removeItem("token");
@@ -84,6 +84,8 @@ const Header = ({ showAdminLink }) => {
         // JWT 토큰 디코딩하여 클레임 값을 추출
         const decodedToken = jwt_decode(token);
         setAdmin(decodedToken.UserEmail);
+        setAdminToken(decodedToken.token);
+
         // userEmail 클레임 값을 콘솔에 출력
         console.log(admin);
         console.log('userEmail:', decodedToken.UserEmail);
@@ -93,7 +95,8 @@ const Header = ({ showAdminLink }) => {
     // 쿠키에서 토큰 값을 추출
     if(!showAdminLink ){
     console.log(admin);
-    if (admin === 'qkaejwnj%40naver.com' || admin === 'mnb2098%40naver.com') { // 수정: 이메일 주소에서 URL 인코딩된 문자 제거
+    if (admin === 'qkaejwnj%40naver.com' || admin === 'mnb2098%40naver.com'
+    || token === adminToken) { // 수정: 이메일 주소에서 URL 인코딩된 문자 제거
       const addButton = document.createElement("button");
       addButton.className = style.addBtn;
       addButton.textContent = "adminPage";

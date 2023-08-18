@@ -1,0 +1,28 @@
+@media screen and (max-width:641px) and (min-width:416px){
+    .addDeleteBTN{
+        left: 80% !important;
+
+    }
+}
+@media screen and (max-width:415px) and (min-width:10px){
+    .addDeleteBTN{
+        width: 100px !important;
+        margin-top: 10px;
+        position: relative;
+        left: 60% !important;
+        font-size: 10px !important;
+    }
+}
+.addDeleteBTN{
+    width: 30%;
+    position: relative;
+    left: 110%;
+    bottom: 30px;
+}
+.addDeleteBTN button{
+    width: auto;
+    border: 0;
+    border-radius: 5px;
+    background-color: rgb(171,230,157);
+}
+

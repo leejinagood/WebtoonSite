@@ -1,0 +1,94 @@
+@media screen and (max-width:721px) and (min-width:416px){
+    #AB{
+        width: 100% !important;
+    }
+    #ABI{
+        float: left;
+        position: relative;
+        left: 7%;
+        width: 170px !important;
+        height: 200px !important;
+
+    }
+    #ABI img{
+        width: 100% !important;
+        height: 200px !important;
+
+    }
+    #hoP{
+        bottom: 0px !important;
+    }
+    #ABimgbox{ 
+        width: 170px !important;
+        height: 200px !important;
+        background-color: green !important;
+    }
+}
+
+@media screen and (max-width:415px) and (min-width:10px){
+    #AB{
+        width: 80%  !important;
+    }
+    #ABI{
+        float: left;
+        margin-bottom: 0px !important;
+        height: auto !important;
+
+    }
+    #likeeee{
+        display: none;
+    }
+
+    #ABI img{
+        height: 100% !important;
+
+        width: 100% !important;
+        object-fit: contain;
+        position: relative;
+
+    }
+    #ATIMG{
+        height: 100% !important;
+    }
+    #ABimgbox{ 
+        height: 100% !important;
+
+    }
+    #hoP{
+        display: block !important;
+        font-size: 10px;
+    }
+    #ATTEXT{
+        display: none !important;
+        height: 30px;
+    }
+    .deleteButton{
+        width: 100% !important;
+
+    }
+
+}
+@media screen and (max-width:361px) and (min-width:360px){
+    .deleteButton{
+        margin-left: 5px !important;
+    }
+}
+#AB{
+    width: 80%;
+}
+#ABI{
+    margin-top: 25px;
+    height: auto !important;
+    margin-bottom: 45px;
+}
+#ABI img{
+    width: 100%;
+    height: auto !important;
+}
+#ABimgbox{
+    height: auto !important;
+}
+
+.deleteButton{
+    float: left;
+}
