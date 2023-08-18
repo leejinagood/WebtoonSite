@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   if (name) {
     try {
-      const response = await axios.get(`http://192.168.0.98:4000/api/webtoondetail?name=${encodeURIComponent(name)}`);
+      const response = await axios.get(`http://107.23.243.5:4000/api/webtoondetail?name=${encodeURIComponent(name)}`);
       const { webtoons ,count } = response.data;
       res.status(200).json({ webtoons, count });
 
