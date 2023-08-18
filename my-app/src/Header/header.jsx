@@ -96,7 +96,7 @@ const Header = ({ showAdminLink }) => {
     if(!showAdminLink ){
     console.log(admin);
     if (admin === 'qkaejwnj%40naver.com' || admin === 'mnb2098%40naver.com'
-    || token === adminToken) { // 수정: 이메일 주소에서 URL 인코딩된 문자 제거
+    || admin === "admin") { // 수정: 이메일 주소에서 URL 인코딩된 문자 제거
       const addButton = document.createElement("button");
       addButton.className = style.addBtn;
       addButton.textContent = "adminPage";
