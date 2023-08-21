@@ -11,7 +11,7 @@ module.exports = {
       // },
       {
         source: '/api/:path*',
-        destination: 'http://http://107.23.243.5:4000/api/:path*',
+        destination: 'http://107.23.243.5:4000/api/:path*',
       }
     ];
   },
