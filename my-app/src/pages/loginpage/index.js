@@ -104,23 +104,14 @@ const LoginPage = () => {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code'); // URL에서 코드 파라미터 추출
+    const token = urlParams.get('token'); // URL에서 토큰 추출
 
-    if (code) {
-      axios.post('/api/Kakao', { code })
-        .then(response => {
-          const token = response.data.token;
-
-          if (token) {
-            const redirectUrl = `https://main.d9cidza1ul6q9.amplifyapp.com/?token=${token}`;
-            window.location.href = redirectUrl;
-          }
-        })
-        .catch(error => {
-          console.error(error);
-        });
+    if (token) {
+      const redirectUrl = `https://main.d9cidza1ul6q9.amplifyapp.com`;
+      window.location.href = redirectUrl; // 리다이렉트 수행
+      console.log(token);
     }
   }, []);
   
