@@ -71,7 +71,6 @@ const LoginPage = () => {
         console.log("사용자 이메일:", response.data.userEmail);
         console.log(tokenPayload.userName);
         console.log(tokenPayload.userEmail);
-        setCookie('ㅇㅇ',token,1);
 
         // 토큰 저장
         sessionStorage.setItem("token", token);
@@ -92,11 +91,6 @@ const LoginPage = () => {
       console.error(error);
     }
   };
-
-  const setCookie = (name, value, days) => {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
-};
 
   const kakaohandleSubmit = async (e) => {
     e.preventDefault();
