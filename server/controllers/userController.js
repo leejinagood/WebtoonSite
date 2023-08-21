@@ -42,10 +42,9 @@ const UserController = {
             }else{
                 const token = await UserService.login(ID, password, res);
 
-                res.setHeader('Set-Cookie', [
-                    `token=${token}; Path=/; SameSite=Lax; `, // 쿠키 설정
-                ]);
-                res.header("Access-Control-Allow-Origin",'https://main.d9cidza1ul6q9.amplifyapp.com/');
+                // res.setHeader('Set-Cookie', [
+                //     `token=${token}; Path=/; SameSite=Lax; `, // 쿠키 설정
+                // ]);
                 res.send({ token }); // 토큰
             }
         } catch (error) {

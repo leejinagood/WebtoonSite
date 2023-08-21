@@ -11,8 +11,9 @@ const port = process.env.PORT || 4000;
 // CORS 정책 설정
 const corsMiddleware = require('restify-cors-middleware');
 const cors = corsMiddleware({
-    origins: ['https://imgur.com', 'https://kauth.kakao.com','https://main.d9cidza1ul6q9.amplifyapp.com'], // 클라이언트 도메인 주소
-    allowHeaders: ['Authorization'],
+  preflightMaxAge: 5, 
+  origins: ['https://imgur.com', 'https://kauth.kakao.com', 'https://main.d9cidza1ul6q9.amplifyapp.com'], // 클라이언트 도메인 주소
+  allowHeaders: ['Authorization'],
 });
 server.pre(cors.preflight);
 server.use(cors.actual);
