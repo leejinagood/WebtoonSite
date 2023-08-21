@@ -16,7 +16,7 @@ const cors = corsMiddleware({
 });
 server.pre(cors.preflight);
 server.use(cors.actual);
-//
+
 
 // 서버 설정 및 라우트 호출
 require('./routes/webtoonRoute')(server);

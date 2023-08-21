@@ -94,6 +94,7 @@ const LoginPage = () => {
   };
 
   const kakaohandleSubmit = async (e) => {
+    axios.defaults.baseURL = "http://107.23.243.5:4000"; // 서버 도메인 설정
     e.preventDefault();
     try {
       // 카카오 인가 URL로 리다이렉트
@@ -102,6 +103,27 @@ const LoginPage = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code'); // URL에서 코드 파라미터 추출
+
+    if (code) {
+      axios.post('/api/Kakao', { code })
+        .then(response => {
+          const token = response.data.token;
+
+          if (token) {
+            const redirectUrl = `https://main.d9cidza1ul6q9.amplifyapp.com/?token=${token}`;
+            window.location.href = redirectUrl;
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  }, []);
+  
 
   
   useEffect(() => {
