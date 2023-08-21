@@ -44,7 +44,6 @@ const LoginPage = () => {
 
 
   const handleSubmit = async (e) => {
-    axios.defaults.baseURL = "http://107.23.243.5:4000"; // 서버 도메인 설정
 
     e.preventDefault();
     try {
@@ -94,7 +93,6 @@ const LoginPage = () => {
   };
 
   const kakaohandleSubmit = async (e) => {
-    axios.defaults.baseURL = "http://107.23.243.5:4000"; // 서버 도메인 설정
     e.preventDefault();
     try {
       // 카카오 인가 URL로 리다이렉트
