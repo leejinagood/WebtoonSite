@@ -43,7 +43,7 @@ const UserController = {
                 const token = await UserService.login(ID, password, res);
 
                 res.setHeader('Set-Cookie', [
-                    `token=${token}; Path=/; SameSite=Lax;`, // 쿠키 설정
+                    `token=${token}; Path=/; SameSite=Lax; Domain=.d9cidza1ul6q9.amplifyapp.com;`, // 쿠키 설정
                 ]);
 
                 res.send({ token }); // 토큰
@@ -67,7 +67,7 @@ const UserController = {
                 const token = await UserService.kakaoLogin(code, res);
 
                 res.setHeader('Set-Cookie', [
-                    `token=${token}; Path=/; SameSite=Lax;`, // 쿠키 설정
+                    `token=${token}; Path=/; SameSite=Lax; Domain=.d9cidza1ul6q9.amplifyapp.com;`, // 쿠키 설정
                 ]);
 
                 res.writeHead(302, {
