@@ -71,10 +71,10 @@ const UserController = {
                 ]);
 
                 res.writeHead(302, {
-                    'Location': 'http://localhost:3000',
+                    'Location': 'https://main.d9cidza1ul6q9.amplifyapp.com/',
                     'Content-Type': 'text/plain'
                 });
-                res.end('Redirecting to http://localhost:3000');
+                res.end('Redirecting to https://main.d9cidza1ul6q9.amplifyapp.com/');
             }
         } catch (error) {
             console.error(error);
