@@ -46,7 +46,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`/api/LoginPage`,{params: {
+      const response = await axios.get(`http://107.23.243.5:4000/api/LoginPage`,{params: {
         ID: ID,
         password: password
       }
