@@ -43,8 +43,9 @@ const UserController = {
                 const token = await UserService.login(ID, password, res);
 
                 res.setHeader('Set-Cookie', [
-                    `token=${token}; Path=/; SameSite=Lax; `, // 쿠키 설정
+                    `token=${token}; Path=/; SameSite=None; Domain=.d9cidza1ul6q9.amplifyapp.com;`, // 클라이언트 도메인 설정
                 ]);
+
                 res.send({ token }); // 토큰
             }
         } catch (error) {
@@ -66,14 +67,14 @@ const UserController = {
                 const token = await UserService.kakaoLogin(code, res);
 
                 res.setHeader('Set-Cookie', [
-                    `token=${token}; Path=/; SameSite=Lax;`, // 쿠키 설정
+                    `token=${token}; Path=/; SameSite=None; Domain=.d9cidza1ul6q9.amplifyapp.com;`, // 클라이언트 도메인 설정
                 ]);
 
                 res.writeHead(302, {
                     'Location': 'https://main.d9cidza1ul6q9.amplifyapp.com/',
                     'Content-Type': 'text/plain'
                 });
-                res.end('Redirecting to https://main.d9cidza1ul6q9.amplifyapp.com/');
+                res.end('Redirecting to https://main.d9cidza1ul6q9.amplifyapp.com');
 
             }
         } catch (error) {

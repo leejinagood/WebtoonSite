@@ -50,7 +50,8 @@ const LoginPage = () => {
       const response = await axios.get(`http://107.23.243.5:4000/api/LoginPage`,{params: {
         ID: ID,
         password: password
-      }
+      },
+      withCredentials: true // 쿠키 포함 설정
     });
       if (response.data.token) {
         const tokenPayload = {
@@ -70,7 +71,7 @@ const LoginPage = () => {
         console.log("사용자 이메일:", response.data.userEmail);
         console.log(tokenPayload.userName);
         console.log(tokenPayload.userEmail);
-
+        setCookie('ㅇㅇ',token,1);
 
         // 토큰 저장
         sessionStorage.setItem("token", token);
@@ -91,6 +92,11 @@ const LoginPage = () => {
       console.error(error);
     }
   };
+
+  const setCookie = (name, value, days) => {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+};
 
   const kakaohandleSubmit = async (e) => {
     e.preventDefault();
