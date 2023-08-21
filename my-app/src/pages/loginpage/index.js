@@ -44,6 +44,8 @@ const LoginPage = () => {
 
 
   const handleSubmit = async (e) => {
+    axios.defaults.baseURL = "http://107.23.243.5:4000"; // 서버 도메인 설정
+
     e.preventDefault();
     try {
       const response = await axios.get(`http://107.23.243.5:4000/api/LoginPage`,{params: {
