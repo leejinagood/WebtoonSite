@@ -106,7 +106,7 @@ const LoginPage = () => {
 
   React.useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token'); // URL에서 토큰 추출
+    const token = urlParams.get('token'); 
 
     if (token) {
       const redirectUrl = `https://main.d9cidza1ul6q9.amplifyapp.com`;
