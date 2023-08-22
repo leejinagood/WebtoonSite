@@ -12,7 +12,7 @@ const port = process.env.PORT || 4000;
 const corsMiddleware = require('restify-cors-middleware');
 const cors = corsMiddleware({
   preflightMaxAge: 5, 
-  origins: ['https://imgur.com', 'https://kauth.kakao.com', 'https://main.d9cidza1ul6q9.amplifyapp.com', 'https://endearing-cranachan-04b6ee.netlify.app' ,'http://localhost:3000'], // 클라이언트 도메인 주소
+  origins: ['https://imgur.com', 'https://kauth.kakao.com', 'https://main.d3uyndzg7v4qmk.amplifyapp.com', 'https://endearing-cranachan-04b6ee.netlify.app' ,'http://localhost:3000'], // 클라이언트 도메인 주소
   allowHeaders: ['Authorization'],
 });
 server.pre(cors.preflight);
