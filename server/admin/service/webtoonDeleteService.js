@@ -12,7 +12,7 @@ const WebtoonDeleteService = {
 
             const [result] = await conn.query(webtoonQuery, EnName); 
 
-            const keysToDelete = [
+            const keysDelete = [
                 'webtoon : All',
                 `webtoon : ${result[0][0].deleted_webtoonWeek}`,
                 `webtoon_detail : ${result[0][0].deleted_webtoonID}`,
@@ -20,7 +20,7 @@ const WebtoonDeleteService = {
                 `likes:${result[0][0].deleted_webtoonID}`
             ];
               
-            await Promise.all(keysToDelete.map(key => redisClient.del(key)));
+            await Promise.all(keysDelete.map(key => redisClient.del(key)));
               
 
             return "웹툰 삭제 성공";

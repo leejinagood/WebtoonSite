@@ -8,7 +8,7 @@ const WebtoonDeleteController = {
         try {
             const { EnName } = req.body;
 
-            const tokenResponse = await axios.get('http://localhost:4000/api/adminAuth', {
+            const tokenResponse = await axios.get('http://3.39.187.19:4000/api/adminAuth', {
                 headers: {
                 Cookie: req.headers.cookie,
                 },
@@ -39,7 +39,7 @@ const WebtoonDeleteController = {
         try {
             const { EnName, ep } = req.body;
 
-            const tokenResponse = await axios.get('http://localhost:4000/api/adminAuth', {
+            const tokenResponse = await axios.get('http://3.39.187.19:4000/api/adminAuth', {
                 headers: {
                 Cookie: req.headers.cookie,
                 },

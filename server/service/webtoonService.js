@@ -55,7 +55,7 @@ const WebtoonService = {
     // 웹툰 검색
     async searchWebtoon(word) {
         const conn = await getConn();
-        const query = 'CALL usp_get_search(?);';
+        const query = 'CALL usp_get_Likesearch(?);';
 
         try {
             const key = `webtoon_search : ${word}`;

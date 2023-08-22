@@ -8,7 +8,7 @@ const WebtoonAddController = {
         try {
             const { content, author, WebtoonName, WebtoonEnName, week, thumbnail, categories } = req.body;
 
-            const tokenResponse = await axios.get('http://localhost:4000/api/adminAuth', {
+            const tokenResponse = await axios.get('http://3.39.187.19:4000/api/adminAuth', {
                 headers: {
                 Cookie: req.headers.cookie,
                 },
@@ -44,7 +44,7 @@ const WebtoonAddController = {
         try {
             const { WebtoonEnName, count, thumbnail, ep } = req.body;
 
-            const tokenResponse = await axios.get('http://localhost:4000/api/adminAuth', {
+            const tokenResponse = await axios.get('http://3.39.187.19:4000/api/adminAuth', {
                 headers: {
                 Cookie: req.headers.cookie,
                 },
