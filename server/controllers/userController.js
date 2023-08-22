@@ -42,9 +42,9 @@ const UserController = {
             }else{
                 const token = await UserService.login(ID, password, res);
 
-                res.setHeader('Set-Cookie', [
-                    `token=${token}; Path=/; SameSite=None; Domain=.d9cidza1ul6q9.amplifyapp.com;`, // 클라이언트 도메인 설정
-                ]);
+                // res.setHeader('Set-Cookie', [
+                //     `token=${token}; Path=/; SameSite=None; Domain=main.d9cidza1ul6q9.amplifyapp.com;`, // 클라이언트 도메인 설정
+                // ]);
 
                 res.send({ token }); // 토큰
             }
