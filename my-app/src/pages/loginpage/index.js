@@ -50,8 +50,7 @@ const LoginPage = () => {
       const response = await axios.get(`http://3.39.187.19:4000/api/LoginPage`,{params: {
         ID: ID,
         password: password
-      },
-      withCredentials: true // 쿠키 포함 설정
+      }
     });
       if (response.data.token) {
         const tokenPayload = {
