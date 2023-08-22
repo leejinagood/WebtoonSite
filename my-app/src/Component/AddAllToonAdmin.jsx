@@ -21,7 +21,11 @@ const addAllToonAdmin = () => {
 
   console.log(webtoons);
   const handleWebtoonDelete = async (enName) => {
-    try {
+
+    const WebtoonDelete = prompt(`삭제하려면 "삭제"를 입력하세요`, "");
+
+    if (WebtoonDelete === "삭제"){
+      try {
       // 삭제 요청 보내는 로직 추가 (axios 또는 fetch 사용)
       const response = await fetch("/api/webtoonDelete", {
         method: "DELETE",
@@ -37,14 +41,20 @@ const addAllToonAdmin = () => {
         console.log("웹툰 삭제 성공");
         window.alert("웹툰 삭제 성공");
         // 웹툰 삭제 성공 후 필요한 동작 수행
-      } else {
+      }
+       else {
         console.log("웹툰 삭제 실패");
         // 웹툰 삭제 실패 처리
       }
-    } catch (error) {
-      console.log("API 호출 오류:", error);
-      // 오류 처리
+      } catch (error) {
+        console.log("API 호출 오류:", error);
+        // 오류 처리
+      }
     }
+    else{
+      window.alert("삭제하지 않습니다");
+    }
+    
   };
  
   
