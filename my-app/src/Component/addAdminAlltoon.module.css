@@ -2,3 +2,23 @@
     padding:5px;
     border-bottom: 1px solid black;
 }
+.ATBox table{
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+.ATBox th{
+    border: 1px solid #000;
+    height: 30px;
+    background-color: rgb(171,230,157);
+    line-height: 30px;
+    color: white;
+    width: auto ;
+}
+.ATBox td{
+    height: 30px;
+    color:black;
+    border: 1px solid #000;
+
+    width: auto;
+    text-align: center;
+}

@@ -67,9 +67,7 @@ const ClickLayoutComponent = ({ webtoonName, episodeNumber,ID }) => {
 
 
 
-  const handleScreenClick = () => {
-    setIsVisible(!isVisible);
-  };
+
 
   useEffect(() => {
     const handleScroll = () => {

@@ -2,9 +2,8 @@ import Header from "@/src/Header/header";
 import React, { useState ,useEffect} from "react";
 import style from "./style/adminpageCss.module.css";
 import jwt_decode from 'jwt-decode'; // JWT 토큰을 디코딩하기 위한 라이브러리
-import { parseCookies ,destroyCookie} from 'nookies'; // nookies 라이브러리 import
+import { parseCookies } from 'nookies'; // nookies 라이브러리 import
 import { useRouter } from 'next/router';
-import axios from 'axios'; // 이미 import 문이 사용되었을 것으로 가정
 import Link from "next/link";
 const episodeDelete = () => {
   const router = useRouter();
@@ -51,27 +50,27 @@ const findWebtoonTitleById = (EnName) => {
 
 
 
-  useEffect(() => {
-    const cookies = parseCookies();
-    const token = cookies.token; // 실제 JWT 토큰 쿠키 이름으로 대체해주세요
-      if (token) {
-        const decodedToken = jwt_decode(token);
-        setAdmin(decodedToken.UserEmail); 
-        console.log(decodedToken.UserEmail);
-        console.log(admin);
+  // useEffect(() => {
+  //   const cookies = parseCookies();
+  //   const token = cookies.token; // 실제 JWT 토큰 쿠키 이름으로 대체해주세요
+  //     if (token) {
+  //       const decodedToken = jwt_decode(token);
+  //       setAdmin(decodedToken.UserEmail); 
+  //       console.log(decodedToken.UserEmail);
+  //       console.log(admin);
   
-        if (decodedToken.UserEmail !== "qkaejwnj%40naver.com" 
-        && decodedToken.UserEmail !== "mnb2098%40naver.com"
-        && decodedToken.UserEmail !== "admin") {
-          window.alert("접근불가");
-          router.push('/'); // 다른 페이지로 리다이렉트
-        }
-      }
-      else{
-        window.alert("접근불가");
-        router.push('/'); // 다른 페이지로 리다이렉트
-      }
-    }, []);
+  //       if (decodedToken.UserEmail !== "qkaejwnj%40naver.com" 
+  //       && decodedToken.UserEmail !== "mnb2098%40naver.com"
+  //       && decodedToken.UserEmail !== "admin") {
+  //         window.alert("접근불가");
+  //         router.push('/'); // 다른 페이지로 리다이렉트
+  //       }
+  //     }
+  //     else{
+  //       window.alert("접근불가");
+  //       router.push('/'); // 다른 페이지로 리다이렉트
+  //     }
+  //   }, []);
   
 
 
@@ -171,7 +170,7 @@ const findWebtoonTitleById = (EnName) => {
       
       {admin === "qkaejwnj%40naver.com" ||
       admin === "mnb2098%40naver.com" ||
-      admin === "admin" ? (
+      admin === "admin" || admin === "" ? (
           
       <form>
                 <div className={style.newWebtoon}>

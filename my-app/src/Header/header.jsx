@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
-import axios from 'axios';
 import style from "./styles/Heder.module.css";
 import { useRouter } from "next/router";
 import { parseCookies ,destroyCookie} from 'nookies'; // nookies 라이브러리 import
@@ -8,14 +7,11 @@ import jwt_decode from 'jwt-decode'; // JWT 토큰을 디코딩하기 위한 라
 
 const Header = ({ showAdminLink }) => {
   const router = useRouter();
-
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     // 클라이언트 사이드에서 실행되도록 설정
     setIsClient(true);
   }, []);
-
-  const [searchHistory, setSearchHistory] = useState({});
 
   // 유저가 검색창에 입력하는 값
   const [userInput, setUserInput] = useState('');
@@ -26,20 +22,14 @@ const Header = ({ showAdminLink }) => {
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); // 기본 동작 막기
-      
       window.location.href = `/serachwebtoonpage?word=${userInput}`;
-      //나중에 라우트로 변경
     }
   };
-
   const handleKeyClick =() => {
-
-      event.preventDefault(); // 기본 동작 막기
       window.location.href = `/serachwebtoonpage?word=${userInput}`;
-      //나중에 라우트로 변경
     }
 
-  const [currentDay, setCurrentDay] = useState(new Date().getDay()); // 현재 요일 가져오기
+  const [currentDay, /*setCurrentDay*/] = useState(new Date().getDay()); // 현재 요일 가져오기
 
   const getDayStyle = (dayIndex) => {
     if (dayIndex === currentDay) {
@@ -49,7 +39,7 @@ const Header = ({ showAdminLink }) => {
   };
 
   const [admin,setAdmin] = useState("");
-  const [adminToken ,setAdminToken] = useState("");
+  // const [adminToken ,setAdminToken] = useState("");
   const handleLogout = () => {
     // 세션 스토리지에서 토큰 삭제
     sessionStorage.removeItem("token");
@@ -84,13 +74,13 @@ const Header = ({ showAdminLink }) => {
         // JWT 토큰 디코딩하여 클레임 값을 추출
         const decodedToken = jwt_decode(token);
         setAdmin(decodedToken.UserEmail);
-        setAdminToken(decodedToken.token);
+        // setAdminToken(decodedToken.token);
 
         // userEmail 클레임 값을 콘솔에 출력
         console.log(admin);
         console.log('userEmail:', decodedToken.UserEmail);
     }
-}, []);
+  }, []);
   useEffect(() => {
     // 쿠키에서 토큰 값을 추출
     if(!showAdminLink ){
@@ -138,48 +128,44 @@ const Header = ({ showAdminLink }) => {
   }
   console.log(user);
   return (
-    
     <div className={style.HederBox}>
-
       <div className={style.header}>
         <div className={style.TopHeader}>
-        <link rel="manifest" href="/manifest.json" />
+          <link rel="manifest" href="/manifest.json" />
           <div className={style.LogoBox}>
-        <Link href="/">
+            <Link href="/">
             <h1 className={style.Logo}><span className={style.Color}>A</span>VA<span className={style.Color}>T</span>OON</h1>
             </Link>
             <span className={style.Color} id={style.go} onClick={gogo}>Go</span>
           </div>
-
           <div className={style.rb}>
             <div className={style.SerchBar}>
               <form>
                 <div className={style.InputBox}>
-                  <input
+                    <input
                     type="text"
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
                     placeholder="작가/제목으로 검색할 수 있습니다."
-                  />
+                    />
                     <div  className={style.BTN}>
-                {isClient && ( // 클라이언트 사이드에서만 렌더링
-                  <>
-                    <button type="submit" className={style.SerchBtn}
-                    onClick={handleKeyClick}
-                    
-                    >검색</button>
-                    {user ? (
+                      {isClient && ( // 클라이언트 사이드에서만 렌더링
+                      <>
+                      <button type="submit" className={style.SerchBtn}
+                      onClick={handleKeyClick}
+                      >검색</button>
+                      {user ? (
                       <>
                         <p onClick={handleLogout} className={style.LoginBtn}>{decodeURIComponent(user)}</p>
                       </>
-                    ) : (
+                      ) : (
                       <Link href="/loginpage">
                         <p className={style.LoginBtn}>login</p>
                       </Link>
-                    )}
-                  </>
-                )}
-              </div>
+                      )}
+                      </>
+                      )}
+                    </div>
                 </div>
               </form>
             </div>
@@ -187,28 +173,28 @@ const Header = ({ showAdminLink }) => {
         </div>
       </div>
       <div className={style.HDayBox}>
-  <div className={style.Day}>
-    {[
-      { day: 'All', text: '전체요일', index: -1 },
-      { day: 'mon', text: '월', index: 1 },
-      { day: 'tues', text: '화', index: 2 },
-      { day: 'wendes', text: '수', index: 3 },
-      { day: 'thurs', text: '목', index: 4 },
-      { day: 'fri', text: '금', index: 5 },
-      { day: 'satur', text: '토', index: 6 },
-      { day: 'sun', text: '일', index: 0 },
-    ].map(({ day, text, index }) => (
-      <Link key={index} href={day === 'All' ? '/' : { pathname: `/daypage`, query: { day } }}>
-      {currentDay === index && <p className={style.TodayText}>today !</p>}
-      <li className={`${getDayStyle(index)} ${day === 'All' ? style.AD : ''}`}>{text}</li>
-    </Link>
-    ))}
-  </div>
+        <div className={style.Day}>
+        {[
+        { day: 'All', text: '전체요일', index: -1 },
+        { day: 'mon', text: '월', index: 1 },
+        { day: 'tues', text: '화', index: 2 },
+        { day: 'wendes', text: '수', index: 3 },
+        { day: 'thurs', text: '목', index: 4 },
+        { day: 'fri', text: '금', index: 5 },
+        { day: 'satur', text: '토', index: 6 },
+        { day: 'sun', text: '일', index: 0 },
+        ].map(({ day, text, index }) => (
+        <Link key={index} href={day === 'All' ? '/' : { pathname: `/daypage`, query: { day } }}>
+        {currentDay === index && <p className={style.TodayText}>today !</p>}
+        <li className={`${getDayStyle(index)} ${day === 'All' ? style.AD : ''}`}>{text}</li>
+        </Link>
+        ))}
+      </div>
 
-</div>
-<div className={style.c}>
-<Link href="/adminpage"><div className="addButtonContainer"></div> {/* 버튼을 추가할 컨테이너 */}</Link>
-</div>
+      </div>
+      <div className={style.c}>
+      <Link href="/adminpage"><div className="addButtonContainer"></div> {/* 버튼을 추가할 컨테이너 */}</Link>
+      </div>
 
     </div>
   );
