@@ -1,24 +1,82 @@
-.AllToonInfo{
-    padding:5px;
-    border-bottom: 1px solid black;
+@media screen and (max-width:369px) and (min-width:10px) {
+    .ATBox th{
+        width: 20%;
+        font-size: 13px;
+    }
+    .ATBox td{
+        font-size: 13px;
+    }
 }
+
 .ATBox table{
     border: 1px solid #000;
+    position: relative;
+    height: auto;
     border-collapse: collapse;
+}
+.ATBox tbody{
+    position: relative;
+    height: auto;
+
+    z-index: -1;
+    
+}
+.ATBox tbody tr{ 
+    position: relative;
+    width: auto;    height: auto;
+
+
+    
+}
+.ATBox{
+    position: relative;
+    height: auto;
+
+}
+.ATBox tr{
+    height: auto;
+
+    position: relative;
 }
 .ATBox th{
     border: 1px solid #000;
     height: 30px;
     background-color: rgb(171,230,157);
     line-height: 30px;
+
     color: white;
     width: auto ;
+    width: auto;
 }
 .ATBox td{
     height: 30px;
     color:black;
+    position: relative;
+
     border: 1px solid #000;
 
     width: auto;
     text-align: center;
 }
+
+.asc{
+    color: black;
+    width: auto;
+}
+
+.dbtn{
+    border: 0px solid #000;
+    position: relative;
+
+    cursor: pointer;
+    background-color: transparent;
+}
+
+
+
+  
+  .highlight {
+    color: red;
+
+  }
+  

@@ -72,12 +72,13 @@
 
   
 @media screen and (max-width:480px) and (min-width:401px) {
-    .header{
-    }
-    .LoginBtn{
-        width: 15% !important;
+
+    .LoginBtn{      
+        margin-top: 2px;  
+        width: auto !important;
     }
     .SerchBar{
+        width: 100% !important;
         margin-right: 15% !important;
     }
     .AD{

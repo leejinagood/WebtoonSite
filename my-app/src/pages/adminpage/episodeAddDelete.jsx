@@ -98,7 +98,7 @@ const handleWebtoonClick = (enName, id) => {
           <nav className={style.Nav}>
             <ul>
               <li>
-                <Link href="/adminpage">웹툰 등록</Link>
+                <Link href="/adminpage">웹툰 등록 / 삭제</Link>
               </li>
               <li  className={style.choise}>
               <Link href="/adminpage/episodeAddDelete">에피소드 등록 / 삭제</Link>

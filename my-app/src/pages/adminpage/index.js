@@ -200,7 +200,7 @@ const AdminPage = () => {
         <nav className={style.Nav}>
           <ul>
             <li className={style.choise}>
-              <Link href="/adminpage">웹툰 등록</Link>
+              <Link href="/adminpage">웹툰 등록 / 삭제</Link>
             </li>
             <li>
               <Link href="/adminpage/episodeAddDelete">에피소드 등록 / 삭제</Link>

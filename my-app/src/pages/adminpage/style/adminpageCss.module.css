@@ -84,6 +84,7 @@
     }
 }
 .adminpage {
+
     max-width: 1940px;
     width: 80%;
     font-family: 'Jua', sans-serif;
@@ -280,3 +281,4 @@
 #dT{
     width: 80%;
 }
+

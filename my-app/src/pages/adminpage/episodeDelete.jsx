@@ -154,7 +154,7 @@ const findWebtoonTitleById = (EnName) => {
           <nav className={style.Nav}>
             <ul>
             <li>
-                <Link href="/adminpage">웹툰 등록</Link>
+              <Link href="/adminpage">웹툰 등록 / 삭제</Link>
               </li>
               <li>
                 <Link href="/adminpage/episodeAdd">에피소드 등록</Link>
