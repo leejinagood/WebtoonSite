@@ -5,6 +5,8 @@ import AddAllToonAdmin from "../../Component/AddAllToonAdmin";
 import {parseCookies} from "nookies";
 import { useRouter } from 'next/router';
 // import axios from 'axios';
+import jwt_decode from 'jwt-decode'; // JWT 토큰을 디코딩하기 위한 라이브러리
+
 import Link from "next/link";
 const AdminPage = () => {
 
