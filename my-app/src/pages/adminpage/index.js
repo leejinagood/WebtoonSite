@@ -4,55 +4,42 @@ import style from "./style/adminpageCss.module.css";
 import AddAllToonAdmin from "../../Component/AddAllToonAdmin";
 
 import jwt_decode from 'jwt-decode'; // JWT 토큰을 디코딩하기 위한 라이브러리
-import { parseCookies ,destroyCookie} from 'nookies'; // nookies 라이브러리 import
+import { parseCookies } from 'nookies'; // nookies 라이브러리 import
 import { useRouter } from 'next/router';
-import axios from 'axios'; // 이미 import 문이 사용되었을 것으로 가정
+// import axios from 'axios';
 import Link from "next/link";
 const AdminPage = () => {
-  const router = useRouter();
 
-  // const [webtoonId, setWebtoonId] = useState(""); // 웹툰 아이디를 저장할 상태 변수
-  // const [episodeId, setEpisodeId] = useState(""); // 웹툰 아이디를 저장할 상태 변수
+    const router = useRouter();
 
-  const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 파일을 저장
-  const [selectedDay, setSelectedDay] = useState(""); // 초기 값을 빈 문자열로 설정
-  const [webtoonName, setWebtoonName] = useState(""); // 웹툰 제목을 저장
-  const [webtoonEnName, setWebtoonEnName] = useState(""); // 웹툰 영문 제목을 저장
-  const [author, setAuthor] = useState(""); // 작가명을 저장
-  const [content, setContent] = useState(""); // 웹툰 내용을 저장
+    const [selectedImage, setSelectedImage] = useState(null); // 선택된 이미지 파일을 저장
+    const [selectedDay, setSelectedDay] = useState(""); // 초기 값을 빈 문자열로 설정
+    const [webtoonName, setWebtoonName] = useState(""); // 웹툰 제목을 저장
+    const [webtoonEnName, setWebtoonEnName] = useState(""); // 웹툰 영문 제목을 저장
+    const [author, setAuthor] = useState(""); // 작가명을 저장
+    const [content, setContent] = useState(""); // 웹툰 내용을 저장
 
 
-  const [admin,setAdmin] = useState("");
-  let token = "";
-  useEffect(() => {
+    const [admin,setAdmin] = useState("");
+    let token = "";
 
-  fetch("api/adminWebtoon")
-  .then((response) => response.json())
-  .then((data) => {
-    setWebtoonData(data); // Store the fetched data in the state
+    useEffect(() => {
+      fetch("api/adminWebtoon")
+      .then((response) => response.json())
+      .then((data) => {
+        setWebtoonData(data); 
+      })
+      .catch((error) => {
+        console.error("Error fetching API:", error);
+      });
+    },[])
 
-
-
-  })
-  .catch((error) => {
-    console.error("Error fetching API:", error);
-  });
-},[])
-
-
-
-
-
-
-  useEffect(() => {
-    const cookies = parseCookies();
-    const token = cookies.token; // 실제 JWT 토큰 쿠키 이름으로 대체해주세요
+    useEffect(() => {
+      const cookies = parseCookies();
+      const token = cookies.token; // 실제 JWT 토큰 쿠키 이름으로 대체해주세요
       if (token) {
         const decodedToken = jwt_decode(token);
         setAdmin(decodedToken.UserEmail); 
-        console.log(decodedToken.UserEmail);
-        //console.log(admin);
-  
         if (decodedToken.UserEmail !== "qkaejwnj%40naver.com" 
         && decodedToken.UserEmail !== "mnb2098%40naver.com" 
         && decodedToken.UserEmail !== "admin" ) {
@@ -88,9 +75,6 @@ const AdminPage = () => {
     const selectedGenres = Object.entries(checkboxStates)
     .filter(([genre, isChecked]) => isChecked)
     .map(([genre]) => genre);
-    
-  
-    console.log("컨텐츠"+content,"작가"+author,"웹툰제목",webtoonName,"영어제목",webtoonEnName,selectedDay,"웹툰이미지",selectedImage,"장르",selectedGenres)
     const data = {
       content:content,
       author:author,
@@ -214,26 +198,24 @@ const AdminPage = () => {
 // 웹툰 목록 체크박스로 지우듯이
   return (
     <div className={style.adminpage}>
-
       <Header showAdminLink={isAdminPage} />
-          <nav className={style.Nav}>
-            <ul>
-            <li  className={style.choise}>
-                <Link href="/adminpage">웹툰 등록</Link>
-              </li>
-              <li>
-                <Link href="/adminpage/episodeAddDelete">에피소드 등록 / 삭제</Link>
-              </li>
-              <li>
-                <Link href="/adminpage/webtoonDelete">웹툰 삭제</Link>
-              </li>
+        <nav className={style.Nav}>
+          <ul>
+            <li className={style.choise}>
+              <Link href="/adminpage">웹툰 등록</Link>
+            </li>
+            <li>
+              <Link href="/adminpage/episodeAddDelete">에피소드 등록 / 삭제</Link>
+            </li>
+            <li>
+              <Link href="/adminpage/webtoonDelete">웹툰 삭제</Link>
+            </li>
           </ul>
-      </nav>
+        </nav>
       
       {admin === "qkaejwnj%40naver.com" ||
       admin === "mnb2098%40naver.com" || admin === "admin"? (
       <form>
-
         <div className={style.newWebtoon}>
           <h2>현재 웹툰 목록</h2>
             <AddAllToonAdmin/>
@@ -248,8 +230,6 @@ const AdminPage = () => {
               setWebtoonName(e.target.value);
             }}
           />
-                  {/* <p>번역된 웹툰 제목: {translatedWebtoonName}</p> */}
-
           <input
             type="text"
             placeholder="웹툰 영문 제목"
@@ -308,35 +288,23 @@ const AdminPage = () => {
                     placeholder="이미지 경로 입력"
                     onChange={handleImageChange}
                 />
-                      {handleImageChange && ( // 경로가 입력된 경우에만 이미지 표시
-                      <div className={style.show}>
-                        <img src={selectedImage} alt="미리보기" />
-                        <div className={style.hoverP}>
-                          <p className={style.lp}>{webtoonName}</p>
-                          <p className={style.rp}>{author}</p>
-                        </div>
-                      </div>
-      
-      )}
-          </div>
+                {handleImageChange && ( // 경로가 입력된 경우에만 이미지 표시
+                <div className={style.show}>
+                  <img src={selectedImage} alt="미리보기" />
+                  <div className={style.hoverP}>
+                    <p className={style.lp}>{webtoonName}</p>
+                    <p className={style.rp}>{author}</p>
+                  </div>
+                </div>
+                )}
+            </div>
           </div>
 
           {/* 웹툰 등록 버튼 */}
           <button id={style.uploadBtn} type="button" onClick={handleWebtoonAdd}>
             웹툰 등록
           </button>
-
-          
-
-     
-
-      
-    
-
-
-              </div>
-        
-
+        </div>
       </form>
             ) : (
               <p className={style.accessDenied} >접근 불가</p>

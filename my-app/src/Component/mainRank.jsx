@@ -38,31 +38,29 @@ const mainRank = () => {
                 <div className={style.Rankitem}>
                   <div className={`${style.RankImg} ${index === 0 ? style.FirstImgBox : ""}`}>
                     <img       src={
-        webtoon.webtoonThumbnail === "https://i.imgur.com/ogEdd6I.png"
-          ? "WebtoonImg/maruisdog/maruisdog2.jpeg"
-          : webtoon.webtoonThumbnail === "https://i.imgur.com/2qdwJdc.jpg"
-          ? "WebtoonImg/lookism/lookism2.jpeg":
-          webtoon.webtoonThumbnail === "https://i.imgur.com/KGqTqqC.jpg"
-          ? "WebtoonImg/daughter_mom_looks_just_like/ddonk.jpeg"
-          :webtoon.webtoonThumbnail === "https://i.imgur.com/FQDv300.jpg"
-          ? "WebtoonImg/questsupremacy/so1.jpg"
-          :webtoon.webtoonThumbnail === 
-          "https://i.imgur.com/Hwq8Zhg.jpg"
-          ? "WebtoonImg/honeymoondiary/jagga.jpeg"
-          :webtoon.webtoonThumbnail === 
-          "https://i.imgur.com/ZYLM90o.jpg"?
-          "WebtoonImg/monstercat/moncat.jpeg"
-          :webtoon.webtoonThumbnail === 
-          "https://i.imgur.com/GkxfvA6.jpg"
-          ? "WebtoonImg/questsupremacy/q.jpeg"
-          : webtoon.webtoonThumbnail === "https://i.imgur.com/bicvcUQ.jpg"
-          ? "WebtoonImg/GyeBaeksoon/nojob.jpeg"
-
-          : webtoon.webtoonThumbnail
-      //
-      } alt={`${index + 1}등`} 
+                      webtoon.webtoonThumbnail === "https://i.imgur.com/ogEdd6I.png"
+                      ? "WebtoonImg/maruisdog/maruisdog2.jpeg"
+                      : webtoon.webtoonThumbnail === "https://i.imgur.com/2qdwJdc.jpg"
+                      ? "WebtoonImg/lookism/lookism2.jpeg":
+                      webtoon.webtoonThumbnail === "https://i.imgur.com/KGqTqqC.jpg"
+                      ? "WebtoonImg/daughter_mom_looks_just_like/ddonk.jpeg"
+                      :webtoon.webtoonThumbnail === "https://i.imgur.com/FQDv300.jpg"
+                      ? "WebtoonImg/questsupremacy/so1.jpg"
+                      :webtoon.webtoonThumbnail === 
+                      "https://i.imgur.com/Hwq8Zhg.jpg"
+                      ? "WebtoonImg/honeymoondiary/jagga.jpeg"
+                      :webtoon.webtoonThumbnail === 
+                      "https://i.imgur.com/ZYLM90o.jpg"?
+                      "WebtoonImg/monstercat/moncat.jpeg"
+                      :webtoon.webtoonThumbnail === 
+                      "https://i.imgur.com/GkxfvA6.jpg"
+                      ? "WebtoonImg/questsupremacy/q.jpeg"
+                      : webtoon.webtoonThumbnail === "https://i.imgur.com/bicvcUQ.jpg"
+                      ? "WebtoonImg/GyeBaeksoon/nojob.jpeg"
+                      : webtoon.webtoonThumbnail
+                      } alt={`${index + 1}등`} 
       
-      className={style.webtoonImage}/>
+                    className={style.webtoonImage}/>
                   </div>
                   <div className={`${style.rankNum} ${index === 0 ? style.FirstRank : ""}`}>{index+1}</div>
                   <div className={`${style.RankText} ${index === 0 ? style.FirstRank : ""}`}>

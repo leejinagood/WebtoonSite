@@ -1,4 +1,4 @@
-@media screen and (max-width:721px) and (min-width:362px) {
+@media screen and (max-width:721px) and (min-width:481px) {
     .LogoBox .Logo{
         font-size: 23px !important;
         margin-left: 10px !important;
@@ -71,11 +71,14 @@
 /* test */
 
   
-@media screen and (max-width:460px) and (min-width:401px) {
+@media screen and (max-width:480px) and (min-width:401px) {
     .header{
     }
+    .LoginBtn{
+        width: 15% !important;
+    }
     .SerchBar{
-        margin-right: 35% !important;
+        margin-right: 15% !important;
     }
     .AD{
         width: 18% !important;
