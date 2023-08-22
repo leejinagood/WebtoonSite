@@ -21,7 +21,7 @@ const Comment = ({ webtoonName, episodeNumber }) => {
     if (token) {
       const decodedToken = jwt_decode(token);
   
-      fetch('http://3.39.187.19:4000//api/comment_insert', {
+      fetch('/api/comment_insert', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
