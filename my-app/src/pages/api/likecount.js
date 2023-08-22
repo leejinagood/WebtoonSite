@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   if (id) {
     try {
-      const response = await axios.get(`http://107.23.243.5:4000/api/show_like?id=${id}`);
+      const response = await axios.get(`http://localhost:4000/api/show_like?id=${id}`);
 
       const likecount = response.data;
       res.status(200).json({ likecount });

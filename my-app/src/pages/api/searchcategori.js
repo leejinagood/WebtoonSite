@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   
   if (word) {
     try {
-      const response = await axios.get(`http://107.23.243.5:4000/api/category?word=${word}`);
+      const response = await axios.get(`http://localhost:4000/api/category?word=${word}`);
       const webtoons = response.data;
       res.status(200).json(webtoons);
     } catch (error) {
