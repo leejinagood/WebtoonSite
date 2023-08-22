@@ -4,30 +4,7 @@ import styles from "./addAdminAlltoon.module.css"
 
 const addAllToonAdmin = () => {
   const [webtoons, setWebtoons] = useState([]);
-  const [sortType, setSortType] = useState("asc"); // 기본 오름차순
-  const [sortColumn, setSortColumn] = useState(""); // 정렬된 열의 정보
-  const [searchKeyword, setSearchKeyword] = useState(""); // 추가: 검색어 상태
-
-
-  const highlightSearch = (text, keyword) => {
-    const parts = text.split(new RegExp(`(${keyword})`, "gi"));
-    return parts.map((part, index) =>
-      part.toLowerCase() === keyword.toLowerCase() ? (
-        <span
-          key={index}
-          className={styles.highlight} // 추가: 하이라이팅 클래스 적용
-        >
-          {part}
-        </span>
-      ) : (
-        part
-      )
-    );
-  };
   
-  const handleSearchInputChange = (event) => {
-    setSearchKeyword(event.target.value);
-  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -80,90 +57,39 @@ const addAllToonAdmin = () => {
     
   };
  
+  
 
-  const sortWebtoons = (a, b) => {
-    if (sortColumn === "webtoonID") {
-      return sortType === "asc" ? a.webtoonID - b.webtoonID : b.webtoonID - a.webtoonID;
-    } else if (sortColumn === "totalLikes") {
-      return sortType === "asc" ? a.totalLikes - b.totalLikes : b.totalLikes - a.totalLikes;
-    }
-    return 0;
-  };
   
   
-    const toggleSortType = (column) => {
-      if (sortColumn === column) {
-        setSortType(sortType === "asc" ? "desc" : "asc");
-      } else {
-        setSortType("asc");
-      }
-      setSortColumn(column);
-    };
-
   // }  ? ? ? ? 
-  const sortedWebtoons = [...webtoons].sort(sortWebtoons);
-  console.log("Sorted Webtoons:", sortedWebtoons);
 
 return (
   <div  id={styles.AB}  className={styles.ATBox}>
-      <input
-        type="text"
-        value={searchKeyword}
-        onChange={handleSearchInputChange}
-        placeholder="검색어를 입력하세요"
-      />
     <table>
       <thead>
         <tr>
-        <th>
-            ID{" "}
-            <span
-              className={styles.asc}
-              onClick={() => toggleSortType("webtoonID")}
-            >
-              {sortColumn === "webtoonID" && sortType === "asc" ? "▼" : "▴"}
-            </span>
-          </th>
+          <th>ID</th>
           <th>제목</th>
           <th>작가</th>
           <th>요일</th>
-          <th>좋아요 <span className={styles.asc} onClick={() => toggleSortType("totalLikes")}>
-            {sortColumn === "totalLikes" && sortType === "asc" ? "▴" : "▼"} 
-            </span>
-          </th>
+          <th>좋아요</th>
           <th>삭제</th>
         </tr>
       </thead>
-      <tbody >
-        {sortedWebtoons.map((webtoon, index) => (
-          <tr
-  key={index}
-  style={{
-    backgroundColor:
-      searchKeyword &&
-      (webtoon.webtoonID.toString().includes(searchKeyword) ||
-        webtoon.webtoonName.includes(searchKeyword) ||
-        webtoon.webtoonAuthor.includes(searchKeyword) ||
-        webtoon.webtoonWeek.includes(searchKeyword) ||
-        webtoon.totalLikes.toString().includes(searchKeyword))
-        ? "yellow"
-        : "transparent",
-  }}
->
-
-
-            <td>{highlightSearch(webtoon.webtoonID.toString(), searchKeyword)}</td>
-            <td >{highlightSearch(webtoon.webtoonName, searchKeyword)}</td>
-            <td>{highlightSearch(webtoon.webtoonAuthor, searchKeyword)}</td>
-            <td>{highlightSearch(webtoon.webtoonWeek, searchKeyword)}</td>
-            <td>{highlightSearch(webtoon.totalLikes.toString(), searchKeyword)}</td>
-            <td>
-              <button className={styles.dbtn} onClick={() => handleWebtoonDelete(webtoon.webtoonEnName)}>
-                삭제
-              </button>
-            </td>
-          </tr>
-        ))}
+      <tbody>
+      {webtoons.length > 0 && webtoons.map((webtoon, index) => (
+      <tr key={index}>
+        <td>{webtoon.webtoonID}</td>
+        <td>{webtoon.webtoonName}</td>
+        <td>{webtoon.webtoonAuthor}</td>
+        <td>{webtoon.webtoonWeek}</td>
+        <td>{webtoon.totalLikes}</td>
+        <td>
+          <button onClick={() => handleWebtoonDelete(webtoon.webtoonEnName)}>
+             삭제 </button>
+        </td>
+      </tr>
+      ))}
       </tbody>
 
     </table>

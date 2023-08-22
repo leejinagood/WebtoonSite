@@ -71,7 +71,7 @@ const webtoonDelete = () => {
         <nav className={style.Nav}>
           <ul>
             <li>
-              <Link href="/adminpage">웹툰 등록 / 삭제</Link>
+              <Link href="/adminpage">웹툰 등록</Link>
             </li>
             <li>
               <Link href="/adminpage/episodeAddDelete">에피소드 등록 / 삭제</Link>
