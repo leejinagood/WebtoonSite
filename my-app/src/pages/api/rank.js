@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   
   if (day) {
     try {
-      const response = await axios.get(`http://localhost:4000/api/webtoons?pi_vch_condition=${day}`);
+      const response = await axios.get(`http://3.39.187.19:4000/api/webtoons?pi_vch_condition=${day}`);
       const webtoons = response.data;
       res.status(200).json(webtoons);
     } catch (error) {

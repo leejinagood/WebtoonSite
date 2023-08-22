@@ -29,7 +29,7 @@ export const insertComment = async (webtoonName, episodeNumber, userEmail, comme
 
 export const loadCommentList = async (webtoonName, episodeNumber) => {
   try {
-    const response = await fetch(`http://localhost:4000/api/comment?EnName=${webtoonName}&ep=${episodeNumber}`);
+    const response = await fetch(`http://3.39.187.19:4000/api/comment?EnName=${webtoonName}&ep=${episodeNumber}`);
 
     if (!response.ok) {
       throw new Error('Failed to fetch comment list');
