@@ -10,7 +10,7 @@ const AdminAuthController = {
             if(resultMessage === '어드민 인증 성공'){
                 res.send(resultMessage); 
             }else{
-                res.json({ message: '권한이 없습니다' });
+                res.status(500).json({ message: '권한이 없습니다' });
             }
         } catch (error) {
             console.error(error);

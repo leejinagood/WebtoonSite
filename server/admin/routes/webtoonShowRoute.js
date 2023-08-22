@@ -5,4 +5,6 @@ module.exports = (server) => {
     server.get('/api/adminWebtoon', WebtoonShowController.getWebtoon);
     // 웹툰 에피소드 
     server.get('/api/adminWebtoonlist', WebtoonShowController.getWebtoonList);
+    // 웹툰 검색
+    server.get('/api/adminSearch', WebtoonShowController.searchWebtoonList);
 };

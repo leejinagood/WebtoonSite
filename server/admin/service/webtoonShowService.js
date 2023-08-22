@@ -40,6 +40,23 @@ const WebtoonShowService = {
         }
     },
     
+
+    // 웹툰 검색
+    async searchWebtoonList(word) {
+        const conn = await getConn();
+        const query = 'CALL usp_get_search(?);';
+
+        try {
+            const [result] = await conn.query(query, [word]);
+            const webtoon = result[0];
+            return webtoon;
+        } catch (error) {
+            throw error;
+        } finally {
+            conn.release();
+        }
+    },
+
 };
 
 module.exports = WebtoonShowService;

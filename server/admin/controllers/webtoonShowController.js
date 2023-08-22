@@ -26,6 +26,18 @@ const WebtoonShowController = {
         }
     },
     
+
+    // 검색 웹툰
+    async searchWebtoonList(req, res) {
+        try {
+            const { word } = req.query;
+            const webtoon = await WebtoonShowService.searchWebtoonList(word);
+            res.send(webtoon); // 웹툰 내용
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: '서버 오류' });
+        }
+    },
 };
 
 module.exports = WebtoonShowController;

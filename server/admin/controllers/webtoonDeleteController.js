@@ -25,7 +25,7 @@ const WebtoonDeleteController = {
                 }
                 
             }else {
-                res.json({ message: '권한이 없습니다' });
+                res.status(500).json({ message: '권한이 없습니다' });
             }
         } catch (error) {
             console.error(error);
@@ -56,7 +56,7 @@ const WebtoonDeleteController = {
                 }
                 
             }else {
-                res.json({ message: '권한이 없습니다' });
+                res.status(500).json({ message: '권한이 없습니다' });
             }
         } catch (error) {
             console.error(error);
