@@ -7,7 +7,7 @@
 }
 @media screen and (max-width:415px) and (min-width:10px) {
     .border{
-        font-size: 12px !important;
+        font-size: 10px !important;
     }    
 }
 .addEpList{
@@ -44,3 +44,4 @@
 .AdminList{
     width: 100% !important;
 }
+

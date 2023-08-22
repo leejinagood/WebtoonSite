@@ -2,7 +2,7 @@ import Header from "@/src/Header/header";
 import React, { useState ,useEffect} from "react";
 import style from "./style/adminpageCss.module.css";
 import AddAllToonAdmin from "../../Component/AddAllToonAdmin";
-
+import {parseCookies} from "nookies";
 import { useRouter } from 'next/router';
 // import axios from 'axios';
 import Link from "next/link";
@@ -32,24 +32,24 @@ const AdminPage = () => {
       });
     },[])
 
-    // useEffect(() => {
-    //   const cookies = parseCookies();
-    //   const token = cookies.token; // 실제 JWT 토큰 쿠키 이름으로 대체해주세요
-    //   if (token) {
-    //     const decodedToken = jwt_decode(token);
-    //     setAdmin(decodedToken.UserEmail); 
-    //     if (decodedToken.UserEmail !== "qkaejwnj%40naver.com" 
-    //     && decodedToken.UserEmail !== "mnb2098%40naver.com" 
-    //     && decodedToken.UserEmail !== "admin" ) {
-    //       window.alert("접근불가");
-    //       router.push('/'); // 다른 페이지로 리다이렉트
-    //     }
-    //   }
-    //   else{
-    //     window.alert("접근불가");
-    //     router.push('/'); // 다른 페이지로 리다이렉트
-    //   }
-    // }, []);
+    useEffect(() => {
+      const cookies = parseCookies();
+      const token = cookies.token; // 실제 JWT 토큰 쿠키 이름으로 대체해주세요
+      if (token) {
+        const decodedToken = jwt_decode(token);
+        setAdmin(decodedToken.UserEmail); 
+        if (decodedToken.UserEmail !== "qkaejwnj%40naver.com" 
+        && decodedToken.UserEmail !== "mnb2098%40naver.com" 
+        && decodedToken.UserEmail !== "admin" ) {
+          window.alert("접근불가");
+          router.push('/'); // 다른 페이지로 리다이렉트
+        }
+      }
+      else{
+        window.alert("접근불가");
+        router.push('/'); // 다른 페이지로 리다이렉트
+      }
+    }, []);
   
 
 
@@ -212,8 +212,7 @@ const AdminPage = () => {
         </nav>
       
       {admin === "qkaejwnj%40naver.com" ||
-      admin === "mnb2098%40naver.com" || admin === "admin" ||
-      admin === "" ? (
+      admin === "mnb2098%40naver.com" || admin === "admin"  ? (
       <form>
         <div className={style.newWebtoon}>
           <h2>현재 웹툰 목록</h2>

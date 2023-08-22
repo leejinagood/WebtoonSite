@@ -84,7 +84,7 @@ const webtoonDelete = () => {
       
       {admin === "qkaejwnj%40naver.com" ||
       admin === "mnb2098%40naver.com" || admin === "admin"
-      || admin === "" ? (
+       ? (
           
       <form>
         <h2 id={style.dT}>웹툰 전체 삭제</h2>
