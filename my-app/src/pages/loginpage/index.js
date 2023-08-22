@@ -6,6 +6,7 @@ import Router from "next/router";
 import {REDIRECT_URL} from "/src/OAuth.js";
 import {Kakao_Auth_Url} from "/src/OAuth.js";
 import {CLIENT_ID} from "/src/OAuth.js";
+import { setCookie } from 'nookies';
 
 
 const LoginPage = () => {
@@ -16,6 +17,14 @@ const LoginPage = () => {
   console.log(REDIRECT_URL);
   console.log(Kakao_Auth_Url);
   
+
+  const handleSetTokenCookie = (token) => {
+    // 'token' 쿠키 설정
+    setCookie(null, 'token', token, {
+      maxAge: 60 * 60 * 24 * 3, // 3일 (초 단위)
+      path: '/',               // 쿠키의 경로 설정
+    });
+  };
 
   const handleIDChange = (e) => {
     setID(e.target.value);
@@ -54,15 +63,13 @@ const LoginPage = () => {
     });
       if (response.data.token) {
         const tokenPayload = {
-          userName: response.data.userName,
-          userEmail: response.data.userEmail
+          token: response.data.token
         };
-        console.log(tokenPayload.userName);
-        console.log(tokenPayload.userEmail);
-        console.log(response.data.token);
-
-
         const token = response.data.token;
+
+        handleSetTokenCookie(response.data.token);
+
+
 
         // 로그인 성공 처리
         console.log("토큰:", token);
