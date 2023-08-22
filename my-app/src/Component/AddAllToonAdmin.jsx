@@ -113,7 +113,7 @@ const addAllToonAdmin = () => {
 
 return (
   <div  id={styles.AB}  className={styles.ATBox}>
-    <input
+    <input className={styles.seach}
       type="text"
       value={searchKeyword}
       onChange={handleSearchInputChange}

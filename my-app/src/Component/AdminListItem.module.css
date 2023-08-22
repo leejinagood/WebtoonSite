@@ -1,28 +1,43 @@
-@media screen and (max-width:641px) and (min-width:416px){
-    .addDeleteBTN{
-        left: 80% !important;
 
+/* @media screen and (max-width:501px) and (min-width:362px){
+    #Aep{
+        width: 60% !important;
     }
-}
-@media screen and (max-width:415px) and (min-width:10px){
     .addDeleteBTN{
-        width: 100px !important;
-        margin-top: 10px;
-        position: relative;
-        left: 60% !important;
+        float: right !important;
         font-size: 10px !important;
     }
+} */
+@media screen and (max-width:361px) and (min-width:10px){
+    .addDeleteBTN{
+        width: auto !important;
+        font-size: 10px !important;
+        position: relative !important;
+        left: 90px !important;
+        bottom: 10px;
+    }
 }
+
 .addDeleteBTN{
-    width: 30%;
-    position: relative;
-    left: 110%;
-    bottom: 30px;
+    width: auto;
+    float: right;
 }
-.addDeleteBTN button{
+#H button{
     width: auto;
     border: 0;
+    float: right;
+    height: auto;
     border-radius: 5px;
     background-color: rgb(171,230,157);
 }
 
+
+
+#Aep{
+    width: 82%;
+}
+
+
+#lit{
+    width: 100% !important;
+}

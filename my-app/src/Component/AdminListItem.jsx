@@ -4,19 +4,17 @@ const AdminListItem = ({ thumbnail,webtoonName, ep /*uploadDate*/, handleClick ,
 
   return (
 
-      <div className={styles.ListItem} onClick={handleClick}>
+      <div id={style.lit} className={styles.ListItem} onClick={handleClick}>
 
         <div className={styles.ListImg}>
           
           <img src={thumbnail} alt={thumbnail} />
         </div>
-        <div className={styles.ListItemContent}>
-          <p className={styles.Episode}>
+        <div id={style.H}className={styles.ListItemContent}>
+          <p className={styles.Episode} id={style.Aep}>
             {webtoonName} <br />
             <span className={styles.tab}>{ep}화</span>
-            <div className={style.addDeleteBTN}>
             <button onClick={handleDelete}>에피소드삭제</button>
-            </div>
           </p>
 
         </div>
