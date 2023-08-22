@@ -32,16 +32,7 @@ function MyApp({ Component, pageProps }) {
         margin:  0 auto;
         width:100%;
       }
-      @media (prefers-color-scheme: dark) {
-        
-        *{
-          background-color: rgb(29,30,31);
-        }
 
-      }
-      button{
-        cursor:pointer;
-      }
 
     @media screen and (max-width:361px) and (min-width:10px) {
       *{
