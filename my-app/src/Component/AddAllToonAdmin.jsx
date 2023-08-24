@@ -75,7 +75,7 @@ const addAllToonAdmin = () => {
     if (WebtoonDelete === "삭제"){
       try {
       // 삭제 요청 보내는 로직 추가 (axios 또는 fetch 사용)
-      const response = await fetch("http://3.39.187.19:4000//api/webtoonDelete", {
+      const response = await fetch("http://3.39.187.19:4000/api/webtoonDelete", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
