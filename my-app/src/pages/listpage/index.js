@@ -122,7 +122,7 @@ const ListPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://3.39.187.19:4000/api/likecount?id=${id}`);
+        const response = await fetch(`/api/likecount?id=${id}`);
         const data = await response.json(); // JSON 데이터를 받아옵니다.
         setLike(data.likecount);
         console.log(like);
@@ -176,7 +176,7 @@ const ListPage = () => {
               
         if (response.ok) {
           // 서버로부터 좋아요 갯수를 다시 받아와서 업데이트합니다.
-          const likeResponse = await fetch(`http://3.39.187.19:4000/api/likecount?id=${id}`);
+          const likeResponse = await fetch(`/api/likecount?id=${id}`);
           const data = await likeResponse.json();
           setLike(data.likecount);
           console.log(like);
