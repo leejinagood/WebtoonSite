@@ -125,7 +125,7 @@ const AdminPage = () => {
         formData.append(key, data[key]);
       }
 
-      const response = await fetch("/api/webtoonAdd", {
+      const response = await fetch("http://3.39.187.19:4000/api/webtoonAdd", {
         method: "POST",
         body: formData,
       });
