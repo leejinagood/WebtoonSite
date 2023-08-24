@@ -22,9 +22,9 @@
 }
 .ATBox tbody tr{ 
     width: auto;    height: auto;
-
-
-    
+}
+.ATBox tbody :hover{
+    background-color: skyblue;
 }
 .ATBox{
     height: auto;
