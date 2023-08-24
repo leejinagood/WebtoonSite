@@ -70,7 +70,6 @@ const WeekPage = () => {
     fetchData();
 
   }, [day]);
-
   // console.log(document.cookie);
 
   const Thumbnail = ({ day }) => {
