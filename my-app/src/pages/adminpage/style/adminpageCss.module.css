@@ -88,7 +88,7 @@
 
     max-width: 1940px;
     width: 80%;
-    font-family: 'Jua', sans-serif;
+    font-family: 'Jua', sans-serif !important;
 }
 
 .newWebtoon {
