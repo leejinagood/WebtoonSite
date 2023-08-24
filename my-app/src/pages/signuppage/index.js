@@ -42,13 +42,13 @@ const SignUpPage = () => {
       console.log(response.data);
       alert("회원가입 성공");
       window.location.href = 'https://main.d3uyndzg7v4qmk.amplifyapp.com/loginpage';
+      window.location.href = '/loginpage';
     } catch (error) {
       console.error(error);
     }
   };
 
   const isPasswordMatch = password === confirmPassword;
-  const isNameValid = name.length <= 5;
 
   return (
     <div className={style.SignUpPage}>

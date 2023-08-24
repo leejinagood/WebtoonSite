@@ -23,16 +23,7 @@ const AdminPage = () => {
     const [admin,setAdmin] = useState("");
     let token = "";
 
-    useEffect(() => {
-      fetch("api/adminWebtoon")
-      .then((response) => response.json())
-      .then((data) => {
-        setWebtoonData(data); 
-      })
-      .catch((error) => {
-        console.error("Error fetching API:", error);
-      });
-    },[])
+
 
     useEffect(() => {
       const cookies = parseCookies();
