@@ -41,7 +41,7 @@ const SignUpPage = () => {
       });
       console.log(response.data);
       alert("회원가입 성공");
-      window.location.href = 'http://localhost:3000/loginpage';
+      window.location.href = 'https://main.d3uyndzg7v4qmk.amplifyapp.com/loginpage';
     } catch (error) {
       console.error(error);
     }
