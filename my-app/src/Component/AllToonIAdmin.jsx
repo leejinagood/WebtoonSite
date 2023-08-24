@@ -4,6 +4,7 @@ import style from "../styles/MainPageCss.module.css"
 import styles from "./AdminAlltoon.module.css"
 
 const AllToonIAdmin = () => {
+
   const [webtoons, setWebtoons] = useState([]);
   useEffect(() => {
     if (typeof window !== 'undefined') {

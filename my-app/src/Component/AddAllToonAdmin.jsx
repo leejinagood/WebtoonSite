@@ -169,6 +169,7 @@ return (
               <button className={styles.dbtn} onClick={() => handleWebtoonDelete(webtoon.webtoonEnName)}>
                 삭제
               </button>
+
             </td>
           </tr>
         ))}

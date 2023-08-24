@@ -10,33 +10,29 @@
 
 .ATBox table{
     border: 1px solid #000;
-    position: relative;
+
     height: auto;
     border-collapse: collapse;
 }
 .ATBox tbody{
-    position: relative;
     height: auto;
 
     z-index: -1;
     
 }
 .ATBox tbody tr{ 
-    position: relative;
     width: auto;    height: auto;
 
 
     
 }
 .ATBox{
-    position: relative;
     height: auto;
 
 }
 .ATBox tr{
     height: auto;
 
-    position: relative;
 }
 .ATBox th{
     border: 1px solid #000;
@@ -51,7 +47,6 @@
 .ATBox td{
     height: 30px;
     color:black;
-    position: relative;
 
     border: 1px solid #000;
 
@@ -66,8 +61,6 @@
 
 .dbtn{
     border: 0px solid #000;
-    position: relative;
-
     cursor: pointer;
     background-color: transparent;
 }
