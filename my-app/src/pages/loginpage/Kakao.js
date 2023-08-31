@@ -23,7 +23,7 @@ const Kakao = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://3.39.187.19:4000/api/Kakao?code=${code}`);
+        const response = await axios.get(`http://43.201.26.187:4000/api/Kakao?code=${code}`);
         const data = response.data;
         console.log(data);
         if (response.data.token) {

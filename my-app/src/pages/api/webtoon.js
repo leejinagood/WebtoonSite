@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
   if (ID) {
     try {
-      const response = await axios.get(`http://3.39.187.19:4000/api/webtoonpage?ID=${ID}&ep=${ep}`);
+      const response = await axios.get(`http://43.201.26.187:4000/api/webtoonpage?ID=${ID}&ep=${ep}`);
       const webtoons = response.data;
       
       

@@ -33,7 +33,7 @@ const SignUpPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://3.39.187.19:4000/api/SignUpPage", {
+      const response = await axios.post("http://43.201.26.187:4000/api/SignUpPage", {
         email: id,
         pass: password,
         name: name,

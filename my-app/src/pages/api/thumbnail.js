@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
   if (webtoonName) {
     try {
-      const response = await axios.get(`http://3.39.187.19:4000/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(webtoonName)}`);
+      const response = await axios.get(`http://43.201.26.187:4000/api/Webtoon_Thumbnail?webtoonName=${encodeURIComponent(webtoonName)}`);
       const thumbnail = response.data.rows[0]?.[0]?.Webtoon_Thumbnail;
       const rows = response.data.rows;
       res.status(200).json({ thumbnail , rows});
