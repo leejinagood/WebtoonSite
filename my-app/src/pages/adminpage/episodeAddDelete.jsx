@@ -21,7 +21,7 @@ const episodeAdd = () => {
   let token = "";
   useEffect(() => {
     // Fetch webtoon data and set initial selected values
-    fetch("http://3.39.187.19:4000/api/adminWebtoon")
+    fetch("http://43.201.26.187:4000/api/adminWebtoon")
       .then((response) => response.json())
       .then((data) => {
         setWebtoonData(data);
