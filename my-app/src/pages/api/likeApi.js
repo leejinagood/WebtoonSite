@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   
   if (UserEmail) {
     try {
-      const response = await axios.get(`http://43.201.26.187:4000/api/update_like`,{
+      const response = await axios.get(`http://3.37.36.238:4000/api/update_like`,{
         params:{
         EnName: EnName,
         UserEmail: UserEmail},

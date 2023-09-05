@@ -56,7 +56,7 @@ const LoginPage = () => {
 
     e.preventDefault();
     try {
-      const response = await axios.get(`http://43.201.26.187:4000/api/LoginPage`,{params: {
+      const response = await axios.get(`http://3.37.36.238:4000/api/LoginPage`,{params: {
         ID: ID,
         password: password
       }

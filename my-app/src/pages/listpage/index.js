@@ -160,7 +160,7 @@ const ListPage = () => {
         // 좋아요 요청을 서버에 보냅니다.
         console.log(decodedToken.UserID,EnName);
 
-        const response = await fetch("http://43.201.26.187:4000/api/update_like", {
+        const response = await fetch("http://3.37.36.238:4000/api/update_like", {
           method: "PUT", // PUT 메서드로 변경
           headers: {
             "Content-Type": "application/json",
