@@ -23,7 +23,7 @@ const CommentController = {
             const userID = req.body.userID;
             const { Ep, WebEnName, content } = req.body;
 
-            const tokenResponse = await axios.get('http://3.39.187.19:4000/api/Token', {
+            const tokenResponse = await axios.get('http://3.37.36.238:4000/api/Token', {
                 headers: {
                     Cookie: req.headers.cookie,
                 },
